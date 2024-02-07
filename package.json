@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.3",
+    "@mui/material-nextjs": "^5.15.7",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"

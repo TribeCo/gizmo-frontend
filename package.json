@@ -16,7 +16,8 @@
     "@mui/material-nextjs": "^5.15.7",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "swiper": "^11.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

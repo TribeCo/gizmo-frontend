@@ -5,7 +5,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import "./globals.css";
 
 // Custom Components
-import { Footer, AppBar } from "@/components/Layout";
+import { Footer, Navbar } from "@/components/Layout";
 
 const vazir = Vazirmatn({ subsets: ["arabic", "latin"], display: "swap" });
 
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 		<html lang="fa-IR">
 			<body className={vazir.className}>
 				<AppRouterCacheProvider>
-					<AppBar />
+					<Navbar />
 					{children}
 					<Footer />
 				</AppRouterCacheProvider>

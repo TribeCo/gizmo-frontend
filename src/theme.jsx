@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 
 const vazir = Vazirmatn({ subsets: ["arabic", "latin"], display: "swap" });
 
-export const light = createTheme({
+const theme = createTheme({
 	direction: "rtl",
 	typography: {
 		fontFamily: vazir.style.fontFamily,
@@ -24,10 +24,4 @@ export const light = createTheme({
 	},
 });
 
-export const dark = createTheme({
-	direction: "rtl",
-	typography: {
-		fontFamily: vazir.style.fontFamily,
-	},
-	palette: {},
-});
+export default theme;

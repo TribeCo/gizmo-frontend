@@ -1,13 +1,14 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 // theme
-import { light, dark } from "../theme";
+import theme from "../theme";
 
 // Css Files
 import "./globals.css";
 
 // Custom Components
-import { AppBar } from "@/components/Layout";
+import Footer from "@/components/Layout/Footer";
+import AppBar from "@/components/Layout/AppBar";
 
 export const metadata = {
 	title: "Gizmo",
@@ -20,11 +21,12 @@ export default function RootLayout({ children }) {
 			lang="fa-IR"
 			dir="rtl">
 			<body>
-				<AppRouterCacheProvider options={{ enableCssLayer: true }}>
-					<ThemeProvider theme={light}>
+				<AppRouterCacheProvider>
+					<ThemeProvider theme={theme}>
 						<CssBaseline />
 						<AppBar />
 						{children}
+						<Footer />
 					</ThemeProvider>
 				</AppRouterCacheProvider>
 			</body>

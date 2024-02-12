@@ -5,7 +5,7 @@ import LineSplitter from "@/components/LineSpliter";
 export default function Home() {
 	return (
 		<main>
-			<div>فروشگاه گیزمو</div>
+			<div className="bg-palette-blue-light">فروشگاه گیزمو</div>
 			<Card />
 		</main>
 	);

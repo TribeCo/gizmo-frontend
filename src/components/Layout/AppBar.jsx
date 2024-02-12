@@ -22,7 +22,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
-
 const AppBar = () => {
 	const isLargeScreenRightSide = useMediaQuery('(min-width:1258px)');
 	const isLargeScreenLeftSide = useMediaQuery('(min-width:560px)');

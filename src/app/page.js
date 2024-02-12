@@ -7,11 +7,6 @@ export default function Home() {
 		<main>
 			<div>فروشگاه گیزمو</div>
 			<Card />
-
-
-			<LineSplitter text="برترین برند های گیزمو"/>
-			<CompanySlide />
-			<LineSplitter text="گیزمو لاگ"/>
 		</main>
 	);
 }

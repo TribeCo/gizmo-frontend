@@ -64,13 +64,13 @@ const CompanySlide = () => {
     return (
         <>
             <Grid
-                mt={1}
+                mt={1} 
+                pr={12} pl={12}
                 container
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
-                spacing={5}
             >
-                <Grid item xs={1}>
+                <Grid item>
                     <IconButton
                         variant='contained'
                         sx={{
@@ -82,12 +82,12 @@ const CompanySlide = () => {
                         }}
                         onClick={handleRightArrowClick}
                     >
-                        <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
+                        <ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
                     </IconButton>
                 </Grid>
 
                 {slideItems.map((item, index) => (
-                    <Grid item key={index} xs={2}>
+                    <Grid item key={index}>
                         <Box
                             width="100%"
                             textAlign="center"
@@ -104,7 +104,7 @@ const CompanySlide = () => {
                     </Grid>
                 ))}
 
-                <Grid item xs={1}>
+                <Grid item>
                     <IconButton
                         variant='contained'
                         sx={{
@@ -116,7 +116,7 @@ const CompanySlide = () => {
                         }}
                         onClick={handleLeftArrowClick}
                     >
-                        <ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
+                        <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
                     </IconButton>
                 </Grid>
             </Grid>
@@ -135,39 +135,6 @@ const CompanySlide = () => {
                 width="100%"
             >
                 <Box
-                    mb={3}
-                    mt={3}
-                    sx={{
-                        textAlign: 'center',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Image
-                        src={MoneyGroth}
-                        width="auto"
-                        height={70}
-                    />
-
-                    <Typography
-                        variant="h5"
-                        fontWeight="bold"
-                    >
-                        پرداخت امن
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        color="GrayText"
-                        dir="rtl"
-                        mt={1}
-                    >
-                        امکان پرداخت آنلاین
-                    </Typography>
-                </Box>
-
-                <Box
                     mt={3}
                     mb={3}
                     sx={{
@@ -179,7 +146,7 @@ const CompanySlide = () => {
                     }}
                 >
                     <Image
-                        src={_24HoursSupport}
+                        src={ShopIcon}
                         width="auto"
                         height={70}
                     />
@@ -188,7 +155,7 @@ const CompanySlide = () => {
                         variant="h5"
                         fontWeight="bold"
                     >
-                        پشتیبانی
+                        خرید مستقیم از دوبی
                     </Typography>
                     <Typography
                         variant="body1"
@@ -196,40 +163,7 @@ const CompanySlide = () => {
                         dir="rtl"
                         mt={1}
                     >
-                        پشتیبانی آنلاین 24 ساعته <br />و 7 روز هفته
-                    </Typography>
-                </Box>
-
-                <Box
-                    mt={3}
-                    mb={3}
-                    sx={{
-                        textAlign: 'center',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Image
-                        src={Quality}
-                        width="auto"
-                        height={70}
-                    />
-
-                    <Typography
-                        variant="h5"
-                        fontWeight="bold"
-                    >
-                        ضمانت اصالت کالا
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        color="GrayText"
-                        dir="rtl"
-                        mt={1}
-                    >
-                        ضمانت 100% اصالت <br />محصولات
+                        خرید بدون واسطه<br /> و مستقیم از دبی
                     </Typography>
                 </Box>
 
@@ -278,7 +212,7 @@ const CompanySlide = () => {
                     }}
                 >
                     <Image
-                        src={ShopIcon}
+                        src={Quality}
                         width="auto"
                         height={70}
                     />
@@ -287,7 +221,7 @@ const CompanySlide = () => {
                         variant="h5"
                         fontWeight="bold"
                     >
-                        خرید مستقیم از دوبی
+                        ضمانت اصالت کالا
                     </Typography>
                     <Typography
                         variant="body1"
@@ -295,7 +229,73 @@ const CompanySlide = () => {
                         dir="rtl"
                         mt={1}
                     >
-                        خرید بدون واسطه<br /> و مستقیم از دبی
+                        ضمانت 100% اصالت <br />محصولات
+                    </Typography>
+                </Box>
+
+                <Box
+                    mt={3}
+                    mb={3}
+                    sx={{
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Image
+                        src={_24HoursSupport}
+                        width="auto"
+                        height={70}
+                    />
+
+                    <Typography
+                        variant="h5"
+                        fontWeight="bold"
+                    >
+                        پشتیبانی
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        color="GrayText"
+                        dir="rtl"
+                        mt={1}
+                    >
+                        پشتیبانی آنلاین 24 ساعته <br />و 7 روز هفته
+                    </Typography>
+                </Box>
+
+                <Box
+                    mb={3}
+                    mt={3}
+                    sx={{
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Image
+                        src={MoneyGroth}
+                        width="auto"
+                        height={70}
+                    />
+
+                    <Typography
+                        variant="h5"
+                        fontWeight="bold"
+                    >
+                        پرداخت امن
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        color="GrayText"
+                        dir="rtl"
+                        mt={1}
+                    >
+                        امکان پرداخت آنلاین
                     </Typography>
                 </Box>
             </Grid>

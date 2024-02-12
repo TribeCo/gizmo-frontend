@@ -1,13 +1,14 @@
-import { Vazirmatn } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+// theme
+import theme from "../theme";
 
 // Css Files
 import "./globals.css";
 
 // Custom Components
-import { Footer, Navbar } from "@/components/Layout";
-
-const vazir = Vazirmatn({ subsets: ["arabic", "latin"], display: "swap" });
+import Footer from "@/components/Layout/Footer";
+import AppBar from "@/components/Layout/AppBar";
 
 export const metadata = {
 	title: "Gizmo",
@@ -16,12 +17,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 	return (
-		<html lang="fa-IR">
-			<body className={vazir.className}>
+		<html
+			lang="fa-IR"
+			dir="rtl">
+			<body>
 				<AppRouterCacheProvider>
-					<Navbar />
-					{children}
-					<Footer />
+					<ThemeProvider theme={theme}>
+						<CssBaseline />
+						<AppBar />
+						{children}
+						<Footer />
+					</ThemeProvider>
 				</AppRouterCacheProvider>
 			</body>
 		</html>

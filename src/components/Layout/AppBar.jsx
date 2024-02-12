@@ -23,8 +23,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 
-const Navbar = () => {
-	const isLargeScreenRightSide = useMediaQuery('(min-width:1193px)');
+const AppBar = () => {
+	const isLargeScreenRightSide = useMediaQuery('(min-width:1258px)');
 	const isLargeScreenLeftSide = useMediaQuery('(min-width:560px)');
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [open, setOpen] = useState(false);
@@ -54,42 +54,10 @@ const Navbar = () => {
 		setInputMode(!isInputMode);
 	};
 
-	let navbarLeftSideContent;
+	let AppBarLeftSideContent;
 	if (isLargeScreenLeftSide) {
-		navbarLeftSideContent = (
+		AppBarLeftSideContent = (
 			<>
-				<IconButton
-					variant='contained'
-					sx={{
-						ml: 1,
-						mr: 1,
-						bgcolor: "#22668D",
-						color: "white",
-						'&:hover': {
-							backgroundColor: "#22668D",
-						},
-					}}>
-					<ShoppingBagOutlinedIcon />
-				</IconButton>
-
-				<Button
-					variant='contained'
-					sx={{
-						borderRadius: '24px',
-						mr: 1,
-						boxShadow: "none",
-						bgcolor: "#22668D",
-						color: "white",
-						'&:hover': {
-							backgroundColor: "#22668D",
-							boxShadow: "none",
-						},
-					}}>
-					<Typography>
-						ورود / ثبت نام
-					</Typography>
-				</Button>
-
 				{!isInputMode ? (
 					<IconButton
 						variant='contained'
@@ -120,7 +88,7 @@ const Navbar = () => {
 
 						<SearchOutlinedIcon />
 						<Typography
-							dir="rtl"
+							
 							color="#C5C5C5"
 							className='hover-text'
 							sx={{
@@ -148,9 +116,8 @@ const Navbar = () => {
 							},
 						}}
 					>
-						<SearchOutlinedIcon />
 						<Typography
-							dir="rtl"
+							
 							color="#C5C5C5"
 							className='hover-text'
 							sx={{
@@ -160,12 +127,45 @@ const Navbar = () => {
 						>
 							محصول مورد نظر را جستجو کنید
 						</Typography>
+						<SearchOutlinedIcon />
 					</IconButton>
 				)}
+
+				<Button
+					variant='contained'
+					sx={{
+						borderRadius: '24px',
+						mr: 1,
+						boxShadow: "none",
+						bgcolor: "#22668D",
+						color: "white",
+						'&:hover': {
+							backgroundColor: "#22668D",
+							boxShadow: "none",
+						},
+					}}>
+					<Typography>
+						ورود / ثبت نام
+					</Typography>
+				</Button>
+
+				<IconButton
+					variant='contained'
+					sx={{
+						ml: 1,
+						mr: 1,
+						bgcolor: "#22668D",
+						color: "white",
+						'&:hover': {
+							backgroundColor: "#22668D",
+						},
+					}}>
+					<ShoppingBagOutlinedIcon />
+				</IconButton>
 			</>
 		);
 	} else {
-		navbarLeftSideContent = (
+		AppBarLeftSideContent = (
 			<>
 				<IconButton
 					variant='contained'
@@ -197,38 +197,20 @@ const Navbar = () => {
 		);
 	}
 
-	let navbarRightSideContent;
+	let AppBarRightSideContent;
 	if (isLargeScreenRightSide) {
-		navbarRightSideContent = (
+		AppBarRightSideContent = (
 			<>
-				<Link href={"/"}>
-					<Typography
-						dir="rtl"
-						ml={2}
-					>
-						ارتباط با ما
-					</Typography>
-				</Link>
-
-				<Link href={"/"}>
-					<Typography
-						dir="rtl"
-						ml={2}
-					>
-						درباره گیزموشاپ
-					</Typography>
-				</Link>
-
-				<Link href={"/"}>
-					<Typography
-						dir="rtl"
-						ml={2}
-					>
-						سوالات متداول
-					</Typography>
-				</Link>
-
-
+				<Grid pb={1} pl={3}>
+					<Link href={"/"}>
+						<Image
+							alt='logo'
+							src={Logo}
+							width={80}
+							height="auto"
+						/>
+					</Link>
+				</Grid>
 
 				<IconButton
 					disableRipple
@@ -240,12 +222,10 @@ const Navbar = () => {
 						},
 					}}
 				>
-					<ExpandMoreIcon />
-					<Typography
-						dir="rtl"
-						mr={1}>
+					<Typography>
 						دسته بندی ها
 					</Typography>
+					<ExpandMoreIcon />
 				</IconButton>
 
 				<Menu
@@ -254,7 +234,7 @@ const Navbar = () => {
 					keepMounted
 					open={Boolean(anchorEl)}
 					onClose={handleMenuClose}
-					dir='rtl'
+				
 					PaperProps={{
 						sx: {
 							backdropFilter: 'blur(15px)',
@@ -295,22 +275,29 @@ const Navbar = () => {
 					</MenuItem>
 				</Menu>
 
-				<Grid pb={1}>
-					<Link href={"/"}>
-						<Image
-							alt='logo'
-							src={Logo}
-							width={80}
-							height="auto"
-						/>
-					</Link>
-				</Grid>
+				<Link href={"/"}>
+					<Typography pr={3}>
+						درباره گیزموشاپ
+					</Typography>
+				</Link>
+
+				<Link href={"/"}>
+					<Typography pr={3}>
+						ارتباط با ما
+					</Typography>
+				</Link>
+
+				<Link href={"/"}>
+					<Typography pr={3}>
+						سوالات متداول
+					</Typography>
+				</Link>
 			</>
 		)
 	} else {
-		navbarRightSideContent = (
+		AppBarRightSideContent = (
 			<>
-				<Grid pb={1}>
+				<Grid pb={1} pl={1}>
 					<Link href={"/"}>
 						<Image alt='logo' src={Logo} width={80} height="auto" />
 					</Link>
@@ -328,21 +315,22 @@ const Navbar = () => {
 					<MenuIcon fontSize='large' />
 				</IconButton>
 				<Drawer
+					dir='ltr'
 					anchor="right"
 					open={open}
 					onClose={toggleDrawer(false)}
 				>
 					<List>
-						{!navbarRightSideContent && (
+						{!AppBarRightSideContent && (
 							<>
-								<ListItem onClick={toggleDrawer(false)} dir='rtl'>
+								<ListItem onClick={toggleDrawer(false)}>
 									<Button
 										sx={{
 											color: "black"
 										}}
 									>
 										<ListItemText>
-											<Typography variant="body4" dir="rtl">ورود / ثبت نام</Typography>
+											<Typography variant="body4" >ورود / ثبت نام</Typography>
 										</ListItemText>
 									</Button>
 
@@ -363,7 +351,7 @@ const Navbar = () => {
 								}}
 							>
 								<Typography
-									dir='rtl'
+								
 								>
 									دسته بندی ها
 								</Typography>
@@ -375,7 +363,7 @@ const Navbar = () => {
 								keepMounted
 								open={Boolean(anchorEl)}
 								onClose={handleMenuClose}
-								dir='rtl'
+							
 								PaperProps={{
 									sx: {
 										backdropFilter: 'blur(15px)',
@@ -418,7 +406,7 @@ const Navbar = () => {
 						</ListItem>
 
 
-						<ListItem onClick={toggleDrawer(false)} dir='rtl'>
+						<ListItem onClick={toggleDrawer(false)}>
 							<Button
 								sx={{
 									color: "black"
@@ -430,7 +418,7 @@ const Navbar = () => {
 							</Button>
 
 						</ListItem>
-						<ListItem onClick={toggleDrawer(false)} dir='rtl'>
+						<ListItem onClick={toggleDrawer(false)}>
 							<Button
 								sx={{
 									color: "black"
@@ -442,7 +430,7 @@ const Navbar = () => {
 							</Button>
 
 						</ListItem>
-						<ListItem onClick={toggleDrawer(false)} dir='rtl'>
+						<ListItem onClick={toggleDrawer(false)}>
 							<Button
 								sx={{
 									color: "black"
@@ -480,7 +468,7 @@ const Navbar = () => {
 						display="flex"
 						alignItems="center"
 					>
-						{navbarLeftSideContent}
+						{AppBarRightSideContent}
 					</Grid>
 
 					<Grid
@@ -489,12 +477,12 @@ const Navbar = () => {
 						display="flex"
 						alignItems="center"
 						justifyContent="flex-end"
-					>
-						{navbarRightSideContent}
+						>
+						{AppBarLeftSideContent}
 					</Grid>
 				</Grid>
 			</Box>
 		</>
 	);
 }
-export default Navbar;
+export default AppBar;

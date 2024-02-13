@@ -2,21 +2,12 @@
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Box, Grid, IconButton, Button, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
-
-
-import anker from "@/components/comanyIcons/anker.png";
-import blulory from "@/components/comanyIcons/blulory.png";
-import mc from "@/components/comanyIcons/mc.png";
-import noon from "@/components/comanyIcons/noon.png";
-import wacaco from "@/components/comanyIcons/wacaco.png";
-import greenLions from "@/components/comanyIcons/greenLions.png"
-import amazon from "@/components/comanyIcons/amazon.png"
 
 import ShopIcon from "@/components/siteIcons/shopIcon.png";
 import DeliveryTruck from "@/components/siteIcons/deliveryTruck.png";
@@ -25,47 +16,51 @@ import Quality from "@/components/siteIcons/quality.png";
 import _24HoursSupport from "@/components/siteIcons/_24hoursSupport.png";
 
 
-const logos = [
-    [anker, 'https://www.anker.com/'],
-    [blulory, 'https://www.blulory.com/'],
-    [mc, 'https://mycandytech.com/'],
-    [noon, 'https://www.noon.com/'],
-    [wacaco, 'https://www.wacaco.com/'],
-    [greenLions, 'https://www.greenlion.net/'],
-    [amazon, 'https://www.amazon.com/'],
-];
+{/*
+    Inputs:
+    logos: a list of all product cards in folowing format:
+		[
+            [imageFile: ..., companyURL: ...],
+            .
+            .
+            .
+        ]
+    * note that all images can be found in @/components/comanyIcons
 
-const CompanySlide = () => {
+    itemsPerPage: number of logos to show in page 
+    
+    swapTime_millisecond: delay time for automatic slider 
+*/}
+
+const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
     const [startIndex, setStartIndex] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setStartIndex((prevIndex) => (prevIndex + 1) % logos.length);
-        }, 3000);
+        }, swapTime_millisecond);
 
         return () => clearInterval(interval);
     }, []);
 
-    const handleLeftArrowClick = () => {
+    const handlePrev = () => {
         setStartIndex((prevIndex) => (prevIndex - 1 + logos.length) % logos.length);
     };
 
-    const handleRightArrowClick = () => {
+    const handleNext = () => {
         setStartIndex((prevIndex) => (prevIndex + 1) % logos.length);
     };
 
-    const slideItems = [
-        logos[startIndex % logos.length],
-        logos[(startIndex + 1) % logos.length],
-        logos[(startIndex + 2) % logos.length],
-        logos[(startIndex + 3) % logos.length],
-    ];
+    const slideItems = [];
+    for (let index = 0; index < itemsPerPage; index++) {
+      slideItems.push(logos[(startIndex + index) % logos.length]);
+    }
 
     return (
         <>
             <Grid
                 mt={1} 
-                pr={12} pl={12}
+                pr={3} pl={3}
                 container
                 justifyContent="space-between"
                 alignItems="center"
@@ -80,7 +75,7 @@ const CompanySlide = () => {
                                 backgroundColor: "#22668D",
                             },
                         }}
-                        onClick={handleRightArrowClick}
+                        onClick={handleNext}
                     >
                         <ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
                     </IconButton>
@@ -114,7 +109,7 @@ const CompanySlide = () => {
                                 backgroundColor: "#22668D",
                             },
                         }}
-                        onClick={handleLeftArrowClick}
+                        onClick={handlePrev}
                     >
                         <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
                     </IconButton>
@@ -303,4 +298,4 @@ const CompanySlide = () => {
     );
 }
 
-export default CompanySlide;
+export default CompanySlider;

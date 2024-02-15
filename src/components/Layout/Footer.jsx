@@ -34,15 +34,15 @@ const telegram_channel = "/";
 const instagram_channel = "/";
 
 const Footer = () => {
-	const isLargeScreenCompanyIcon = useMediaQuery("(min-width:1038px)");
-	const isLargeScreenEarthIcon = useMediaQuery("(min-width:510px)");
+	const isLargeScreenCompanyIcon = useMediaQuery("(min-width:1060px)");
+	const isLargeScreenEarthIcon = useMediaQuery("(min-width:546px)");
 	const isLargeScreenGizmoIcon = useMediaQuery("(min-width:900px)");
 
 	let companyIcons;
 	if (isLargeScreenCompanyIcon) {
 		companyIcons = (
 			<>
-				<Grid pr={16}>
+				<Grid pr={8} pl={6}>
 					<Link href={noon_Link}>
 						<Image
 							src={NoonIcon}
@@ -73,35 +73,39 @@ const Footer = () => {
 	let earthIconPos;
 	if (isLargeScreenEarthIcon) {
 		earthIconPos = (
-			<>
-				<Image
-					src={ShopIcon}
-					width="auto"
-					height={70}
-				/>
-				<Box pr={3}>
-					<Typography
-						variant="h5"
-						fontWeight="bold">
-						خرید مستقیم از دوبی
-					</Typography>
+			<Grid pl={6}>
+				<Grid container>
+					<Box pr={2}>
+						<Image
+							src={ShopIcon}
+							width="auto"
+							height={70}
+						/>
+					</Box>
+					<Box>
+						<Typography
+							variant="h5"
+							fontWeight="bold">
+							خرید مستقیم از دوبی
+						</Typography>
 
-					<Typography
-						variant="body1"
-						color="GrayText"
-						sx={{
-							maxWidth: "200px",
-							overflowWrap: "break-word",
-						}}
-						mt={1}>
-						فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
-					</Typography>
-				</Box>
-			</>
+						<Typography
+							variant="body1"
+							color="GrayText"
+							sx={{
+								maxWidth: "200px",
+								overflowWrap: "break-word",
+							}}
+							mt={1}>
+							فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
+						</Typography>
+					</Box>
+				</Grid>
+			</Grid>
 		);
 	} else {
 		earthIconPos = (
-			<>
+			<Grid pl={6}>
 				<Box
 					sx={{
 						textAlign: "center",
@@ -131,7 +135,7 @@ const Footer = () => {
 						فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
 					</Typography>
 				</Box>
-			</>
+			</Grid>
 		);
 	}
 
@@ -139,7 +143,7 @@ const Footer = () => {
 	if (isLargeScreenGizmoIcon) {
 		gizmoIcon = (
 			<>
-				<Grid mr={12}>
+				<Grid ml={8}>
 					<Link href={"/"}>
 						<Image
 							src={Logo}
@@ -152,7 +156,7 @@ const Footer = () => {
 				<Typography
 					sx={{
 						pt: 2,
-						pr: 3,
+						pl: 3,
 					}}
 					variant="h6">
 					از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید
@@ -163,7 +167,7 @@ const Footer = () => {
 	} else {
 		gizmoIcon = (
 			<Grid flexDirection="row">
-				<Grid mr={6}>
+				<Grid ml={6}>
 					<Link href={"/"}>
 						<Image
 							src={Logo}
@@ -176,8 +180,8 @@ const Footer = () => {
 					<Typography
 						sx={{
 							pt: 2,
-							pr: 6,
-							pl: 3,
+							pl: 6,
+							pr: 3,
 						}}
 						variant="h6">
 						از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید
@@ -213,7 +217,7 @@ const Footer = () => {
 						color: "black",
 						borderRadius: "50px",
 						boxShadow: "none",
-						ml: 4,
+						mr: 4,
 						"&:hover": {
 							bgcolor: Colors.orange,
 						},
@@ -240,12 +244,11 @@ const Footer = () => {
 				<Grid
 					container
 					direction="row"
-					justifyContent="space-between"
+					justifyContent="space-around"
 					alignItems="flex-start"
-					mb={4}>
+					mb={4}
+				>
 					<Box
-						pl={5}
-						pr={5}
 						mt={3}
 						mb={3}
 						sx={{
@@ -257,7 +260,7 @@ const Footer = () => {
 						}}>
 						<Grid>
 							<Grid item>
-								<Box sx={{ textAlign: "right", fontWeight: "bold" }}>
+								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
 										fontWeight="bold">
@@ -291,14 +294,63 @@ const Footer = () => {
 							</Grid>
 
 							<Grid item>
-								<CategoryOptions />
+								<List>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												صفحه نخست
+											</Typography>
+										</Link>
+									</ListItem>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												اخبار
+											</Typography>
+										</Link>
+									</ListItem>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												درباره ما
+											</Typography>
+										</Link>
+									</ListItem>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												قوانین و مقررات
+											</Typography>
+										</Link>
+									</ListItem>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												سوالات متداول
+											</Typography>
+										</Link>
+									</ListItem>
+								</List>
 							</Grid>
 						</Grid>
 					</Box>
 
 					<Box
-						pl={5}
-						pr={5}
 						mt={3}
 						mb={3}
 						sx={{
@@ -310,7 +362,7 @@ const Footer = () => {
 						}}>
 						<Grid>
 							<Grid item>
-								<Box sx={{ textAlign: "right", fontWeight: "bold" }}>
+								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
 										fontWeight="bold">
@@ -342,14 +394,53 @@ const Footer = () => {
 							</Grid>
 
 							<Grid item>
-								<CategoryOptions />
+								<List>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												پنل کاربری
+											</Typography>
+										</Link>
+									</ListItem>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												سبد خرید
+											</Typography>
+										</Link>
+									</ListItem>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												پیگیری سفارش
+											</Typography>
+										</Link>
+									</ListItem>
+									<ListItem sx={{ py: 0.2 }}>
+										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+										<Link href={"/"}>
+											<Typography
+												variant="h6"
+												color={Colors.blue_dark}>
+												لیست علاقه مندی ها
+											</Typography>
+										</Link>
+									</ListItem>
+								</List>
 							</Grid>
 						</Grid>
 					</Box>
 
 					<Box
-						pl={5}
-						pr={5}
 						mt={3}
 						mb={3}
 						sx={{
@@ -361,7 +452,7 @@ const Footer = () => {
 						}}>
 						<Grid>
 							<Grid item>
-								<Box sx={{ textAlign: "right", fontWeight: "bold" }}>
+								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
 										fontWeight="bold">
@@ -406,7 +497,7 @@ const Footer = () => {
 													height: 40,
 													borderRadius: "50%",
 													bgcolor: "#22668D",
-													ml: 2,
+													mr: 2,
 												}}>
 												<InstagramIcon sx={{ color: "white" }} />
 											</Box>
@@ -431,7 +522,7 @@ const Footer = () => {
 													height: 40,
 													borderRadius: "50%",
 													bgcolor: "#22668D",
-													ml: 2,
+													mr: 2,
 												}}>
 												<TelegramIcon sx={{ color: "white" }} />
 											</Box>
@@ -456,7 +547,7 @@ const Footer = () => {
 													height: 40,
 													borderRadius: "50%",
 													bgcolor: "#22668D",
-													ml: 2,
+													mr: 2,
 												}}>
 												<LocalPhoneIcon sx={{ color: "white" }} />
 											</Box>
@@ -473,8 +564,6 @@ const Footer = () => {
 					</Box>
 
 					<Box
-						pl={5}
-						pr={5}
 						mt={3}
 						mb={3}
 						sx={{
@@ -486,7 +575,7 @@ const Footer = () => {
 						}}>
 						<Grid>
 							<Grid item>
-								<Box sx={{ textAlign: "right", fontWeight: "bold" }}>
+								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
 										fontWeight="bold">
@@ -545,63 +634,6 @@ const Footer = () => {
 				</Grid>
 			</Grid>
 		</>
-	);
-};
-
-const CategoryOptions = () => {
-	return (
-		<List>
-			<ListItem sx={{ py: 0.2 }}>
-				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-				<Link href={"/"}>
-					<Typography
-						variant="h6"
-						color={Colors.blue_dark}>
-						صفحه نخست
-					</Typography>
-				</Link>
-			</ListItem>
-			<ListItem sx={{ py: 0.2 }}>
-				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-				<Link href={"/"}>
-					<Typography
-						variant="h6"
-						color={Colors.blue_dark}>
-						اخبار
-					</Typography>
-				</Link>
-			</ListItem>
-			<ListItem sx={{ py: 0.2 }}>
-				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-				<Link href={"/"}>
-					<Typography
-						variant="h6"
-						color={Colors.blue_dark}>
-						درباره ما
-					</Typography>
-				</Link>
-			</ListItem>
-			<ListItem sx={{ py: 0.2 }}>
-				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-				<Link href={"/"}>
-					<Typography
-						variant="h6"
-						color={Colors.blue_dark}>
-						قوانین و مقررات
-					</Typography>
-				</Link>
-			</ListItem>
-			<ListItem sx={{ py: 0.2 }}>
-				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-				<Link href={"/"}>
-					<Typography
-						variant="h6"
-						color={Colors.blue_dark}>
-						سوالات متداول
-					</Typography>
-				</Link>
-			</ListItem>
-		</List>
 	);
 };
 

@@ -87,7 +87,7 @@ const Introduction = ({ content }) => {
     let text;
     if (isLargeScreen) {
         text = (
-            <Box display='flex' direction='row' width='60%'>
+            <Box display='flex' direction='row' width='60%' sx={{ textAlign: "left" }}>
                 <Typography variant='body1'>
                     {content}
                 </Typography>
@@ -95,7 +95,7 @@ const Introduction = ({ content }) => {
         )
     } else {
         text =(
-            <Box display='flex' direction='row' width='lg'>
+            <Box display='flex' direction='row' width='lg' sx={{ textAlign: "left" }}>
                 <Typography variant='body1'>
                     {content}
                 </Typography>
@@ -154,14 +154,14 @@ const ProductTable = ({ productInfo }) => {
     return (
         <Grid container justifyContent="center" sx={{ marginBottom: '16px' }} maxWidth='lg'>
             <TableContainer component={Paper} elevation={0}>
-                <Table style={{ direction: 'rtl' }}>
+                <Table sx={{ direction: 'rtl' }}>
                     <TableBody>
                         {productInfo.map((item, index) => (
-                            <TableRow key={index} style={{ backgroundColor: index % 2 === 0 ? '#f5f5f5' : '#ffffff' }}>
-                                <TableCell align="right">
+                            <TableRow key={index} sx={{ backgroundColor: index % 2 === 0 ? '#f5f5f5' : '#ffffff' }}>
+                                <TableCell align="left">
                                     <Typography variant="body1">{item.attribute}</Typography>
                                 </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="left">
                                     <Typography variant="body1">{item.value}</Typography>
                                 </TableCell>
                             </TableRow>

@@ -227,7 +227,7 @@ const AppBar = () => {
 						},
 					}}
 				>
-					<Typography>
+					<Typography variant='h6'>
 						دسته بندی ها
 					</Typography>
 					<ExpandMoreIcon />
@@ -281,19 +281,19 @@ const AppBar = () => {
 				</Menu>
 
 				<Link href={"/"}>
-					<Typography pr={3}>
+					<Typography pr={3} variant='h6'>
 						درباره گیزموشاپ
 					</Typography>
 				</Link>
 
 				<Link href={"/"}>
-					<Typography pr={3}>
+					<Typography pr={3} variant='h6'>
 						ارتباط با ما
 					</Typography>
 				</Link>
 
 				<Link href={"/"}>
-					<Typography pr={3}>
+					<Typography pr={3} variant='h6'>
 						سوالات متداول
 					</Typography>
 				</Link>
@@ -335,7 +335,7 @@ const AppBar = () => {
 										}}
 									>
 										<ListItemText>
-											<Typography variant="body4" >ورود / ثبت نام</Typography>
+											<Typography variant="h6" >ورود / ثبت نام</Typography>
 										</ListItemText>
 									</Button>
 
@@ -355,9 +355,7 @@ const AppBar = () => {
 									},
 								}}
 							>
-								<Typography
-								
-								>
+								<Typography variant='h6'>
 									دسته بندی ها
 								</Typography>
 							</IconButton>
@@ -418,7 +416,7 @@ const AppBar = () => {
 								}}
 							>
 								<ListItemText>
-									<Typography variant="body4">سوالات متداول</Typography>
+									<Typography variant="h6">سوالات متداول</Typography>
 								</ListItemText>
 							</Button>
 
@@ -430,7 +428,7 @@ const AppBar = () => {
 								}}
 							>
 								<ListItemText>
-									<Typography variant="body4">درباره گیزموشاپ</Typography>
+									<Typography variant="h6">درباره گیزموشاپ</Typography>
 								</ListItemText>
 							</Button>
 
@@ -442,7 +440,7 @@ const AppBar = () => {
 								}}
 							>
 								<ListItemText>
-									<Typography variant="body4">ارتباط با ما</Typography>
+									<Typography variant="h6">ارتباط با ما</Typography>
 								</ListItemText>
 							</Button>
 

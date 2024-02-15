@@ -172,23 +172,25 @@ const ProductCard = ({ product }) => {
 					{product.discount > 0 ? (
 						<>
 							<Box>
-								<Box
-									mt={0.1}
-									ml={24.5}
-									position="absolute"
-									bgcolor="#BB0000"
-									borderRadius="20px"
-									px={1}
-									py="4px"
-									color="#fff">
-									<Typography
-										align="center"
-										fontSize="14px"
-										fontWeight="400"
-										lineHeight="14px">
-										{convert(product.discount) + " %"}
-									</Typography>
-								</Box>
+								{product.badge === "تخفیف ویژه" && (
+									<Box
+										mt={0.1}
+										ml={24.5}
+										position="absolute"
+										bgcolor="#BB0000"
+										borderRadius="20px"
+										px={1}
+										py="4px"
+										color="#fff">
+										<Typography
+											align="center"
+											fontSize="14px"
+											fontWeight="400"
+											lineHeight="14px">
+											{convert(product.discount) + " %"}
+										</Typography>
+									</Box>
+								)}
 								<Box
 									mt={1.3}
 									ml={8.5}

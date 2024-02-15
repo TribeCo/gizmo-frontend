@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Paper, Typography, Grid, IconButton } from "@mui/material";
-import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
+import React, { useState, useEffect } from 'react';
+import { 
+  Paper, 
+  Typography, 
+  Grid, 
+  IconButton 
+} from '@mui/material';
+import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
+
+import { Colors } from '@/utils';
 import { ProductCard } from ".";
 
 {
@@ -36,7 +43,7 @@ const CardProductSlider = ({
 		}, swapTime_millisecond);
 		return () => clearInterval(interval);
 	}, [currentIndex]);
-
+  
 	const handleNext = () => {
 		setCurrentIndex((prevIndex) =>
 			prevIndex === products.length - 1 ? 0 : prevIndex + 1,
@@ -55,26 +62,27 @@ const CardProductSlider = ({
 	}
 
 	return (
-		<Grid
-			pl={5}
-			pr={5}
-			container
-			justifyContent="space-between"
-			alignItems="center">
-			<Grid item>
-				<IconButton
-					variant="contained"
-					sx={{
-						bgcolor: "#22668D",
-						position: "relative",
-						"&:hover": {
-							backgroundColor: "#22668D",
-						},
-					}}
-					onClick={handleNext}>
-					<ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
-				</IconButton>
-			</Grid>
+		<Grid 
+    pl={3} pr={3}
+      container 
+      justifyContent='space-between' 
+      alignItems='center' 
+    >
+      <Grid item>
+        <IconButton
+          variant='contained'
+          sx={{
+            bgcolor: Colors.blue,
+            position: 'relative',
+            '&:hover': {
+              backgroundColor: Colors.blue,
+            },
+          }}
+          onClick={handleNext}
+        >
+          <ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
+        </IconButton>
+      </Grid>
 			<Grid
 				item
 				display="flex">
@@ -85,22 +93,22 @@ const CardProductSlider = ({
 					/>
 				))}
 			</Grid>
-			<Grid item>
-				<IconButton
-					variant="contained"
-					sx={{
-						bgcolor: "#22668D",
-						position: "relative",
-						"&:hover": {
-							backgroundColor: "#22668D",
-						},
-					}}
-					onClick={handlePrev}>
-					<ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
-				</IconButton>
-			</Grid>
-		</Grid>
-	);
-};
+      <Grid item>
+        <IconButton
+          variant='contained'
+          sx={{
+            bgcolor: Colors.blue,
+            position: 'relative',
+            '&:hover': {
+              backgroundColor: Colors.blue,
+            },
+          }}
+          onClick={handlePrev}
+        >
+          <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
+        </IconButton>
+      </Grid>
+    </Grid>
+  );
 
 export default CardProductSlider;

@@ -1,26 +1,32 @@
 "use client";
 
 import Image from 'next/image';
+import Link from 'next/link';
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import Grid from '@mui/material/Grid';
+import { useState } from 'react';
+import {
+    Typography,
+    Box,
+    Grid,
+	Button,
+	IconButton,
+	Menu,
+	MenuItem,
+	List,
+	ListItem,
+	ListItemText,
+	Drawer,
+	useMediaQuery,
+} from '@mui/material';
+
+import { Colors } from '@/utils';
+
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuIcon from '@mui/icons-material/Menu';
-import Link from 'next/link';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useState } from 'react';
 import Logo from "@/components/siteIcons/logo.png";
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+
 
 const AppBar = () => {
 	const isLargeScreenRightSide = useMediaQuery('(min-width:1258px)');
@@ -63,14 +69,14 @@ const AppBar = () => {
 						onClick={toggleInputMode}
 						sx={{
 							borderRadius: "24px",
-							bgcolor: "#22668D",
+							bgcolor: Colors.blue,
 							color: "white",
 							transition: "0.5s",
 							display: "flex",
 							'&:hover': {
 								display: "flex",
 								borderRadius: "24px",
-								backgroundColor: "#22668D",
+								backgroundColor: Colors.blue,
 								transition: "0.5s",
 
 								pr: 5,
@@ -105,13 +111,13 @@ const AppBar = () => {
 						onClick={toggleInputMode}
 						sx={{
 							borderRadius: "24px",
-							bgcolor: "#22668D",
+							bgcolor: Colors.blue,
 							color: "white",
 							pr: 5,
 							display: "flex",
 
 							'&:hover': {
-								backgroundColor: "#22668D",
+								backgroundColor: Colors.blue,
 							},
 						}}
 					>
@@ -136,10 +142,10 @@ const AppBar = () => {
 						borderRadius: '24px',
 						mr: 1,
 						boxShadow: "none",
-						bgcolor: "#22668D",
+						bgcolor: Colors.blue,
 						color: "white",
 						'&:hover': {
-							backgroundColor: "#22668D",
+							backgroundColor: Colors.blue,
 							boxShadow: "none",
 						},
 					}}>
@@ -153,10 +159,10 @@ const AppBar = () => {
 					sx={{
 						ml: 1,
 						mr: 1,
-						bgcolor: "#22668D",
+						bgcolor: Colors.blue,
 						color: "white",
 						'&:hover': {
-							backgroundColor: "#22668D",
+							backgroundColor: Colors.blue,
 						},
 					}}>
 					<ShoppingBagOutlinedIcon />
@@ -171,10 +177,10 @@ const AppBar = () => {
 					sx={{
 						ml: 1,
 						mr: 1,
-						bgcolor: "#22668D",
+						bgcolor: Colors.blue,
 						color: "white",
 						'&:hover': {
-							backgroundColor: "#22668D",
+							backgroundColor: Colors.blue,
 						},
 					}}>
 					<ShoppingBagOutlinedIcon />
@@ -184,10 +190,10 @@ const AppBar = () => {
 					variant='contained'
 					sx={{
 						mr: 1,
-						bgcolor: "#22668D",
+						bgcolor: Colors.blue,
 						color: "white",
 						'&:hover': {
-							backgroundColor: "#22668D",
+							backgroundColor: Colors.blue,
 						},
 					}}>
 					<SearchOutlinedIcon />
@@ -450,7 +456,7 @@ const AppBar = () => {
 	return (
 		<>
 			<Box
-				bgcolor="#FFFADD"
+				bgcolor={Colors.yellow}
 				borderRadius="36px"
 				mt={2} mr={2} ml={2}
 				py={3} px={3}

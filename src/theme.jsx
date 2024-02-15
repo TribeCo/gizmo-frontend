@@ -1,10 +1,11 @@
 "use client";
-import { Vazirmatn } from "next/font/google";
+
 import { createTheme } from "@mui/material/styles";
+import localFont from "next/font/local";
 
-const vazir = Vazirmatn({ subsets: ["arabic", "latin"], display: "swap" });
+const vazir = localFont({ src: "./Vazir.woff2" });
 
-const theme = createTheme({
+export const theme = createTheme({
 	direction: "rtl",
 	typography: {
 		fontFamily: vazir.style.fontFamily,
@@ -19,7 +20,7 @@ const theme = createTheme({
 		secondary: {
 			light: "#FFFADD",
 			main: "#FFCC70",
-			contrastText: "#fff",
+			contrastText: "#000",
 		},
 	},
 });

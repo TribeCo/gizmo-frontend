@@ -34,7 +34,6 @@ import LineSplitter from "@/components/LineSpliter";
 		{ name: 'Product 9', description: 'Description for Product 9' },
 	];
 
-
 export default function Home() {
 	return (
 		<main>

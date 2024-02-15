@@ -1,4 +1,8 @@
+"use client";
+
 import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import {
 	Box,
 	Button,
@@ -8,25 +12,20 @@ import {
 	List,
 	SvgIcon,
 	ListItem,
+	useMediaQuery,
 } from '@mui/material';
+import { Colors } from '@/utils';
 
-import { } from '@mui/icons-material';
-import Image from 'next/image';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 import ShopIcon from "@/components/siteIcons/shopIcon.png";
 import AmazonIcon from "@/components/comanyIcons/amazon.png";
 import NoonIcon from "@/components/comanyIcons/noon.png";
 import Logo from "@/components/siteIcons/logo.png";
-import Link from 'next/link';
-
-import TelegramIcon from '@mui/icons-material/Telegram';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import LinkIcon from '@mui/icons-material/Link';
-
+import eNAMAD from "@/components/siteIcons/eNAMAD.png";
 
 const eNAMAD_Link = "/";
 const noon_Link = "https://www.noon.com/";
@@ -35,10 +34,171 @@ const telegram_channel = "/";
 const instagram_channel = "/";
 
 
-import eNAMAD from "@/components/siteIcons/eNAMAD.png";
-
 
 const Footer = () => {
+	const isLargeScreenCompanyIcon = useMediaQuery('(min-width:1038px)');
+	const isLargeScreenEarthIcon = useMediaQuery('(min-width:510px)');
+	const isLargeScreenGizmoIcon = useMediaQuery('(min-width:900px)');
+
+	let companyIcons;
+	if (isLargeScreenCompanyIcon) {
+		companyIcons = (
+			<>
+				<Grid pr={16}>
+					<Link href={noon_Link} >
+
+						<Image
+							src={NoonIcon}
+							width="auto"
+							height={60}
+						/>
+					</Link>
+				</Grid>
+
+				<Grid pr={12} pl={5} mt={2}>
+					<Link href={amazon_Link} >
+
+						<Image
+							src={AmazonIcon}
+							width="auto"
+							height={45}
+						/>
+					</Link>
+
+				</Grid>
+			</>
+		)
+	} else {
+		companyIcons = (<></>) 
+	}
+
+	let earthIconPos;
+	if (isLargeScreenEarthIcon) {
+		earthIconPos = (
+			<>
+				<Image
+					src={ShopIcon}
+					width="auto"
+					height={70}
+				/>
+				<Box pr={3}>
+					<Typography
+						variant="h5"
+						fontWeight="bold"
+					>
+						خرید مستقیم از دوبی
+					</Typography>
+
+					<Typography
+						variant="body1"
+						color="GrayText"
+						sx={{
+							maxWidth: '200px',
+							overflowWrap: 'break-word'
+						  }}
+						mt={1}
+					>
+						فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
+					</Typography>
+				</Box>
+			</>
+		)
+	} else {
+		earthIconPos = (
+			<>
+				<Box 
+					sx={{
+						textAlign: 'center',
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
+					<Image
+						src={ShopIcon}
+						width="auto"
+						height={60}
+					/>
+					<Typography
+						variant="h6"
+						fontWeight="bold"
+					>
+						خرید مستقیم از دوبی
+					</Typography>
+					<Typography
+						variant="body2"
+						color="GrayText"
+						sx={{
+							maxWidth: '200px',
+							overflowWrap: 'break-word'
+						  }}
+						mt={1}
+						>
+						فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
+					</Typography>
+				</Box>
+			</>
+		)
+	}
+
+	let gizmoIcon;
+	if (isLargeScreenGizmoIcon) {
+		gizmoIcon = (
+			<>
+				<Grid
+					mr={12}
+				>
+					<Link href={'/'}>
+						<Image
+							src={Logo}
+							width="auto"
+							height={50}
+						/>
+					</Link>
+				</Grid>
+
+				<Typography
+					sx={{
+						pt: 2,
+						pr: 3,
+					}}
+					variant='h6'
+				>
+					از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید کنید.
+				</Typography>
+			</>
+		)
+	} else {
+		gizmoIcon = (
+			<Grid flexDirection='row'>
+					<Grid
+						mr={6}
+					>
+						<Link href={'/'}>
+							<Image
+								src={Logo}
+								width="auto"
+								height={50}
+							/>
+						</Link>
+					</Grid>
+					<Grid>
+						<Typography
+							sx={{
+								pt: 2,
+								pr: 6,
+								pl: 3,
+							}}
+							variant='h6'
+							>
+							از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید کنید.
+						</Typography>
+					</Grid>
+			</Grid>
+		)
+	}
+
 	return (
 		<>
 			<Box
@@ -53,66 +213,22 @@ const Footer = () => {
 				<Box
 					display="flex"
 					alignItems="center"
-					mr={12}
+					mr={8}
 				>
-					<Image
-						src={ShopIcon}
-						width="auto"
-						height={70}
-					/>
-					<Box pr={3}>
-						<Typography
-							variant="h5"
-							fontWeight="bold"
-						>
-							خرید مستقیم از دوبی
-						</Typography>
-						<Typography
-							variant="body1"
-							color="GrayText"
-
-							mt={1}
-						>
-							فقط کافیه لینک محصول مورد <br /> نظرتون رو برامون بفرستید.
-						</Typography>
-					</Box>
-
-
-
-					<Grid pr={16}>
-						<Link href={noon_Link} >
-
-							<Image
-								src={NoonIcon}
-								width="auto"
-								height={60}
-							/>
-						</Link>
-					</Grid>
-
-					<Grid pr={12} pl={5} mt={2}>
-						<Link href={amazon_Link} >
-
-							<Image
-								src={AmazonIcon}
-								width="auto"
-								height={45}
-							/>
-						</Link>
-
-					</Grid>
+					{earthIconPos}
+					{companyIcons}
 				</Box>
 
 				<Button
 					variant='contained'
 					sx={{
-						bgcolor: "#FFCC70",
+						bgcolor: Colors.orange,
 						color: "black",
 						borderRadius: "50px",
 						boxShadow: 'none',
-						ml: 8,
+						ml: 4,
 						'&:hover': {
-							bgcolor: "#FFCC70",
+							bgcolor: Colors.orange,
 						}
 					}}
 				>
@@ -123,7 +239,7 @@ const Footer = () => {
 			</Box>
 
 			<Grid
-				bgcolor="#FFFADD"
+				bgcolor={Colors.yellow}
 				color="black"
 				display="flex"
 				alignItems="center"
@@ -136,27 +252,7 @@ const Footer = () => {
 					direction="row"
 					justifyContent="flex-start"
 				>
-					<Grid
-						mr={12}
-					>
-						<Link href={'/'}>
-							<Image
-								src={Logo}
-								width="auto"
-								height={50}
-							/>
-						</Link>
-					</Grid>
-
-					<Typography
-						sx={{
-							pt: 2,
-							pr: 3,
-						}}
-						variant='h6'
-					>
-						از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید کنید.
-					</Typography>
+					{gizmoIcon}
 				</Grid>
 
 				<Grid
@@ -207,48 +303,7 @@ const Footer = () => {
 								</Grid>
 
 								<Grid item>
-									<List>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													صفحه نخست
-												</Typography>
-											</Link>
-										</ListItem>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													اخبار
-												</Typography>
-											</Link>
-										</ListItem>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													درباره ما
-												</Typography>
-											</Link>
-										</ListItem>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													قوانین و مقررات
-												</Typography>
-											</Link>
-										</ListItem>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													سوالات متداول
-												</Typography>
-											</Link>
-										</ListItem>
-									</List>
+									<CategoryOptions />
 								</Grid>
 							</Grid>
 						</Box>
@@ -293,40 +348,7 @@ const Footer = () => {
 								</Grid>
 
 								<Grid item>
-									<List>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													پنل کاربری
-												</Typography>
-											</Link>
-										</ListItem>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													سبد خرید
-												</Typography>
-											</Link>
-										</ListItem>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													پیگیری سفارش
-												</Typography>
-											</Link>
-										</ListItem>
-										<ListItem sx={{ py: 0.2 }}>
-											<ArrowLeftIcon sx={{ color: "#252B48" }} />
-											<Link href={'/'}>
-												<Typography variant='h6' color="#252B48">
-													لیست علاقه مندی ها
-												</Typography>
-											</Link>
-										</ListItem>
-									</List>
+									<CategoryOptions />
 								</Grid>
 							</Grid>
 						</Box>
@@ -391,7 +413,7 @@ const Footer = () => {
 												</Box>
 											</Link>
 											<Link href={instagram_channel}>
-												<Typography variant='h6' color="#252B48">
+												<Typography variant='h6' color={Colors.blue_dark}>
 													پیج اینستاگرام:‌ Gizmo_shop
 												</Typography>
 											</Link>
@@ -415,7 +437,7 @@ const Footer = () => {
 												</Box>
 											</Link>
 											<Link href={telegram_channel}>
-												<Typography variant='h6' color="#252B48">
+												<Typography variant='h6' color={Colors.blue_dark}>
 													کانال تلگرام
 												</Typography>
 											</Link>
@@ -438,7 +460,7 @@ const Footer = () => {
 													<LocalPhoneIcon sx={{ color: "white" }} />
 												</Box>
 											</Link>
-											<Typography variant='h6' color="#252B48">
+											<Typography variant='h6' color={Colors.blue_dark}>
 												شماره تماس: ‌۰۹۹۷۷۵۵۳۵۶
 											</Typography>
 										</ListItem>
@@ -505,6 +527,53 @@ const Footer = () => {
 				</Grid>
 			</Grid>
 		</>
+	);
+}
+
+const CategoryOptions = () => {
+	return (
+		<List>
+			<ListItem sx={{ py: 0.2 }}>
+				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+				<Link href={'/'}>
+					<Typography variant='h6' color={Colors.blue_dark}>
+						صفحه نخست
+					</Typography>
+				</Link>
+			</ListItem>
+			<ListItem sx={{ py: 0.2 }}>
+				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+				<Link href={'/'}>
+					<Typography variant='h6' color={Colors.blue_dark}>
+						اخبار
+					</Typography>
+				</Link>
+			</ListItem>
+			<ListItem sx={{ py: 0.2 }}>
+				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+				<Link href={'/'}>
+					<Typography variant='h6' color={Colors.blue_dark}>
+						درباره ما
+					</Typography>
+				</Link>
+			</ListItem>
+			<ListItem sx={{ py: 0.2 }}>
+				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+				<Link href={'/'}>
+					<Typography variant='h6' color={Colors.blue_dark}>
+						قوانین و مقررات
+					</Typography>
+				</Link>
+			</ListItem>
+			<ListItem sx={{ py: 0.2 }}>
+				<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
+				<Link href={'/'}>
+					<Typography variant='h6' color={Colors.blue_dark}>
+						سوالات متداول
+					</Typography>
+				</Link>
+			</ListItem>
+		</List>
 	);
 }
 

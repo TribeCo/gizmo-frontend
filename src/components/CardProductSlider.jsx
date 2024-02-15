@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Paper, Typography, Grid, IconButton } from '@mui/material';
+import { 
+  Paper, 
+  Typography, 
+  Grid, 
+  IconButton 
+} from '@mui/material';
+import { Colors } from '@/utils';
+
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 
@@ -55,10 +62,10 @@ const CardProductSlider = ({ products, itemsPerPage, swapTime_millisecond }) => 
         <IconButton
           variant='contained'
           sx={{
-            bgcolor: '#22668D',
+            bgcolor: Colors.blue,
             position: 'relative',
             '&:hover': {
-              backgroundColor: "#22668D",
+              backgroundColor: Colors.blue,
             },
           }}
           onClick={handleNext}
@@ -85,10 +92,10 @@ const CardProductSlider = ({ products, itemsPerPage, swapTime_millisecond }) => 
         <IconButton
           variant='contained'
           sx={{
-            bgcolor: '#22668D',
+            bgcolor: Colors.blue,
             position: 'relative',
             '&:hover': {
-              backgroundColor: "#22668D",
+              backgroundColor: Colors.blue,
             },
           }}
           onClick={handlePrev}

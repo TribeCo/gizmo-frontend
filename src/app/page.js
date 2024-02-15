@@ -47,7 +47,6 @@ import DescriptionComponent from '@/components/DescriptionComponent';
 			<h2>Content for comments section</h2>
 		);
 	  }
-	  
 
 export default function Home() {
 	return (

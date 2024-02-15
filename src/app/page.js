@@ -1,10 +1,9 @@
-import { Card } from "@/components";
+import { Typography } from "@mui/material";
 
 export default function Home() {
 	return (
 		<main>
-			<div className="bg-palette-blue-light">فروشگاه گیزمو</div>
-			<Card />
+			<Typography sx={{ color: "primary" }}>فروشگاه گیزمو</Typography>
 		</main>
 	);
 }

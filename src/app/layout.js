@@ -1,7 +1,5 @@
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { CssBaseline, ThemeProvider } from "@mui/material";
 // theme
-import { light, dark } from "../theme";
+import ThemeProvider from "@/utils/ThemeProvider";
 
 // Css Files
 import "./globals.css";
@@ -20,13 +18,10 @@ export default function RootLayout({ children }) {
 			lang="fa-IR"
 			dir="rtl">
 			<body>
-				<AppRouterCacheProvider options={{ enableCssLayer: true }}>
-					<ThemeProvider theme={light}>
-						<CssBaseline />
-						<AppBar />
-						{children}
-					</ThemeProvider>
-				</AppRouterCacheProvider>
+				<ThemeProvider>
+					<AppBar />
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);

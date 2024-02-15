@@ -1,10 +1,8 @@
 "use client";
 
-// import { Vazirmatn } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
 import localFont from "next/font/local";
 
-// const vazirMatn = Vazirmatn({ subsets: ["arabic", "latin"], display: "swap" });
 const vazir = localFont({ src: "./Vazir.woff2" });
 
 export const theme = createTheme({

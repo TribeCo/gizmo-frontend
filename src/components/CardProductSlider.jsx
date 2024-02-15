@@ -7,13 +7,14 @@ import {
   Grid, 
   IconButton 
 } from '@mui/material';
-import { Colors } from '@/utils';
-
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 
+import { Colors } from '@/utils';
+import { ProductCard } from ".";
 
-{/*
+{
+	/*
     Inputs:
     products: a list of all product cards in folowing format:
 		[
@@ -26,33 +27,42 @@ import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
         itemsPerPage: number of product cards to show in page 
     
     swapTime_millisecond: delay time for automatic slider 
-*/}
+*/
+}
 
-const CardProductSlider = ({ products, itemsPerPage, swapTime_millisecond }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const CardProductSlider = ({
+	products,
+	itemsPerPage,
+	swapTime_millisecond,
+}) => {
+	const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, swapTime_millisecond);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			handleNext();
+		}, swapTime_millisecond);
+		return () => clearInterval(interval);
+	}, [currentIndex]);
+  
+	const handleNext = () => {
+		setCurrentIndex((prevIndex) =>
+			prevIndex === products.length - 1 ? 0 : prevIndex + 1,
+		);
+	};
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === products.length - 1 ? 0 : prevIndex + 1));
-  };
+	const handlePrev = () => {
+		setCurrentIndex((prevIndex) =>
+			prevIndex === 0 ? products.length - 1 : prevIndex - 1,
+		);
+	};
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? products.length - 1 : prevIndex - 1));
-  };
+	const productItems = [];
+	for (let index = 0; index < itemsPerPage; index++) {
+		productItems.push(products[(currentIndex + index) % products.length]);
+	}
 
-  const productItems = [];
-  for (let index = 0; index < itemsPerPage; index++) {
-    productItems.push(products[(currentIndex + index) % products.length]);
-  }
-
-  return (
-    <Grid 
+	return (
+		<Grid 
     pl={3} pr={3}
       container 
       justifyContent='space-between' 
@@ -73,21 +83,16 @@ const CardProductSlider = ({ products, itemsPerPage, swapTime_millisecond }) => 
           <ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
         </IconButton>
       </Grid>
-
-
-      {productItems.map((product, index) => (
-        <Grid key={index} xs={1}>
-          <Paper elevation={10} style={{ padding: '20px', height: '100%' }}>
-            <Typography variant="h5" component="div">
-              {product.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {product.description}
-            </Typography>
-          </Paper>
-        </Grid>
-      ))}
-
+			<Grid
+				item
+				display="flex">
+				{productItems.map((product, index) => (
+					<ProductCard
+						key={index}
+						product={product}
+					/>
+				))}
+			</Grid>
       <Grid item>
         <IconButton
           variant='contained'
@@ -105,6 +110,5 @@ const CardProductSlider = ({ products, itemsPerPage, swapTime_millisecond }) => 
       </Grid>
     </Grid>
   );
-};
 
 export default CardProductSlider;

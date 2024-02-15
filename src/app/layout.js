@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
 					<AppBar />
 					{children}
 					<Footer />
+				</ThemeProvider>
 			</body>
 		</html>
 	);

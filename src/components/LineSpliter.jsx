@@ -1,5 +1,9 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { 
+    Box, 
+    Typography 
+} from '@mui/material';
+import { Colors } from '@/utils';
 
 const LineSplitter = ({ text }) => {
     return (
@@ -14,7 +18,7 @@ const LineSplitter = ({ text }) => {
                 ml={6} 
                 width="100%" 
                 borderBottom={5} 
-                borderColor="#22668D" 
+                borderColor={Colors.blue} 
                 flexWrap="nowrap"
             />
             <Typography
@@ -34,7 +38,7 @@ const LineSplitter = ({ text }) => {
                 mr={6} 
                 width="100%" 
                 borderBottom={5} 
-                borderColor="#22668D" 
+                borderColor={Colors.blue} 
             />
         </Box>
     );

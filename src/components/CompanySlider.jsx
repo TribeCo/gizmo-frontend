@@ -2,9 +2,15 @@
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
+import { 
+    Box, 
+    Grid, 
+    IconButton, 
+    Typography 
+} from '@mui/material';
+import { Colors } from '@/utils';
 
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
@@ -69,10 +75,10 @@ const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
                     <IconButton
                         variant='contained'
                         sx={{
-                            bgcolor: '#22668D',
+                            bgcolor: Colors.blue,
                             position: 'relative',
                             '&:hover': {
-                                backgroundColor: "#22668D",
+                                backgroundColor: Colors.blue,
                             },
                         }}
                         onClick={handleNext}
@@ -103,10 +109,10 @@ const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
                     <IconButton
                         variant='contained'
                         sx={{
-                            bgcolor: '#22668D',
+                            bgcolor: Colors.blue,
                             position: 'relative',
                             '&:hover': {
-                                backgroundColor: "#22668D",
+                                backgroundColor: Colors.blue,
                             },
                         }}
                         onClick={handlePrev}
@@ -122,14 +128,16 @@ const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
                 bgcolor="rgba(142, 205, 221, 0.3)"
                 color="black"
                 py={3}
-                px={2}
+                px={16}
                 display="flex"
                 alignItems="center"
-                justifyContent="space-around"
+                justifyContent="space-between"
                 flexWrap="wrap"
                 width="100%"
             >
                 <Box
+                    mr={1}
+                    ml={1}
                     mt={3}
                     mb={3}
                     sx={{
@@ -163,6 +171,8 @@ const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
                 </Box>
 
                 <Box
+                    mr={1}
+                    ml={1}
                     mt={3}
                     mb={3}
                     sx={{
@@ -196,6 +206,8 @@ const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
                 </Box>
 
                 <Box
+                    mr={1}
+                    ml={1}
                     mt={3}
                     mb={3}
                     sx={{
@@ -229,6 +241,8 @@ const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
                 </Box>
 
                 <Box
+                    mr={1}
+                    ml={1}
                     mt={3}
                     mb={3}
                     sx={{
@@ -262,6 +276,8 @@ const CompanySlider = ( { logos, itemsPerPage, swapTime_millisecond } ) => {
                 </Box>
 
                 <Box
+                    mr={1}
+                    ml={1}
                     mb={3}
                     mt={3}
                     sx={{

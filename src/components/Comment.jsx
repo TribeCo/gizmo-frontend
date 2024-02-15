@@ -397,7 +397,6 @@ const Comment = ({ Comments }) => {
 											fill="#747678"
 										/>
 									</svg>
-
 									<Typography
 										mx={1}
 										fontSize="small">

@@ -42,8 +42,7 @@ const ProductCard = ({ product }) => {
 					width: "280px",
 					height: "380px",
 					borderRadius: "40px",
-					background:
-						"linear-gradient(104.6deg, rgba(255, 255, 255, 0.22) 1.9%, rgba(255, 255, 255, 0.12) 96.76%)",
+					background: "linear-gradient(to bottom, #FFFFFF 45%, #DEF0F5 75%)",
 					border: "5px solid #5A8EAA",
 				}}>
 				<CardActionArea

@@ -57,7 +57,7 @@ const CardProductSlider = ({
 	}
 
 	return (
-		<Grid md={12}>
+		<Grid md={12} item>
 			<Grid
 				pl={3}
 				pr={3}

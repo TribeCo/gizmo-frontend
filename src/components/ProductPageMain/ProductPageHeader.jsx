@@ -37,20 +37,19 @@ export default function ProductPageHeader(props) {
     <div className='flex h-fit gap-8 items-stretch'>
         <section className='w-[50%] relative flex bg-palette-blue-light rounded-ee-[300px] rounded-se-[70px] opacity-50 h-full items-stretch'>
 
-            {/* <Image src={illustrate1} className='absolute w-full' alt='illustration'></Image> */}
 
             <div className='morePhotoWrapper basis-[50%] flex flex-col gap-4 h-full items-start justify-between pr-[13%]'>
                 <div className='text-3xl font-extrabold text-palette-yellow'>
                     تصاویر محصول
                 </div>
 
-                <Image src={props.pics[1]} className=' border-4 border-palette-blue b w-32 h-32 rounded-2xl'></Image>
-                <Image src={props.pics[2]} className='border-4 border-palette-blue w-32 h-32 rounded-2xl'></Image>
+                <Image src={props.pics[1]} className=' border-4 border-palette-blue b w-32 h-32 rounded-2xl' alt='productPagePic'></Image>
+                <Image src={props.pics[2]} className='border-4 border-palette-blue w-32 h-32 rounded-2xl' alt='productPagePic'></Image>
                 <div className='relative group w-32 h-32 z-1 border-4 border-palette-blue rounded-2xl overflow-hidden'>
                     <div className='opacity-0 group-hover:opacity-100 flex h-full w-full absolute items-center justify-center'>
-                        <Image src={MoreIcon} className='absolute z-8'></Image>
+                        <Image src={MoreIcon} className='absolute z-8' alt='morePicIcon'></Image>
                     </div>
-                    <Image src={props.pics[3]} className='border w-32 h-32 group-hover:blur'></Image>
+                    <Image src={props.pics[3]} className='border w-32 h-32 group-hover:blur' alt='productPagePic'></Image>
                 </div>
             </div>
 

@@ -2,7 +2,10 @@ import CardProductSlider from "@/components/CardProductSlider";
 import CompanySlider from "@/components/CompanySlider";
 import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
-import DescriptionComponent from "@/components/DescriptionComponent";
+import { Box, Button, Typography } from "@mui/material";
+import BlogCard from "@/components/BlogCard";
+import { Colors } from "@/utils";
+import { Banner, Sections } from "@/components/landing";
 
 // this is a simple test to show how the components work:
 // example data
@@ -13,10 +16,6 @@ import noon from "@/components/comanyIcons/noon.png";
 import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
-import { Box, Button, Grid, Typography } from "@mui/material";
-import BlogCard from "@/components/BlogCard";
-import { Colors } from "@/utils";
-import { Comment } from "@/components";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -28,43 +27,29 @@ const logos = [
 	[amazon, "https://www.amazon.com/"],
 ];
 
-// test content for introduction section
-const content =
-	"اسپرسو ساز واکاکو مدل Minipresso مح می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.";
-
-const comments = [
-	{
-		id: 1,
-		user: {
-			name: "رضا بوذرجمهری",
-			image:
-				"https://www.mountsinai.on.ca/wellbeing/our-team/team-images/person-placeholder/image",
-		},
-		satisfaction: 1,
-		text: "متن تستی",
-		date: "3 روز قبل",
-	},
-];
-
 export default function Home() {
 	return (
 		<main>
 			<LineSplitter text={"تخفیف های امروز"} />
 			<CardProductSlider
+				btn={true}
 				products={products}
 				itemsPerPage={4}
 				swapTime_millisecond={3000}
 			/>
+			<Banner />
 			<LineSplitter text={"محصولات جدید گیزمو"} />
 			<CardProductSlider
+				btn={true}
 				products={products}
 				itemsPerPage={4}
 				swapTime_millisecond={3000}
 			/>
 			<LineSplitter text={"دسته بندی ها"} />
-			// TODO دسته بندی ها
+			<Sections />
 			<LineSplitter text={"محصولات مشاهده شده"} />
 			<CardProductSlider
+				btn={true}
 				products={products}
 				itemsPerPage={4}
 				swapTime_millisecond={3000}
@@ -88,7 +73,7 @@ export default function Home() {
 				variant="contained"
 				sx={{
 					display: "block",
-					my: 10,
+					my: 5,
 					mx: "auto",
 					border: `3px solid ${Colors.orange}`,
 					color: "#000000",
@@ -109,11 +94,6 @@ export default function Home() {
 					{"مشاهده محصولات بیشتر"}
 				</Typography>
 			</Button>
-			<LineSplitter text={"تست"} />
-			<DescriptionComponent
-				introductionContent={content}
-				CommentsSection={<Comment Comments={comments} />}
-			/>
 		</main>
 	);
 }

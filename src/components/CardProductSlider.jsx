@@ -26,6 +26,7 @@ import { ProductCard } from ".";
 }
 
 const CardProductSlider = ({
+	btn,
 	products,
 	itemsPerPage,
 	swapTime_millisecond,
@@ -110,32 +111,34 @@ const CardProductSlider = ({
 					height="190px"
 					bgcolor="#DEF0F5"></Box>
 			</Box>
-			<Box mt={10}>
-				<Button
-					variant="contained"
-					sx={{
-						display: "block",
-						mx: "auto",
-						border: `3px solid ${Colors.orange}`,
-						color: "#000000",
-						bgcolor: "#FFFFFF",
-						borderRadius: "30px",
-						width: "300px",
-						height: "60px",
-						"&:hover": {
-							bgcolor: Colors.orange,
-						},
-					}}>
-					<Typography
-						variant="h5"
+			{btn && (
+				<Box mt={3}>
+					<Button
+						variant="contained"
 						sx={{
-							fontWeight: "700",
-							fontSize: "20px",
+							display: "block",
+							mx: "auto",
+							border: `3px solid ${Colors.orange}`,
+							color: "#000000",
+							bgcolor: "#FFFFFF",
+							borderRadius: "30px",
+							width: "300px",
+							height: "60px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
-						{"مشاهده محصولات بیشتر"}
-					</Typography>
-				</Button>
-			</Box>
+						<Typography
+							variant="h5"
+							sx={{
+								fontWeight: "700",
+								fontSize: "20px",
+							}}>
+							{"مشاهده محصولات بیشتر"}
+						</Typography>
+					</Button>
+				</Box>
+			)}
 		</Grid>
 	);
 };

@@ -3,6 +3,7 @@ import CompanySlider from "@/components/CompanySlider";
 import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
 import DescriptionComponent from "@/components/DescriptionComponent";
+import UserInfoPage from "@/components/UserInfoPage";
 
 // this is a simple test to show how the components work:
 // example data
@@ -115,5 +116,13 @@ export default function Home() {
 				CommentsSection={<Comment Comments={comments} />}
 			/>
 		</main>
+		
+		// <Grid
+		// 	bgcolor='#F4F4F4'
+		// >
+		// 	<LineSplitter text="space"/>
+		// 	<UserInfoPage />
+		// 	<LineSplitter text="space"/>
+		// </Grid>
 	);
 }

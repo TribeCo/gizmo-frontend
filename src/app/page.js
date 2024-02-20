@@ -2,6 +2,8 @@ import CardProductSlider from "@/components/CardProductSlider";
 import CompanySlider from "@/components/CompanySlider";
 import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
+import DescriptionComponent from "@/components/DescriptionComponent";
+import UserInfoPage from "@/components/UserInfoPage";
 import { Box, Button, Typography } from "@mui/material";
 import BlogCard from "@/components/BlogCard";
 import { Colors } from "@/utils";
@@ -124,5 +126,13 @@ export default function Home() {
 				</Typography>
 			</Button>
 		</main>
+		
+		// <Grid
+		// 	bgcolor='#F4F4F4'
+		// >
+		// 	<LineSplitter text="space"/>
+		// 	<UserInfoPage />
+		// 	<LineSplitter text="space"/>
+		// </Grid>
 	);
 }

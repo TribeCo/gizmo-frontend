@@ -4,7 +4,7 @@ import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
 import DescriptionComponent from "@/components/DescriptionComponent";
 import UserInfoPage from "@/components/UserInfoPage";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Grid } from "@mui/material";
 import BlogCard from "@/components/BlogCard";
 import { Colors } from "@/utils";
 import { Banner, Sections } from "@/components/landing";
@@ -125,14 +125,6 @@ export default function Home() {
 					{"مشاهده محصولات بیشتر"}
 				</Typography>
 			</Button>
-		</main>
-		
-		// <Grid
-		// 	bgcolor='#F4F4F4'
-		// >
-		// 	<LineSplitter text="space"/>
-		// 	<UserInfoPage />
-		// 	<LineSplitter text="space"/>
-		// </Grid>
+		</main>	
 	);
 }

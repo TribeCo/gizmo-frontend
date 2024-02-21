@@ -14,38 +14,44 @@ import Avatar from '@mui/material/Avatar';
 
 const ProfileMenu = () => {
     return (
-        <Grid>
+        <Grid
+            item
+            sx={{
+                display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' }
+            }}
+        >
             <Paper
                 variant="outlined"
                 sx={{
                     px: '4rem',
                     py: '3rem',
-                    width: 'lg',
+                    mb: 2,
                     borderRadius: '15px',
                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
                 }}
             >
-
                 <Box
                     mb={5}
                     display='flex'
                     justifyContent='space-between'
                     alignItems='center'
+                    flexWrap='wrap'
                 >
-                    <Avatar
-                        src='example-avatar-path'
-                        sx={{
-                            width: 90,
-                            height: 90
-                        }}
-                    />
-
                     <Grid>
+                        <Avatar
+                            src='example-avatar-path'
+                            sx={{
+                                width: 90,
+                                height: 90
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid ml={2}>
                         <Typography
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             نام و نام خانوادگی
@@ -54,14 +60,13 @@ const ProfileMenu = () => {
                             pt={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             ۰۹۱۷۰۵۳۲۷۴۸
                         </Typography>
                     </Grid>
                 </Box>
-
                 <List>
                     <ListItemButton
                         sx={{
@@ -81,8 +86,7 @@ const ProfileMenu = () => {
                             pl={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             حساب کاربری
@@ -106,8 +110,7 @@ const ProfileMenu = () => {
                             pl={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             ویرایش اطلاعات حساب
@@ -132,8 +135,7 @@ const ProfileMenu = () => {
                             pl={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             آدرس ها
@@ -157,8 +159,7 @@ const ProfileMenu = () => {
                             pl={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             سفارشات
@@ -184,8 +185,7 @@ const ProfileMenu = () => {
                             pl={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             پیگیری سفارش
@@ -209,8 +209,7 @@ const ProfileMenu = () => {
                             pl={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             علاقه مندی ها
@@ -234,8 +233,7 @@ const ProfileMenu = () => {
                             pl={2}
                             variant="h5"
                             fontWeight='bold'
-                            fontSize={22}
-                            noWrap
+                            fontSize={20}
                             sx={{ color: '#213346' }}
                         >
                             خروج از حساب

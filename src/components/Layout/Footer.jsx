@@ -70,7 +70,7 @@ const Footer = () => {
 		companyIcons = <></>;
 	}
 
-	let earthIconPos;
+	let 	earthIconPos;
 	if (isLargeScreenEarthIcon) {
 		earthIconPos = (
 			<Grid pl={6}>

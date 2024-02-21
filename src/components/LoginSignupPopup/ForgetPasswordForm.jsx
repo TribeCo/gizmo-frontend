@@ -40,7 +40,7 @@ const ForgetPasswordForm = () => {
             fullWidth 
             sx={{ 
                 color: "black",
-                bgcolor: "yellow",
+                bgcolor: "#FFCC70",
                 marginTop: "5%",
                 marginBottom: "5%",
                 borderRadius: '20px' 

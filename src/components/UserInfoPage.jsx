@@ -303,7 +303,7 @@ const UserInfoPage = () => {
                                 fontWeight='bold'
                                 sx={{
                                     color: '#213346',
-                                    fontSize: { xs: 15, sm: 18, lg: 24 }
+                                    fontSize: { xs: 15, sm: 18, md: 22 }
                                 }}
 
                             >
@@ -312,8 +312,8 @@ const UserInfoPage = () => {
                             <Box
                                 mt={3}
                                 sx={{
-                                    width: { xs: '6rem', sm: '7rem' },
-                                    height: { xs: '6rem', sm: '7rem' },
+                                    width: { xs: '3rem', sm: '5rem', md: '7rem' },
+                                    height: { xs: '3rem', sm: '5rem', md: '7rem'},
                                     alignItems: "center",
                                     justifyContent: "center",
                                     display: "flex",
@@ -324,8 +324,10 @@ const UserInfoPage = () => {
                                 <Typography
                                     variant="h6"
                                     fontWeight='bold'
-                                    fontSize={40}
-                                    sx={{ mt: 1 }}
+                                    sx={{ 
+                                        fontSize: {xs: 20, sm: 26, md: 40},
+                                        mt: {xs: 0, sm: 1} 
+                                    }}
                                 >
                                     ۰
                                 </Typography>
@@ -348,7 +350,7 @@ const UserInfoPage = () => {
                                 fontWeight='bold'
                                 sx={{
                                     color: '#213346',
-                                    fontSize: { xs: 15, sm: 18, lg: 24 }
+                                    fontSize: { xs: 15, sm: 18, md: 22 }
                                 }}
 
                             >
@@ -357,8 +359,8 @@ const UserInfoPage = () => {
                             <Box
                                 mt={3}
                                 sx={{
-                                    width: { xs: '6rem', sm: '7rem' },
-                                    height: { xs: '6rem', sm: '7rem' },
+                                    width: { xs: '3rem', sm: '5rem', md: '7rem' },
+                                    height: { xs: '3rem', sm: '5rem', md: '7rem'},
                                     alignItems: "center",
                                     justifyContent: "center",
                                     display: "flex",
@@ -369,8 +371,10 @@ const UserInfoPage = () => {
                                 <Typography
                                     variant="h6"
                                     fontWeight='bold'
-                                    fontSize={40}
-                                    sx={{ mt: 1 }}
+                                    sx={{ 
+                                        fontSize: {xs: 20, sm: 26, md: 40},
+                                        mt: {xs: 0, sm: 1} 
+                                    }}
                                 >
                                     ۲
                                 </Typography>
@@ -393,7 +397,7 @@ const UserInfoPage = () => {
                                 fontWeight='bold'
                                 sx={{
                                     color: '#213346',
-                                    fontSize: { xs: 15, sm: 18, lg: 24 }
+                                    fontSize: { xs: 15, sm: 18, md: 22 }
                                 }}
 
                             >
@@ -402,8 +406,8 @@ const UserInfoPage = () => {
                             <Box
                                 mt={3}
                                 sx={{
-                                    width: { xs: '6rem', sm: '7rem' },
-                                    height: { xs: '6rem', sm: '7rem' },
+                                    width: { xs: '3rem', sm: '5rem', md: '7rem' },
+                                    height: { xs: '3rem', sm: '5rem', md: '7rem'},
                                     alignItems: "center",
                                     justifyContent: "center",
                                     display: "flex",
@@ -414,8 +418,10 @@ const UserInfoPage = () => {
                                 <Typography
                                     variant="h6"
                                     fontWeight='bold'
-                                    fontSize={40}
-                                    sx={{ mt: 1 }}
+                                    sx={{ 
+                                        fontSize: {xs: 20, sm: 26, md: 40},
+                                        mt: {xs: 0, sm: 1} 
+                                    }}
                                 >
                                     ۰
                                 </Typography>

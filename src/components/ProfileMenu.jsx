@@ -17,7 +17,7 @@ const ProfileMenu = () => {
         <Grid
             item
             sx={{
-                display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' }
+                display: { xs: 'none', xl: 'flex' }
             }}
         >
             <Paper

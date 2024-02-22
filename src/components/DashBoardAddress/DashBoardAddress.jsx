@@ -1,11 +1,9 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Colors } from "@/utils";
-import { useRadioGroup } from '@mui/material/RadioGroup';
 
 
 import {
-	Box,
 	Button,
 	Typography,
 	Grid,
@@ -21,8 +19,12 @@ import {
 
 
 export default function DashBoardAddress(props) {
+
+
+    let [addNewAddressStat, setAddNewAddressStat] = useState(false)
+
   return (
-    <Card className='m-4 flex justify-end'>
+    <Card className='m-4 flex justify-end h-[47rem] lg:h-max'>
 
         <section className="savedAddresses py-4 rounded-lg w-[70%] px-[4%] flex flex-col border lg:w-full">
 
@@ -35,6 +37,7 @@ export default function DashBoardAddress(props) {
                 </Typography>
 
                 <Button
+                    onClick={() => setAddNewAddressStat(addNewAddressStat = true)}
 					variant="contained"
 					sx={{
 						bgcolor: Colors.orange,
@@ -124,7 +127,7 @@ export default function DashBoardAddress(props) {
 
             </Stack>
 
-            <Stack className='mt-8'>
+            <Stack className='mt-8' style={{display : addNewAddressStat ? 'block' : 'none'}}>
 
                 <Typography variant='h6' fontSize={18} fontWeight={900} className='font-bold pb-2 text-[#213346]'>
                     افزودن آدرس جدید

@@ -29,7 +29,7 @@ const UserInfoPage = () => {
                 <Paper
                     variant="outlined"
                     sx={{
-                        px: {xs:'2rem', sm:'4rem'},
+                        px: { xs: '2rem', sm: '4rem' },
                         py: '2rem',
                         borderRadius: '15px',
                         boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
@@ -41,7 +41,7 @@ const UserInfoPage = () => {
                         justifyContent='space-between'
                         alignItems='center'
                         sx={{
-                            mb: {xs: 2, sm: 3},
+                            mb: 3,
                             flexDirection: 'row',
                         }}
                     >
@@ -66,8 +66,8 @@ const UserInfoPage = () => {
                                     color: "#000000",
                                     bgcolor: "#FFFFFF",
                                     borderRadius: "30px",
-                                    width: { xs: '119px', sm: "190px", lg: "220px" },
-                                    height: { xs: '35px', sm: "44px", lg: "46px" },
+                                    width: { xs: '106px', sm: "190px", lg: "220px" },
+                                    height: { xs: '33px', sm: "44px", lg: "46px" },
                                     "&:hover": {
                                         boxShadow: "none",
                                         bgcolor: Colors.orange,
@@ -78,7 +78,7 @@ const UserInfoPage = () => {
                                     fontWeight={900}
                                     fontSize={20}
                                     sx={{
-                                        fontSize: { xs: 12, sm: 18, lg: 20 }
+                                        fontSize: { xs: 10, sm: 18, lg: 20 }
                                     }}
                                 >
                                     ویرایش اطلاعات
@@ -96,147 +96,149 @@ const UserInfoPage = () => {
                         flexDirection='column'
                     >
                         <Grid
-                            justifyContent='flex-start'
                             display='flex'
                             flexWrap='wrap'
-                            container
-                            maxWidth={550}
-                            flexDirection='row'
                         >
-                            <Grid
-                                item
-                                mb={1}
-                                mt={6}
-                                mr={8}
-                            >
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
+                            <Grid>
+                                <Grid
+                                    item
+                                    mb={1}
+                                    mt={6}
+                                    mr={16}
                                 >
-                                    نام و نام خانوادگی
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        نام و نام خانوادگی
+                                    </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        -
+                                    </Typography>
+                                </Grid>
+                                <Grid
+                                    item
+                                    mb={1}
+                                    mt={6}
+                                    mr={16}
                                 >
-                                    -
-                                </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        جنسیت
+                                    </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        -
+                                    </Typography>
+                                </Grid>
                             </Grid>
-                            <Grid
-                                item
-                                mb={1}
-                                mt={6}
-                                mr={8}
-                            >
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
+                            <Grid>
+                                <Grid
+                                    item
+                                    mb={1}
+                                    mt={6}
+                                    mr={16}
                                 >
-                                    آدرس ایمیل
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        آدرس ایمیل
+                                    </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        -
+                                    </Typography>
+                                </Grid>
+                                <Grid
+                                    item
+                                    mb={1}
+                                    mt={6}
+                                    mr={16}
                                 >
-                                    -
-                                </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        تاریخ تولد
+                                    </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        -
+                                    </Typography>
+                                </Grid>
                             </Grid>
-                            <Grid
-                                item
-                                mb={1}
-                                mt={6}
-                                mr={8}
-                            >
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
+                            <Grid>
+                                <Grid
+                                    item
+                                    mb={1}
+                                    mt={6}
+                                    mr={16}
                                 >
-                                    شماره تلفن
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
-                                >
-                                    -
-                                </Typography>
-                            </Grid>
-                            <Grid
-                                item
-                                mb={1}
-                                mt={6}
-                                mr={8}
-                            >
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
-                                >
-                                    جنسیت
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
-                                >
-                                    -
-                                </Typography>
-                            </Grid>
-                            <Grid
-                                item
-                                mb={1}
-                                mt={6}
-                                mr={8}
-                            >
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
-                                >
-                                    تاریخ تولد
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    fontWeight='bold'
-                                    sx={{
-                                        fontSize: { xs: 12, sm: 16, lg: 20 },
-                                        color: '#44434C'
-                                    }}
-                                >
-                                    -
-                                </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        شماره تلفن
+                                    </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        fontWeight='bold'
+                                        sx={{
+                                            fontSize: { xs: 12, sm: 16, lg: 20 },
+                                            color: '#44434C'
+                                        }}
+                                    >
+                                        -
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Box>
@@ -244,7 +246,7 @@ const UserInfoPage = () => {
                 <Paper
                     variant="outlined"
                     sx={{
-                        px: {xs:'2rem', sm:'4rem'},
+                        px: { xs: '2rem', sm: '4rem' },
                         py: '2rem',
                         mt: 2,
                         borderRadius: '15px',
@@ -297,19 +299,19 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h5"
                                 fontWeight='bold'
-                                sx={{ 
-                                    color: '#213346', 
-                                    fontSize: {xs: 15, sm: 18, lg: 24}
+                                sx={{
+                                    color: '#213346',
+                                    fontSize: { xs: 15, sm: 18, lg: 24 }
                                 }}
-                                
+
                             >
                                 تعداد سفارش ها
                             </Typography>
                             <Box
                                 mt={3}
                                 sx={{
-                                    width: {xs: '6rem', sm: '7rem'},
-                                    height: {xs: '6rem', sm: '7rem'},
+                                    width: { xs: '6rem', sm: '7rem' },
+                                    height: { xs: '6rem', sm: '7rem' },
                                     alignItems: "center",
                                     justifyContent: "center",
                                     display: "flex",
@@ -342,19 +344,19 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h5"
                                 fontWeight='bold'
-                                sx={{ 
+                                sx={{
                                     color: '#213346',
-                                    fontSize: {xs: 15, sm: 18, lg: 24}
+                                    fontSize: { xs: 15, sm: 18, lg: 24 }
                                 }}
-                                
+
                             >
                                 تعداد سفارش ها از دبی
                             </Typography>
                             <Box
                                 mt={3}
                                 sx={{
-                                    width: {xs: '6rem', sm: '7rem'},
-                                    height: {xs: '6rem', sm: '7rem'},
+                                    width: { xs: '6rem', sm: '7rem' },
+                                    height: { xs: '6rem', sm: '7rem' },
                                     alignItems: "center",
                                     justifyContent: "center",
                                     display: "flex",
@@ -387,19 +389,19 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h5"
                                 fontWeight='bold'
-                                sx={{ 
+                                sx={{
                                     color: '#213346',
-                                    fontSize: {xs: 15, sm: 18, lg: 24}
+                                    fontSize: { xs: 15, sm: 18, lg: 24 }
                                 }}
-                                
+
                             >
                                 تعداد مرجوعی ها
                             </Typography>
                             <Box
                                 mt={3}
                                 sx={{
-                                    width: {xs: '6rem', sm: '7rem'},
-                                    height: {xs: '6rem', sm: '7rem'},
+                                    width: { xs: '6rem', sm: '7rem' },
+                                    height: { xs: '6rem', sm: '7rem' },
                                     alignItems: "center",
                                     justifyContent: "center",
                                     display: "flex",

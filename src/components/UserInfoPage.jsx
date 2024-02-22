@@ -15,7 +15,6 @@ const UserInfoPage = () => {
         <Grid
             px={2}
             container
-            spacing={2}
             display='flex'
             justifyContent='center'
         >
@@ -25,6 +24,9 @@ const UserInfoPage = () => {
                 item
                 display='flex'
                 flexDirection='column'
+                sx={{
+                    ml: { xs: 0, xl: 2 }
+                }}
             >
                 <Paper
                     variant="outlined"

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,7 +10,6 @@ import {
 	List,
 	SvgIcon,
 	ListItem,
-	useMediaQuery,
 } from "@mui/material";
 import { Colors } from "@/utils";
 
@@ -34,164 +31,6 @@ const telegram_channel = "/";
 const instagram_channel = "/";
 
 const Footer = () => {
-	const isLargeScreenCompanyIcon = useMediaQuery("(min-width:1060px)");
-	const isLargeScreenEarthIcon = useMediaQuery("(min-width:546px)");
-	const isLargeScreenGizmoIcon = useMediaQuery("(min-width:900px)");
-
-	let companyIcons;
-	if (isLargeScreenCompanyIcon) {
-		companyIcons = (
-			<>
-				<Grid pr={8} pl={6}>
-					<Link href={noon_Link}>
-						<Image
-							src={NoonIcon}
-							width="auto"
-							height={60}
-						/>
-					</Link>
-				</Grid>
-
-				<Grid
-					pr={12}
-					pl={5}
-					mt={2}>
-					<Link href={amazon_Link}>
-						<Image
-							src={AmazonIcon}
-							width="auto"
-							height={45}
-						/>
-					</Link>
-				</Grid>
-			</>
-		);
-	} else {
-		companyIcons = <></>;
-	}
-
-	let 	earthIconPos;
-	if (isLargeScreenEarthIcon) {
-		earthIconPos = (
-			<Grid pl={6}>
-				<Grid container>
-					<Box pr={2}>
-						<Image
-							src={ShopIcon}
-							width="auto"
-							height={70}
-						/>
-					</Box>
-					<Box>
-						<Typography
-							variant="h5"
-							fontWeight="bold">
-							خرید مستقیم از دوبی
-						</Typography>
-
-						<Typography
-							variant="body1"
-							color="GrayText"
-							sx={{
-								maxWidth: "200px",
-								overflowWrap: "break-word",
-							}}
-							mt={1}>
-							فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
-						</Typography>
-					</Box>
-				</Grid>
-			</Grid>
-		);
-	} else {
-		earthIconPos = (
-			<Grid pl={6}>
-				<Box
-					sx={{
-						textAlign: "center",
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "center",
-					}}>
-					<Image
-						src={ShopIcon}
-						width="auto"
-						height={60}
-					/>
-					<Typography
-						variant="h6"
-						fontWeight="bold">
-						خرید مستقیم از دوبی
-					</Typography>
-					<Typography
-						variant="body2"
-						color="GrayText"
-						sx={{
-							maxWidth: "200px",
-							overflowWrap: "break-word",
-						}}
-						mt={1}>
-						فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
-					</Typography>
-				</Box>
-			</Grid>
-		);
-	}
-
-	let gizmoIcon;
-	if (isLargeScreenGizmoIcon) {
-		gizmoIcon = (
-			<>
-				<Grid ml={8}>
-					<Link href={"/"}>
-						<Image
-							src={Logo}
-							width="auto"
-							height={50}
-						/>
-					</Link>
-				</Grid>
-
-				<Typography
-					sx={{
-						pt: 2,
-						pl: 3,
-					}}
-					variant="h6">
-					از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید
-					کنید.
-				</Typography>
-			</>
-		);
-	} else {
-		gizmoIcon = (
-			<Grid flexDirection="row">
-				<Grid ml={6}>
-					<Link href={"/"}>
-						<Image
-							src={Logo}
-							width="auto"
-							height={50}
-						/>
-					</Link>
-				</Grid>
-				<Grid>
-					<Typography
-						sx={{
-							pt: 2,
-							pl: 6,
-							pr: 3,
-						}}
-						variant="h6">
-						از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید
-						کنید.
-					</Typography>
-				</Grid>
-			</Grid>
-		);
-	}
-
 	return (
 		<>
 			<Box
@@ -201,14 +40,88 @@ const Footer = () => {
 				py={3}
 				display="flex"
 				alignItems="center"
-				justifyContent="space-between">
-				<Box
-					display="flex"
-					alignItems="center"
-					mr={8}>
-					{earthIconPos}
-					{companyIcons}
-				</Box>
+				justifyContent="space-between"
+				sx={{
+					flexDirection: {  xs: "column", lg: "row" },
+				}}
+				>
+				<Grid 
+					sx={{
+						mr: {lg: 8},
+					}}
+				>
+					<Grid 
+						sx={{
+							pl: {xs: 0, lg: 6}
+						}}
+					>
+						<Grid container>
+							<Box pr={2}>
+								<Image
+									src={ShopIcon}
+									width="auto"
+									height={70}
+								/>
+							</Box>
+							<Box>
+								<Typography
+									variant="h5"
+									fontWeight="bold">
+									خرید مستقیم از دوبی
+								</Typography>
+
+								<Typography
+									variant="body1"
+									color="GrayText"
+									sx={{
+										maxWidth: "200px",
+										overflowWrap: "break-word",
+									}}
+									mt={1}>
+									فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
+								</Typography>
+							</Box>
+						</Grid>
+					</Grid>
+				</Grid>
+
+				<Grid 
+					display='flex'
+					sx={{
+						mt: {xs: 8, lg: 0},
+						mx: {xs: 1, lg: 0}
+					}}
+					>
+						<Grid 
+							sx={{
+								pr: {xs: 4, lg: 8},
+							}}
+						>
+							<Link href={noon_Link}>
+								<Image
+									src={NoonIcon}
+									width="auto"
+									height={60}
+								/>
+							</Link>
+						</Grid>
+
+						<Grid
+							sx={{
+								mt: {lg: 2},
+								pr: {lg: 12},
+								pl: {xs: 4, lg: 5}
+							}}
+						>
+							<Link href={amazon_Link}>
+								<Image
+									src={AmazonIcon}
+									width="auto"
+									height={45}
+								/>
+							</Link>
+						</Grid>
+					</Grid>
 
 				<Button
 					variant="contained"
@@ -217,12 +130,19 @@ const Footer = () => {
 						color: "black",
 						borderRadius: "50px",
 						boxShadow: "none",
-						mr: 4,
+						mr: { lg:4 },
+						mt: {xs: 8, lg: 0},
+						mb: {xs: 2, lg: 0},
 						"&:hover": {
 							bgcolor: Colors.orange,
 						},
 					}}>
-					<Typography>ارسال لینک</Typography>
+					<Typography 
+						variant="h6" 
+						fontSize={18}
+					>
+							ارسال لینک
+					</Typography>
 				</Button>
 			</Box>
 
@@ -236,9 +156,40 @@ const Footer = () => {
 				<Grid
 					pt={5}
 					container
-					direction="row"
-					justifyContent="flex-start">
-					{gizmoIcon}
+					sx={{
+						flexDirection: {xs: 'column', md: 'row'},
+						direction: {xs: 'column', md: 'row'},
+						justifyContent: {xs: 'center', md: 'flex-start'},
+						alignItems: {xs: 'center', md: 'start'}
+					}}
+				>
+					<Grid 
+						sx={{
+							mb: { xs: 2 },
+							ml: { md: 8 },	
+						}}
+					>
+						<Link href={"/"}>
+							<Image
+								src={Logo}
+								width="auto"
+								height={50}
+							/>
+						</Link>
+					</Grid>
+
+					<Typography
+						sx={{
+							pt: { md:2 },
+							pl: { md:3 },
+							width: {xs: '65%', md: 'auto'},
+							textAlign: {xs: 'center'},
+						}}
+						variant="h6"
+					>
+						از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید
+						کنید.
+					</Typography>
 				</Grid>
 
 				<Grid

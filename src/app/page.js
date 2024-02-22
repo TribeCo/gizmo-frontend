@@ -16,6 +16,7 @@ import noon from "@/components/comanyIcons/noon.png";
 import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
+import DashBoard from "@/components/DashBoardAddress/DashBoardAddress";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -59,7 +60,7 @@ export default function Home() {
 
 	return (
 		<main>
-			<LineSplitter text={"تخفیف های امروز"} />
+			{/* <LineSplitter text={"تخفیف های امروز"} />
 			<CardProductSlider
 				btn={true}
 				products={products}
@@ -122,7 +123,9 @@ export default function Home() {
 					}}>
 					{"مشاهده محصولات بیشتر"}
 				</Typography>
-			</Button>
+			</Button> */}
+
+			<DashBoard defaultAddresses={[{value: 'first', label: 'الهیه، ورودی گل محمدی، کوچه 6، منزل برزگر'}, {value: 'second', label: 'الهیه، ورودی گل محمدی، کوچه 6، منزل برزگر'}]}></DashBoard>
 		</main>
 	);
 }

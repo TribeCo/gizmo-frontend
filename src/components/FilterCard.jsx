@@ -9,6 +9,8 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         dropdownFilter: [],
         textFieldFilter1: '',
         textFieldFilter2: '',
+        rawTextFieldFilter1: '', // Add raw state
+        rawTextFieldFilter2: '', // Add raw state
     };
 
     filterList.forEach(filter => {
@@ -29,6 +31,23 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         });
     }, [filterList]);
 
+    const formatNumberWithCommas = (value) => {
+        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        let formattedValue = value.replace(/\d/g, d => persianDigits[d]);
+        let parts = formattedValue.split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return parts.join(".");
+    };
+
+    const normalizeInput = (value) => {
+        const persianDigits = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+        let englishValue = value;
+        persianDigits.forEach((regex, index) => {
+            englishValue = englishValue.replace(regex, index.toString());
+        });
+        return englishValue.replace(/,/g, '');
+    };
+
     const handleToggle = (filter) => (event) => {
         setFilters(prevState => ({ ...prevState, [filter]: event.target.checked }));
     };
@@ -46,11 +65,13 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         setFilters({ ...filters, dropdownFilter: newChecked });
     };
 
-    const handleTextFieldChange = (filter) => (event) => {
-        if (/^\d*$/.test(event.target.value)) {
-            setFilters({ ...filters, [filter]: event.target.value });
+    const handleTextFieldChange = (filter, rawFilter) => (event) => {
+        const inputVal = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+        if (/^\d*$/.test(inputVal)) { // Ensure it's numeric
+            const formattedValue = formatNumberWithCommas(inputVal);
+            setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: inputVal });
         }
-    };
+    };    
 
     const resetFilters = () => {
         setFilters(initialState);
@@ -60,7 +81,7 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         <Box
             sx={{
                 width: '25%',
-                height: '60vh', // 50% of the viewport height
+                height: '70vh', // 50% of the viewport height
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -134,7 +155,7 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                                 margin: 'auto',
                                 width: '100%',
                                 justifyContent: 'space-between',
-                                marginBlock: '1rem',
+                                marginBlock: '0.1rem',
                                 '.MuiTypography-root': { fontWeight: 'bold' } // Apply bold font to label
                             }}
                         />
@@ -142,7 +163,7 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                     </React.Fragment>
                 ))}
                 {/* Accordion for Checkbox Filters */}
-                <Accordion sx={{ width: '100%', boxShadow: 'none' , marginBlock: '1rem'}} disableGutters>
+                <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem' }} disableGutters>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel-checkboxes-content"
@@ -168,7 +189,7 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                     </AccordionDetails>
                 </Accordion>
                 {/* Accordion for TextFields */}
-                <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '1rem' }} disableGutters>
+                <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem' }} disableGutters>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel-textfields-content"
@@ -182,14 +203,23 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                             <Typography sx={{ color: 'rgba(0, 0, 0, 0.7)', mr: 1 }}>از</Typography>
                             <TextField
                                 type="text"
-                                variant="standard" // Changed to "standard" for underline only
+                                variant="standard"
                                 value={filters.textFieldFilter1}
-                                onChange={handleTextFieldChange('textFieldFilter1')}
+                                onChange={handleTextFieldChange('textFieldFilter1', 'rawTextFieldFilter1')}
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end" sx={{ color: 'rgba(0, 0, 0, 0.7)' }}>تومان</InputAdornment>,
+                                    sx: {
+                                    textAlign: 'center',
+                                    fontWeight: 'bold',
+
+                                    '& input': {
+                                        textAlign: 'center',
+                                        fontWeight: 'bold',
+                                    },
+                                    },
                                 }}
                                 sx={{ flex: 1 }}
-                            />
+                                />
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             <Typography sx={{ color: 'rgba(0, 0, 0, 0.7)', mr: 1 }}>تا</Typography>
@@ -197,12 +227,21 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                                 type="text"
                                 variant="standard"
                                 value={filters.textFieldFilter2}
-                                onChange={handleTextFieldChange('textFieldFilter2')}
+                                onChange={handleTextFieldChange('textFieldFilter2', 'rawTextFieldFilter2')}
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end" sx={{ color: 'rgba(0, 0, 0, 0.7)' }}>تومان</InputAdornment>,
+                                    sx: {
+                                    textAlign: 'center',
+                                    fontWeight: 'bold',
+                                    // Ensure the input text is centered and bold
+                                    '& input': {
+                                        textAlign: 'center',
+                                        fontWeight: 'bold',
+                                    },
+                                    },
                                 }}
                                 sx={{ flex: 1 }}
-                            />
+                                />
                         </Box>
                     </AccordionDetails>
                 </Accordion>

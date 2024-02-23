@@ -21,9 +21,13 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Logo from "@/components/siteIcons/logo.png";
 
+import LoginSignupModal from "@/components/LoginSignupPopup/LoginSignupPopup";
+
 
 const AppBar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [loginOpen, setLoginOpen] = useState(false);
+	const [popupState, setPopupState] = useState("phone-login");
 
 	const handleMenuOpen = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -31,6 +35,15 @@ const AppBar = () => {
 
 	const handleMenuClose = () => {
 		setAnchorEl(null);
+	};
+
+	const handleLoginModalOpen = (e) => {
+		setLoginOpen(true);
+	};
+
+	const handleLoginModalClose = (e) => {
+		setLoginOpen(false);
+		setPopupState("phone-login");
 	};
 
 	return (
@@ -169,11 +182,15 @@ const AppBar = () => {
 									backgroundColor: Colors.blue,
 									boxShadow: "none",
 								},
-							}}>
+							}}
+							onClick={handleLoginModalOpen}
+							>
 							<Typography>
 								ورود / ثبت نام
 							</Typography>
 						</Button>
+
+						<LoginSignupModal open={loginOpen} onClose={handleLoginModalClose} popupState={popupState} setPopupState={setPopupState} />
 
 						<IconButton
 							variant='contained'

@@ -23,9 +23,13 @@ import Logo from "@/components/siteIcons/logo.png";
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 
+import LoginSignupModal from "@/components/LoginSignupPopup/LoginSignupPopup";
+
 
 const AppBar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [loginOpen, setLoginOpen] = useState(false);
+	const [popupState, setPopupState] = useState("phone-login");
 
 	const handleMenuOpen = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -33,6 +37,15 @@ const AppBar = () => {
 
 	const handleMenuClose = () => {
 		setAnchorEl(null);
+	};
+
+	const handleLoginModalOpen = (e) => {
+		setLoginOpen(true);
+	};
+
+	const handleLoginModalClose = (e) => {
+		setLoginOpen(false);
+		setPopupState("phone-login");
 	};
 
 	return (
@@ -154,7 +167,6 @@ const AppBar = () => {
 								</Typography>
 							</MenuItem>
 						</Menu>
-
 						<Link href={"/"}>
 							<Typography pl={1} variant='h6' noWrap>
 								درباره گیزموشاپ
@@ -174,6 +186,24 @@ const AppBar = () => {
 						</Link>
 					</Grid>
 				</Grid>
+
+						<LoginSignupModal open={loginOpen} onClose={handleLoginModalClose} popupState={popupState} setPopupState={setPopupState} />
+
+						<IconButton
+							variant='contained'
+							sx={{
+								ml: 3,
+								mr: 1,
+								bgcolor: Colors.blue,
+								color: "white",
+								transform: 'scale(1.1)',
+								'&:hover': {
+									backgroundColor: Colors.blue,
+								},
+							}}>
+							<ShoppingBagOutlinedIcon />
+						</IconButton>
+					</Grid>
 
 				<Grid
 					item

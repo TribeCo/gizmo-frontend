@@ -17,6 +17,7 @@ import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
 import DashBoard from "@/components/DashBoardAddress/DashBoardAddress";
+import DashBoardEditProfile from "@/components/DashBoardEditProfile/DashBoardEditProfile";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -125,7 +126,8 @@ export default function Home() {
 				</Typography>
 			</Button> */}
 
-			<DashBoard defaultAddresses={[{value: 'first', label: 'الهیه، ورودی گل محمدی، کوچه 6، منزل برزگر'}, {value: 'second', label: 'الهیه، ورودی گل محمدی، کوچه 6، منزل برزگر'}]}></DashBoard>
+			{/* <DashBoard defaultAddresses={[{value: 'first', label: 'استان فارس،شیراز،بلوار مدرس دانشگاه صنعتی شیراز،دفتر تهران: خیا؟', default: true}, {value: 'second', label: 'الهیه، ورودی گل محمدی، کوچه 6، منزل برزگر', default: false}]}></DashBoard> */}
+			<DashBoardEditProfile></DashBoardEditProfile>
 		</main>
 	);
 }

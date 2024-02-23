@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Colors } from "@/utils";
 
 
@@ -22,6 +22,63 @@ export default function DashBoardAddress(props) {
 
 
     let [addNewAddressStat, setAddNewAddressStat] = useState(false)
+    const [addresses, setAddresses] = useState(props.defaultAddresses)
+    const [newAddressData, setNewAddressData] = useState({
+        province: '',
+        city: '',
+        detailedAddress: '',
+        postalCode: 0,
+        
+    });
+
+
+    useEffect(() => {
+        
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        const fetchApiUrl = 'https://example.com/api/defaultAddresses';
+
+        try {
+            const response = await fetch(fetchApiUrl);
+            const data = await response.json();
+            setAddresses(data);
+        } catch (error) {
+            console.error('Error fetching data from the API:', error);
+        }
+    };
+
+     const addNewAddress = async () => {
+        // Define the API endpoint for adding a new address
+        const addApiUrl = 'https://example.com/api/addNewAddress';
+
+        try {
+            const response = await fetch(addApiUrl, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newAddressData),
+            });
+
+            if (response.ok) {
+                // Optionally, you can fetch updated data after adding the new address
+                fetchData();
+                // Reset the newAddressData state after successfully adding the address
+                setNewAddressData({
+                province: '',
+                city: '',
+                detailedAddress: '',
+                postalCode: 0,
+                });
+            } else {
+                console.error('Error adding new address:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error sending data to the API:', error);
+        }
+    };
 
   return (
     <Card className='m-4 flex justify-end h-[47rem] lg:h-max'>
@@ -69,9 +126,12 @@ export default function DashBoardAddress(props) {
                                      name="radio-buttons-group"
                                      >
                                         
-                                        {props.defaultAddresses.map((product) => (
-                                            <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
-                                        ))}
+                                        {
+                                            addresses.map((product) => {
+                                                if (product.default) {
+                                                   return <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
+                                                }
+                                        })}
 
                                     </RadioGroup>
                             </FormControl>
@@ -97,7 +157,9 @@ export default function DashBoardAddress(props) {
                                      >
                                         
                                         {props.defaultAddresses.map((product, index) => {
-                                            return <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
+                                            if (!product.default) {
+                                                return <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
+                                            }
                                         })}
 
                                     </RadioGroup>
@@ -106,9 +168,10 @@ export default function DashBoardAddress(props) {
 
                 </Stack>
 
-                <div className='w-full flex justify-end'>
+                <div className='addNewAddressWrapper w-full flex justify-end'>
 
-                    <Button className=''
+                    <Button
+                    className='setDefaultBtn'
 					variant="contained"
 					sx={{
 						bgcolor: Colors.orange,
@@ -139,38 +202,40 @@ export default function DashBoardAddress(props) {
                         <Grid item xs={12} md={6}>
 
                             <label htmlFor="province" className='w-full block text-xs mr-2'>استان:</label>
-                            <input type="text" id='province' className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none' />
+                            <input type="text" id='province'  onChange={(e) => setNewAddressData({ ...newAddressData, province: e.target.value })} className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
 
                         </Grid>
 
                         <Grid item xs={12} md={6}>
 
-                            <label htmlFor="province" className='w-full block text-xs mr-2'>شهر / شهرستان:</label>
-                            <input type="text" id='province' className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none' />
+                            <label htmlFor="city" className='w-full block text-xs mr-2'>شهر / شهرستان:</label>
+                            <input type="text" onChange={(e) => setNewAddressData({ ...newAddressData, city: e.target.value })} id='city' className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
 
                         </Grid>
 
                         <Grid item xs={12} md={6}>
 
-                            <label htmlFor="province" className='w-full block text-xs mr-2'>آدرس دقیق:</label>
-                            <textarea id='province' className='resize-none bg-[#EEEE] w-[90%] h-20 rounded-lg mt-2 outline-none' />
+                            <label htmlFor="ExactAddress" className='w-full block text-xs mr-2'>آدرس دقیق:</label>
+                            <textarea id='ExactAddress' onChange={(e) => setNewAddressData({ ...newAddressData, detailedAddress: e.target.value })} className='resize-none bg-[#EEEE] w-[90%] h-20 rounded-lg mt-2 outline-none px-2' />
 
                         </Grid>
 
                         <Grid item xs={12} md={6}>
 
-                            <label htmlFor="province" className='w-full block text-xs mr-2'>کد پستی:</label>
-                            <input type="number" onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')} style={{appearance: 'textfield'}} id='province' min={0} className='resize-none bg-[#EEEE] w-[90%] h-8 rounded-lg mt-2 outline-none' />
-                            <div className='flex justify-end'>
+                            <label htmlFor="postalCode" className='w-full block text-xs mr-2'>کد پستی:</label>
+                            <input type="number" onChange={(e) => setNewAddressData({ ...newAddressData, postalCode: parseInt(e.target.value, 10) || 0 })} onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')} style={{appearance: 'textfield'}} id='postalCode' min={0} className='resize-none px-2 bg-[#EEEE] w-[90%] h-8 rounded-lg mt-2 outline-none' />
+                            
+                            <div className='mt-4 flex justify-end lg:justify-center'>
                                 <Button className=''
                                 variant="contained"
+                                onClick={addNewAddress}
                                 sx={{
                                     bgcolor: Colors.orange,
                                     color: "black",
                                     borderRadius: "50px",
                                     boxShadow: "none",
                                     mt: 1.5,
-                                    mr: 4,
+                                    mr: 7,
                                     "&:hover": {
                                         bgcolor: Colors.orange,
                                     },

@@ -280,7 +280,7 @@ const UserInfoPage = () => {
 
                     <Box
                         px={4}
-                        justifyContent='center'
+                        justifyContent='space-around'
                         alignItems='center'
                         display='flex'
                         flexDirection="row"
@@ -289,7 +289,7 @@ const UserInfoPage = () => {
                     >
                         <Box
                             mt={6}
-                            mx={4}
+                            mx={1}
                             sx={{
                                 textAlign: "center",
                                 display: "flex",
@@ -336,7 +336,7 @@ const UserInfoPage = () => {
 
                         <Box
                             mt={6}
-                            mx={4}
+                            mx={1}
                             sx={{
                                 textAlign: "center",
                                 display: "flex",
@@ -383,7 +383,7 @@ const UserInfoPage = () => {
 
                         <Box
                             mt={6}
-                            mx={4}
+                            mx={1}
                             sx={{
                                 textAlign: "center",
                                 display: "flex",

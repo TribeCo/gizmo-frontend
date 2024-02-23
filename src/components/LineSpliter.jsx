@@ -11,7 +11,7 @@ const LineSplitter = ({ text }) => {
 			alignItems="center"
 			justifyContent="center">
 			<Box
-				ml={6}
+				ml={4}
 				width="100%"
 				borderBottom={5}
 				borderColor={Colors.blue}
@@ -22,13 +22,14 @@ const LineSplitter = ({ text }) => {
 				fontWeight="900"
 				variant="h4"
 				sx={{
+					fontSize: {xs: 18, sm: 26, md: 32},
 					px: 3,
 					whiteSpace: "nowrap",
 				}}>
 				{text}
 			</Typography>
 			<Box
-				mr={6}
+				mr={4}
 				width="100%"
 				borderBottom={5}
 				borderColor={Colors.blue}

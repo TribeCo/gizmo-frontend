@@ -4,6 +4,7 @@ import { Box, Grid, Pagination } from '@mui/material';
 import ProductCard from './ProductCard'; // Adjust the import path as necessary
 import FilterBar from './FilterBar';
 import FilterCard from './FilterCard';
+import PersianPagination from './PersianPagination';
 
 // Mock product data (replace or extend this according to your actual data structure)
 const products = [
@@ -132,14 +133,14 @@ const ProductsGrid = () => {
     const paginatedProducts = products.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
 
     return (
-        <Box sx={{ flexGrow: 1, mr: { xs: 3, sm: 5, md: 7 } }}>
-            <Grid container spacing={8} justifyContent="flex-end">
+        <Box sx={{ flexGrow: 1, mr: { xs: 3, sm: 5, md: 7 }, paddingRight: '25px'}}>
+            <Grid container spacing={6} justifyContent="flex-end">
                 <Grid item xs={12} sm={10} md={9} lg={10}>
                     <FilterBar filterNames={['پرفروش‌ترین', 'جدیدترین', 'ارزان‌ترین', 'گران‌ترین']} />
                 </Grid>
                 <FilterCard filterList={[{ name: 'فقط کالاهای موجود', label: 'فقط کالاهای موجود' }, { name: 'ارسال رایگان', label: 'ارسال رایگان' }, { name: 'فروش ویژه', label: 'فروش ویژه' }]} dropdownOptions={['سامسونگ', 'شیائومی', 'اپل']} />
                 <Grid item xs={12} sm={10} md={9} lg={8}>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={9}>
                         {paginatedProducts.map((product) => (
                             <Grid item xs={12} sm={6} md={4} key={product.id}>
                                 <ProductCard product={product} />
@@ -148,9 +149,7 @@ const ProductsGrid = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Box sx={{ display: 'flex', justifyContent: 'right', marginTop: 2 }}>
-                <Pagination shape="rounded" count={pageCount} page={page} onChange={handleChange} boundaryCount={5} color="secondary" />
-            </Box>
+            <PersianPagination count={pageCount} page={page} onChange={handleChange} />
         </Box>
     );
 };

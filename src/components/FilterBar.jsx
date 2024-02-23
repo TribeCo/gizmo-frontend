@@ -13,9 +13,9 @@ const FilterBar = ({ filterNames }) => {
 
   return (
     <AppBar position="static" sx={{ 
-        width: '77%', 
+        width: '80%', 
         margin: '0 auto', 
-        marginRight: '1rem',
+        marginRight: '-1rem',
         bgcolor: '#EEEEEE99', 
         borderRadius: '15px',
         boxShadow: 'none', 

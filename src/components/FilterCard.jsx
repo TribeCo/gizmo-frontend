@@ -31,12 +31,13 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         });
     }, [filterList]);
 
+    // Adjusted function to format numbers with commas and convert to Persian digits
     const formatNumberWithCommas = (value) => {
-        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        let formattedValue = value.replace(/\d/g, d => persianDigits[d]);
-        let parts = formattedValue.split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return parts.join(".");
+        const englishValue = value.replace(/[^\d]/g, ''); // Strip non-numeric characters
+        const formattedValue = englishValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+        const convertedToPersian = formattedValue.replace(/\d/g, (digit) => persianDigits[digit]);
+        return convertedToPersian;
     };
 
     const normalizeInput = (value) => {
@@ -66,12 +67,10 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
     };
 
     const handleTextFieldChange = (filter, rawFilter) => (event) => {
-        const inputVal = normalizeInput(event.target.value); // Normalize input to get raw numeric value
-        if (/^\d*$/.test(inputVal)) { // Ensure it's numeric
-            const formattedValue = formatNumberWithCommas(inputVal);
-            setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: inputVal });
-        }
-    };    
+        const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+        const formattedValue = formatNumberWithCommas(numericValue); // Format with commas
+        setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
+    };   
 
     const resetFilters = () => {
         setFilters(initialState);
@@ -86,7 +85,8 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 position: 'relative',
-                top: '-4rem'
+                top: '-4rem',
+                paddingRight: '40px',
             }}
         >
             <Card
@@ -257,7 +257,9 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                         },
                         color: 'black',
                         mt: 2,
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        padding: '10px',
+                        borderRadius: '20px'
                     }}
                 >
                     اعمال فیلتر

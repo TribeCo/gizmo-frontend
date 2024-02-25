@@ -1,0 +1,69 @@
+.slideAnimation {
+    left: 7%;
+    height: 10rem;
+    width: 9rem;
+    animation: slide 5s forwards ease-in-out;
+}
+.slideAnimationBackward {
+    left: 7%;
+    height: 10rem;
+    width: 9rem;
+    animation: slide 5s forwards ease-in-out backwards;
+}
+
+.smoothHandler {
+    transition: all 0.5s ease-in-out;
+}
+
+.fadeAnimation {
+    opacity: 0;
+    animation: fade 0.5s ease-in-out forwards;
+}
+
+.fadeOut {
+    opacity: 1;
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes slide {
+
+    0% {
+        left: 7%;
+        height: 10rem;
+        width: 9rem;
+        opacity: 1;
+    }
+
+    10% {
+        opacity: 1;
+        left: 60%;
+        top: 20%;
+        height: 11rem;
+        width: 16rem;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 60%;
+        top: 20%;
+        height: 11rem;
+        width: 16rem;
+        opacity: 0;
+    }
+}
+
+@keyframes fade {
+    /* from {opacity: 0;} */
+    to {opacity: 1;}
+}
+@keyframes fadeOut {
+    /* from {opacity: 1;} */
+    to {opacity: 0;}
+}

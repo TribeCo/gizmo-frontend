@@ -4,7 +4,14 @@ import { Card, Box, FormControlLabel, Switch, Divider, Checkbox, TextField, Acco
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const FilterCard = ({ filterList, dropdownOptions }) => {
+const FilterCard = ({
+    filterList,
+    dropdownOptions,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+}) => {
     const initialState = {
         dropdownFilter: [],
         textFieldFilter1: '',
@@ -31,12 +38,13 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         });
     }, [filterList]);
 
+    // Adjusted function to format numbers with commas and convert to Persian digits
     const formatNumberWithCommas = (value) => {
-        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        let formattedValue = value.replace(/\d/g, d => persianDigits[d]);
-        let parts = formattedValue.split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return parts.join(".");
+        const englishValue = value.replace(/[^\d]/g, ''); // Strip non-numeric characters
+        const formattedValue = englishValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+        const convertedToPersian = formattedValue.replace(/\d/g, (digit) => persianDigits[digit]);
+        return convertedToPersian;
     };
 
     const normalizeInput = (value) => {
@@ -49,7 +57,7 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
     };
 
     const handleToggle = (filter) => (event) => {
-        setFilters(prevState => ({ ...prevState, [filter]: event.target.checked }));
+        filter.setState(event.target.checked);
     };
 
     const handleDropdownChange = (option) => {
@@ -61,17 +69,29 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         } else {
             newChecked.splice(currentIndex, 1);
         }
-
         setFilters({ ...filters, dropdownFilter: newChecked });
     };
 
-    const handleTextFieldChange = (filter, rawFilter) => (event) => {
-        const inputVal = normalizeInput(event.target.value); // Normalize input to get raw numeric value
-        if (/^\d*$/.test(inputVal)) { // Ensure it's numeric
-            const formattedValue = formatNumberWithCommas(inputVal);
-            setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: inputVal });
-        }
-    };    
+    // Inside FilterCard component, when handling text field changes for price range
+    const handleMinPriceChange = (filter, rawFilter) => (event) => {
+        const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+        const formattedValue = formatNumberWithCommas(numericValue); 
+        setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
+        setMinPrice(event.target.value); // Use the passed setter function to update minPrice
+    };
+
+    const handleMaxPriceChange = (filter, rawFilter) => (event) => {
+        const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+        const formattedValue = formatNumberWithCommas(numericValue);
+        setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue }); 
+        setMaxPrice(event.target.value); // Use the passed setter function to update maxPrice
+    };
+    // Adjust TextField components for price range to use these new handlers
+    // const handleTextFieldChange = (filter, rawFilter) => (event) => {
+    //     const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+    //     const formattedValue = formatNumberWithCommas(numericValue); // Format with commas
+    //     setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
+    // };   
 
     const resetFilters = () => {
         setFilters(initialState);
@@ -86,7 +106,8 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 position: 'relative',
-                top: '-4rem'
+                top: '-4rem',
+                paddingRight: '40px',
             }}
         >
             <Card
@@ -148,7 +169,13 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                 {filterList.map((filter) => (
                     <React.Fragment key={filter.name}>
                         <FormControlLabel
-                            control={<Switch checked={filters[filter.name]} onChange={handleToggle(filter.name)} />}
+                            key={filter.name}
+                            control={
+                                <Switch
+                                    checked={filter.state}
+                                    onChange={handleToggle(filter)}
+                                />
+                            }
                             label={filter.label}
                             labelPlacement="start"
                             sx={{
@@ -205,13 +232,12 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                                 type="text"
                                 variant="standard"
                                 value={filters.textFieldFilter1}
-                                onChange={handleTextFieldChange('textFieldFilter1', 'rawTextFieldFilter1')}
+                                onChange={handleMinPriceChange('textFieldFilter1', 'rawTextFieldFilter1')}
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end" sx={{ color: 'rgba(0, 0, 0, 0.7)' }}>تومان</InputAdornment>,
                                     sx: {
                                     textAlign: 'center',
                                     fontWeight: 'bold',
-
                                     '& input': {
                                         textAlign: 'center',
                                         fontWeight: 'bold',
@@ -227,13 +253,12 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                                 type="text"
                                 variant="standard"
                                 value={filters.textFieldFilter2}
-                                onChange={handleTextFieldChange('textFieldFilter2', 'rawTextFieldFilter2')}
+                                onChange={handleMaxPriceChange('textFieldFilter2', 'rawTextFieldFilter2')}
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end" sx={{ color: 'rgba(0, 0, 0, 0.7)' }}>تومان</InputAdornment>,
                                     sx: {
                                     textAlign: 'center',
                                     fontWeight: 'bold',
-                                    // Ensure the input text is centered and bold
                                     '& input': {
                                         textAlign: 'center',
                                         fontWeight: 'bold',
@@ -257,7 +282,9 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                         },
                         color: 'black',
                         mt: 2,
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        padding: '10px',
+                        borderRadius: '20px'
                     }}
                 >
                     اعمال فیلتر

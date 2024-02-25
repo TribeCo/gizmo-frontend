@@ -51,7 +51,7 @@ const Menu = () => {
                 <Grid
                     sx={{
                         display: { xs: 'contents', md: 'flex' },
-                        justifyContent: 'start',
+                        justifyContent: 'center',
                         flexWrap: 'wrap',
                         alignItems: 'center',
                         flexDirection: 'row',

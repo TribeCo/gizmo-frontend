@@ -9,7 +9,6 @@ const toPersianDigits = (value) => {
 
 const PersianPagination = ({ count, page, onChange }) => {
     useEffect(() => {
-        // Update pagination items to Persian digits after each render
         document.querySelectorAll('.MuiPaginationItem-page').forEach((item) => {
             const persianLabel = toPersianDigits(item.textContent);
             item.textContent = persianLabel;
@@ -17,7 +16,7 @@ const PersianPagination = ({ count, page, onChange }) => {
     }, [page, count]);
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', paddingBlock: '40px', direction: 'ltr' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'right', paddingBlock: '40px', direction: 'ltr' }}>
             <Pagination
                 count={count}
                 page={page}
@@ -35,12 +34,12 @@ const PersianPagination = ({ count, page, onChange }) => {
                 '.MuiPaginationItem-root': {
                     transform: 'scaleX(-1)', // Flip each item back to ensure text is correct way
                 },
-              //   '.MuiPaginationItem-page': {
-              //     bgcolor: '#FFCC70',
-              //     '&:hover': {
-              //         bgcolor: '#dda63a',
-              //     },
-              // },
+            //     '.MuiPaginationItem-page': {
+            //       bgcolor: '#FFCC70',
+            //       '&:hover': {
+            //           bgcolor: '#dda63a',
+            //       },
+            //   },
               '.Mui-selected': {
                   bgcolor: '#FFCC70 !important',
               },

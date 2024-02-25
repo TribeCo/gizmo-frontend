@@ -4,7 +4,14 @@ import { Card, Box, FormControlLabel, Switch, Divider, Checkbox, TextField, Acco
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const FilterCard = ({ filterList, dropdownOptions }) => {
+const FilterCard = ({
+    filterList,
+    dropdownOptions,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+}) => {
     const initialState = {
         dropdownFilter: [],
         textFieldFilter1: '',
@@ -50,7 +57,7 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
     };
 
     const handleToggle = (filter) => (event) => {
-        setFilters(prevState => ({ ...prevState, [filter]: event.target.checked }));
+        filter.setState(event.target.checked);
     };
 
     const handleDropdownChange = (option) => {
@@ -62,15 +69,29 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
         } else {
             newChecked.splice(currentIndex, 1);
         }
-
         setFilters({ ...filters, dropdownFilter: newChecked });
     };
 
-    const handleTextFieldChange = (filter, rawFilter) => (event) => {
+    // Inside FilterCard component, when handling text field changes for price range
+    const handleMinPriceChange = (filter, rawFilter) => (event) => {
         const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
-        const formattedValue = formatNumberWithCommas(numericValue); // Format with commas
+        const formattedValue = formatNumberWithCommas(numericValue); 
         setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
-    };   
+        setMinPrice(event.target.value); // Use the passed setter function to update minPrice
+    };
+
+    const handleMaxPriceChange = (filter, rawFilter) => (event) => {
+        const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+        const formattedValue = formatNumberWithCommas(numericValue);
+        setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue }); 
+        setMaxPrice(event.target.value); // Use the passed setter function to update maxPrice
+    };
+    // Adjust TextField components for price range to use these new handlers
+    // const handleTextFieldChange = (filter, rawFilter) => (event) => {
+    //     const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+    //     const formattedValue = formatNumberWithCommas(numericValue); // Format with commas
+    //     setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
+    // };   
 
     const resetFilters = () => {
         setFilters(initialState);
@@ -148,7 +169,13 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                 {filterList.map((filter) => (
                     <React.Fragment key={filter.name}>
                         <FormControlLabel
-                            control={<Switch checked={filters[filter.name]} onChange={handleToggle(filter.name)} />}
+                            key={filter.name}
+                            control={
+                                <Switch
+                                    checked={filter.state}
+                                    onChange={handleToggle(filter)}
+                                />
+                            }
                             label={filter.label}
                             labelPlacement="start"
                             sx={{
@@ -205,13 +232,12 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                                 type="text"
                                 variant="standard"
                                 value={filters.textFieldFilter1}
-                                onChange={handleTextFieldChange('textFieldFilter1', 'rawTextFieldFilter1')}
+                                onChange={handleMinPriceChange('textFieldFilter1', 'rawTextFieldFilter1')}
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end" sx={{ color: 'rgba(0, 0, 0, 0.7)' }}>تومان</InputAdornment>,
                                     sx: {
                                     textAlign: 'center',
                                     fontWeight: 'bold',
-
                                     '& input': {
                                         textAlign: 'center',
                                         fontWeight: 'bold',
@@ -227,13 +253,12 @@ const FilterCard = ({ filterList, dropdownOptions }) => {
                                 type="text"
                                 variant="standard"
                                 value={filters.textFieldFilter2}
-                                onChange={handleTextFieldChange('textFieldFilter2', 'rawTextFieldFilter2')}
+                                onChange={handleMaxPriceChange('textFieldFilter2', 'rawTextFieldFilter2')}
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end" sx={{ color: 'rgba(0, 0, 0, 0.7)' }}>تومان</InputAdornment>,
                                     sx: {
                                     textAlign: 'center',
                                     fontWeight: 'bold',
-                                    // Ensure the input text is centered and bold
                                     '& input': {
                                         textAlign: 'center',
                                         fontWeight: 'bold',

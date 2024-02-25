@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { AppBar, Box, Tabs, Tab, Toolbar, Typography } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
-const FilterBar = ({ filterNames }) => {
+const FilterBar = ({ filterNames, onFilterChange }) => {
   const [activeFilter, setActiveFilter] = useState(null);
 
   const handleFilterChange = (event, newValue) => {
     setActiveFilter(newValue);
-    console.log(`Filter ${filterNames[newValue]} activated`);
+    // Call the onFilterChange prop function with the selected filter name.
+    // This assumes filterNames is an array of strings representing the filter options.
+    onFilterChange(filterNames[newValue]);
   };
 
   return (

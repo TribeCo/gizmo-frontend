@@ -1,10 +1,10 @@
 import ProductsGrid from "@/components/ProductsGrid";
 import LineSplitter from "@/components/LineSpliter";
+import ProductsPage from "@/components/ProductsPage";
 
 function Products() {
 	return <div>
-		<LineSplitter text={" محصولات لوازم برقی "} />
-		<ProductsGrid />
+			<ProductsPage categoryName={"لوازم برقی"} />
 		</div>;
 }
 

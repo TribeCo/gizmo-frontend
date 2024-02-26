@@ -17,20 +17,29 @@ import {
 } from "@mui/material";
 
 
-
 export default function DashBoardAddress(props) {
 
 
-    let [addNewAddressStat, setAddNewAddressStat] = useState(false)
+    const [addNewAddressStat, setAddNewAddressStat] = useState(false)
     const [addresses, setAddresses] = useState(props.defaultAddresses)
     const [newAddressData, setNewAddressData] = useState({
         province: '',
         city: '',
         detailedAddress: '',
         postalCode: 0,
-        
+        default: false
     });
+    const [newDefaultAddress, setNewDefaultAddress] = useState({
+        province: '',
+        city: '',
+        detailedAddress: '',
+        postalCode: 0,
+        default: true
+    })
 
+    const handleRadioChange = (event) => {
+        setNewDefaultAddress(event.target.value);
+    };
 
     useEffect(() => {
         
@@ -67,10 +76,11 @@ export default function DashBoardAddress(props) {
                 fetchData();
                 // Reset the newAddressData state after successfully adding the address
                 setNewAddressData({
-                province: '',
-                city: '',
-                detailedAddress: '',
-                postalCode: 0,
+                    province: '',
+                    city: '',
+                    detailedAddress: '',
+                    postalCode: 0,
+                    default: false
                 });
             } else {
                 console.error('Error adding new address:', response.statusText);
@@ -79,6 +89,43 @@ export default function DashBoardAddress(props) {
             console.error('Error sending data to the API:', error);
         }
     };
+
+    const addToDefault = async () => {
+        const addApiUrl = 'https://example.com/api/addNewAddress'
+
+        try{
+            newDefaultAddress.default = true
+            console.log(newDefaultAddress)
+            const response = await fetch(addApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newDefaultAddress),
+            });
+
+            if(response.ok) {
+                fetchData();
+
+                const updatedAddresses = addresses.map(address => address.postalCode === newDefaultAddress.postalCode ? {...address, default: true} : address)
+
+                setAddresses(updatedAddresses)
+
+                setNewDefaultAddress({
+                    province: '',
+                    city: '',
+                    detailedAddress: '',
+                    postalCode: 0,
+                    default: false
+                });
+            }
+            else{
+                console.log('Error adding new address', response.statusText);
+            }
+        } catch (error) {
+            console.log('Error sending date to the API:', error);
+        }
+    }
 
   return (
     <Card className='m-4 flex justify-end h-[47rem] lg:h-max'>
@@ -94,7 +141,7 @@ export default function DashBoardAddress(props) {
                 </Typography>
 
                 <Button
-                    onClick={() => setAddNewAddressStat(addNewAddressStat = true)}
+                    onClick={() => setAddNewAddressStat(true)}
 					variant="contained"
 					sx={{
 						bgcolor: Colors.orange,
@@ -147,19 +194,18 @@ export default function DashBoardAddress(props) {
                         آدرس های دیگر
                     </Typography>
 
-                    <Stack spacing={1} className="defaultAddresses-bullets px-5">
+                    <Stack spacing={1} className="notDefaultAddresses-bullets px-5">
 
                             <FormControl>
                               <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                                     <RadioGroup
+                                     onChange={handleRadioChange}
                                      aria-labelledby="demo-radio-buttons-group-label"
                                      name="radio-buttons-group"
                                      >
                                         
-                                        {props.defaultAddresses.map((product, index) => {
-                                            if (!product.default) {
-                                                return <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
-                                            }
+                                        {addresses.map((product, index) => {
+                                            return <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
                                         })}
 
                                     </RadioGroup>
@@ -173,6 +219,7 @@ export default function DashBoardAddress(props) {
                     <Button
                     className='setDefaultBtn'
 					variant="contained"
+                    onClick={addToDefault}///
 					sx={{
 						bgcolor: Colors.orange,
 						color: "black",

@@ -78,7 +78,7 @@ function ContactUs() {
                 راه‌های ارتباط با ما
             </Typography>
             {/* Grid for contact info */}
-            <Grid container spacing={4} sx={{ width: '80%', maxWidth: 'none', margin: 'auto' }}>
+            <Grid container spacing={4} sx={{ width: '80%', maxWidth: 'none', margin: 'auto', marginTop: 10 }}>
                 <Grid item xs={6} display="flex" alignItems="center">
                     <Link href="/">
                         <Box
@@ -98,8 +98,6 @@ function ContactUs() {
                         </Box>
                     </Link>
                     <Typography variant="h6" sx={{ color: '#213346' }}>شماره تماس: ‌۰۹۹۷۷۵۵۳۵۶</Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" alignItems="center">
                 </Grid>
                 <Grid item xs={6} display="flex" alignItems="center">
                     <Link href={instagram_channel}>
@@ -156,10 +154,10 @@ function ContactUs() {
                                 mr: 2,
                             }}
                         >
-                            <LocationOnIcon sx={{ color: "white", fontSize: '2rem'  }} />
+                            <EmailIcon sx={{ color: "white", fontSize: '2rem' }} />
                         </Box>
                     </Link>
-                    <Typography variant="h6" sx={{ color: '#213346' }}>آدرس: شیراز</Typography>
+                    <Typography variant="h6" sx={{ color: '#213346' }}>salkmncc@gmail.com</Typography>
                 </Grid>
                 <Grid item xs={6} display="flex" alignItems="center">
                     <Link href={telegram_channel}>
@@ -176,10 +174,10 @@ function ContactUs() {
                                 mr: 2,
                             }}
                         >
-                            <EmailIcon sx={{ color: "white", fontSize: '2rem' }} />
+                            <LocationOnIcon sx={{ color: "white", fontSize: '2rem'  }} />
                         </Box>
                     </Link>
-                    <Typography variant="h6" sx={{ color: '#213346' }}>salkmncc@gmail.com</Typography>
+                    <Typography variant="h6" sx={{ color: '#213346' }}>آدرس: شیراز</Typography>
                 </Grid>
             </Grid>
             {/* Grid for photos with text */}

@@ -9,6 +9,8 @@ const ForgetPassword = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh', // Ensures the Box takes up the full viewport height
+        position: 'relative',
+        right: '350px',
       }}
     >
       {/* Floating Typography above the Card */}
@@ -32,7 +34,7 @@ const ForgetPassword = () => {
         sx={{
           width: '30%',
           height: '35%', // Adjusted to 40% of the viewport height
-          backgroundColor: '#8ECDDD', // Custom background color
+          backgroundColor: '#BDDDE7', // Custom background color
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -49,7 +51,7 @@ const ForgetPassword = () => {
             color: '#213346', // Text color
             fontWeight: 'bold', // Makes font bold
             padding: '10px',
-            marginTop: '15px',
+            marginTop: '10px',
           }}
         >
           بازیابی رمز عبور
@@ -60,6 +62,7 @@ const ForgetPassword = () => {
           sx={{
             width: '90%', // Divider takes up the full width of the card
             marginBottom: '50px', // Space below the divider
+            borderColor: 'rgba(0, 0, 0, 0.42)', // Make the divider color more visible
           }}
         />
 

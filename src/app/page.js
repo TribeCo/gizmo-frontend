@@ -2,7 +2,9 @@ import CardProductSlider from "@/components/CardProductSlider";
 import CompanySlider from "@/components/CompanySlider";
 import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
-import { Box, Button, Typography } from "@mui/material";
+import DescriptionComponent from "@/components/DescriptionComponent";
+import UserInfoPage from "@/components/UserInfoPage";
+import { Box, Button, Typography, Grid } from "@mui/material";
 import BlogCard from "@/components/BlogCard";
 import { Colors } from "@/utils";
 import { Banner, Sections } from "@/components/landing";
@@ -124,10 +126,7 @@ export default function Home() {
 					}}>
 					{"مشاهده محصولات بیشتر"}
 				</Typography>
-			</Button> */}
-
-			<DashBoard></DashBoard>
-			{/* <DashBoardEditProfile></DashBoardEditProfile> */}
-		</main>
+			</Button>
+		</main>	
 	);
 }

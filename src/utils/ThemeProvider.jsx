@@ -4,14 +4,18 @@ import cache from "./cache";
 
 import theme from "../theme";
 
+import { AuthProvider } from "@/context/AuthContext";
+
 function themeProvider({ children }) {
 	return (
-		<AppRouterCacheProvider options={cache}>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				{children}
-			</ThemeProvider>
-		</AppRouterCacheProvider>
+		<AuthProvider>
+			<AppRouterCacheProvider options={cache}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					{children}
+				</ThemeProvider>
+			</AppRouterCacheProvider>
+		</AuthProvider>
 	);
 }
 

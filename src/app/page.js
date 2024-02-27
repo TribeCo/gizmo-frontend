@@ -63,7 +63,7 @@ export default function Home() {
 
 	return (
 		<main>
-			{/* <LineSplitter text={"تخفیف های امروز"} />
+			<LineSplitter text={"تخفیف های امروز"} />
 			<CardProductSlider
 				btn={true}
 				products={products}

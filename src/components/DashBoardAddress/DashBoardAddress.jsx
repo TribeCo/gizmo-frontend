@@ -214,7 +214,7 @@ export default function DashBoardAddress(props) {
 
                 </Stack>
 
-                <div className='addNewAddressWrapper w-full flex justify-end'>
+                <div className='addNewAddressWrapper w-full flex justify-start'>
 
                     <Button
                     className='setDefaultBtn'
@@ -237,7 +237,7 @@ export default function DashBoardAddress(props) {
 
             </Stack>
 
-            <Stack className='mt-8' style={{display : addNewAddressStat ? 'block' : 'none'}}>
+            <Stack className='mt-8 px-[4%]' style={{display : addNewAddressStat ? 'block' : 'none'}}>
 
                 <Typography variant='h6' fontSize={18} fontWeight={900} className='font-bold pb-2 text-[#213346]'>
                     افزودن آدرس جدید

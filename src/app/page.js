@@ -126,8 +126,8 @@ export default function Home() {
 				</Typography>
 			</Button> */}
 
-			{/* <DashBoard defaultAddresses={[{value: 'first', label: 'استان فارس،شیراز،بلوار مدرس دانشگاه صنعتی شیراز،دفتر تهران: خیا؟', default: true}, {value: 'second', label: 'الهیه، ورودی گل محمدی، کوچه 6، منزل برزگر', default: false}]}></DashBoard> */}
-			<DashBoardEditProfile></DashBoardEditProfile>
+			<DashBoard></DashBoard>
+			{/* <DashBoardEditProfile></DashBoardEditProfile> */}
 		</main>
 	);
 }

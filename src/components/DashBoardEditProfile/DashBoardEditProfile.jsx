@@ -24,12 +24,7 @@ export default function DashBoardEditProfile() {
     const [secondField, setSecondField] = React.useState('password');
     const [thirdField, setThirdField] = React.useState('password');
     const [forthField, setForthField] = React.useState('password');
-    
-    // const handleClickShowPassword = () => setShowPassword((show) => !show);
-    
-    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     event.preventDefault();
-    // };
+
     const [newProfileData, setNewProfileData] = useState({
         name: '',
         familyName: '',
@@ -79,23 +74,6 @@ export default function DashBoardEditProfile() {
         }
     };
 
-    // useEffect(() => {
-        
-    //     fetchData();
-    // }, []);
-
-    // const fetchData = async () => {
-    //     const fetchApiUrl = 'https://example.com/api/defaultAddresses';
-
-    //     try {
-    //         const response = await fetch(fetchApiUrl);
-    //         const data = await response.json();
-    //         setAddresses(data);
-    //     } catch (error) {
-    //         console.error('Error fetching data from the API:', error);
-    //     }
-    // };
-
     const editNewProfilePassword = async () => {
         // Define the API endpoint for adding a new address
         const addApiUrl = 'https://example.com/api/addNewAddress';
@@ -124,9 +102,11 @@ export default function DashBoardEditProfile() {
                 });
             } else {
                 console.error('Error adding new address:', response.statusText);
+                //بچه ها اگه بک ارور داد اینجا بهش نشون بدین
             }
         } catch (error) {
             console.error('Error sending data to the API:', error);
+            //////
         }
     };
 
@@ -179,6 +159,7 @@ export default function DashBoardEditProfile() {
                         <div className='flex justify-between items-center'>
                             <label htmlFor="gender" className='w-fit block text-sm mr-2 text-[#99999A] sm:text-xs'>جنسیت</label>
                                 <select type="select" onChange={(e) => setNewProfileData({ ...newProfileData, gender: e.target.value })} id='gender' className='rounded-full border-[#747678] bg-white border-2 border-opacity-70 w-full h-8 outline-none px-2 max-w-[13.5rem]'>
+                                <option value="nothing">یک مورد را انتخاب کنید</option>
                                 <option value="male">مرد</option>
                                 <option value="female">زن</option>
                             </select>

@@ -7,6 +7,7 @@ import "./globals.css";
 // Custom Components
 import Footer from "@/components/Layout/Footer";
 import AppBar from "@/components/Layout/AppBar";
+import { Box } from "@mui/material";
 
 export const metadata = {
 	title: "Gizmo",

@@ -3,7 +3,8 @@ import CardProductSlider from "@/components/CardProductSlider";
 import DescriptionComponent from "@/components/DescriptionComponent";
 import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
+import ProductInfo from "@/components/ProductInfo";
 
 // test content for introduction section
 const content =
@@ -23,10 +24,18 @@ const comments = [
 	},
 ];
 
-function Products() {
+const Products = () => {
 	return (
-		// TODO add product info and image
-		<Grid mb={9}>
+		<Box
+			component="main"
+			sx={{
+				flexGrow: 1,
+				overflow: "auto",
+			}}
+			maxWidth="xl"
+			mb={9}
+			mt={3}>
+			<ProductInfo />
 			<DescriptionComponent
 				introductionContent={content}
 				CommentsSection={<Comment Comments={comments} />}
@@ -35,18 +44,16 @@ function Products() {
 			<CardProductSlider
 				btn={false}
 				products={products}
-				itemsPerPage={4}
 				swapTime_millisecond={3000}
 			/>
 			<LineSplitter text={"محصولات مشاهده شده"} />
 			<CardProductSlider
 				btn={true}
 				products={products}
-				itemsPerPage={4}
 				swapTime_millisecond={3000}
 			/>
-		</Grid>
+		</Box>
 	);
-}
+};
 
 export default Products;

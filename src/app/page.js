@@ -2,10 +2,12 @@ import CardProductSlider from "@/components/CardProductSlider";
 import CompanySlider from "@/components/CompanySlider";
 import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
-import { Box, Button, Typography } from "@mui/material";
+import DescriptionComponent from "@/components/DescriptionComponent";
+import UserInfoPage from "@/components/UserInfoPage";
+import { Box, Button, Typography, Grid } from "@mui/material";
 import BlogCard from "@/components/BlogCard";
 import { Colors } from "@/utils";
-import { Banner, Sections } from "@/components/landing";
+import { Banner, Sections, TopSlider } from "@/components/landing";
 
 // this is a simple test to show how the components work:
 // example data
@@ -16,6 +18,8 @@ import noon from "@/components/comanyIcons/noon.png";
 import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
+import DashBoard from "@/components/DashBoardAddress/DashBoardAddress";
+import DashBoardEditProfile from "@/components/DashBoardEditProfile/DashBoardEditProfile";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -28,8 +32,85 @@ const logos = [
 ];
 
 export default function Home() {
+	let product = {
+		productName: "اسپرسوساز نون مدل CM540 3D-GS",
+		pics: [],
+		discount: 50,
+		percentage: 72,
+		commentsCount: 800,
+		starCount: 3,
+		categories: ["فانتزی", "اسباب", "بازی"],
+		brand: [],
+		bullets: [
+			"بدرد نخور بودن محصول",
+			"آشغال بودن محصول",
+			"محصول اصلا وجود خارجی ندارد و صرفا برای تیغ زدن شما طراحی شده است.",
+		],
+		colors: [
+			[1, "brown", "قهوه ای", true],
+			[2, "white", "سفید", true],
+			[2, "red", "قرمز", true],
+		],
+		price: 100000,
+		fav: true,
+	};
+
+	let productsHeaderSlider = {
+		products: [
+			{
+				id: 1,
+				imageAdd: "",
+				title: "اسپرسو ساز Wacaco Nanopresso",
+				description:
+					"اسپرسو ساز واکاکو مدل Minipresso محصولی بسیار کاربردی و گزینه ای ایده آل برای علاقمندان به نوشیدن قهوه ای حرفه ای در شرایط و مکان های مختلف می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
+				link: "",
+			},
+			{
+				id: 2,
+				imageAdd: "",
+				title: "Xbox Series X",
+				description:
+					"اسپرسو ساز واکاکو مدل Minipresso محصولی بسیار کاربردی و گزینه ای ایده آل برای علاقمندان به نوشیدن قهوه ای حرفه ای در شرایط و مکان های مختلف می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
+				link: "",
+			},
+			{
+				id: 3,
+				imageAdd: "",
+				title: "Nintendo",
+				description:
+					"اسپرسو ساز واکاکو مدل Minipresso محصولی بسیار کاربردی و گزینه ای ایده آل برای علاقمندان به نوشیدن قهوه ای حرفه ای در شرایط و مکان های مختلف می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
+				link: "",
+			},
+			{
+				id: 4,
+				imageAdd: "",
+				title: "Atari",
+				description:
+					"اسپرسو ساز واکاکو مدل Minipresso محصولی بسیار کاربردی و گزینه ای ایده آل برای علاقمندان به نوشیدن قهوه ای حرفه ای در شرایط و مکان های مختلف می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
+				link: "",
+			},
+			{
+				id: 5,
+				imageAdd: "",
+				title: "SEGA",
+				description:
+					"اسپرسو ساز واکاکو مدل Minipresso محصولی بسیار کاربردی و گزینه ای ایده آل برای علاقمندان به نوشیدن قهوه ای حرفه ای در شرایط و مکان های مختلف می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
+				link: "",
+			},
+			{
+				id: 6,
+				imageAdd: "",
+				title: "Play Station",
+				description:
+					"اسپرسو ساز واکاکو مدل Minipresso محصولی بسیار کاربردی و گزینه ای ایده آل برای علاقمندان به نوشیدن قهوه ای حرفه ای در شرایط و مکان های مختلف می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
+				link: "",
+			},
+		],
+	};
+
 	return (
 		<main>
+			<TopSlider />
 			<LineSplitter text={"تخفیف های امروز"} />
 			<CardProductSlider
 				btn={true}

@@ -8,7 +8,6 @@ import "./globals.css";
 import Footer from "@/components/Layout/Footer";
 import AppBar from "@/components/Layout/AppBar";
 import LandingAppBar from "@/components/LandingAppBar";
-
 export const metadata = {
 	title: "Gizmo",
 	description: "Gizmo online shop",

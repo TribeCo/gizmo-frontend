@@ -20,6 +20,8 @@ import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
 import DashBoard from "@/components/DashBoardAddress/DashBoardAddress";
 import DashBoardEditProfile from "@/components/DashBoardEditProfile/DashBoardEditProfile";
+import { Footer } from "@/components/Layout";
+import AppBar from "@/components/Layout/AppBar";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -109,72 +111,76 @@ export default function Home() {
 	};
 
 	return (
-		<main>
-			<TopSlider />
-			<LineSplitter text={"تخفیف های امروز"} />
-			<CardProductSlider
-				btn={true}
-				products={products}
-				itemsPerPage={4}
-				swapTime_millisecond={3000}
-			/>
-			<Banner />
-			<LineSplitter text={"محصولات جدید گیزمو"} />
-			<CardProductSlider
-				btn={true}
-				products={products}
-				itemsPerPage={4}
-				swapTime_millisecond={3000}
-			/>
-			<LineSplitter text={"دسته بندی ها"} />
-			<Sections />
-			<LineSplitter text={"محصولات مشاهده شده"} />
-			<CardProductSlider
-				btn={true}
-				products={products}
-				itemsPerPage={4}
-				swapTime_millisecond={3000}
-			/>
-			<LineSplitter text={"برترین برند های گیزمو"} />
-			<CompanySlider
-				logos={logos}
-				itemsPerPage={5}
-				swapTime_millisecond={3000}
-			/>
-			<LineSplitter text={"گیزمو لاگ"} />
-			<Box
-				display="flex"
-				justifyContent="space-around"
-				px={10}>
-				<BlogCard />
-				<BlogCard />
-				<BlogCard />
-			</Box>
-			<Button
-				variant="contained"
-				sx={{
-					display: "block",
-					my: 5,
-					mx: "auto",
-					border: `3px solid ${Colors.orange}`,
-					color: "#000000",
-					bgcolor: "#FFFFFF",
-					borderRadius: "30px",
-					width: "300px",
-					height: "60px",
-					"&:hover": {
-						bgcolor: Colors.orange,
-					},
-				}}>
-				<Typography
-					variant="h5"
+		<>
+			<AppBar isLanding />
+			<main>
+				<TopSlider />
+				<LineSplitter text={"تخفیف های امروز"} />
+				<CardProductSlider
+					btn={true}
+					products={products}
+					itemsPerPage={4}
+					swapTime_millisecond={3000}
+				/>
+				<Banner />
+				<LineSplitter text={"محصولات جدید گیزمو"} />
+				<CardProductSlider
+					btn={true}
+					products={products}
+					itemsPerPage={4}
+					swapTime_millisecond={3000}
+				/>
+				<LineSplitter text={"دسته بندی ها"} />
+				<Sections />
+				<LineSplitter text={"محصولات مشاهده شده"} />
+				<CardProductSlider
+					btn={true}
+					products={products}
+					itemsPerPage={4}
+					swapTime_millisecond={3000}
+				/>
+				<LineSplitter text={"برترین برند های گیزمو"} />
+				<CompanySlider
+					logos={logos}
+					itemsPerPage={5}
+					swapTime_millisecond={3000}
+				/>
+				<LineSplitter text={"گیزمو لاگ"} />
+				<Box
+					display="flex"
+					justifyContent="space-around"
+					px={10}>
+					<BlogCard />
+					<BlogCard />
+					<BlogCard />
+				</Box>
+				<Button
+					variant="contained"
 					sx={{
-						fontWeight: "700",
-						fontSize: "20px",
+						display: "block",
+						my: 5,
+						mx: "auto",
+						border: `3px solid ${Colors.orange}`,
+						color: "#000000",
+						bgcolor: "#FFFFFF",
+						borderRadius: "30px",
+						width: "300px",
+						height: "60px",
+						"&:hover": {
+							bgcolor: Colors.orange,
+						},
 					}}>
-					{"مشاهده محصولات بیشتر"}
-				</Typography>
-			</Button>
-		</main>
+					<Typography
+						variant="h5"
+						sx={{
+							fontWeight: "700",
+							fontSize: "20px",
+						}}>
+						{"مشاهده محصولات بیشتر"}
+					</Typography>
+				</Button>
+			</main>
+			<Footer />
+		</>
 	);
 }

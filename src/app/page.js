@@ -18,8 +18,7 @@ import noon from "@/components/comanyIcons/noon.png";
 import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
-import DashBoard from "@/components/DashBoardAddress/DashBoardAddress";
-import DashBoardEditProfile from "@/components/DashBoardEditProfile/DashBoardEditProfile";
+import DashBoardNotifications from "@/components/DashBoard/DashBoardNotifications/DashBoardNotifications";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -63,7 +62,8 @@ export default function Home() {
 
 	return (
 		<main>
-			<LineSplitter text={"تخفیف های امروز"} />
+			<DashBoardNotifications/>
+			{/* <LineSplitter text={"تخفیف های امروز"} />
 			<CardProductSlider
 				btn={true}
 				products={products}
@@ -126,7 +126,7 @@ export default function Home() {
 					}}>
 					{"مشاهده محصولات بیشتر"}
 				</Typography>
-			</Button>
+			</Button> */}
 		</main>	
 	);
 }

@@ -7,6 +7,7 @@ import "./globals.css";
 // Custom Components
 import Footer from "@/components/Layout/Footer";
 import AppBar from "@/components/Layout/AppBar";
+import LandingAppBar from "@/components/LandingAppBar";
 
 export const metadata = {
 	title: "Gizmo",
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
 			<body>
 				<ThemeProvider>
 					<AppBar />
+					{/* <LandingAppBar /> */}
 					{children}
 					<Footer />
 				</ThemeProvider>

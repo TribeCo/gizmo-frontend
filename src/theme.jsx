@@ -22,6 +22,10 @@ export const theme = createTheme({
 			main: "#FFCC70",
 			contrastText: "#000",
 		},
+		background: {
+			default: "#FFFFFF",
+			paper: "#FCFCFC",
+		},
 	},
 });
 

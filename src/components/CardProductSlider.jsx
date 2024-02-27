@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
+import {
+	Box,
+	Button,
+	Grid,
+	IconButton,
+	Typography,
+	useMediaQuery,
+} from "@mui/material";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 
@@ -25,13 +32,11 @@ import { ProductCard } from ".";
 */
 }
 
-const CardProductSlider = ({
-	btn,
-	products,
-	itemsPerPage,
-	swapTime_millisecond,
-}) => {
+const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const isSmallScreen = useMediaQuery("(max-width:900px)");
+	const itemsPerPage = isSmallScreen ? 1 : 4;
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -58,20 +63,18 @@ const CardProductSlider = ({
 	}
 
 	return (
-		<Grid md={12} item>
-			<Grid
-				pl={3}
-				pr={3}
-				container
+		<Box>
+			<Box
 				position="absolute"
-				justifyContent="space-between"
-				alignItems="center">
-				<Grid item>
+				display="flex"
+				width="100%"
+				alignItems="center"
+				justifyContent="space-around">
+				<Box item>
 					<IconButton
 						variant="contained"
 						sx={{
 							bgcolor: Colors.blue,
-							position: "relative",
 							"&:hover": {
 								backgroundColor: Colors.blue,
 							},
@@ -79,8 +82,8 @@ const CardProductSlider = ({
 						onClick={handleNext}>
 						<ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
 					</IconButton>
-				</Grid>
-				<Grid
+				</Box>
+				<Box
 					item
 					display="flex">
 					{productItems.map((product, index) => (
@@ -89,13 +92,12 @@ const CardProductSlider = ({
 							product={product}
 						/>
 					))}
-				</Grid>
-				<Grid item>
+				</Box>
+				<Box item>
 					<IconButton
 						variant="contained"
 						sx={{
 							bgcolor: Colors.blue,
-							position: "relative",
 							"&:hover": {
 								backgroundColor: Colors.blue,
 							},
@@ -103,8 +105,8 @@ const CardProductSlider = ({
 						onClick={handlePrev}>
 						<ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
 					</IconButton>
-				</Grid>
-			</Grid>
+				</Box>
+			</Box>
 			<Box>
 				<Box height="240px"></Box>
 				<Box
@@ -139,7 +141,7 @@ const CardProductSlider = ({
 					</Button>
 				</Box>
 			)}
-		</Grid>
+		</Box>
 	);
 };
 export default CardProductSlider;

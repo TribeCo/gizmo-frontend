@@ -20,10 +20,7 @@ export default function RootLayout({ children }) {
 			dir="rtl">
 			<body>
 				<ThemeProvider>
-					<AppBar />
-					{/* <LandingAppBar /> */}
 					{children}
-					<Footer />
 				</ThemeProvider>
 			</body>
 		</html>

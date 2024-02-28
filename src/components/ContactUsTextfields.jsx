@@ -20,7 +20,7 @@ const ContactUsTextfields = () => {
                     width: '90%', // Adjusted width of the card to 90%
                     height: '75%',
                     margin: '20px', // Add some margin around the card
-                    display: 'flex', // Use flex layout
+                    display: 'flex', // Use flex 
                     flexDirection: 'column', // Stack children vertically
                     alignItems: 'center', // Center align the children
                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', // Adds a shadow

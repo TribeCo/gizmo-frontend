@@ -67,7 +67,7 @@ const Footer = () => {
 								<Typography
 									variant="h5"
 									fontWeight="bold">
-									خرید مستقیم از دوبی
+									خرید مستقیم از دبی
 								</Typography>
 
 								<Typography

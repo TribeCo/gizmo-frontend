@@ -119,7 +119,6 @@ export default function Home() {
 				<CardProductSlider
 					btn={true}
 					products={products}
-					itemsPerPage={4}
 					swapTime_millisecond={3000}
 				/>
 				<Banner />
@@ -127,7 +126,6 @@ export default function Home() {
 				<CardProductSlider
 					btn={true}
 					products={products}
-					itemsPerPage={4}
 					swapTime_millisecond={3000}
 				/>
 				<LineSplitter text={"دسته بندی ها"} />
@@ -136,7 +134,6 @@ export default function Home() {
 				<CardProductSlider
 					btn={true}
 					products={products}
-					itemsPerPage={4}
 					swapTime_millisecond={3000}
 				/>
 				<LineSplitter text={"برترین برند های گیزمو"} />
@@ -146,19 +143,36 @@ export default function Home() {
 					swapTime_millisecond={3000}
 				/>
 				<LineSplitter text={"گیزمو لاگ"} />
-				<Box
-					display="flex"
+				<Grid
+					container
 					justifyContent="space-around"
-					px={10}>
-					<BlogCard />
-					<BlogCard />
-					<BlogCard />
-				</Box>
+					sx={{
+						py: { xs: 7, md: 0 },
+						px: { xs: 5, md: 10 },
+					}}
+					gap={3}
+					columns={3}>
+					<Grid item>
+						<BlogCard />
+					</Grid>
+					<Grid item>
+						<BlogCard />
+					</Grid>
+					<Grid item>
+						<BlogCard />
+					</Grid>
+				</Grid>
 				<Button
 					variant="contained"
 					sx={{
+						transform: {
+							xs: "scale(0.7)",
+							sm: "scale(0.8)",
+							md: "scale(1)",
+						},
 						display: "block",
-						my: 5,
+						mt: { xs: 0, md: 5 },
+						mb: 5,
 						mx: "auto",
 						border: `3px solid ${Colors.orange}`,
 						color: "#000000",

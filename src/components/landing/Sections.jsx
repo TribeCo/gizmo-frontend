@@ -13,22 +13,25 @@ function Sections() {
 	return (
 		<Grid
 			container
-			px={10}
-			justifyContent="space-around">
-			<IconButton disableRipple>
-				<Grid
+			px={5}>
+			<Grid
+				item
+				xs={6}
+				md={3}>
+				<IconButton
+					disableRipple
 					sx={{
+						mx: "auto",
 						display: "flex",
 						flexDirection: "column",
 						alignItems: "center",
-					}}
-					item
-					md={3}>
+					}}>
 					<CardMedia
 						sx={{
-							width: "260px",
-							height: "280px",
+							width: { xs: 156, md: 260 },
+							height: { xs: 168, md: 280 },
 							position: "absolute",
+							mb: 5,
 							px: "auto",
 						}}
 						image="https://s3-alpha-sig.figma.com/img/09d6/9629/d520aeaae123c3f11159efe1d1ab7ab8?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=GjF-6eqehqLOT~lT6JezZrSDZ3mdF5NSCQ2TZAUXy42FaVPEo2GoajosB5F-1YNU8g2ngvgKG08~qciZ6teNCONbhWrdvvmD9yVAvZS3QPlhX-W-fvhohCysWzm0WPFIfymNJ5jv2-YdO2jfc~BTSLJog29dFjLuOYIW3ry-qH2b3k3I~hGqT26oGmkePZiQbZhkiPLDBERXJFo-ZRCqpwgzLEbJI5STaPMZLfaOjjaObT5S1PaxHFEDvxSER1Mwx3gG93SHc3t8IrCwCTSPRoQxX0qkNFJ-fh-WNCENTtMu6Iwjq8HggupBYMA9Ileg8u3r3Sso4q9qoAVQbUDYxQ__"></CardMedia>
@@ -36,15 +39,15 @@ function Sections() {
 						<Box
 							sx={{
 								px: "auto",
-								height: "140px",
+								height: { xs: 84, md: 140 },
 							}}
 						/>
 						<Box
 							sx={{
-								border: "5px Dashed #000000",
+								border: "3px Dashed #22668D",
 								px: "auto",
-								width: "260px",
-								height: "140px",
+								width: { xs: 156, md: 260 },
+								height: { xs: 84, md: 140 },
 								bgcolor: "#FFCECE",
 								borderRadius: "100px",
 							}}
@@ -59,22 +62,26 @@ function Sections() {
 						color="black">
 						{"لوازم آشپزخانه"}
 					</Typography>
-				</Grid>
-			</IconButton>
-			<IconButton disableRipple>
-				<Grid
+				</IconButton>
+			</Grid>
+			<Grid
+				item
+				xs={6}
+				md={3}>
+				<IconButton
+					disableRipple
 					sx={{
+						mx: "auto",
 						display: "flex",
 						flexDirection: "column",
 						alignItems: "center",
-					}}
-					item
-					md={3}>
+					}}>
 					<CardMedia
 						sx={{
-							width: "260px",
-							height: "280px",
+							width: { xs: 156, md: 260 },
+							height: { xs: 168, md: 280 },
 							position: "absolute",
+							mb: 5,
 							px: "auto",
 						}}
 						image="https://s3-alpha-sig.figma.com/img/b467/6364/70436f1c342e8f96298e223a10d2ffb0?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=h11XvVskOcJMdhiHmellvrI2EzC1xA9BOYJaVLpJNwO3am6KbdG0eJ9WrgPkdJtr94BhClQTrwnpvuHyYQMR~6qVH7ZQwu6UmSI4u~fY3RRhRNAcTVCjk6FUJlk8kqCSz2OSS9BdRp8J2V4n~1huwITTe9eI0urf~4hLh9GGm~MaXJd27J1Y7qnaz12ROfHEXQ3boJqc5rF5dTM8OW06YRPsnLWkWZpsxXa9XbzqaZlc1k0pC7Cds4cjCjzvlJpbIvohkEEEzFq0j-EZwZzBOiPmcKJGTcaRIsMB8kbf1RQLrqNcqV19SrDx0KGRRFnZ1CAzF4t89i13it8R3Xtf7g__"></CardMedia>
@@ -82,15 +89,15 @@ function Sections() {
 						<Box
 							sx={{
 								px: "auto",
-								height: "140px",
+								height: { xs: 84, md: 140 },
 							}}
 						/>
 						<Box
 							sx={{
-								border: "5px Dashed #000000",
+								border: "3px Dashed #22668D",
 								px: "auto",
-								width: "260px",
-								height: "140px",
+								width: { xs: 156, md: 260 },
+								height: { xs: 84, md: 140 },
 								bgcolor: "#94F6CF",
 								borderRadius: "100px",
 							}}
@@ -105,22 +112,26 @@ function Sections() {
 						color="black">
 						{"لوازم جانبی"}
 					</Typography>
-				</Grid>
-			</IconButton>
-			<IconButton disableRipple>
-				<Grid
+				</IconButton>
+			</Grid>
+			<Grid
+				item
+				xs={6}
+				md={3}>
+				<IconButton
+					disableRipple
 					sx={{
+						mx: "auto",
 						display: "flex",
 						flexDirection: "column",
 						alignItems: "center",
-					}}
-					item
-					md={3}>
+					}}>
 					<CardMedia
 						sx={{
-							width: "260px",
-							height: "280px",
+							width: { xs: 156, md: 260 },
+							height: { xs: 168, md: 280 },
 							position: "absolute",
+							mb: 5,
 							px: "auto",
 						}}
 						image="https://s3-alpha-sig.figma.com/img/0858/ad58/58d87995506b9194889dd934adfc0056?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=aHu~2BydIyIGXOIt7ipsBagSHq1D4hPogYSzh0ijrEaAEyoaUqyqXEma8hO~vcgTL3UKeU7rjlNxENkDiVFPacfXMeGiesHPpUHBQ7~Po8bmKgs3hjMiMYI72oqfo46xqLoHG4Y0UTXQW-P6YJA9SoQNsbsI2-IKsPGhrOXvEWN3nSir-fc4GZxeQNSeWsr0bbeek8lc93UuMte5V6Ns3Wlnsj1MiY3N9-MHbuVSyMBW7JHPGbzV72gnTJ6gDkVgzt-Unv-yeet2AhR59cgCAGFgHRrI~hVnK9qxpdYyPS2OOv8z6aaJfIdOVunFPDBVRkj7TTtdpZAfJNe0aqy-2A__"></CardMedia>
@@ -128,15 +139,15 @@ function Sections() {
 						<Box
 							sx={{
 								px: "auto",
-								height: "140px",
+								height: { xs: 84, md: 140 },
 							}}
 						/>
 						<Box
 							sx={{
-								border: "5px Dashed #000000",
+								border: "3px Dashed #22668D",
 								px: "auto",
-								width: "260px",
-								height: "140px",
+								width: { xs: 156, md: 260 },
+								height: { xs: 84, md: 140 },
 								bgcolor: "#FFAB86",
 								borderRadius: "100px",
 							}}
@@ -151,21 +162,25 @@ function Sections() {
 						color="black">
 						{"لوازم برقی"}
 					</Typography>
-				</Grid>
-			</IconButton>
-			<IconButton disableRipple>
-				<Grid
+				</IconButton>
+			</Grid>
+			<Grid
+				item
+				xs={6}
+				md={3}>
+				<IconButton
+					disableRipple
 					sx={{
+						mx: "auto",
 						display: "flex",
 						flexDirection: "column",
 						alignItems: "center",
-					}}
-					item
-					md={3}>
+					}}>
 					<CardMedia
 						sx={{
-							width: "260px",
-							height: "280px",
+							width: { xs: 156, md: 260 },
+							height: { xs: 168, md: 280 },
+							mb: 5,
 							position: "absolute",
 							px: "auto",
 						}}
@@ -173,14 +188,16 @@ function Sections() {
 					<Box>
 						<Box
 							sx={{
-								height: "140px",
+								px: "auto",
+								height: { xs: 84, md: 140 },
 							}}
 						/>
 						<Box
 							sx={{
-								border: "5px Dashed #000000",
-								width: "260px",
-								height: "140px",
+								border: "3px Dashed #22668D",
+								px: "auto",
+								width: { xs: 156, md: 260 },
+								height: { xs: 84, md: 140 },
 								bgcolor: "#DEC4FE",
 								borderRadius: "100px",
 							}}
@@ -195,8 +212,8 @@ function Sections() {
 						color="black">
 						{"لوازم ورزشی"}
 					</Typography>
-				</Grid>
-			</IconButton>
+				</IconButton>
+			</Grid>
 		</Grid>
 	);
 }

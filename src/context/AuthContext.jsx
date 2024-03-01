@@ -232,51 +232,33 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const refreshToken = async () => {
+        try {
+            const refreshToken = authData.refresh;
+            const response = await fetch("https://gizmoshop.liara.run/api/token/refresh/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ refresh: refreshToken }),
+            });
 
-    //useEffect(() => {
-        //const intervalId = setInterval(() => {
-            //console.log("10 seconds passed");
-        //}, 10000);
-        //return () => clearInterval(intervalId);
-    //}, []);
-  
-  //useEffect(() => {
-    //const refreshToken = async () => {
-      //if (authData && authData.refresh) {
-
-        //console.log("use effect for refresh token");
-        //try {
-          //const response = await fetch("https://gizmoshop.liara.run/api/token/refresh/", {
-            //method: "POST",
-            //headers: {
-              //"Content-Type": "application/json",
-            //},
-            //body: JSON.stringify({ refresh: authData.refresh }),
-          //});
-
-          //if (response.ok) {
-            //const data = await response.json();
-            //setAuthData((prevAuthData) => ({ ...prevAuthData, access: data.access }));
-            //localStorage.setItem("authData", JSON.stringify({ ...authData, access: data.access }));
-          //} else {
-            //// Handle refresh token failure, maybe logout the user
-            //logoutUser();
-          //}
-        //} catch (error) {
-          //console.error("Refresh Token Error:", error);
-          //// Handle refresh token error, maybe logout the user
-          //logoutUser();
-        //}
-      //}
-    //};
-
-    //const tokenExpirationTimer = setTimeout(() => {
-      //refreshToken();
-    //}, (authData?.exp || 0) * 1000);
-
-    //return () => clearTimeout(tokenExpirationTimer);
-  //}, [authData, logoutUser]);
-
+            if (response.ok) {
+                const data = await response.json();
+                setAuthData(data);
+                localStorageSetItem("authData", JSON.stringify(data));
+                console.log("Access token refreshed.");
+                return data.access;
+            } else {
+                console.error("Failed to refresh access token.");
+                return 0;
+            }
+        } catch (error) {
+            console.error("Error refreshing access token:", error);
+            return 0;
+        }
+    }; 
+    
     useEffect(() => {
         if (authData) {
             setUser(extractUserData(jwtDecode(authData.access)));

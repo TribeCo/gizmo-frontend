@@ -94,14 +94,14 @@ const FilterCard = ({
     return (
         <Box
             sx={{
-                width: '23%',
+                width: '20%',
                 height: '100%', // 50% of the viewport height
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 position: 'relative',
                 top: '-4rem',
-                paddingRight: '40px',
+                left:'1rem',
             }}
         >
             <Card
@@ -276,10 +276,11 @@ const FilterCard = ({
                             opacity: 0.9,
                         },
                         color: 'black',
-                        mt: 2,
+                        margin: '10px',
                         fontWeight: 'bold',
+                        marginTop: '20px',
                         padding: '10px',
-                        borderRadius: '20px'
+                        borderRadius: '25px'
                     }}
                 >
                     اعمال فیلتر

@@ -16,9 +16,9 @@ const LoginSignupModal = ({ open, onClose, popupState, setPopupState }) => {
           case 'login':
             return <LoginForm setPopupState={setPopupState} />;
           case 'signup':
-            return <SignupForm />;
+            return <SignupForm onClose={onClose} />;
           case "forget-password":
-            return <ForgetPasswordForm />
+            return <ForgetPasswordForm onClose={onClose} />
           default:
             return null;
         }

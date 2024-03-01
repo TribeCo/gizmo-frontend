@@ -78,11 +78,10 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
         const isCompleted = await completeSignupInformation(phoneNumber, fullName, email, password);
 
         if (isCompleted === 1) {
-            console.log("completed");
             setInformationComplition(true);
+            onClose();
         }
 
-        onClose();
     };
 
     const handleSendCode = async (event) => {

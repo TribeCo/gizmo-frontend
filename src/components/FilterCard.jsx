@@ -85,13 +85,7 @@ const FilterCard = ({
         const formattedValue = formatNumberWithCommas(numericValue);
         setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue }); 
         setMaxPrice(event.target.value); // Use the passed setter function to update maxPrice
-    };
-    // Adjust TextField components for price range to use these new handlers
-    // const handleTextFieldChange = (filter, rawFilter) => (event) => {
-    //     const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
-    //     const formattedValue = formatNumberWithCommas(numericValue); // Format with commas
-    //     setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
-    // };   
+    }; 
 
     const resetFilters = () => {
         setFilters(initialState);
@@ -100,8 +94,8 @@ const FilterCard = ({
     return (
         <Box
             sx={{
-                width: '25%',
-                height: '70vh', // 50% of the viewport height
+                width: '23%',
+                height: '100%', // 50% of the viewport height
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -155,7 +149,7 @@ const FilterCard = ({
                     sx={{
                         width: '100%',
                         fontWeight: 'bold',
-                        mb: 2,
+                        mb: 3,
                         mt: 0.8,
                         fontSize: {
                             xs: '1rem', // For extra-small screens
@@ -181,6 +175,7 @@ const FilterCard = ({
                             sx={{
                                 margin: 'auto',
                                 width: '100%',
+                                padding: '15px',
                                 justifyContent: 'space-between',
                                 marginBlock: '0.1rem',
                                 '.MuiTypography-root': { fontWeight: 'bold' } // Apply bold font to label
@@ -190,7 +185,7 @@ const FilterCard = ({
                     </React.Fragment>
                 ))}
                 {/* Accordion for Checkbox Filters */}
-                <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem' }} disableGutters>
+                <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem', padding: '5px', backgroundColor: '#FFFFFF' }} disableGutters>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel-checkboxes-content"
@@ -216,7 +211,7 @@ const FilterCard = ({
                     </AccordionDetails>
                 </Accordion>
                 {/* Accordion for TextFields */}
-                <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem' }} disableGutters>
+                <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem', padding: '5px', backgroundColor: '#FFFFFF' }} disableGutters>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel-textfields-content"

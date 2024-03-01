@@ -32,6 +32,13 @@ const AppBar = ({ isLanding }) => {
 	const [anchorElProfile, setAnchorElProfile] = useState(null);
 	const [loginOpen, setLoginOpen] = useState(false);
 	const [popupState, setPopupState] = useState("phone-login");
+	const categories = [
+		  { name: 'لوازم آشپزخانه', slug: 'kitchenware' },
+		  { name: 'لوازم بهداشتی', slug: 'hygiene-products' },
+		  { name: 'لوازم جانبی', slug: 'accessories' },
+		  { name: 'لوازم ورزشی', slug: 'sports-equipment' },
+		  { name: 'لوازم برقی', slug: 'electrical-appliances' },
+	];
 
 	const handleMenuOpen = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -161,22 +168,14 @@ const AppBar = ({ isLanding }) => {
 										},
 									},
 								}}>
-								<MenuItem onClick={handleMenuClose}>
-									<Typography>لوازم آشپزخانه</Typography>
-								</MenuItem>
-								<MenuItem onClick={handleMenuClose}>
-									<Typography>لوازم بهداشتی</Typography>
-								</MenuItem>
-								<MenuItem onClick={handleMenuClose}>
-									<Typography>لوازم جانبی</Typography>
-								</MenuItem>
-								<MenuItem onClick={handleMenuClose}>
-									<Typography>لوازم ورزشی</Typography>
-								</MenuItem>
-								<MenuItem onClick={handleMenuClose}>
-									<Typography>لوازم برقی</Typography>
-								</MenuItem>
-							</Menu>
+								{categories.map((category) => (
+									<MenuItem key={category.slug} onClick={handleMenuClose}>
+									<Link href={`/categories/${category.name}`} passHref>
+										<Typography component="a" style={{ textDecoration: 'none', color: 'inherit' }}>{category.name}</Typography>
+									</Link>
+									</MenuItem>
+								))}
+								</Menu>
 							<Grid
 								sx={{
 									transition: '0.3s',

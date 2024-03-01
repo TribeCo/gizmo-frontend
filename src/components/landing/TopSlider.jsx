@@ -12,6 +12,7 @@ import {
 	Fade,
 	Slide,
 	Grow,
+	CardActionArea,
 } from "@mui/material";
 
 import { Colors } from "../../utils";
@@ -50,7 +51,7 @@ const TopSlider = () => {
 			setActive(active + 1);
 		}
 	};
-	const handlePre = () => {
+	const handlePre = (e) => {
 		if (active === 0) {
 			setActive(fakeData.length - 1);
 		} else {
@@ -73,7 +74,7 @@ const TopSlider = () => {
 				mx: 2,
 				borderBottomLeftRadius: 50,
 				borderBottomRightRadius: 50,
-				pt: 10,
+				pt: { xs: 0, md: 10 },
 			}}>
 			<Grid
 				container
@@ -96,8 +97,8 @@ const TopSlider = () => {
 							alignItems="center">
 							<Box
 								sx={{
-									height: { xs: 380, sm: 500 },
-									width: { xs: 380, sm: 500 },
+									height: { xs: 300, sm: 500 },
+									width: { xs: 300, sm: 500 },
 									borderRadius: 100,
 									border: "10px solid #FFFFFF",
 									bgcolor: "#C6E3DD",
@@ -118,8 +119,8 @@ const TopSlider = () => {
 													<CardMedia
 														image={data.image}
 														sx={{
-															height: { xs: 300, sm: 400 },
-															width: { xs: 300, sm: 400 },
+															height: { xs: 250, sm: 400 },
+															width: { xs: 250, sm: 400 },
 														}}
 													/>
 												</Box>
@@ -131,7 +132,7 @@ const TopSlider = () => {
 							<Box
 								sx={{
 									display: "flex",
-									justifyContent: "space-between",
+									justifyContent: "space-around",
 									minWidth: { xs: 300, sm: "" },
 								}}>
 								<IconButton
@@ -263,8 +264,28 @@ const TopSlider = () => {
 									in={active === index}
 									timeout={1000}>
 									<Box display={active === index ? "" : "none"}>
-										<Typography variant="h4">{data.name}</Typography>
 										<Typography
+											variant="h4"
+											sx={{
+												fontSize: { xs: 21, md: 30 },
+												fontWeight: 900,
+											}}>
+											{data.name}
+										</Typography>
+										<Typography
+											gridRow={3}
+											sx={{
+												whiteSpace: {
+													xs: "nowrap",
+													md: "normel",
+													lg: "normal",
+												},
+												overflow: "hidden",
+												textOverflow: "ellipsis",
+												"&:hover": {
+													whiteSpace: "normal",
+												},
+											}}
 											align="justify"
 											mt={3}
 											variant="body1">

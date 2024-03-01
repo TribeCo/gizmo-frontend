@@ -5,12 +5,12 @@ import { Colors } from "@/utils";
 const LineSplitter = ({ text }) => {
 	return (
 		<Box
+			mt={10}
 			display="flex"
 			alignItems="center"
 			justifyContent="center"
 			sx={{
 				mb: { xs: 0, sm: 5, md: 10 },
-				mt: { xs: 5, sm: 5, md: 5 },
 			}}>
 			<Box
 				ml={4}
@@ -24,7 +24,7 @@ const LineSplitter = ({ text }) => {
 				fontWeight="900"
 				variant="h4"
 				sx={{
-					fontSize: { xs: 24, sm: 26, md: 32 },
+					fontSize: { xs: 18, sm: 26, md: 32 },
 					px: 3,
 					whiteSpace: "nowrap",
 				}}>

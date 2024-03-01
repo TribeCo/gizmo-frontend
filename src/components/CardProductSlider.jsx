@@ -93,6 +93,7 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 						<ProductCard
 							key={index}
 							product={product}
+							isAvailable={false}
 						/>
 					))}
 				</Box>

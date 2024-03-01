@@ -80,21 +80,24 @@ const TopSlider = () => {
 				direction="row-reverse">
 				<Grid
 					item
-					sm={6}
-					md={7}>
+					xs={12}
+					lg={7}>
 					<Box
-						display="flex"
-						justifyContent="space-between"
-						alignItems="center"
-						px={4}>
+						px={4}
+						sx={{
+							display: "flex",
+							flexDirection: { xs: "column", sm: "row" },
+							alignItems: "center",
+							justifyContent: "space-between",
+						}}>
 						<Box
 							display="flex"
 							flexDirection="column"
 							alignItems="center">
 							<Box
-								height={500}
-								width={500}
 								sx={{
+									height: { xs: 380, sm: 500 },
+									width: { xs: 380, sm: 500 },
 									borderRadius: 100,
 									border: "10px solid #FFFFFF",
 									bgcolor: "#C6E3DD",
@@ -115,8 +118,8 @@ const TopSlider = () => {
 													<CardMedia
 														image={data.image}
 														sx={{
-															height: 400,
-															width: 400,
+															height: { xs: 300, sm: 400 },
+															width: { xs: 300, sm: 400 },
 														}}
 													/>
 												</Box>
@@ -125,20 +128,65 @@ const TopSlider = () => {
 									);
 								})}
 							</Box>
-							<MobileStepper
-								steps={3}
-								variant="dots"
+							<Box
 								sx={{
-									bgcolor: Colors.yellow,
-									py: 7,
-								}}
-								position="static"
-								activeStep={active}
-							/>
+									display: "flex",
+									justifyContent: "space-between",
+									minWidth: { xs: 300, sm: "" },
+								}}>
+								<IconButton
+									onClick={handlePre}
+									sx={{
+										display: { xs: "", sm: "none" },
+									}}>
+									<svg
+										width="16"
+										height="26"
+										viewBox="0 0 16 26"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M0.991109 25.0562C0.739808 25.0562 0.482635 24.9738 0.289776 24.814C-0.095941 24.4943 -0.095941 23.9713 0.289776 23.6516L13.4918 12.711L0.482634 1.93017C0.0969173 1.61052 0.0969173 1.08746 0.482634 0.767813C0.868351 0.448166 1.49952 0.448166 1.88524 0.767813L15.6016 12.1298C15.9873 12.4495 15.9873 12.9725 15.6016 13.2922L1.69823 24.814C1.49952 24.9787 1.24822 25.0562 0.991109 25.0562Z"
+											fill="black"
+											fill-opacity="0.8"
+										/>
+									</svg>
+								</IconButton>
+								<MobileStepper
+									steps={3}
+									variant="dots"
+									sx={{
+										bgcolor: Colors.yellow,
+										py: 7,
+									}}
+									position="static"
+									activeStep={active}
+								/>
+								<IconButton
+									onClick={handleNext}
+									sx={{
+										display: { xs: "", sm: "none" },
+									}}>
+									<svg
+										width="16"
+										height="25"
+										viewBox="0 0 16 25"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M14.9 24.5281C15.1513 24.5281 15.4085 24.4457 15.6013 24.2859C15.9871 23.9663 15.9871 23.4432 15.6013 23.1236L2.3993 12.1829L15.4085 1.40209C15.7942 1.08244 15.7942 0.559383 15.4085 0.239737C15.0228 -0.0799103 14.3916 -0.0799103 14.0059 0.239737L0.289541 11.6017C-0.0961761 11.9214 -0.0961761 12.4444 0.289541 12.7641L14.1929 24.2859C14.3916 24.4506 14.6429 24.5281 14.9 24.5281Z"
+											fill="black"
+											fill-opacity="0.8"
+										/>
+									</svg>
+								</IconButton>
+							</Box>
 						</Box>
 						<Box
-							display="flex"
-							flexDirection="column"
+							sx={{
+								display: { xs: "none", sm: "flex" },
+								flexDirection: "column",
+							}}
 							mb={14}>
 							<IconButton onClick={handleNext}>
 								<svg
@@ -177,7 +225,7 @@ const TopSlider = () => {
 								borderRadius: 100,
 								border: "10px solid #FFFFFF",
 								bgcolor: "#C6E3DD",
-								display: "flex",
+								display: { xs: "none", sm: "flex" },
 								justifyContent: "center",
 								alignItems: "center",
 							}}>
@@ -203,8 +251,8 @@ const TopSlider = () => {
 				</Grid>
 				<Grid
 					item
-					sm={6}
-					md={5}
+					xs={12}
+					lg={5}
 					display="flex"
 					justifyContent="center"
 					alignItems="center">
@@ -226,7 +274,6 @@ const TopSlider = () => {
 								</Fade>
 							);
 						})}
-
 						<Button
 							variant="contained"
 							sx={{

@@ -9,6 +9,7 @@ import {
 	CardMedia,
 	Typography,
 	CardContent,
+	IconButton,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -28,7 +29,10 @@ const ProductCard = ({ product }) => {
 	return (
 		<CardActionArea
 			disableRipple
-			sx={{ mx: 1, borderRadius: "40px" }}
+			sx={{
+				mx: 1,
+				borderRadius: "40px",
+			}}
 			onMouseOver={() => setShow(true)}
 			onMouseLeave={() => setShow(false)}>
 			{!show ? first() : second()}
@@ -39,23 +43,28 @@ const ProductCard = ({ product }) => {
 		return (
 			<Card
 				sx={{
-					width: "280px",
-					height: "380px",
+					width: 242,
+					height: 381,
 					borderRadius: "40px",
 					background: "linear-gradient(to bottom, #FFFFFF 45%, #DEF0F5 75%)",
 					border: "5px solid #5A8EAA",
 				}}>
-				<CardActionArea
+				<IconButton
 					disableRipple
-					onClick={handleGoToProduct}>
+					onClick={handleGoToProduct}
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						pt: 0,
+					}}>
 					<CardMedia
 						sx={{
 							mx: "auto",
-							my: "6px",
-							height: "225px",
-							width: "260px",
+							mt: 0.8,
+							height: 218,
+							width: 218,
 							objectFit: "cover",
-							borderRadius: "35px",
+							borderRadius: "30px",
 						}}
 						image={product.image2}
 						alt={product.name}>
@@ -85,6 +94,7 @@ const ProductCard = ({ product }) => {
 						sx={{
 							display: "flex",
 							mx: "auto",
+							mt: 1,
 						}}>
 						{product.name}
 					</Typography>
@@ -97,16 +107,17 @@ const ProductCard = ({ product }) => {
 						{convert(((100 - product.discount) / 100) * product.price) +
 							" تومان"}
 					</Typography>
-				</CardActionArea>
+				</IconButton>
 				<Button
 					onClick={handleAddToCart}
+					fullWidth
 					variant="contained"
 					sx={{
 						mt: "10px",
+						maxWidth: 200,
 						mx: "auto",
 						bgcolor: Colors.orange,
 						color: "#000",
-						width: "240px",
 						height: "40px",
 						borderRadius: "40px",
 						opacity: "70%",
@@ -131,15 +142,22 @@ const ProductCard = ({ product }) => {
 		return (
 			<Card
 				sx={{
-					width: "280px",
-					height: "380px",
+					width: 242,
+					height: 381,
 					borderRadius: "40px",
 					background:
 						"linear-gradient(104.6deg, rgba(255, 255, 255, 0.22) 1.9%, rgba(255, 255, 255, 0.12) 96.76%)",
 					boxShadow: "0px 4px 40px rgba(0, 0, 0, 0.1)",
 				}}>
 				<CardMedia
-					sx={{ height: "240px", width: "280px", objectFit: "cover" }}
+					sx={{
+						height: 242,
+						width: 242,
+						objectFit: "cover",
+
+						filter: "grayscale(100%)",
+						WebkitFilter: "grayscale(100%)",
+					}}
 					image={product.image1}
 					alt={product.name}>
 					<Box
@@ -161,7 +179,7 @@ const ProductCard = ({ product }) => {
 				</CardMedia>
 				<CardContent>
 					<Typography
-						width="224px"
+						width={224}
 						align="center"
 						fontSize="20px"
 						fontWeight="900"
@@ -175,7 +193,7 @@ const ProductCard = ({ product }) => {
 								{product.badge === "تخفیف ویژه" && (
 									<Box
 										mt={0.1}
-										ml={24.5}
+										ml={21}
 										position="absolute"
 										bgcolor="#BB0000"
 										borderRadius="20px"
@@ -183,6 +201,7 @@ const ProductCard = ({ product }) => {
 										py="4px"
 										color="#fff">
 										<Typography
+											noWrap
 											align="center"
 											fontSize="14px"
 											fontWeight="400"
@@ -193,7 +212,7 @@ const ProductCard = ({ product }) => {
 								)}
 								<Box
 									mt={1.3}
-									ml={8.5}
+									ml={6}
 									position="absolute"
 									bgcolor="#BB0000"
 									borderRadius="20px"

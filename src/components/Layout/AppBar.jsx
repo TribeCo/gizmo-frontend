@@ -451,21 +451,21 @@ const SearchField = () => {
 						display: 'flex',
 						alignItems: 'center',
 						borderRadius: '25px',
-						backgroundColor: Colors.blue,
+						backgroundColor: 'white',
 						backdropFilter: 'blur(5px)',
 					}}
 				>
-					<Grid ml={2} sx={{ scale: { xs: '0.7', sm: '1' } }}>
+					<Grid ml={2} sx={{ scale: { xs: '0.7', sm: '1' }}}>
 						<SvgIcon width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M22.6872 19.885L18.2082 15.4067C18.006 15.2046 17.732 15.0923 17.4444 15.0923H16.7122C17.9521 13.5067 18.6889 11.5124 18.6889 9.34284C18.6889 4.18182 14.5063 0 9.34443 0C4.18253 0 0 4.18182 0 9.34284C0 14.5039 4.18253 18.6857 9.34443 18.6857C11.5143 18.6857 13.509 17.949 15.0949 16.7093V17.4415C15.0949 17.7289 15.2072 18.0029 15.4093 18.2051L19.8884 22.6833C20.3107 23.1056 20.9935 23.1056 21.4113 22.6833L22.6827 21.4122C23.105 20.9899 23.105 20.3072 22.6872 19.885ZM9.34443 15.0923C6.16822 15.0923 3.59401 12.523 3.59401 9.34284C3.59401 6.16717 6.16373 3.5934 9.34443 3.5934C12.5206 3.5934 15.0949 6.16268 15.0949 9.34284C15.0949 12.5185 12.5251 15.0923 9.34443 15.0923Z" fill="white" />
 						</SvgIcon>
 					</Grid>
 					<InputBase
 						sx={{
-							width: { xs: 250, sm: 400, md: 500 },
+							width: { xs: 250, sm: 450, md: 650 },
 							ml: 2,
 							flex: 1,
-							color: 'white',
+							color: Colors.blue_dark,
 							fontSize: { xs: 14, sm: 16, md: 18 },
 							boxShadow: 'none',
 							padding: { xs: '5px', sm: 1 },

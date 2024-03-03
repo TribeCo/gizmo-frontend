@@ -1,16 +1,15 @@
-import CardProductSlider from "@/components/CardProductSlider";
-import CompanySlider from "@/components/CompanySlider";
-import LineSplitter from "@/components/LineSpliter";
 import { products } from "@/utils/fakeProduct";
-import DescriptionComponent from "@/components/DescriptionComponent";
-import UserInfoPage from "@/components/UserInfoPage";
-import { Box, Button, Typography, Grid } from "@mui/material";
-import BlogCard from "@/components/BlogCard";
+import { Footer } from "@/components/Layout";
 import { Colors } from "@/utils";
 import { Banner, Sections, TopSlider } from "@/components/landing";
+import { Button, Typography, Grid } from "@mui/material";
+import AppBar from "@/components/Layout/AppBar";
 
-// this is a simple test to show how the components work:
-// example data
+import CardProductSlider from "@/components/CardProductSlider";
+import CompanySlider from "@/components/CompanySlider";
+import BlogCard from "@/components/BlogCard";
+import LineSplitter from "@/components/LineSpliter";
+
 import anker from "@/components/comanyIcons/anker.png";
 import blulory from "@/components/comanyIcons/blulory.png";
 import mc from "@/components/comanyIcons/mc.png";
@@ -18,10 +17,6 @@ import noon from "@/components/comanyIcons/noon.png";
 import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
-import DashBoard from "@/components/DashBoardAddress/DashBoardAddress";
-import DashBoardEditProfile from "@/components/DashBoardEditProfile/DashBoardEditProfile";
-import { Footer } from "@/components/Layout";
-import AppBar from "@/components/Layout/AppBar";
 
 const logos = [
 	[anker, "https://www.anker.com/"],

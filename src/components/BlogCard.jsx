@@ -7,13 +7,13 @@ import Button from "@mui/material/Button";
 import { Colors } from "@/utils";
 import { Box } from "@mui/material";
 
-export default function BlogCard() {
+export default function BlogCard({ background_color }) {
 	return (
 		<Card
 			sx={{
 				maxWidth: 397,
 				maxHeight: 452,
-				backgroundColor: "#22668D",
+				backgroundColor: background_color,
 				borderRadius: "35px",
 			}}>
 			<CardMedia

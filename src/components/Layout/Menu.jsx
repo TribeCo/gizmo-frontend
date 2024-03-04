@@ -5,7 +5,6 @@ import { useState } from "react";
 import {
     Grid,
     Typography,
-    Divider,
     Box,
     SvgIcon,
 } from '@mui/material';
@@ -15,7 +14,7 @@ import { QuestionMark } from '@mui/icons-material';
 
 const Menu = () => {
     return (
-        <Grid mb={10}>
+        <Grid mb={10} position='absolute'>
             <Grid
                 variant="outlined"
                 sx={{
@@ -25,29 +24,6 @@ const Menu = () => {
                     borderRadius: '15px',
                 }}
             >
-                <Box
-                    display='flex'
-                    justifyContent='space-between'
-                    alignItems='start'
-                    mb={3}
-                    sx={{
-                        flexDirection: { xs: 'column', sm: 'row' },
-                    }}
-                >
-                    <Typography
-                        variant="h5"
-                        fontWeight={900}
-                        sx={{
-                            fontSize: { xs: 18, sm: 22, md: 26 }
-                        }}
-                    >
-                        پنل کاربری
-                    </Typography>
-
-                </Box>
-
-                <Divider />
-
                 <Grid
                     sx={{
                         display: { xs: 'contents', md: 'flex' },
@@ -131,31 +107,25 @@ const Menu = () => {
                         }
                     />
 
-                    <Grid
-                        sx={{
-                            display: { md: 'contents', lg: 'none' },
-                        }}
-                    >
-                        <MenuItem
-                            link="/"
-                            label="ارتباط با ما"
-                            iconHide
-                        />
+                    <MenuItem
+                        link="/"
+                        label="ارتباط با ما"
+                        iconHide
+                    />
 
-                        <MenuItem
-                            link="/"
-                            label="درباره گیزموشاپ"
-                            iconHide
-                        />
+                    <MenuItem
+                        link="/"
+                        label="درباره گیزموشاپ"
+                        iconHide
+                    />
 
-                        <Categories />
+                    <Categories />
 
-                        <MenuItem
-                            link="/"
-                            label="سوالات متداول"
-                            iconHide
-                        />
-                    </Grid>
+                    <MenuItem
+                        link="/"
+                        label="سوالات متداول"
+                        iconHide
+                    />
 
                     <MenuItem
                         link="/"
@@ -236,6 +206,7 @@ const MenuItem = ({
             <Box
                 variant="outlined"
                 display='flex'
+                bgcolor='white'
                 justifyContent='space-between'
                 pl={3}
                 sx={{
@@ -259,6 +230,7 @@ const MenuItem = ({
             <Box
                 variant="outlined"
                 display='flex'
+                bgcolor='white'
                 justifyContent='space-between'
                 pl={3}
                 sx={{
@@ -281,7 +253,9 @@ const MenuItem = ({
 
     if (label !== linkCondition) {
         return (
-            <Link href={link}> {menu} </Link>
+            <>
+                <Link href={link}> {menu} </Link>
+            </>
         );
     } else {
         return (

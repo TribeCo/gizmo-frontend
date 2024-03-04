@@ -10,6 +10,7 @@ import {
 	Typography,
     Card,
     Stack,
+    Paper,
 } from "@mui/material";
 
 
@@ -111,8 +112,6 @@ export default function DashBoardEditProfile() {
     };
 
   return (
-    <Card className='m-4 flex justify-end h-[47rem] rounded-xl lg:h-max shadow-lg'>
-
         <section className="editProfile py-4 w-[70%] px-[4%] flex flex-col lg:w-full">
 
             <div className="editProfile-info flex border-b border-[#EDEDED] justify-between py-2 mb-4">
@@ -318,8 +317,5 @@ export default function DashBoardEditProfile() {
 
             </Stack>
         </section>
-
-
-    </Card>
   )
-}
+}   

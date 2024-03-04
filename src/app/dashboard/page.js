@@ -14,11 +14,12 @@ import {
 import { Colors } from "@/utils";
 import Avatar from '@mui/material/Avatar';
 import UserInfoPage from "@/components/dashboard/UserInfoPage";
+import DashBoardEditProfile from "@/components/dashboard/DashBoardEditProfile";
 
 
 const functionList = [
     <UserInfoPage />, // حساب کاربری
-    , // ویرایش اطلاعات حساب
+    <DashBoardEditProfile />, // ویرایش اطلاعات حساب
     , // آدرس ها
     , // پیغام ها
     , // سفارشات
@@ -44,6 +45,8 @@ export default function Profile() {
             container
             display='flex'
             justifyContent='center'
+            columnGap={2}
+            rowGap={2}
         >
             <Grid
                 item
@@ -332,7 +335,18 @@ export default function Profile() {
                 </Paper>
             </Grid>
 
-            {functionList[selectedMenuItem]}
+            <Paper
+                variant="outlined"
+                sx={{
+                    px: '4rem',
+                    py: '3rem',
+                    mb: 2,
+                    borderRadius: '15px',
+                    boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
+                }}
+            >
+                {functionList[selectedMenuItem]}
+            </Paper>
         </Grid>
     )
 }

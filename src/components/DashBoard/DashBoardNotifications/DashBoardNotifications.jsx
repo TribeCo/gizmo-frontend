@@ -1,33 +1,50 @@
-import React from 'react'
+'use client'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import notifBell from '@/components/siteIcons/notifBell.svg'
 import envelopIcon from '@/components/siteIcons/envelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 
+
 export default function DashBoardNotifications() {
+
+  const [notifs, setNotifs] = React.useState([
+    {title: 'محصولات محبوب شما موجود شد...' ,description: 'تا تموم نشده سفارش خودتو ثبت کن.', unread: false, date:'1402 اسفند 7'},
+    {title: 'محصولات محبوب شما موجود شد...' ,description: 'تا تموم نشده سفارش خودتو ثبت کن.', unread: true, date:'1402 اسفند 7'},
+    {title: 'محصولات محبوب شما موجود شد...' ,description: 'تا تموم نشده سفارش خودتو ثبت کن.', unread: true, date:'1402 اسفند 7'},
+        
+  ])
+
+  const markAllAsRead = () => {
+    const updatedData = notifs.map(notif =>  ({...notif, unread: false}))
+    setNotifs(updatedData)
+    console.log(notifs)
+  }
+
   return (
     <div>
 
         <section className='m-4 flex justify-end h-[47rem] lg:h-max'>
 
-          <section className=" py-4 w-[70%] px-[4%] flex flex-col lg:w-full rounded-xl shadow-lg">
+          <section className=" py-4 w-[70%] px-[4%] flex flex-col h-full lg:w-full rounded-xl shadow-lg">
 
             <div className="flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <h3 className='font-bold text-lg'>
                     پیغام ها
                 </h3>
 
-                <div className='flex gap-2'>
+                <div className='flex gap-2 items-center cursor-pointer hover:bg-[#6d4cff1e] transition-all p-2 rounded-lg'>
 
                   <Image className='w-5' src={notifBell}></Image>
 
-                  <span className='text-palette-blue font-bold'>تغییر پیام ها به خوانده شده</span>
+                  <span onClick={markAllAsRead} className='text-palette-blue font-bold md:text-xs select-none'>تغییر پیام ها به خوانده شده</span>
                 </div>
             </div>
 
-            <section className='flex flex-col mt-4'>
+            <section className='flex flex-col mt-4 gap-2 overflow-scroll h-full'>
 
-              <div className='notificationCard pb-2 flex border-b-2 border-[#EDEDED] h-40 justify-between'>
+              {notifs.map((notif, index) => (
+                <div className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
 
                 <div className="rightPart flex flex-col justify-between">
 
@@ -35,11 +52,11 @@ export default function DashBoardNotifications() {
 
                     <div className='flex gap-2'>
                       <Image src={envelopIcon} alt='notifCardIcon' className='w-6 //'></Image>
-                      <span className='font-bold text-md //'>محصولا مورد نظر شما موجود شد...</span>
+                      <span className='font-bold text-md md:text-sm'>{notif.title}</span>
                     </div>
 
-                    <p className='description text-sm //'>
-                      تا تموم نشده سفارش خودتو ثبت کن.
+                    <p className='description text-md md:text-xs'>
+                      {notif.description}
                     </p>
 
                   </div>
@@ -49,7 +66,7 @@ export default function DashBoardNotifications() {
 
                     <Image src={ArrowLeft}></Image>
 
-                    <span className='text-palette-blue'>مشاهده جزئیات بیشتر</span>
+                    <span className='text-palette-blue md:text-sm select-none'>مشاهده جزئیات بیشتر</span>
 
                   </a>
 
@@ -57,17 +74,18 @@ export default function DashBoardNotifications() {
 
                 <div className="leftPart flex flex-col items-end justify-between">
 
-                  <div className="status bg-palette-orange rounded-full w-4 h-4 //">
+                  <div className={`status ${notif.unread ? 'opacity-100' : 'opacity-0'} bg-palette-orange rounded-full w-4 h-4`}>
 
                   </div>
 
-                  <div className="date text-sm text-[#747678] //">
-                    7 اسفند 1402
+                  <div className="date text-sm text-[#747678] md:text-xs">
+                    {notif.date}
                   </div>
 
                 </div>
 
               </div>
+              ))}
 
             </section>
 

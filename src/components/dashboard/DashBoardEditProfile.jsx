@@ -1,8 +1,8 @@
-'use client'
 import React, { useState, useEffect } from 'react'
 import { Colors } from "@/utils";
 import eye from '@/components/siteIcons/eye-slash.svg'
 import Image from 'next/image'
+import NumberFormat from 'react-number-format';
 
 
 import {
@@ -10,7 +10,6 @@ import {
 	Typography,
     Card,
     Stack,
-    Paper,
 } from "@mui/material";
 
 
@@ -42,6 +41,14 @@ export default function DashBoardEditProfile() {
         oldPassword: '',
         newPassword: '',
     });
+
+    const handleInputChange = (event) => {
+        event.target.value = event.target.value.replace(/[^0-9]/g,);
+        if (event.target.value == 'undefined') {
+            event.target.value = ''
+        }
+    }
+    
 
 
     const editNewProfile = async () => {
@@ -112,6 +119,8 @@ export default function DashBoardEditProfile() {
     };
 
   return (
+    <Card className='m-4 flex justify-end h-[47rem] rounded-xl lg:h-max shadow-lg'>
+
         <section className="editProfile py-4 w-[70%] px-[4%] flex flex-col lg:w-full">
 
             <div className="editProfile-info flex border-b border-[#EDEDED] justify-between py-2 mb-4">
@@ -141,7 +150,7 @@ export default function DashBoardEditProfile() {
 
                         <div className='flex justify-between items-center'>
                             <label htmlFor="phoneNumber" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>شماره تلفن</label>
-                            <input type="text" onChange={(e) => setNewProfileData({ ...newProfileData, phoneNumber: e.target.value })} id='phoneNumber' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2' />
+                            <input type="tel" onInput={handleInputChange}  onChange={(e) => setNewProfileData({ ...newProfileData, phoneNumber: e.target.value })} id='phoneNumber' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2' />
                         </div>
 
                         <div className='flex justify-between items-center'>
@@ -317,5 +326,8 @@ export default function DashBoardEditProfile() {
 
             </Stack>
         </section>
+
+
+    </Card>
   )
-}   
+}

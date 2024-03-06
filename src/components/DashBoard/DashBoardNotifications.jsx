@@ -25,7 +25,7 @@ export default function DashBoardNotifications() {
     <div>
 
 
-          <section className=" py-4 px-[4%] flex flex-col h-full lg:w-full rounded-xl shadow-lg">
+          <section className=" py-4 px-[4%] w-[60rem] md:w-[24rem] flex flex-col h-full lg:w-full rounded-xl shadow-lg">
 
             <div className="flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <h3 className='font-bold text-lg'>
@@ -42,7 +42,7 @@ export default function DashBoardNotifications() {
 
             <section className='flex flex-col mt-4 gap-2 overflow-scroll h-full'>
 
-              {notifs.map((notif, index) => (
+              {notifs.map((notif) => (
                 <div className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
 
                 <div className="rightPart flex flex-col justify-between">
@@ -77,7 +77,7 @@ export default function DashBoardNotifications() {
 
                   </div>
 
-                  <div className="date text-sm text-[#747678] md:text-xs">
+                  <div className="date md:w-[4.5rem] text-xs text-[#747678] md:text-xs">
                     {notif.date}
                   </div>
 

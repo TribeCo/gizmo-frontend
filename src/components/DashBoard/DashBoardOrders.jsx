@@ -14,19 +14,19 @@ export default function DashBoardOrders() {
     }
 
     const [realOrders, setRealOrders] = useState([
-        {orderCode: '0786453465' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '4894545456' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '4128546528' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '4654894898' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '0782586558' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '0786453465' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '4894545456' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '4128546528' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '4654894898' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '0782586558' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
     ])
 
     const [orders, setOrders] = useState([
-        {orderCode: '0786453465' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '4894545456' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '4128546528' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '4654894898' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
-        {orderCode: '0782586558' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', senderName:'گیزمو', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '0786453465' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '4894545456' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '4128546528' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '4654894898' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
+        {orderCode: '0782586558' , destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date:'1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000'},
     ])
 
     const searchProductCode = (event) => {
@@ -47,15 +47,16 @@ export default function DashBoardOrders() {
         let tempElem = event.target.parentElement.parentElement.parentElement.parentElement
         tempElem.classList.toggle('min-h-80')
         tempElem.lastElementChild.classList.toggle('hidden')
+        event.target.nextSibling.classList.toggle('rotate-180')
     }
 
   return (
     <div>
     
 
-          <section className=" py-4 px-[4%] flex flex-col h-[47rem] overflow-scroll lg:w-full rounded-xl shadow-lg">
+          <section className=" py-4 px-[4%] w-[60rem] flex flex-col h-[47rem] overflow-scroll lg:w-full rounded-xl shadow-lg">
 
-            <div className="flex border-b border-[#EDEDED] justify-between py-2 mb-4">
+            <div className="flex border-b border-[#EDEDED] justify-between py-2 gap-2 mb-4">
                 <h3 className='font-bold flex items-center text-lg md:text-md'>
                     سفارشات
                 </h3>
@@ -81,23 +82,23 @@ export default function DashBoardOrders() {
                     <div className="rightPart flex w-full flex-col items-end gap-4">
 
                         <div className="infoRow flex w-full gap-6 md:gap-0 md:justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>کد پیگیری: </span>
-                            <div onClick={drawerHandler} className=' md:text-sm'>{order.orderCode}</div>
+                            <span  className='font-extrabold md:text-sm'>کد پیگیری: </span>
+                            <div  className=' md:text-sm'>{order.orderCode}</div>
+                        </div>
+
+                        <div className="infoRow flex w-full gap-6 md:gap-4 md:justify-between">
+                            <span  className='font-extrabold md:text-sm whitespace-nowrap'>آدرس ارسال: </span>
+                            <div  className=' md:text-xs'>{order.destinationAddress}</div>
                         </div>
 
                         <div className="infoRow flex w-full gap-6 md:gap-0 md:justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>آدرس ارسال: </span>
-                            <div onClick={drawerHandler} className=' md:text-sm'>{order.destinationAddress}</div>
+                            <span  className='font-extrabold md:text-sm'>نام گیرنده: </span>
+                            <div  className=' md:text-sm'>{order.receiverName}</div>
                         </div>
 
                         <div className="infoRow flex w-full gap-6 md:gap-0 md:justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>نام گیرنده: </span>
-                            <div onClick={drawerHandler} className=' md:text-sm'>{order.receiverName}</div>
-                        </div>
-
-                        <div className="infoRow flex w-full gap-6 md:gap-0 md:justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>نام گیرنده: </span>
-                            <div onClick={drawerHandler} className=' md:text-sm'>{order.senderName}</div>
+                            <span  className='font-extrabold md:text-sm'>تاریخ سفارش: </span>
+                            <div  className=' md:text-sm'>{order.date}</div>
                         </div>
 
                     </div>
@@ -105,32 +106,34 @@ export default function DashBoardOrders() {
                     <div className="leftPart w-full flex flex-col gap-4">
 
                         <div className="infoRow flex w-full justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>قیمت کل سفارش: </span>
-                            <div onClick={drawerHandler} className='flex gap-1'>
+                            <span  className='font-extrabold md:text-xs'>قیمت کل سفارش: </span>
+                            <div  className='flex gap-1'>
                                 <span className=' md:text-sm'>{order.price}</span>
                                 <span className=' md:text-sm'>تومان</span>
                             </div>
                         </div>
 
                         <div className="infoRow flex w-full justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>میزان تخفیف: </span>
-                            <div onClick={drawerHandler} className='flex gap-1'>
+                            <span  className='font-extrabold md:text-sm'>میزان تخفیف: </span>
+                            <div  className='flex gap-1'>
                                 <span className=' md:text-sm'>{order.discountPrice}</span>
                                 <span className=' md:text-sm'>تومان</span>
                             </div>
                         </div>
 
                         <div className="infoRow flex w-full justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>مبلغ قابل پرداخت: </span>
-                            <div onClick={drawerHandler} className='flex gap-1 font-extrabold'>
+                            <span  className='font-extrabold md:text-xs'>مبلغ قابل پرداخت: </span>
+                            <div  className='flex gap-1 font-extrabold'>
                                 <span className=' md:text-sm'>{order.finalPrice}</span>
                                 <span className=' md:text-sm'>تومان</span>
                             </div>
                         </div>
 
-                        <div className="infoRow flex w-full justify-between">
-                            <span onClick={drawerHandler} className='font-extrabold md:text-sm'>تاریخ سفارش: </span>
-                            <div onClick={drawerHandler} className=' md:text-sm'>1402/5/6</div>
+                        <div className="infoRow flex w-full gap-2 justify-end items-center select-none">
+                            <span onClick={drawerHandler} className='font-extrabold text-palette-blue md:text-sm'>پیگیری سفارش</span>
+                            <svg className='transition-all' width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.70337 9.51299L0.330366 3.13998C-0.110122 2.6995 -0.110122 1.98722 0.330366 1.55142L1.38941 0.492373C1.8299 0.0518866 2.54217 0.0518866 2.97798 0.492373L7.5 5.00503L12.0173 0.487687C12.4578 0.0472002 13.1701 0.0472002 13.6059 0.487687L14.6696 1.54673C15.1101 1.98722 15.1101 2.6995 14.6696 3.1353L8.29663 9.50831C7.85614 9.95348 7.14386 9.95348 6.70337 9.51299Z" fill="#22668D"/>
+                            </svg>
                         </div>
 
                     </div>

@@ -21,20 +21,37 @@ export default function DashBoardAddress(props) {
 
 
     const [addNewAddressStat, setAddNewAddressStat] = useState(false)
-    const [addresses, setAddresses] = useState(props.defaultAddresses)
+    const [addresses, setAddresses] = useState([{
+        id: '1',
+        province: 'سیستان بلوچستان',
+        city: 'ایتالیا',
+        postal_code: 6542542578620,
+        straight_address: 'کوچه فرانسه، خونه اکبر پشت خونه حاجر تبنمی ستبسنمبیتب سنمتبیس نمبتیم نبتسیم نتبنم',
+        current: false
+    },
+    {
+        id: '2',
+        province: 'سیستان بلوچستان',
+        city: 'ایتالیا',
+        postal_code: 6542542578620,
+        straight_address: 'کوچه فرانسه، خونه اکبر پشت خونه حاجر تبنمی ستبسنمبیتب سنمتبیس نمبیم نتبنم',
+        current: true
+    }])
     const [newAddressData, setNewAddressData] = useState({
+        id: '',
         province: '',
         city: '',
-        detailedAddress: '',
-        postalCode: 0,
-        default: false
+        postal_code: 0,
+        straight_address: '',
+        current: false
     });
     const [newDefaultAddress, setNewDefaultAddress] = useState({
+        id: '',
         province: '',
         city: '',
-        detailedAddress: '',
-        postalCode: 0,
-        default: true
+        postal_code: 0,
+        straight_address: '',
+        current: false
     })
 
     const handleRadioChange = (event) => {
@@ -78,9 +95,9 @@ export default function DashBoardAddress(props) {
                 setNewAddressData({
                     province: '',
                     city: '',
-                    detailedAddress: '',
-                    postalCode: 0,
-                    default: false
+                    straight_address: '',
+                    postal_code: 0,
+                    current: false
                 });
             } else {
                 console.error('Error adding new address:', response.statusText);
@@ -94,7 +111,7 @@ export default function DashBoardAddress(props) {
         const addApiUrl = 'https://example.com/api/addNewAddress'
 
         try{
-            newDefaultAddress.default = true
+            newDefaultAddress.current = true
             console.log(newDefaultAddress)
             const response = await fetch(addApiUrl, {
                 method: 'POST',
@@ -106,17 +123,17 @@ export default function DashBoardAddress(props) {
 
             if(response.ok) {
                 fetchData();
-
-                const updatedAddresses = addresses.map(address => address.postalCode === newDefaultAddress.postalCode ? {...address, default: true} : address)
+                
+                const updatedAddresses = addresses.map(address => address.postal_code === newDefaultAddress.postal-code ? {...address, current: true} : address)
 
                 setAddresses(updatedAddresses)
 
                 setNewDefaultAddress({
                     province: '',
                     city: '',
-                    detailedAddress: '',
-                    postalCode: 0,
-                    default: false
+                    straight_address: '',
+                    postal_code: 0,
+                    current: false
                 });
             }
             else{
@@ -129,7 +146,7 @@ export default function DashBoardAddress(props) {
 
   return (
 
-        <section className="savedAddresses py-4 rounded-lg px-[4%] flex flex-col border lg:w-full">
+        <section className="savedAddresses py-4 rounded-lg px-[4%] flex flex-col w-[60rem]  lg:w-[21rem]">
 
             <div className="savedAddressesHeader flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <Typography
@@ -142,6 +159,7 @@ export default function DashBoardAddress(props) {
                 <Button
                     onClick={() => setAddNewAddressStat(true)}
 					variant="contained"
+                    className='flex gap-2'
 					sx={{
 						bgcolor: Colors.orange,
 						color: "black",
@@ -151,6 +169,9 @@ export default function DashBoardAddress(props) {
 							bgcolor: Colors.orange,
 						},
 					}}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" fill="#213346"/>
+                    </svg>
 					<Typography variant='div'> افزودن آدرس جدید</Typography>
 				</Button>
             </div>
@@ -164,26 +185,21 @@ export default function DashBoardAddress(props) {
                     </Typography>
 
                     <Stack spacing={1} className="defaultAddresses-bullets px-5 max-sm:text-sm">
-
-                            <FormControl>
-                              <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-                                    <RadioGroup
-                                     aria-labelledby="demo-radio-buttons-group-label"
-                                     name="radio-buttons-group"
-                                     >
-                                        
-                                        {
-                                            addresses.map((product) => {
-                                                if (product.default) {
-                                                   return <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
-                                                }
-                                        })}
-
-                                    </RadioGroup>
-                            </FormControl>
-
-
+                        <FormControl>
+                            <FormLabel id="demo-radio-buttons-group-label" style={{ overflow: 'hidden' }}></FormLabel>
+                            <RadioGroup
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                name="radio-buttons-group"
+                            >
+                                {addresses.map((address, index) => {
+                                    if (address.current) {
+                                        return <FormControlLabel label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
+                                    }else null
+                                })}
+                            </RadioGroup>
+                        </FormControl>
                     </Stack>
+
 
                 </Stack>
 
@@ -203,8 +219,8 @@ export default function DashBoardAddress(props) {
                                      name="radio-buttons-group"
                                      >
                                         
-                                        {addresses.map((product, index) => {
-                                            return <FormControlLabel value={product.value} control={<Radio />} label={product.label} />
+                                        {addresses.map((address) => {
+                                            return <FormControlLabel label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
                                         })}
 
                                     </RadioGroup>
@@ -225,6 +241,7 @@ export default function DashBoardAddress(props) {
 						borderRadius: "50px",
 						boxShadow: "none",
 						mr: 4,
+                        mb: 4,
 						"&:hover": {
 							bgcolor: Colors.orange,
 						},
@@ -274,7 +291,7 @@ export default function DashBoardAddress(props) {
                             <div className='mt-4 flex justify-end lg:justify-center'>
                                 <Button className=''
                                 variant="contained"
-                                onClick={addNewAddress}
+                                // onClick={addNewAddress}
                                 sx={{
                                     bgcolor: Colors.orange,
                                     color: "black",
@@ -282,6 +299,7 @@ export default function DashBoardAddress(props) {
                                     boxShadow: "none",
                                     mt: 1.5,
                                     mr: 7,
+                                    px: 4,
                                     "&:hover": {
                                         bgcolor: Colors.orange,
                                     },

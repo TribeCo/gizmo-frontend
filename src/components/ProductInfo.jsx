@@ -4,10 +4,8 @@ import {
 	Box,
 	Button,
 	CardMedia,
-	Container,
 	Grid,
 	IconButton,
-	Paper,
 	Rating,
 	Typography,
 } from "@mui/material";
@@ -15,7 +13,6 @@ import Image from "next/image";
 import noon from "./comanyIcons/noon.png";
 import { useState } from "react";
 import PhotosModal from "./PhotosModal";
-import { Add, Close } from "@mui/icons-material";
 
 const arr = {
 	"توان دستگاه": "850 وات",

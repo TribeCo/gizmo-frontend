@@ -119,9 +119,8 @@ export default function DashBoardEditProfile() {
     };
 
   return (
-    <Card className='m-4 flex justify-end h-[47rem] rounded-xl lg:h-max shadow-lg'>
 
-        <section className="editProfile py-4 w-[70%] px-[4%] flex flex-col lg:w-full">
+        <section className="editProfile py-4 px-[4%] max-h-full flex flex-col lg:w-full">
 
             <div className="editProfile-info flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <Typography
@@ -328,6 +327,5 @@ export default function DashBoardEditProfile() {
         </section>
 
 
-    </Card>
   )
 }

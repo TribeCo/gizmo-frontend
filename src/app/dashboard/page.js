@@ -15,18 +15,23 @@ import { Colors } from "@/utils";
 import Avatar from '@mui/material/Avatar';
 import UserInfoPage from "@/components/dashboard/UserInfoPage";
 import DashBoardEditProfile from "@/components/dashboard/DashBoardEditProfile";
+import DashBoardAddress from "@/components/dashboard/DashBoardAddress";
+import DashBoardNotifications from "@/components/dashboard/DashBoardNotifications";
+import DashBoardOrders from "@/components/dashboard/DashBoardOrders";
+import DashBoardDubaiOrders from "@/components/dashboard/DashBoardDubaiOrders";
+import DashBoardFavoriteProduct from "@/components/dashboard/DashBoardFavoriteProduct";
 
 
 const functionList = [
     <UserInfoPage />, // حساب کاربری
     <DashBoardEditProfile />, // ویرایش اطلاعات حساب
-    , // آدرس ها
-    , // پیغام ها
-    , // سفارشات
-    , // استعلام قیمت
-    , // پیگیری سفارش
-    , // علاقه مندی ها
+    <DashBoardAddress/>, // آدرس ها
+    <DashBoardNotifications/>, // پیغام ها
+    <DashBoardOrders/>, // سفارشات
+    <DashBoardDubaiOrders/>, // استعلام قیمت
+    <DashBoardFavoriteProduct/>, // علاقه مندی ها
     , // خروج از حساب
+    , // پیگیری سفارش
 ]
 
 export default function Profile() {
@@ -338,9 +343,7 @@ export default function Profile() {
             <Paper
                 variant="outlined"
                 sx={{
-                    px: '4rem',
-                    py: '3rem',
-                    mb: 2,
+                    height: 'fit-content',
                     borderRadius: '15px',
                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
                 }}

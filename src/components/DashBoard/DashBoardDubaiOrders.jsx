@@ -50,9 +50,7 @@ export default function DashBoardDubaiOrders() {
   return (
     <div>
     
-        <section className='m-4 flex justify-end h-[47rem] lg:h-max'>
-
-          <section className=" py-4 w-[70%] px-[4%] flex flex-col lg:w-full rounded-xl shadow-lg">
+          <section className="w-full py-4 px-[4%] flex flex-col lg:w-full rounded-xl">
 
             <div className="flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <h3 className='font-bold flex items-center text-lg md:text-md'>
@@ -149,7 +147,6 @@ export default function DashBoardDubaiOrders() {
 
           </section>
 
-        </section>
     
     </div>
   )

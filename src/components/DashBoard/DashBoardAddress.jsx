@@ -128,9 +128,8 @@ export default function DashBoardAddress(props) {
     }
 
   return (
-    <Card className='m-4 flex justify-end h-[47rem] lg:h-max'>
 
-        <section className="savedAddresses py-4 rounded-lg w-[70%] px-[4%] flex flex-col border lg:w-full">
+        <section className="savedAddresses py-4 rounded-lg px-[4%] flex flex-col border lg:w-full">
 
             <div className="savedAddressesHeader flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <Typography
@@ -302,6 +301,5 @@ export default function DashBoardAddress(props) {
         </section>
 
 
-    </Card>
   )
 }

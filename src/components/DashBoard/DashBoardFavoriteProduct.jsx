@@ -1,16 +1,17 @@
 'use client'
 import ProductCard from '@/components/ProductCard'
 import React, { useState } from 'react'
+import {fakeProducts} from '@/utils/fakeProduct'
 import {products} from '@/utils/fakeProduct'
 
 export default function DashBoardFavoriteProduct() {
 
-    // const [products, setProducts] = useState(props)
+    const [products, setProducts] = useState(fakeProducts)
 
   return (
     <div>
 
-        <section className='m-4 flex justify-end h-[47rem] lg:h-max'>
+        <section className='w-[60rem]  lg:w-[21rem] m-4 flex justify-end h-[47rem] lg:h-max'>
 
           <section className=" py-4 w-[70%] px-[4%] flex flex-col lg:w-full rounded-xl shadow-lg">
 
@@ -21,7 +22,7 @@ export default function DashBoardFavoriteProduct() {
             </div>
 
             <section className='flex gap-2 mt-4 flex-wrap'>
-
+                {console.log(products)}
                 {products.map((product, index) => {
                     return (
                         <ProductCard product={product[index]}></ProductCard>

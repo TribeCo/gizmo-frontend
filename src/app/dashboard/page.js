@@ -29,9 +29,9 @@ const functionList = [
     <DashBoardNotifications/>, // پیغام ها
     <DashBoardOrders/>, // سفارشات
     <DashBoardDubaiOrders/>, // استعلام قیمت
+    , // پیگیری سفارش
     <DashBoardFavoriteProduct/>, // علاقه مندی ها
     , // خروج از حساب
-    , // پیگیری سفارش
 ]
 
 export default function Profile() {

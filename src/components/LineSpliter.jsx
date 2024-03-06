@@ -10,7 +10,7 @@ const LineSplitter = ({ text }) => {
 			alignItems="center"
 			justifyContent="center"
 			sx={{
-				mb: { xs: 0, sm: 5, md: 10 },
+				mb: { xs: 3, sm: 5, md: 10 },
 			}}>
 			<Box
 				ml={4}

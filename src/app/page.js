@@ -148,13 +148,13 @@ export default function Home() {
 					gap={3}
 					columns={3}>
 					<Grid item>
-						<BlogCard background_color={Colors.blue} />
+						<BlogCard background_color={Colors.blue} font_color='white' />
 					</Grid>
 					<Grid item>
-						<BlogCard background_color={Colors.blue} />
+						<BlogCard background_color={Colors.blue} font_color='white' />
 					</Grid>
 					<Grid item>
-						<BlogCard background_color={Colors.blue} />
+						<BlogCard background_color={Colors.blue} font_color='white' />
 					</Grid>
 				</Grid>
 				<Button

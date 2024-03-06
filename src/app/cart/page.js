@@ -13,14 +13,10 @@ const TempPage = () => {
         <Box sx={{
             display: 'flex',
             flexDirection: 'column',
-            flexWrap: 'wrap',
-            width: "100%",
-            height: "100%",
             alignItems: "center",
             justifyContent: "center",
-            margin: "5px",
         }}>
-            <Box
+            {/* <Box
                 sx={{
                     marginTop: 6,
                     marginBottom: 2,
@@ -46,7 +42,7 @@ const TempPage = () => {
                 
                 <hr style={{ border: "1px solid #EEEEEE", width: "83%", marginRight: "auto", marginBottom: "3%", marginTop: "-2%" }} />
 
-            </Box>            
+            </Box>             */}
             <Box
                 sx={{
                     margin: 10,

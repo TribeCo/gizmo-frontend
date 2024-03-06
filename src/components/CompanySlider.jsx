@@ -76,9 +76,6 @@ const CompanySlider = ({ logos, swapTime_millisecond }) => {
 				container
 				justifyContent="space-between"
 				alignItems="center"
-				// sx={ {
-				//     mt:
-				// }}
 			>
 				<Grid item>
 					<IconButton

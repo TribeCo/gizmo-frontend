@@ -4,6 +4,13 @@ import eye from '@/components/siteIcons/eye-slash.svg'
 import Image from 'next/image'
 import NumberFormat from 'react-number-format';
 
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { faIR } from '@mui/x-date-pickers/locales';
+import moment from 'moment-jalaali';
+import { AdapterMomentJalaali } from '@mui/x-date-pickers/AdapterMomentJalaali';
+import 'moment/locale/fa'
 
 import {
 	Button,
@@ -155,8 +162,17 @@ export default function DashBoardEditProfile() {
                         <div className='flex justify-between items-center'>
                             <label htmlFor="birthDate" className='w-fit block text-sm mr-2 text-[#99999A]  whitespace-nowrap sm:text-xs'>تاریخ تولد</label>
 
-                            <input type="date" onChange={(e) => setNewProfileData({ ...newProfileData, birthDay: e.target.value })} id='birthDay' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2 w-full max-w-[13.5rem]'/>
+                            {/* <input type="date"  id='birthDay' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2 w-full max-w-[13.5rem]'/> */}
+                            <LocalizationProvider dateAdapter={AdapterMomentJalaali} adapterLocale="fa">
+                                <DatePicker className='' onChange={(e) => setNewProfileData({ ...newProfileData, birthDay: e.target.value })}
+                                    slotProps={{
+                                    textField: {
 
+                                    },
+                                    }}
+                                    
+                                />
+                            </LocalizationProvider>
                         </div>
 
                     </div>

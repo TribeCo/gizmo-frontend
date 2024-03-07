@@ -40,6 +40,8 @@ export default function DeliveryPageSummary() {
                         sx={{
                             borderRight: { xs: 'none', lg: "2px solid #B4B4B4" },
                             pr: { xs: 0, lg: 1 },
+                            height: '100%',
+                            width: {xs:'100%', lg: 'unset'}
                         }}
                     >
                         <Grid
@@ -67,11 +69,11 @@ export default function DeliveryPageSummary() {
                                 columnGap: {xs: 1, lg: 0},
                                 alignItems: { xs: 'center', lg: 'start' },
                                 flexDirection: { xs: 'column', sm: 'row', lg: 'column' },
-                                pt: {xs:0, lg:10}
+                                pt: {xs:0, lg:3}
                             }}
                         >
                             
-                            <div className="flex gap-2 w-full h-full xs:justify-self-center">
+                            <div className="flex gap-2 w-full h-full">
                                 <CardMedia image={'https://gizmoshop.liara.run/images/media/pictures/Frame_404.png'} 
                                     sx={
                                         {

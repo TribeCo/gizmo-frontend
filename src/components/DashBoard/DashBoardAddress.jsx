@@ -56,6 +56,7 @@ export default function DashBoardAddress(props) {
 
     const handleRadioChange = (event) => {
         setNewDefaultAddress(event.target.value);
+        console.log(event.target.value)
     };
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import { Box, Grid, Typography, Button, Divider } from "@mui/material";
+import { Box, Grid, Typography, Button, Divider, Paper, CardMedia } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
 import { convert } from "@/utils";
 
@@ -17,21 +17,19 @@ const ProductCard = (pid) => {
     };
 
     const onDecrement = () => {
-        setCount(count - 1);
+        if (count != 0) {
+            setCount(count - 1);
+        }
     };
 
     return (
-        <Box
-            sx={{
-                scale: {xs: '1', sm: '1', md: '0.77', lg: '1'}
-            }}
-        >
+        <Grid>
             <Grid 
                 display='flex'
                 justifyContent='space-between'
                 alignItems='center'
                 sx={{
-                    columnGap:10
+                    columnGap: {xs: '5px', sm: 4, md: 8, lg: 10},
                 }}
             >
                 <Grid
@@ -41,22 +39,21 @@ const ProductCard = (pid) => {
                     alignItems='center'
                     columnGap={1}
                 >
-                    <Box 
+                    <CardMedia 
+                        image={testImg}
                         sx={{
-                            width: "193px",
-                            height: "193px",
-                            borderRadius: "10px",
+                            width: {xs: '55px', sm: '90px', md: '150px', lg: "193px"},
+                            height: {xs: '55px', sm: '90px', md: '150px', lg: "193px"},
                             overflow: 'hidden',
+                            borderRadius: "10px",
                         }}
-                    >
-                        <img style={{zIndex: 0, borderRadius: "10px" }} src={testImg} />
-                    </Box>
+                    />
                     <Grid
                         display='flex'
                         flexDirection='column'
                         alignItems='start'
                         sx={{
-                            rowGap: 5
+                            rowGap: {xs: '5px', sm: 1, md: 3, lg: 5},
                         }}
                     >
                         <Grid 
@@ -68,7 +65,7 @@ const ProductCard = (pid) => {
                             <Typography 
                                 variant="h5"
                                 sx={{
-                                    fontSize: 28
+                                    fontSize: {xs: 10, sm: 16, md: 24, lg: 28},
                                 }}
                             >
                                 تراول ماگ
@@ -85,9 +82,9 @@ const ProductCard = (pid) => {
                                     variant="h5"
                                     sx={{
                                         color: 'white',
-                                        fontSize: 18,
-                                        py: '3px',
-                                        px: '10px',
+                                        fontSize: {xs: 7, sm: 10, md: 16, lg: 18},
+                                        py: {xs: '1px', sm: '2px', md: '3px', lg: '4px'},
+                                        px: {xs: '5px', sm: '8px', md: '12px', lg: '15px'},
                                     }}
                                 >
                                     %{convert(20)}
@@ -100,10 +97,20 @@ const ProductCard = (pid) => {
                             alignItems='center'
                             columnGap={1}
                         >
-                            <Typography variant="h6">
+                            <Typography 
+                                variant="h6" 
+                                sx={{
+                                    fontSize: {xs: 9, sm: 15, md: 20, lg: 22},
+                                }}    
+                            >
                                 رنگ:
                             </Typography>
-                            <Typography variant="body1">
+                            <Typography 
+                                variant="body1"
+                                sx={{
+                                    fontSize: {xs: 8, sm: 14, md: 16, lg: 18},
+                                }} 
+                            >
                                 مشکی
                             </Typography>
                         </Grid>
@@ -113,10 +120,20 @@ const ProductCard = (pid) => {
                             alignItems='center'
                             columnGap={1}
                         >
-                            <Typography variant="body1">
+                            <Typography 
+                                variant="body1"
+                                sx={{
+                                    fontSize: {xs: 9, sm: 14, md: 16, lg: 18},
+                                }}    
+                            >
                                 کد محصول:
                             </Typography>
-                            <Typography>
+                            <Typography
+                                variant="body1"
+                                sx={{
+                                    fontSize: {xs: 8, sm: 13, md: 15, lg: 17},
+                                }} 
+                            >
                                 ۱۴۵۴۶۷۷
                             </Typography>
                         </Grid>
@@ -129,7 +146,7 @@ const ProductCard = (pid) => {
                     alignItems='center'
                     justifyContent='center'
                     sx={{
-                        columnGap:14
+                        columnGap: {xs: 0, sm: 3, md: 7, lg: 14},
                     }}
                 >
                     <Grid>
@@ -138,40 +155,58 @@ const ProductCard = (pid) => {
                             display: 'flex',
                             flexDirection: 'column',
                             flexWrap: 'wrap',
-                            alignItems: 'center',
+                            alignItems: 'center',   
                             justifyContent: 'center',
                         }}
                         >
-                            <Typography variant="h6 " sx={{ color: "#B4B4B4"}} fontWeight="bold">
+                            <Typography 
+                                variant="h6 " 
+                                fontWeight="bold"
+                                sx={{ 
+                                    fontSize: {xs: 7, sm: 12, md: 18, lg: 20},
+                                    color: "#B4B4B4"
+                                }} 
+                            >
                                 <span style={{ textDecoration: "line-through" }}>۳۹۸۰۰۰ تومان</span>
                             </Typography>
-                            <Typography fontSize={25} variant="h6" fontWeight="bold">۳۹۸۰۰۰ تومان</Typography>
+                            <Typography 
+                                variant="h6" 
+                                fontWeight="bold"
+                                sx={{ 
+                                    fontSize: {xs: 8, sm: 14, md: 20, lg: 24},
+                                }}
+                            >
+                                ۳۹۸۰۰۰ تومان
+                            </Typography>
                         </Box>
                     </Grid>
                     <Grid>
                         <Box display={"inline-flex"} sx={{
                             alignItems: "center",
                             justifyContent: "center",
+                            scale: {xs: '0.4', sm: '0.8', lg: '1'},
                         }}
                         >
                             <Button 
                                 sx={{ 
                                     borderRadius: "3px", 
                                     height: "41px", 
+                                    width: "35px",
                                     minWidth: "0px !important", 
-                                    width: "35px", 
                                     color: "#747678", 
                                     borderColor: "#747678" 
                                 }} 
-                                onClick={onIncrement} 
+                                onClick={onIncrement}
                                 variant="outlined" 
-                                startIcon={<Add sx={{ marginLeft: "30%" }} />}
-                            />
+                                startIcon={<Add sx={{ marginLeft: "30%",}} />}
+                            />                        
 
                             <Typography 
                                 variant="h6" 
                                 fontSize={"bold"} 
-                                sx={{margin: "25px"}}
+                                sx={{
+                                    margin: {xs: '5px', sm: '8px', md: '18px', lg: "25px"},
+                                }}
                             >
                                 {convert(count)}
                             </Typography>
@@ -180,8 +215,8 @@ const ProductCard = (pid) => {
                                 sx={{ 
                                     borderRadius: "3px", 
                                     height: "41px", 
+                                    width: "35px",
                                     minWidth: "0px !important", 
-                                    width: "35px", 
                                     color: "#747678", 
                                     borderColor: "#747678" 
                                 }} 
@@ -201,13 +236,19 @@ const ProductCard = (pid) => {
                             justifyContent: "center",
                         }}
                         >
-                            <Typography variant="h6" fontWeight="bold" fontSize={25}>۳۹۸۰۰۰ تومان</Typography>
+                            <Typography 
+                                variant="h6" 
+                                fontWeight="bold"
+                                sx={{ 
+                                    fontSize: {xs: 8, sm: 14, md: 20, lg: 24},
+                                }}
+                            >۳۹۸۰۰۰ تومان</Typography>
                         </Box>
                     </Grid>
                 </Grid>
             </Grid>
             <Divider sx={{ mt: 2 }}/>
-        </Box>
+        </Grid>
     );
 };
 

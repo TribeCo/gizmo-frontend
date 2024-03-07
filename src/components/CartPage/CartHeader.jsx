@@ -19,7 +19,7 @@ const CartHeader = () => {
                 sx={{
                     py: {xs: 1, sm: 2, md: 3},
                     px: {xs: 1, sm: 2, md: 4, lg: 6},
-                    columnGap:{xs: 2, sm: 20, md: 36, lg: 47}
+                    columnGap:{xs: 9, sm: 20, md: 36, lg: 47}
                 }}
             >
                 <Grid
@@ -44,7 +44,7 @@ const CartHeader = () => {
                         <Typography
                             noWrap
                             sx={{
-                                fontSize: {xs: 13, sm: 18, md: 20, lg: 24}
+                                fontSize: {xs: 11, sm: 18, md: 20, lg: 24}
                             }}
                             variant="h5"
                             fontWeight={"bold"}
@@ -60,7 +60,7 @@ const CartHeader = () => {
                     alignItems='center'
                     justifyContent='center'
                     sx={{
-                        columnGap:{xs: 3, sm: 6, md: 12, lg: 20}
+                        columnGap:{xs: 4, sm: 6, md: 12, lg: 20}
                     }}
                 >
                     <Grid >
@@ -70,7 +70,7 @@ const CartHeader = () => {
                             <Typography
                                 noWrap
                                 sx={{
-                                    fontSize: {xs: 13, sm: 18, md: 20, lg: 24}
+                                    fontSize: {xs: 11, sm: 18, md: 20, lg: 24}
                                 }}
                                 variant="h5"
                                 fontWeight={"bold"}
@@ -86,7 +86,7 @@ const CartHeader = () => {
                             <Typography
                                 noWrap
                                 sx={{
-                                    fontSize: {xs: 13, sm: 18, md: 20, lg: 24}
+                                    fontSize: {xs: 11, sm: 18, md: 20, lg: 24}
                                 }}
                                 variant="h5"
                                 fontWeight={"bold"}
@@ -102,7 +102,7 @@ const CartHeader = () => {
                             <Typography
                                 noWrap
                                 sx={{
-                                    fontSize: {xs: 13, sm: 18, md: 20, lg: 24}
+                                    fontSize: {xs: 11, sm: 18, md: 20, lg: 24}
                                 }}
                                 variant="h5"
                                 fontWeight={"bold"}

@@ -109,8 +109,8 @@ export default function Home() {
 	return (
 		<>
 			<AppBar isLanding />
-			<DeliveryPageInfo/>
-			{/* <main>
+			{/* <DeliveryPageInfo/> */}
+			<main>
 				<TopSlider />
 				<LineSplitter text={"تخفیف های امروز"} />
 				<CardProductSlider
@@ -144,11 +144,12 @@ export default function Home() {
 					container
 					justifyContent="space-around"
 					sx={{
-						py: { xs: 7, md: 0 },
-						px: { xs: 5, md: 10 },
+						px: {lg: 3},
+						gap: {xs: 0, lg: 2}
 					}}
-					gap={3}
-					columns={3}>
+					columns={3}
+					flexWrap='nowrap'	
+				>
 					<Grid item>
 						<BlogCard background_color={Colors.blue} font_color='white' />
 					</Grid>
@@ -158,6 +159,9 @@ export default function Home() {
 					<Grid item>
 						<BlogCard background_color={Colors.blue} font_color='white' />
 					</Grid>
+					<Grid item sx={{ display: {xs: 'none', xl: 'flex'}}}>
+						<BlogCard background_color={Colors.blue} font_color='white' />
+					</Grid>		
 				</Grid>
 				<Button
 					variant="contained"
@@ -190,7 +194,7 @@ export default function Home() {
 						{"مشاهده محصولات بیشتر"}
 					</Typography>
 				</Button>
-			</main> */}
+			</main>
 			<Footer />
 		</>
 	);

@@ -17,6 +17,7 @@ import noon from "@/components/comanyIcons/noon.png";
 import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
+import DeliveryPageInfo from "@/components/DeliveryPageInfo";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -108,7 +109,8 @@ export default function Home() {
 	return (
 		<>
 			<AppBar isLanding />
-			<main>
+			<DeliveryPageInfo/>
+			{/* <main>
 				<TopSlider />
 				<LineSplitter text={"تخفیف های امروز"} />
 				<CardProductSlider
@@ -188,7 +190,7 @@ export default function Home() {
 						{"مشاهده محصولات بیشتر"}
 					</Typography>
 				</Button>
-			</main>
+			</main> */}
 			<Footer />
 		</>
 	);

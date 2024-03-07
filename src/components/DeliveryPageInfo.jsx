@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React,{useState} from 'react'
 import { Colors } from "@/utils";
 
 
@@ -16,18 +16,16 @@ import {
     FormControlLabel,
 } from "@mui/material";
 
+export default function DeliveryPageInfo() {
 
-export default function DashBoardAddress(props) {
-
-
-    const [addNewAddressStat, setAddNewAddressStat] = useState(false)
+    
     const [addresses, setAddresses] = useState([{
         id: '1',
         province: 'سیستان بلوچستان',
         city: 'ایتالیا',
         postal_code: 6542542578620,
         straight_address: 'کوچه فرانسه، خونه اکبر پشت خونه حاجر تبنمی ستبسنمبیتب سنمتبیس نمبتیم نبتسیم نتبنم',
-        current: false
+        current: true
     },
     {
         id: '2',
@@ -37,6 +35,7 @@ export default function DashBoardAddress(props) {
         straight_address: 'کوچه فرانسه، خونه اکبر پشت خونه حاجر تبنمی ستبسنمبیتب سنمتبیس نمبیم نتبنم',
         current: true
     }])
+    
     const [newAddressData, setNewAddressData] = useState({
         id: '',
         province: '',
@@ -45,35 +44,7 @@ export default function DashBoardAddress(props) {
         straight_address: '',
         current: false
     });
-    const [newDefaultAddress, setNewDefaultAddress] = useState({
-        id: '',
-        province: '',
-        city: '',
-        postal_code: 0,
-        straight_address: '',
-        current: false
-    })
-
-    const handleRadioChange = (event) => {
-        setNewDefaultAddress(event.target.value);
-    };
-
-    useEffect(() => {
-        
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        const fetchApiUrl = 'https://example.com/api/defaultAddresses';
-
-        try {
-            const response = await fetch(fetchApiUrl);
-            const data = await response.json();
-            setAddresses(data);
-        } catch (error) {
-            console.error('Error fetching data from the API:', error);
-        }
-    };
+    const [selectedAddress, setSelectedAddress] = useState(`${addresses[0].province}, ${addresses[0].city}, ${addresses[0].straight_address}, کد پستی: ${addresses[0].postal_code}`)
 
     const addNewAddress = async () => {
         // Define the API endpoint for adding a new address
@@ -107,46 +78,10 @@ export default function DashBoardAddress(props) {
         }
     };
 
-    const addToDefault = async () => {
-        const addApiUrl = 'https://example.com/api/addNewAddress'
-
-        try{
-            newDefaultAddress.current = true
-            console.log(newDefaultAddress)
-            const response = await fetch(addApiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newDefaultAddress),
-            });
-
-            if(response.ok) {
-                fetchData();
-                
-                const updatedAddresses = addresses.map(address => address.postal_code === newDefaultAddress.postal-code ? {...address, current: true} : address)
-
-                setAddresses(updatedAddresses)
-
-                setNewDefaultAddress({
-                    province: '',
-                    city: '',
-                    straight_address: '',
-                    postal_code: 0,
-                    current: false
-                });
-            }
-            else{
-                console.log('Error adding new address', response.statusText);
-            }
-        } catch (error) {
-            console.log('Error sending date to the API:', error);
-        }
-    }
-
   return (
+    <div>
 
-        <section className="savedAddresses py-4 rounded-lg px-[4%] flex flex-col w-[60rem]  lg:w-[21rem]">
+        <section className="savedAddresses py-4 rounded-lg px-[4%] flex flex-col w-full">
 
             <div className="savedAddressesHeader flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <Typography
@@ -156,24 +91,7 @@ export default function DashBoardAddress(props) {
                     آدرس ها
                 </Typography>
 
-                <Button
-                    onClick={() => setAddNewAddressStat(true)}
-					variant="contained"
-                    className='flex gap-2'
-					sx={{
-						bgcolor: Colors.orange,
-						color: "black",
-						borderRadius: "50px",
-						boxShadow: "none",
-						"&:hover": {
-							bgcolor: Colors.orange,
-						},
-					}}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" fill="#213346"/>
-                    </svg>
-					<Typography variant='div'> افزودن آدرس جدید</Typography>
-				</Button>
+                
             </div>
 
             <Stack spacing={4} className='px-[3%]'>
@@ -181,7 +99,7 @@ export default function DashBoardAddress(props) {
                 <Stack spacing={2} className='defaultAddresses'>
 
                     <Typography variant='h6' fontSize={18} fontWeight={900} className='font-bold text-[#213346]'>
-                        آدرس پیش فرض
+                        آدرس انتخاب شده برای ارسال:
                     </Typography>
 
                     <Stack spacing={1} className="defaultAddresses-bullets px-5 max-sm:text-sm">
@@ -191,11 +109,7 @@ export default function DashBoardAddress(props) {
                                 aria-labelledby="demo-radio-buttons-group-label"
                                 name="radio-buttons-group"
                             >
-                                {addresses.map((address, index) => {
-                                    if (address.current) {
-                                        return <FormControlLabel label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
-                                    }else null
-                                })}
+                                {selectedAddress}
                             </RadioGroup>
                         </FormControl>
                     </Stack>
@@ -206,7 +120,7 @@ export default function DashBoardAddress(props) {
                 <Stack spacing={2} className='otherAddresses'>
 
                     <Typography variant='h6'  fontWeight={900} fontSize={18} className='font-bold text-[#21334'>
-                        آدرس های دیگر
+                        آدرس های انتخاب شده:
                     </Typography>
 
                     <Stack spacing={1} className="notDefaultAddresses-bullets px-5">
@@ -214,13 +128,14 @@ export default function DashBoardAddress(props) {
                             <FormControl>
                               <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                                     <RadioGroup
-                                     onChange={handleRadioChange}
                                      aria-labelledby="demo-radio-buttons-group-label"
                                      name="radio-buttons-group"
                                      >
                                         
                                         {addresses.map((address) => {
-                                            return <FormControlLabel label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
+                                            if (address.current) {
+                                                return <FormControlLabel onClick={() => {setSelectedAddress(`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`)}} label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
+                                            }else null
                                         })}
 
                                     </RadioGroup>
@@ -229,31 +144,9 @@ export default function DashBoardAddress(props) {
 
                 </Stack>
 
-                <div className='addNewAddressWrapper w-full flex justify-start'>
-
-                    <Button
-                    className='setDefaultBtn'
-					variant="contained"
-                    onClick={addToDefault}///
-					sx={{
-						bgcolor: Colors.orange,
-						color: "black",
-						borderRadius: "50px",
-						boxShadow: "none",
-						mr: 4,
-                        mb: 4,
-						"&:hover": {
-							bgcolor: Colors.orange,
-						},
-					}}>
-					    <Typography variant='div'>افزودن آدرس به پیش فرض</Typography>
-				    </Button>
-
-                </div>
-
             </Stack>
 
-            <Stack className='mt-8 px-[4%]' style={{display : addNewAddressStat ? 'block' : 'none'}}>
+            <Stack className='mt-8 px-[4%]'>
 
                 <Typography variant='h6' fontSize={18} fontWeight={900} className='font-bold pb-2 text-[#213346]'>
                     افزودن آدرس جدید
@@ -291,7 +184,7 @@ export default function DashBoardAddress(props) {
                             <div className='mt-4 flex justify-end lg:justify-center'>
                                 <Button className=''
                                 variant="contained"
-                                // onClick={addNewAddress}
+                                onClick={addNewAddress}
                                 sx={{
                                     bgcolor: Colors.orange,
                                     color: "black",
@@ -316,8 +209,75 @@ export default function DashBoardAddress(props) {
 
             </Stack>
 
+            <div className="w-full px-2 py-4 bg-[#EEEEEE]">
+                <div>
+                    اطلاعات گیرنده
+                </div>
+
+            </div>
+
+            <Stack className='mt-8 px-[4%]'>
+
+                <Typography variant='h6' fontSize={18} fontWeight={900} className='font-bold pb-6 text-[#213346]'>
+                    اطلاعات گیرنده:
+                </Typography>
+
+                <Stack className='mb-8'>
+                    <Grid container spacing={2} className='my-8 w-full'>
+
+                        <Grid item xs={12} md={6}>
+
+                            <label htmlFor="province" className='w-full block text-xs mr-2'>نام و نام خانوادگی:</label>
+                            <input type="text" id='province'  onChange={(e) => setNewAddressData({ ...newAddressData, province: e.target.value })} className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
+
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+
+                            <label htmlFor="city" className='w-full block text-xs mr-2'>شماره تماس:</label>
+                            <input type="text" onChange={(e) => setNewAddressData({ ...newAddressData, city: e.target.value })} id='city' className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
+
+                        </Grid>
+
+
+                    </Grid>
+                </Stack>
+
+            </Stack>
+
+            <div className="w-full px-2 py-4 bg-[#EEEEEE]">
+                <div>
+                    شیوه ارسال
+                </div>
+
+            </div>
+
+            <div className='my-8'>
+                <FormControl className='w-full'>
+                              <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                                    <RadioGroup
+                                     aria-labelledby="demo-radio-buttons-group-label"
+                                     name="radio-buttons-group"
+                                     className='w-full'
+                                     >
+                                    <div className='flex justify-between px-8 w-full md:flex-col'>
+
+                                     <FormControlLabel label={'ارسال با پست پیشتاز: هزینه 35هزار تومان'} control={<Radio />} value={1} />
+                                     <FormControlLabel label={'ارسال با پست پیشتاز: هزینه 35هزار تومان'} control={<Radio />} value={2} />
+                                    </div>
+                                    
+                                            
+
+                                    </RadioGroup>
+                            </FormControl>
+            </div>
+
+            <div className='w-full rounded-lg bg-[#EEEEEE] my-8'>
+
+            </div>
+
         </section>
 
-
+    </div>
   )
 }

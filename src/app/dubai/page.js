@@ -27,6 +27,11 @@ import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
 import CompanySlider from "@/components/CompanySlider";
 import { useState } from "react";
+import {
+	discountProducts,
+	newProducts,
+	recentlySeenProduct,
+} from "@/services/Landing";
 
 const logos = [
 	[anker, "https://www.anker.com/"],
@@ -48,6 +53,11 @@ const DubaiPage = () => {
 
 	const [showProduct, setShowProduct] = useState(false);
 
+	const test = async () => {
+		try {
+			console.log(await discountProducts());
+		} catch (error) {}
+	};
 	return (
 		<>
 			<Box>
@@ -68,7 +78,8 @@ const DubaiPage = () => {
 							fullWidth
 						/>
 						<Button
-							onClick={() => setShowProduct(true)}
+							// onClick={() => setShowProduct(true)}
+							onClick={test}
 							variant="contained"
 							sx={{
 								mt: 3,

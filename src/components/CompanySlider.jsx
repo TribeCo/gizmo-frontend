@@ -25,7 +25,7 @@ import _24HoursSupport from "@/components/siteIcons/_24hoursSupport.png";
 {
 	/*
     Inputs:
-    logos: a list of all product cards in folowing format:
+    brands: a list of all product cards in folowing format:
 		[
             [imageFile: ..., companyURL: ...],
             .
@@ -34,13 +34,13 @@ import _24HoursSupport from "@/components/siteIcons/_24hoursSupport.png";
         ]
     * note that all images can be found in @/components/comanyIcons
 
-    itemsPerPage: number of logos to show in page 
+    itemsPerPage: number of brands to show in page 
     
     swapTime_millisecond: delay time for automatic slider 
 */
 }
 
-const CompanySlider = ({ logos, swapTime_millisecond, hasSecondPart }) => {
+const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 	const isSmallScreen = useMediaQuery("(max-width:900px)");
 	const itemsPerPage = isSmallScreen ? 2 : 5;
 
@@ -48,23 +48,29 @@ const CompanySlider = ({ logos, swapTime_millisecond, hasSecondPart }) => {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setStartIndex((prevIndex) => (prevIndex + 1) % logos.length);
+			setStartIndex((prevIndex) => (prevIndex + 1) % brands.length);
 		}, swapTime_millisecond);
 
 		return () => clearInterval(interval);
 	}, []);
 
 	const handlePrev = () => {
-		setStartIndex((prevIndex) => (prevIndex - 1 + logos.length) % logos.length);
+		setStartIndex(
+			(prevIndex) => (prevIndex - 1 + brands.length) % brands.length,
+		);
 	};
 
 	const handleNext = () => {
-		setStartIndex((prevIndex) => (prevIndex + 1) % logos.length);
+		setStartIndex((prevIndex) => (prevIndex + 1) % brands.length);
 	};
 
-	const slideItems = [];
-	for (let index = 0; index < itemsPerPage; index++) {
-		slideItems.push(logos[(startIndex + index) % logos.length]);
+	let slideItems = [];
+	if (brands.length > itemsPerPage) {
+		for (let index = 0; index < itemsPerPage; index++) {
+			slideItems.push(brands[(startIndex + index) % brands.length]);
+		}
+	} else {
+		slideItems = brands;
 	}
 
 	return (
@@ -92,10 +98,10 @@ const CompanySlider = ({ logos, swapTime_millisecond, hasSecondPart }) => {
 					</IconButton>
 				</Grid>
 
-				{slideItems.map((item, index) => (
+				{slideItems.map((item) => (
 					<Grid
 						item
-						key={index}>
+						key={item.id}>
 						<Box
 							width="100%"
 							sx={{
@@ -103,13 +109,13 @@ const CompanySlider = ({ logos, swapTime_millisecond, hasSecondPart }) => {
 							}}
 							textAlign="center">
 							<Link
-								href={item[1]}
+								href={item.logo}
 								passHref>
 								<Image
-									src={item[0]}
-									alt="company-logo-item"
-									width="auto"
-									height={50}
+									src={item.logo}
+									alt={item.name}
+									height={100}
+									width={50}
 								/>
 							</Link>
 						</Box>

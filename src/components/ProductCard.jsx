@@ -24,7 +24,8 @@ const handleGoToProduct = () => {
 	console.log("Go to Product page");
 };
 
-const ProductCard = ({ product, isAvailable = true }) => {
+const ProductCard = ({ product }) => {
+	console.log(product);
 	const [like, setLike] = useState(false);
 	const [show, setShow] = useState(false);
 	return (
@@ -49,6 +50,10 @@ const ProductCard = ({ product, isAvailable = true }) => {
 					borderRadius: "40px",
 					background: "linear-gradient(to bottom, #FFFFFF 45%, #DEF0F5 75%)",
 					border: "5px solid #5A8EAA",
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "space-between",
+					pb: 1.5,
 				}}>
 				<IconButton
 					disableRipple
@@ -56,6 +61,7 @@ const ProductCard = ({ product, isAvailable = true }) => {
 					sx={{
 						display: "flex",
 						flexDirection: "column",
+						justifyContent: "space-between",
 						pt: 0,
 					}}>
 					<CardMedia
@@ -66,8 +72,8 @@ const ProductCard = ({ product, isAvailable = true }) => {
 							width: 218,
 							objectFit: "cover",
 							borderRadius: "30px",
-							filter: `${isAvailable ? "" : "grayscale(100%)"}`,
-							WebkitFilter: `${isAvailable ? "" : "grayscale(100%)"}`,
+							filter: `${product.available ? "" : "grayscale(100%)"}`,
+							WebkitFilter: `${product.available ? "" : "grayscale(100%)"}`,
 						}}
 						image={product.image2}
 						alt={product.name}>
@@ -76,9 +82,9 @@ const ProductCard = ({ product, isAvailable = true }) => {
 							ml={2.5}
 							position="absolute"
 							bgcolor={
-								!isAvailable
+								!product.available
 									? "#747678"
-									: product.badge === "جدید"
+									: product.is_new
 									? "#5B9A8B"
 									: "#BB0000"
 							}
@@ -90,33 +96,40 @@ const ProductCard = ({ product, isAvailable = true }) => {
 								fontSize="16px"
 								fontWeight="900"
 								lineHeight="30px">
-								{!isAvailable ? "ناموجود" : product.badge}
+								{!product.available
+									? "ناموجود"
+									: product.is_new
+									? "جدید"
+									: "فروش ویژه"}
 							</Typography>
 						</Box>
 					</CardMedia>
-					<Box
-						display="flex"
-						mt={1}>
+
+					<Box>
 						<Typography
-							ml={3}
-							fontSize="16px"
-							fontWeight="900"
-							lineHeight="20px"
-							maxWidth={180}>
+							sx={{
+								my: 0.75,
+								maxHeight: 40,
+								lineHeight: 1.2,
+								width: 170,
+								overflow: "hidden",
+							}}
+							variant="subtitle1"
+							align="center"
+							fontWeight={900}>
 							{product.name}
 						</Typography>
 						<Box
-							mr={4}
-							height={20}
-							width={20}>
+							position="absolute"
+							ml={17}>
 							<IconButton
 								disableRipple
 								onClick={() => setLike(!like)}>
 								{like ? (
 									<svg
-										width="20"
-										height="20"
-										viewBox="0 0 20 20"
+										width="30"
+										height="30"
+										viewBox="0 0 20 25"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg">
 										<path
@@ -126,9 +139,9 @@ const ProductCard = ({ product, isAvailable = true }) => {
 									</svg>
 								) : (
 									<svg
-										width="18"
-										height="16"
-										viewBox="0 0 18 16"
+										width="26"
+										height="26"
+										viewBox="0 0 22 20"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg">
 										<path
@@ -140,7 +153,7 @@ const ProductCard = ({ product, isAvailable = true }) => {
 							</IconButton>
 						</Box>
 					</Box>
-					{!isAvailable ? (
+					{!product.available ? (
 						<Typography
 							align="center"
 							fontSize="16px"
@@ -156,8 +169,7 @@ const ProductCard = ({ product, isAvailable = true }) => {
 							fontWeight="400"
 							lineHeight="20px"
 							mt="10px">
-							{convert(((100 - product.discount) / 100) * product.price) +
-								" تومان"}
+							{`${convert(parseInt(product.discounted_price))} تومان`}
 						</Typography>
 					)}
 				</IconButton>
@@ -184,7 +196,7 @@ const ProductCard = ({ product, isAvailable = true }) => {
 						fontWeight="900"
 						fontSize="15px"
 						sx={{ opacity: "100%" }}>
-						{isAvailable ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
+						{product.available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 					</Typography>
 				</Button>
 			</Card>
@@ -207,8 +219,8 @@ const ProductCard = ({ product, isAvailable = true }) => {
 						height: 242,
 						width: 242,
 						objectFit: "cover",
-						filter: `${isAvailable ? "" : "grayscale(100%)"}`,
-						WebkitFilter: `${isAvailable ? "" : "grayscale(100%)"}`,
+						filter: `${product.available ? "" : "grayscale(100%)"}`,
+						WebkitFilter: `${product.available ? "" : "grayscale(100%)"}`,
 					}}
 					image={product.image1}
 					alt={product.name}>
@@ -217,7 +229,7 @@ const ProductCard = ({ product, isAvailable = true }) => {
 						ml={2.5}
 						position="absolute"
 						bgcolor={
-							!isAvailable
+							!product.available
 								? "#747678"
 								: product.badge === "جدید"
 								? "#5B9A8B"
@@ -231,7 +243,7 @@ const ProductCard = ({ product, isAvailable = true }) => {
 							fontSize="16px"
 							fontWeight="900"
 							lineHeight="30px">
-							{!isAvailable
+							{!product.available
 								? "ناموجود"
 								: product.badge
 								? product.badge
@@ -241,17 +253,19 @@ const ProductCard = ({ product, isAvailable = true }) => {
 				</CardMedia>
 				<CardContent>
 					<Typography
-						width={224}
+						sx={{
+							mb: 1,
+							height: 35,
+							overflow: "hidden",
+						}}
 						align="center"
-						fontSize="20px"
-						fontWeight="900"
-						lineHeight="25px"
-						sx={{ display: "flex", mx: "auto" }}>
+						variant="h6"
+						fontWeight={900}>
 						{product.name}
 					</Typography>
-					{!isAvailable ? (
+					{!product.available ? (
 						<Typography
-							mt="20px"
+							mt={2}
 							color="#747678"
 							align="center"
 							fontSize="20px"

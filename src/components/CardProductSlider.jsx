@@ -57,9 +57,13 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 		);
 	};
 
-	const productItems = [];
-	for (let index = 0; index < itemsPerPage; index++) {
-		productItems.push(products[(currentIndex + index) % products.length]);
+	let productItems = [];
+	if (products.length > itemsPerPage) {
+		for (let index = 0; index < itemsPerPage; index++) {
+			productItems.push(products[(currentIndex + index) % products.length]);
+		}
+	} else {
+		productItems = products;
 	}
 
 	return (
@@ -89,11 +93,10 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 				<Box
 					item
 					display="flex">
-					{productItems.map((product, index) => (
+					{productItems.map((product) => (
 						<ProductCard
-							key={index}
+							key={product.id}
 							product={product}
-							isAvailable={false}
 						/>
 					))}
 				</Box>

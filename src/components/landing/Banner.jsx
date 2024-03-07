@@ -28,21 +28,45 @@ function Banner({ data }) {
 			<Card
 				sx={{
 					my: 2,
-					height: { xs: 0.6 * 360, sm: 0.8 * 360, md: 360 },
-					width: { xs: 0.6 * 640, sm: 0.8 * 640, md: 640 },
+					height: {
+						xs: 0.6 * 360,
+						sm: 0.8 * 360,
+						md: 1.0 * 360,
+						lg: 1.0 * 360,
+						xl: 1.1 * 360,
+					},
+					width: {
+						xs: 0.6 * 640,
+						sm: 0.8 * 640,
+						md: 1.0 * 640,
+						lg: 1.0 * 640,
+						xl: 1.1 * 640,
+					},
 					borderRadius: "20px",
 				}}>
 				<CardActionArea>
 					<CardMedia
 						sx={{
-							height: { xs: 0.6 * 360, sm: 0.8 * 360, md: 360 },
-							width: { xs: 0.6 * 640, sm: 0.8 * 640, md: 640 },
+							height: {
+								xs: 0.6 * 360,
+								sm: 0.8 * 360,
+								md: 1.0 * 360,
+								lg: 1.0 * 360,
+								xl: 1.1 * 360,
+							},
+							width: {
+								xs: 0.6 * 640,
+								sm: 0.8 * 640,
+								md: 1.0 * 640,
+								lg: 1.0 * 640,
+								xl: 1.1 * 640,
+							},
 						}}
 						image={data[0].image}
 						alt={data[0].alt}>
 						<Button
 							sx={{
-								mt: { xs: 20, sm: 25, md: 33 },
+								mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 36 },
 								ml: { xs: 2, md: 12 },
 								px: 5,
 								py: 1,
@@ -56,7 +80,6 @@ function Banner({ data }) {
 							<Typography
 								variant="h6"
 								fontWeight="700"
-								fontSize="13px"
 								color="#000">
 								{"مشاهده جزئیات"}
 							</Typography>
@@ -67,23 +90,47 @@ function Banner({ data }) {
 			<Card
 				sx={{
 					my: 2,
-					height: { xs: 0.6 * 360, sm: 0.8 * 360, md: 360 },
-					width: { xs: 0.6 * 640, sm: 0.8 * 640, md: 640 },
+					height: {
+						xs: 0.6 * 360,
+						sm: 0.8 * 360,
+						md: 1.0 * 360,
+						lg: 1.0 * 360,
+						xl: 1.1 * 360,
+					},
+					width: {
+						xs: 0.6 * 640,
+						sm: 0.8 * 640,
+						md: 1.0 * 640,
+						lg: 1.0 * 640,
+						xl: 1.1 * 640,
+					},
 					borderRadius: "20px",
 				}}>
 				<CardActionArea>
 					<Box>
 						<CardMedia
 							sx={{
-								height: { xs: 0.6 * 360, sm: 0.8 * 360, md: 360 },
-								width: { xs: 0.6 * 640, sm: 0.8 * 640, md: 640 },
+								height: {
+									xs: 0.6 * 360,
+									sm: 0.8 * 360,
+									md: 1.0 * 360,
+									lg: 1.0 * 360,
+									xl: 1.1 * 360,
+								},
+								width: {
+									xs: 0.6 * 640,
+									sm: 0.8 * 640,
+									md: 1.0 * 640,
+									lg: 1.0 * 640,
+									xl: 1.1 * 640,
+								},
 								objectFit: "cover",
 							}}
 							image={data[1].image}
 							alt={data[1].alt}>
 							<Button
 								sx={{
-									mt: { xs: 20, sm: 25, md: 33 },
+									mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 36 },
 									ml: { xs: 2, md: 12 },
 									px: 5,
 									py: 1,
@@ -97,7 +144,6 @@ function Banner({ data }) {
 								<Typography
 									variant="h6"
 									fontWeight="700"
-									fontSize={13}
 									color="#000">
 									{"مشاهده جزئیات"}
 								</Typography>

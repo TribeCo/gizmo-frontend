@@ -229,11 +229,11 @@ const DubaiPage = () => {
 					</Typography>
 				</Container>
 				<LineSplitter text={"سایت های قابل سفارش"} />
-				<CompanySlider
+				{/* <CompanySlider
 					logos={logos}
 					itemsPerPage={5}
 					swapTime_millisecond={3000}
-				/>
+				/> */}
 			</Box>
 			<Dialog
 				open={showDialog}

@@ -15,23 +15,6 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { Colors } from "@/utils";
 import { ProductCard } from ".";
 
-{
-	/*
-    Inputs:
-    products: a list of all product cards in folowing format:
-		[
-            { name: ..., description: ...},
-            .
-            .
-            .
-        ]
-    
-        itemsPerPage: number of product cards to show in page 
-    
-    swapTime_millisecond: delay time for automatic slider 
-*/
-}
-
 const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 

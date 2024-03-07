@@ -11,41 +11,15 @@ import {
 	CardMedia,
 	Fade,
 	Slide,
-	Grow,
-	CardActionArea,
 } from "@mui/material";
 
 import { Colors } from "../../utils";
 
-const fakeData = [
-	{
-		id: 0,
-		image:
-			"https://www.wacaco.com/cdn/shop/products/Barista_Kit-PNG--001-LD.png?v=1697092462&width=533",
-		name: "اسپرسو ساز Wacaco Nanopresso",
-		dec: "اسپرسو ساز واکاکو مدل Minipresso محصولی بسیار کاربردی و گزینه ای ایده آل برای علاقمندان به نوشیدن قهوه ای حرفه ای در شرایط و مکان های مختلف می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
-	},
-	{
-		id: 1,
-		image:
-			"https://s3-alpha-sig.figma.com/img/f2f3/7d64/38b32147300a8a027a86c2e954e52da6?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pU1iuy2FT7yCide8~~rx5B91PtYvYfEpF-hzE2Bg0NSudy8mxlr2Q3yQyy525rVKxH4NWblGEMbgj7oEEKfC--jjKzk9RhePs4IWbjZAdjyVNwjbKjPKikaYFgBKVvqMv3PigQibvEIZ-mfIgtUWFRZuzShcabx3vEVGIiLeqkRtF1QNVQLtQ68Oqjsxf3A2X8MKdRONJALEZJDRoQbrZz-8iw~noMoNfqqE23GJ-w8INtGeab~KId2luFoSSVtlV-ZeEi7hYQred-FLC9B5kfzsB4pjL06HoWSyUpVIseE9Lke57pnREjL8ZX1ljf52sUB1KrpJd5rZS4F9Noygig__",
-		name: "اسپرسوساز نون مدل CM540 3D-GS",
-		dec: "اسپرسو ساز واکاکو مدل Minipresso مح می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.",
-	},
-	{
-		id: 2,
-		image:
-			"https://images.squarespace-cdn.com/content/v1/6243233f0ef4e647a2b30c74/1681337374071-F07F8W5GXQEPIBY4MXAM/LCM102_WOLF.png?format=1000w",
-		name: "ماگ دماسنج دار",
-		dec: "موقع کوهنوردی، سفر و… به همراه داشتن آب سرد یا گرم به شرط این که دمای آب تغییر نکند لازم است. فلاسک دماسنج دار با طراحی هوشمندانه و دارای سنسور دمای هوشمند برای اندازه گیری دما است که به راحتی میتوانید با ضربه زدن روی صفحه LCD آن از داغ بودن یا سرد بودن محتوای فلاسک باخبر شوید. داخل این فلاسک یک صافی استیل قرار دارد که مانع مخلوط شدن دمنوش گیاهی و چای با آب می شود و شما به راحتی میتوانید توری یا صافی را از لیوان دمنوش ساز جدا کنید و بشورید.این ماگ میتواند تا 10 ساعت سرما و گرما را در خود نگه دارد تا باعث شود وقتی که نوشیدنی را میخورید لذت ببرید.",
-	},
-];
-
-const TopSlider = () => {
+const TopSlider = ({ data }) => {
 	const [active, setActive] = useState(0);
 
 	const handleNext = () => {
-		if (fakeData.length === active + 1) {
+		if (data.length === active + 1) {
 			setActive(0);
 		} else {
 			setActive(active + 1);
@@ -53,14 +27,14 @@ const TopSlider = () => {
 	};
 	const handlePre = (e) => {
 		if (active === 0) {
-			setActive(fakeData.length - 1);
+			setActive(data.length - 1);
 		} else {
 			setActive(active - 1);
 		}
 	};
 
 	const nextActive = () => {
-		if (fakeData.length === active + 1) {
+		if (data.length === active + 1) {
 			return 0;
 		}
 		return active + 1;
@@ -106,26 +80,23 @@ const TopSlider = () => {
 									justifyContent: "center",
 									alignItems: "center",
 								}}>
-								{fakeData.map((data, index) => {
+								{data.map((data, index) => {
 									return (
-										<Grow
+										<Slide
+											direction="right"
 											in={active === index}
 											timeout={1000}>
-											<Slide
-												direction="right"
-												in={active === index}
-												timeout={1000}>
-												<Box display={active === index ? "" : "none"}>
-													<CardMedia
-														image={data.image}
-														sx={{
-															height: { xs: 250, sm: 400 },
-															width: { xs: 250, sm: 400 },
-														}}
-													/>
-												</Box>
-											</Slide>
-										</Grow>
+											<Box display={active === index ? "" : "none"}>
+												<CardMedia
+													alt={data.alt}
+													image={data.image}
+													sx={{
+														height: { xs: 250, sm: 400 },
+														width: { xs: 250, sm: 400 },
+													}}
+												/>
+											</Box>
+										</Slide>
 									);
 								})}
 							</Box>
@@ -154,7 +125,7 @@ const TopSlider = () => {
 									</svg>
 								</IconButton>
 								<MobileStepper
-									steps={3}
+									steps={data.length}
 									variant="dots"
 									sx={{
 										bgcolor: Colors.yellow,
@@ -230,14 +201,15 @@ const TopSlider = () => {
 								justifyContent: "center",
 								alignItems: "center",
 							}}>
-							{fakeData.map((data, index) => {
+							{data.map((item, index) => {
 								return (
 									<Fade
 										in={nextActive() === index}
 										timeout={1000}>
 										<Box display={nextActive() === index ? "" : "none"}>
 											<CardMedia
-												image={data.image}
+												alt={item.alt}
+												image={item.image}
 												sx={{
 													height: 150,
 													width: 150,
@@ -258,7 +230,7 @@ const TopSlider = () => {
 					justifyContent="center"
 					alignItems="center">
 					<Box width={330}>
-						{fakeData.map((data, index) => {
+						{data.map((item, index) => {
 							return (
 								<Fade
 									in={active === index}
@@ -270,7 +242,7 @@ const TopSlider = () => {
 												fontSize: { xs: 21, md: 30 },
 												fontWeight: 900,
 											}}>
-											{data.name}
+											{item.name}
 										</Typography>
 										<Typography
 											gridRow={3}
@@ -289,7 +261,7 @@ const TopSlider = () => {
 											align="justify"
 											mt={3}
 											variant="body1">
-											{data.dec}
+											{item.description}
 										</Typography>
 									</Box>
 								</Fade>

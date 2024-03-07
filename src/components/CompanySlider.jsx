@@ -109,13 +109,13 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							}}
 							textAlign="center">
 							<Link
-								href={item.logo}
+								href={item.website}
 								passHref>
 								<Image
 									src={item.logo}
 									alt={item.name}
-									height={100}
-									width={50}
+									height={200}
+									width={200}
 								/>
 							</Link>
 						</Box>

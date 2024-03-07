@@ -25,7 +25,6 @@ const handleGoToProduct = () => {
 };
 
 const ProductCard = ({ product }) => {
-	console.log(product);
 	const [like, setLike] = useState(false);
 	const [show, setShow] = useState(false);
 	return (

@@ -1,5 +1,24 @@
 import { baseUrl } from "./index";
 
+export const topSlider = async () => {
+	try {
+		const response = await fetch(`${baseUrl}/api/banners/read/b1/`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			next: {
+				revalidate: 10,
+			},
+		});
+		return response.json();
+	} catch (error) {
+		alert("unhandeled error");
+		alert(error);
+		return 0;
+	}
+};
+
 export const banners = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/api/banners/read/c2/`, {
@@ -117,7 +136,7 @@ export const brands = async () => {
 	}
 };
 
-export const gizmologCarts = async () => {
+export const gizmologCards = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/api/gizmolog/landing/`, {
 			method: "GET",

@@ -1,16 +1,16 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Colors } from "@/utils";
 
-const LineSplitter = ({ text }) => {
+const LineSplitter = ({ text, margin = 10 }) => {
 	return (
 		<Box
-			mt={10}
+			mt={margin}
 			display="flex"
 			alignItems="center"
 			justifyContent="center"
 			sx={{
-				mb: { xs: 3, sm: 5, md: 10 },
+				mb: { xs: 3, sm: 5, md: margin },
 			}}>
 			<Box
 				ml={4}

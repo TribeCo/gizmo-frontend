@@ -15,41 +15,26 @@ const TempPage = () => {
             flexDirection: 'column',
             alignItems: "center",
             justifyContent: "center",
+            rowGap: {xs: 2, sm: 5, md: 8},
+            pb: {xs: 4, sm: 12},
         }}>
-            {/* <Box
+            <Box
                 sx={{
+                    pt: {xs: 0, sm: 5},
+                    display: "flex",
+                    flexWrap: 'nowrap',
+                    alignItems: "center",
+                    justifyContent: "center",
                     marginTop: 6,
                     marginBottom: 2,
                 }}
             >
-                <ProgressBar activeStep={0} />
+                <ProgressBar activeStep={0}/>
             </Box>
-
-            <Box
-                sx={{
-                    margin: 4,
-                }}
-            >
-                <CartHeader />
-            </Box>
-            
-            <Box>            
-                <ProductCard />
-
-                <hr style={{ border: "1px solid #EEEEEE", width: "83%", marginRight: "auto", marginBottom: "3%", marginTop: "-2%" }} />
-
-                <ProductCard />
-                
-                <hr style={{ border: "1px solid #EEEEEE", width: "83%", marginRight: "auto", marginBottom: "3%", marginTop: "-2%" }} />
-
-            </Box>             */}
-            <Box
-                sx={{
-                    margin: 10,
-                }}
-            >
-                <Summary />
-            </Box>
+            <CartHeader />            
+            <ProductCard />
+            <ProductCard />
+            <Summary />
         </Box>
     );
 };

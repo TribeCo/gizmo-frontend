@@ -33,8 +33,20 @@ import _24HoursSupport from "@/components/siteIcons/_24hoursSupport.png";
 }
 
 const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
-	const isSmallScreen = useMediaQuery("(max-width:900px)");
-	const itemsPerPage = isSmallScreen ? 2 : 4;
+	const lg_md = useMediaQuery("(max-width:1300px)");
+	const xl_lg = useMediaQuery("(max-width:1630px)");
+	const sm_xs = useMediaQuery("(max-width:366px)");
+
+	let itemsPerPage = 4;
+	if (xl_lg) {
+		itemsPerPage = 3;
+	}
+	if (lg_md) {
+		itemsPerPage = 2;
+	}
+	if (sm_xs) {
+		itemsPerPage = 1;
+	}
 
 	const [startIndex, setStartIndex] = useState(0);
 
@@ -75,12 +87,19 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 						sx={{
 							bgcolor: Colors.blue,
 							position: "relative",
+							width: {xs:'30px', sm: '32px', md: '35px', lg: '40px'},
+							height: {xs:'30px', sm: '32px', md: '35px', lg: '40px'},
 							"&:hover": {
 								backgroundColor: Colors.blue,
 							},
 						}}
 						onClick={handleNext}>
-						<ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
+						<ArrowForwardIosOutlinedIcon 
+							sx={{ 
+								color: "white", 
+								fontSize: {xs: 18, sm: 20, md: 24, lg: 28}
+							}} 
+						/>
 					</IconButton>
 				</Grid>
 
@@ -90,9 +109,6 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 						key={index}>
 						<Box
 							width="100%"
-							sx={{
-								maxWidth: { xs: 100, md: 300 },
-							}}
 							textAlign="center">
                                 {item}
 						</Box>
@@ -105,12 +121,19 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 						sx={{
 							bgcolor: Colors.blue,
 							position: "relative",
+							width: {xs:'30px', sm: '32px', md: '35px', lg: '40px'},
+							height: {xs:'30px', sm: '32px', md: '35px', lg: '40px'},
 							"&:hover": {
 								backgroundColor: Colors.blue,
 							},
 						}}
 						onClick={handlePrev}>
-						<ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
+						<ArrowBackIosOutlinedIcon 
+							sx={{ 
+								color: "white", 
+								fontSize: {xs: 18, sm: 20, md: 24, lg: 28}
+							}} 
+						/>
 					</IconButton>
 				</Grid>
 			</Grid>

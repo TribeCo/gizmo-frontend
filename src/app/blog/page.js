@@ -27,8 +27,8 @@ const Blog = () => {
     return (
         <Grid>
             <Grid
-                rowGap={5}
                 sx={{
+                    rowGap: {xs: 1, sm: 2, md: 5},
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -44,8 +44,11 @@ const Blog = () => {
 
             <Grid
                 display='flex'
-                flexDirection='row'
-                mt={8}
+                sx={{
+                    mt: {xs: 2, sm: 4, md: 8},
+                    flexDirection: {xs: 'column', md: 'row'},
+
+                }}
             >
                 <Grid
                     sx={{
@@ -76,7 +79,12 @@ const Blog = () => {
                         alignItems='center'
                         justifyContent='center'
                     >
-                        <Typography width='40rem' align="justify">
+                        <Typography 
+                            align="justify"
+                            sx={{
+                                width: {xs: '80%', md: '22rem', lg: '32rem'},
+                            }} 
+                        >
                             قسمت اخبار در سایت فروشگاهی گیزموشاپ یک بخش است که به منظور اطلاع‌رسانی و ارتباط با مشتریان و علاقه‌مندان به محصولات و خدمات آن سایت ایجاد شده است. در این قسمت، مطالب و اخبار مرتبط با دنیای فناوری، محصولات جدید، تکنولوژی‌ها، نکات و ترفندهای مربوط به استفاده از محصولات، مقالات تخصصی و مهم و دیگر موارد مرتبط قرار می‌گیرند.
                         </Typography>
                     </Grid>

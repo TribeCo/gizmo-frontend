@@ -48,7 +48,6 @@ const BlogSlider = ({ banners }) => {
             alignItems='center'
             sx={{
                 mt: { xs: 2, sm: 4, md: 6, lg: 8 },
-                mb: { xs: 2, sm: 4, md: 6, lg: 8 },
                 rowGap: { xs: 2, sm: 4, md: 6, lg: 8 },
             }}
         >

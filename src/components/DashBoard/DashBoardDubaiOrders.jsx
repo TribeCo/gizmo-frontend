@@ -13,6 +13,8 @@ import { products } from '@/utils/fakeProduct';
 
 export default function DashBoardDubaiOrders() {
 
+    //این جا دوتا بخش برای نگه داری اطلاعات محصولات هست چون برای عملکرد سرچ راحت تر بتونم محصولات رو فیلتر کنم و وقتی سرچ رو پاک کرد راحت از این یکی دوباره اطلاعات برگردانده بشن
+    //اطلاعاتی که از سرور اومده باید توی دوتا هووک ذخیره بشن و بعدش تموم کد خودش کامل و راحت کار میکنن
     const [realOrders, setRealOrders] = useState([
         {orderCode: '0786453465' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},
         {orderCode: '0785151622' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},

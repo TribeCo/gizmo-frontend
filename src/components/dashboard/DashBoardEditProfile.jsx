@@ -24,14 +24,16 @@ import {
 
 export default function DashBoardEditProfile() {
     
-    const [showPassword, setShowPassword] = React.useState(false);
     const [newPasswordIteration, setNewPasswordIteration] = React.useState('')
-
+    
+    //این فیلد ها برای نشون دادن و مخفی کردن پسورد کاربر هستن
+    const [showPassword, setShowPassword] = React.useState(false);
     const [firstField, setFirstField] = React.useState('password');
     const [secondField, setSecondField] = React.useState('password');
     const [thirdField, setThirdField] = React.useState('password');
     const [forthField, setForthField] = React.useState('password');
 
+    //اطلاعات کاربر اینجا ذخیره و به سمت سرور فرستاده میشود
     const [newProfileData, setNewProfileData] = useState({
         name: '',
         familyName: '',
@@ -42,6 +44,7 @@ export default function DashBoardEditProfile() {
         password: ''
     });
 
+    //اطلاعات پسورد جدید کاربر اینجا ذخیره و به سمت سرور ارسال میشود
     const [newProfilePassword, setNewProfilePassword] = useState({
         name: '',
         familyName: '',

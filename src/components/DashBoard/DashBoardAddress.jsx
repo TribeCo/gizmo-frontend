@@ -21,6 +21,7 @@ export default function DashBoardAddress(props) {
 
 
     const [addNewAddressStat, setAddNewAddressStat] = useState(false)
+    
     const [addresses, setAddresses] = useState([{
         id: '1',
         province: 'سیستان بلوچستان',
@@ -37,6 +38,8 @@ export default function DashBoardAddress(props) {
         straight_address: 'کوچه فرانسه، خونه اکبر پشت خونه حاجر تبنمی ستبسنمبیتب سنمتبیس نمبیم نتبنم',
         current: true
     }])
+
+    //برای ارسال اطلاعات آدرس جدید به سرور هنگام کلیک شدن دکمه "افزودن آدرس ها" است
     const [newAddressData, setNewAddressData] = useState({
         id: '',
         province: '',
@@ -45,6 +48,8 @@ export default function DashBoardAddress(props) {
         straight_address: '',
         current: false
     });
+
+    //برای ارسال اطلاعات ادرس دیفالت جدید وقتی دکمه "افزودن آدرس به پیش فرض" کلیک شد
     const [newDefaultAddress, setNewDefaultAddress] = useState({
         id: '',
         province: '',
@@ -152,7 +157,7 @@ export default function DashBoardAddress(props) {
             <div className="savedAddressesHeader flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <Typography
                 variant='h6'
-                fontSize={18}
+                fontSize={22}
                 fontWeight={700}>
                     آدرس ها
                 </Typography>

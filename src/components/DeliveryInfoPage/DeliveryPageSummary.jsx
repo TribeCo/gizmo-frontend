@@ -10,10 +10,9 @@ import {
     CardMedia
 } from "@mui/material";
 
-import Image from 'next/image'
 
+export default function DeliveryPageSummary(props) {
 
-export default function DeliveryPageSummary() {
   return (
         <Box
             display='flex'
@@ -150,13 +149,13 @@ export default function DeliveryPageSummary() {
                                 rowGap={2}
                             >
                                 <Typography variant="h6" noWrap>
-                                    ۳۹۸۰۰۰ تومان
+                                    {props.cardPrices.fullPrice} تومان
                                 </Typography>
                                 <Typography variant="h6" noWrap>
-                                    ۳۹۸۰۰۰ تومان
+                                    {props.cardPrices.discountPrice} تومان
                                 </Typography>
                                 <Typography variant="h6" fontWeight='bold' noWrap>
-                                    ۳۹۸۰۰۰ تومان
+                                    {props.cardPrices.finalPrice} تومان
                                 </Typography>
                             </Grid>
                         </Box>
@@ -172,6 +171,7 @@ export default function DeliveryPageSummary() {
                     }}
                 >
                     <Button
+                        onClick={props.proceedPurchaseHandler}
                         variant="contained"
                         color="warning"
                         sx={{

@@ -37,6 +37,7 @@ export default function DeliveryPageInfo() {
         current: true
     }])
     
+    //این هووک برای اینه که اگه کاربر آدرس جدید وارد کرد و از مقادیر قبلی استفاده نکرد
     const [newAddressData, setNewAddressData] = useState({
         id: '',
         province: '',
@@ -44,7 +45,29 @@ export default function DeliveryPageInfo() {
         postal_code: 0,
         straight_address: '',
     });
+
+    //آدرس انتخاب شده
     const [selectedAddress, setSelectedAddress] = useState(`${addresses[0].province}, ${addresses[0].city}, ${addresses[0].straight_address}, کد پستی: ${addresses[0].postal_code}`)
+
+    //شیوه های ارسال پستی
+    const [postMethod, setPostMethod] = useState([
+        {id: '1', method: 'پست عادی', price: '25'},
+        {id: '2', method: 'پست پیشتاز', price: '35'},
+    ])
+    
+    //شیوه ارسال پستی انتخاب شده
+    const [productPostMethod, setProductPostMethod] = useState(null)
+
+    //قیمت های مربوطه کامپوننت سامری کارت ته صفحه
+    const [cardPrices, setCardPrices] = useState({
+        fullPrice: '398000',
+        discountPrice: '398000',
+        finalPrice: '398000'
+    })
+
+    const proceedPurchaseHandler = () => {
+        console.log('clicked'); //این تابع برای هندل کردن اینکه اگه کاربر از داخل کامپوننت سامری کارت دکمه "دکمه فرایند خرید" زد رو تشخیص بده
+    }
 
     const addNewAddress = async () => {
         // Define the API endpoint for adding a new address
@@ -261,7 +284,7 @@ export default function DeliveryPageInfo() {
 
             <div className='my-8 mt-10'>
                 <FormControl className='w-full'>
-                              <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                    <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                                     <RadioGroup
                                      aria-labelledby="demo-radio-buttons-group-label"
                                      name="radio-buttons-group"
@@ -269,14 +292,16 @@ export default function DeliveryPageInfo() {
                                      >
                                     <div className='flex justify-start gap-16 px-8 w-full md:flex-col'>
 
-                                     <FormControlLabel label={'ارسال با پست پیشتاز: هزینه 35 هزار تومان'} control={<Radio />} value={1} />
-                                     <FormControlLabel label={'ارسال با پست پیشتاز: هزینه 35 هزار تومان'} control={<Radio />} value={2} />
+                                        {postMethod.map((method) => (
+                                            (<FormControlLabel onClick={(e) => {setProductPostMethod(e.target.value)}} label={`ارسال با ${method.method}: هزینه ${method.price} هزار تومان`} control={<Radio />} value={method.id}/>)
+                                        ))}
+
                                     </div>
                                     
                                             
 
-                                    </RadioGroup>
-                            </FormControl>
+                    </RadioGroup>
+                </FormControl>
             </div>
 
             <div className='w-full rounded-lg bg-[#EEEEEE] my-8'>
@@ -284,7 +309,7 @@ export default function DeliveryPageInfo() {
             </div>
 
             <div className='mb-16'>
-                <DeliverySummary/>
+                <DeliverySummary proceedPurchaseHandler={proceedPurchaseHandler} cardPrices={cardPrices}/>
             </div>
 
         </section>

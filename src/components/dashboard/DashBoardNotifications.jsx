@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import Image from 'next/image'
 import notifBell from '@/components/siteIcons/notifBell.svg'
-import envelopIcon from '@/components/siteIcons/envelopIcon.svg'
+import envelopIcon from '@/components/siteIcons/EnvelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 
 

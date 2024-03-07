@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import Image from 'next/image'
 
-import searchIcon from '@/components/siteIcons/searchIcon.svg'
+import searchIcon from '@/components/siteIcons/SearchIcon.svg'
 
 export default function DashBoardOrders() {
 

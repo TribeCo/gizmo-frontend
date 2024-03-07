@@ -64,21 +64,20 @@ const Summary = () => {
                             sx={{
                                 columnGap: {xs: 1, lg: 0},
                                 alignItems: { xs: 'center', lg: 'start' },
-                                flexDirection: { xs: 'row', lg: 'column' },
+                                flexDirection: { xs: 'column', sm: 'row', lg: 'column' },
                             }}
                         >
                             <Grid>
                                 <TextField
                                     variant="standard"
-                                    type='text'
                                     placeholder="کد تخفیف خود را وارد کنید:"
                                     InputProps={{
-                                        dir: 'rtl',
                                         disableUnderline: true,
                                     }}
                                     sx={{
+                                        fontSize: {xs: 15, sm: 20},
                                         marginTop: { xs: 2, lg: 4 },
-                                        width: "289px",
+                                        width:'300px',
                                         height: "45px",
                                         borderRadius: "10px",
                                         background: "#E9E9E9",
@@ -96,7 +95,7 @@ const Summary = () => {
                                     sx={{
                                         bgcolor: "#FFCC70",
                                         marginTop: { xs: 2, lg: 2 },
-                                        width: { xs: '110px', lg: "185px" },
+                                        width: {xs: '200px', sm: '110px', lg: "185px" },
                                         height: "44px",
                                         padding: "11px, 0px, 11px, 0px",
                                         borderRadius: "20px",
@@ -149,8 +148,9 @@ const Summary = () => {
                         <Box
                             display='flex'
                             flexDirection='row'
-                            columnGap={10}
-                            
+                            sx={{
+                                columnGap: {xs: 4, sm: 10}
+                            }}
                         >
                             <Grid
                                 display='flex'
@@ -158,13 +158,13 @@ const Summary = () => {
                                 justifyContent='space-between'
                                 rowGap={2}
                             >
-                                <Typography variant="h6" fontWeight="bold">
+                                <Typography variant="h6" fontWeight="bold" noWrap>
                                     قیمت کل سفارش:
                                 </Typography>
-                                <Typography variant="h6" fontWeight="bold">
+                                <Typography variant="h6" fontWeight="bold" noWrap>
                                     میزان تخفیف:‌
                                 </Typography>
-                                <Typography variant="h6" fontWeight="bold">
+                                <Typography variant="h6" fontWeight="bold" noWrap>
                                     مبلغ قابل پرداخت:‌‌
                                 </Typography>
                             </Grid>
@@ -174,13 +174,13 @@ const Summary = () => {
                                 justifyContent='space-between'
                                 rowGap={2}
                             >
-                                <Typography variant="h6">
+                                <Typography variant="h6" noWrap>
                                     ۳۹۸۰۰۰ تومان
                                 </Typography>
-                                <Typography variant="h6">
+                                <Typography variant="h6" noWrap>
                                     ۳۹۸۰۰۰ تومان
                                 </Typography>
-                                <Typography variant="h6" fontWeight='bold'>
+                                <Typography variant="h6" fontWeight='bold' noWrap>
                                     ۳۹۸۰۰۰ تومان
                                 </Typography>
                             </Grid>

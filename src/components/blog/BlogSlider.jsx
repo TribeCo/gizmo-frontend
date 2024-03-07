@@ -55,8 +55,6 @@ const BlogSlider = ({ banners }) => {
             <Card
                 sx={{
                     my: 2,
-                    // height: { xs: 165, sm: 290, md: 425, lg: 580 },
-                    // width: { xs: 330, sm: 580, md: 850, lg: 1160 },
                     borderRadius: "20px",
                     overflow: false,
                 }}>
@@ -66,15 +64,15 @@ const BlogSlider = ({ banners }) => {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         alignItems: 'flex-start',
-                        height: { xs: 165, sm: 290, md: 425, lg: 1/3 * '3214px' },
-                        width: { xs: 330, sm: 580, md: 850, lg: 1/3 * '7500px' },
+                        height: { xs: 145, sm: 250, md: 380, lg: 500 },
+                        width: { xs: 330, sm: 580, md: 880, lg: 1180 },
                     }}
                 >
                     <Paper
                         sx={{
                             bgcolor: 'white',
-                            width: { xs: 50, sm: 70, md: 80, lg: 110 },
-                            height: { xs: 70, sm: 95, md: 110, lg: 140 },
+                            width: { xs: 40, sm: 70, md: 80, lg: 110 },
+                            height: { xs: 60, sm: 95, md: 110, lg: 140 },
                             columnGap: { xs: 0, sm: '3px', md: '5px', lg: 1 },
                             display: 'flex',
                             justifyContent: 'center',
@@ -82,7 +80,7 @@ const BlogSlider = ({ banners }) => {
                             borderBottomLeftRadius: '20px',
                             boxShadow: 'none'
                         }}
-                    >
+                    >   
                         <Grid
                             display='flex'
                             flexDirection='column'
@@ -92,60 +90,47 @@ const BlogSlider = ({ banners }) => {
                                 rowGap: { xs: 1, sm: 2, md: '12px', lg: 2 },
                             }}
                         >
-                            
-                            {/* <IconButton */}
-                                <Button
-                                    onClick={handleNext}
-                                    disableRipple
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        borderRadius: 10,
-                                        width: { xs: 18, sm: 26, md: 32, lg: 40 },
-                                        height: { xs: 18, sm: 26, md: 32, lg: 40 },
-                                        bgcolor: Colors.blue,
-                                        "&:hover": {
-                                            backgroundColor: Colors.blue,
-                                        },
-                                    }}
-
->
-
-                                <ArrowForwardIosOutlinedIcon sx={{ color: "white", fontSize: { xs: '16px', sm: '22px', md: '24px', lg: '26px' } }} />
-                                </Button>
-                            {/* </IconButton> */}
-                            
-                            {/* <IconButton */}
-                                <Button
-                                    onClick={handlePrev}
-                                    disableRipple
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        borderRadius: 10,
-                                        width: { xs: 18, sm: 26, md: 32, lg: 40 },
-                                        height: { xs: 18, sm: 26, md: 32, lg: 40 },
-                                        bgcolor: Colors.blue,
-                                        "&:hover": {
-                                            backgroundColor: Colors.blue,
-                                        },
-                                    }}
-
->
-
-                                <ArrowBackIosOutlinedIcon sx={{ color: "white", fontSize: { xs: '16px', sm: '22px', md: '24px', lg: '26px' } }} />
-                                </Button>
-                            {/* </IconButton> */}
+                            <IconButton
+                                onClick={handleNext}
+                                sx={{
+                                    ml: {xs: 1, sm: 0},
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: { xs: 10, sm: 26, md: 32, lg: 40 },
+                                    height: { xs: 10, sm: 26, md: 32, lg: 40 },
+                                    bgcolor: Colors.blue,
+                                    "&:hover": {
+                                        backgroundColor: Colors.blue,
+                                    },
+                                }}
+                            >
+                                <ArrowForwardIosOutlinedIcon sx={{ color: "white", fontSize: { xs: '12px', sm: '22px', md: '24px', lg: '26px' } }} />
+                            </IconButton>
+                            <IconButton
+                                onClick={handlePrev}
+                                sx={{
+                                    ml: {xs: 1, sm: 0},
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: { xs: 10, sm: 26, md: 32, lg: 40 },
+                                    height: { xs: 10, sm: 26, md: 32, lg: 40 },
+                                    bgcolor: Colors.blue,
+                                    "&:hover": {
+                                        backgroundColor: Colors.blue,
+                                    },
+                                }}
+                            >
+                                <ArrowBackIosOutlinedIcon sx={{ color: "white", fontSize: { xs: '12px', sm: '22px', md: '24px', lg: '26px' } }} />
+                            </IconButton>
                         </Grid>
-
                         <Grid
                             display='flex'
                             flexDirection='column'
                             alignItems='center'
                             sx={{
-                                scale: { xs: '2', sm: '3', lg: '4' },
+                                scale: { xs: '1.5', sm: '3', lg: '4' },
                             }}
                         >
                             <SvgIcon width="8" height="83" viewBox="0 0 8 83" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -157,6 +142,7 @@ const BlogSlider = ({ banners }) => {
                             </SvgIcon>
                         </Grid>
                     </Paper>
+                    
                 </CardMedia>
             </Card>
         </Grid>

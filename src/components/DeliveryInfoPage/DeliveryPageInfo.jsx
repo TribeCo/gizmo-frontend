@@ -1,5 +1,6 @@
 'use client'
 import React,{useState} from 'react'
+import DeliverySummary from '@/components/DeliveryInfoPage/DeliveryPageSummary'
 import { Colors } from "@/utils";
 
 
@@ -252,7 +253,7 @@ export default function DeliveryPageInfo() {
 
             </div>
 
-            <div className='my-8'>
+            <div className='my-8 mt-10'>
                 <FormControl className='w-full'>
                               <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                                     <RadioGroup
@@ -260,7 +261,7 @@ export default function DeliveryPageInfo() {
                                      name="radio-buttons-group"
                                      className='w-full'
                                      >
-                                    <div className='flex justify-between px-8 w-full md:flex-col'>
+                                    <div className='flex justify-start gap-16 px-8 w-full md:flex-col'>
 
                                      <FormControlLabel label={'ارسال با پست پیشتاز: هزینه 35هزار تومان'} control={<Radio />} value={1} />
                                      <FormControlLabel label={'ارسال با پست پیشتاز: هزینه 35هزار تومان'} control={<Radio />} value={2} />
@@ -275,6 +276,8 @@ export default function DeliveryPageInfo() {
             <div className='w-full rounded-lg bg-[#EEEEEE] my-8'>
 
             </div>
+
+            <DeliverySummary/>
 
         </section>
 

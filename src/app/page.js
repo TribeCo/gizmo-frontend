@@ -17,7 +17,7 @@ import noon from "@/components/comanyIcons/noon.png";
 import wacaco from "@/components/comanyIcons/wacaco.png";
 import greenLions from "@/components/comanyIcons/greenLions.png";
 import amazon from "@/components/comanyIcons/amazon.png";
-import DeliveryPageInfo from "@/components/DeliveryPageInfo";
+import DeliveryPageInfo from "@/components/DeliveryInfoPage/DeliveryPageInfo";
 
 const logos = [
 	[anker, "https://www.anker.com/"],

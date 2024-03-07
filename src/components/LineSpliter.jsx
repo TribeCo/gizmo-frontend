@@ -2,14 +2,16 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Colors } from "@/utils";
 
-const LineSplitter = ({ text }) => {
+const LineSplitter = ({ text, margin = 10 }) => {
 	return (
 		<Box
-			mt={10}
-			mb={10}
+			mt={margin}
 			display="flex"
 			alignItems="center"
-			justifyContent="center">
+			justifyContent="center"
+			sx={{
+				mb: { xs: 3, sm: 5, md: margin },
+			}}>
 			<Box
 				ml={4}
 				width="100%"
@@ -22,7 +24,7 @@ const LineSplitter = ({ text }) => {
 				fontWeight="900"
 				variant="h4"
 				sx={{
-					fontSize: {xs: 18, sm: 26, md: 32},
+					fontSize: { xs: 18, sm: 26, md: 32 },
 					px: 3,
 					whiteSpace: "nowrap",
 				}}>

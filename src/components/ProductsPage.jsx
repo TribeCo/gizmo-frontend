@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductsGrid from "@/components/ProductsGrid";
 import LineSplitter from "@/components/LineSpliter";
+import { products } from '@/utils/fakeProduct';
 
 function ProductsPage({ categoryName }) {
     const [productsList, setProductsList] = useState([]);
@@ -26,7 +27,7 @@ function ProductsPage({ categoryName }) {
     return (
         <div>
             <LineSplitter text={`محصولات ${categoryName}`} />
-            <ProductsGrid productsList={productsList} />
+            <ProductsGrid productsList={products} />
         </div>
     );
 }

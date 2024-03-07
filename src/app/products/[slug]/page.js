@@ -31,10 +31,10 @@ const Products = () => {
 			sx={{
 				flexGrow: 1,
 				overflow: "auto",
+				mt: { xs: 0, md: 3 },
 			}}
 			maxWidth="xl"
-			mb={9}
-			mt={3}>
+			mb={9}>
 			<ProductInfo />
 			<DescriptionComponent
 				introductionContent={content}

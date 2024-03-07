@@ -1,8 +1,8 @@
-'use client'
 import React, { useState, useEffect } from 'react'
 import { Colors } from "@/utils";
 import eye from '@/components/siteIcons/eye-slash.svg'
 import Image from 'next/image'
+import NumberFormat from 'react-number-format';
 
 
 import {
@@ -41,6 +41,14 @@ export default function DashBoardEditProfile() {
         oldPassword: '',
         newPassword: '',
     });
+
+    const handleInputChange = (event) => {
+        event.target.value = event.target.value.replace(/[^0-9]/g,);
+        if (event.target.value == 'undefined') {
+            event.target.value = ''
+        }
+    }
+    
 
 
     const editNewProfile = async () => {
@@ -111,9 +119,8 @@ export default function DashBoardEditProfile() {
     };
 
   return (
-    <Card className='m-4 flex justify-end h-[47rem] rounded-xl lg:h-max shadow-lg'>
 
-        <section className="editProfile py-4 w-[70%] px-[4%] flex flex-col lg:w-full">
+        <section className="editProfile py-8 w-[60rem] px-[4%] max-h-full flex flex-col lg:w-[21rem]">
 
             <div className="editProfile-info flex border-b border-[#EDEDED] justify-between py-2 mb-4">
                 <Typography
@@ -128,25 +135,25 @@ export default function DashBoardEditProfile() {
 
                 <div className='editProfile-info-fields flex w-full justify-between gap-8 lg:gap-0 lg:flex-col'>
 
-                    <div className="info-fields-one max-sm:text-sm flex gap-2 flex-col w-full">
+                    <div className="info-fields-one max-sm:text-sm flex gap-8 md:gap-4 flex-col w-full">
 
-                        <div className='flex justify-between items-center'>
-                            <label htmlFor="name" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>نام</label>
+                        <div className='flex items-center'>
+                            <label htmlFor="name" className='w-full block text-sm mr-2 text-[#99999A] sm:gap-2 whitespace-nowrap sm:text-xs'>نام</label>
                             <input type="text" onChange={(e) => setNewProfileData({ ...newProfileData, name: e.target.value })} id='name' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2' />
                         </div>
 
-                        <div className='flex justify-between items-center'>
-                            <label htmlFor="familyName" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>نام خانوادگی</label>
+                        <div className='flex items-center'>
+                            <label htmlFor="familyName" className='w-full block text-sm mr-2 text-[#99999A] sm:gap-5 text-nowrap  whitespace-nowrap sm:text-xs'>نام خانوادگی</label>
                             <input type="text" onChange={(e) => setNewProfileData({ ...newProfileData, familyName: e.target.value })} id='familyName' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2' />
                         </div>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="phoneNumber" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>شماره تلفن</label>
-                            <input type="text" onChange={(e) => setNewProfileData({ ...newProfileData, phoneNumber: e.target.value })} id='phoneNumber' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2' />
+                            <label htmlFor="phoneNumber" className='w-full block text-sm mr-2 text-[#99999A] sm:gap-5  whitespace-nowrap sm:text-xs'>شماره تلفن</label>
+                            <input type="tel" onInput={handleInputChange}  onChange={(e) => setNewProfileData({ ...newProfileData, phoneNumber: e.target.value })} id='phoneNumber' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2' />
                         </div>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="birthDate" className='w-fit block text-sm mr-2 text-[#99999A] sm:text-xs'>تاریخ تولد</label>
+                            <label htmlFor="birthDate" className='w-fit block text-sm mr-2 text-[#99999A]  whitespace-nowrap sm:text-xs'>تاریخ تولد</label>
 
                             <input type="date" onChange={(e) => setNewProfileData({ ...newProfileData, birthDay: e.target.value })} id='birthDay' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2 w-full max-w-[13.5rem]'/>
 
@@ -154,10 +161,10 @@ export default function DashBoardEditProfile() {
 
                     </div>
 
-                    <div spacing={2} className='info-fields-two max-sm:text-sm gap-2 mt-2 flex flex-col w-full'>
+                    <div spacing={2} className='info-fields-two max-sm:text-sm gap-8 md:gap-4 lg:mt-4 flex flex-col w-full'>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="gender" className='w-fit block text-sm mr-2 text-[#99999A] sm:text-xs'>جنسیت</label>
+                            <label htmlFor="gender" className='w-fit block text-sm mr-2 text-[#99999A]  whitespace-nowrap sm:text-xs'>جنسیت</label>
                                 <select type="select" onChange={(e) => setNewProfileData({ ...newProfileData, gender: e.target.value })} id='gender' className='rounded-full border-[#747678] bg-white border-2 border-opacity-70 w-full h-8 outline-none px-2 max-w-[13.5rem]'>
                                 <option value="nothing">یک مورد را انتخاب کنید</option>
                                 <option value="male">مرد</option>
@@ -166,12 +173,12 @@ export default function DashBoardEditProfile() {
                         </div>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="email" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>آدرس ایمیل</label>
+                            <label htmlFor="email" className='w-full block text-sm mr-2 text-[#99999A]  whitespace-nowrap sm:text-xs'>آدرس ایمیل</label>
                             <input type="email" onChange={(e) => setNewProfileData({ ...newProfileData, email: e.target.value })} id='email' className='rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2' />
                         </div>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="password" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>رمز عبور</label>
+                            <label htmlFor="password" className='w-full block text-sm mr-2 text-[#99999A]  whitespace-nowrap sm:text-xs'>رمز عبور</label>
                             <div className='relative'>
                                 <input id="hs-toggle-password" onChange={(e) => setNewProfileData({ ...newProfileData, password: e.target.value })} type={firstField} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2"/>
                                 <button className='absolute w-4 bottom-2 left-3' onClick={() => {firstField === 'password' ? setFirstField('text') : setFirstField('password')}}>
@@ -180,7 +187,7 @@ export default function DashBoardEditProfile() {
                             </div>
                         </div>
 
-                        <div className='flex justify-between flex-row-reverse lg:mx-12 lg:mt-6'>
+                        <div className='justify-self-start flex justify-between flex-row-reverse lg:mx-12 lg:mt-6 pr-20 lg:pr-0'>
                             <Button className='w-[49%]'
                                 variant="contained"
                                 onClick={console.log(newProfileData)}
@@ -189,13 +196,12 @@ export default function DashBoardEditProfile() {
                                     color: "black",
                                     borderRadius: "50px",
                                     boxShadow: "none",
-                                    mt: 1,
                                     height: 34,
                                     "&:hover": {
                                         bgcolor: Colors.orange,
                                     },
                                 }}>
-                                <Typography variant='div sm:text-xs'>ذخیره تغییرات</Typography>
+                                <Typography variant='div  whitespace-nowrap lg:text-xs'>ذخیره تغییرات</Typography>
                             </Button>
 
                                 <Button className='w-[49%]'
@@ -209,12 +215,11 @@ export default function DashBoardEditProfile() {
                                     borderRadius: "50px",
                                     boxShadow: "none",
                                     height: 34,
-                                    mt: 1,
                                     "&:hover": {
                                         bgcolor: Colors.orange,
                                     },
                                 }}>
-                                    <Typography variant='div sm:text-xs'>انصراف</Typography>
+                                    <Typography variant='div  whitespace-nowrap lg:text-xs'>انصراف</Typography>
                                 </Button>
                         </div>
 
@@ -227,7 +232,7 @@ export default function DashBoardEditProfile() {
 
             <Stack className='mt-8'>
 
-                <div className="changePassword-info flex border-b border-[#EDEDED] justify-between py-2 mb-4">
+                <div className="mt-8 mb-8 md:mt-2 changePassword-info flex border-b border-[#EDEDED] justify-between py-2">
                 <Typography
                 variant='h6'
                 fontSize={18}
@@ -236,14 +241,14 @@ export default function DashBoardEditProfile() {
                 </Typography>
                 </div>
 
-                <div className='changePassword-info-fields flex gap-8 w-full justify-between lg:flex-col lg:gap-0 px-[3%]'>
+                <div className='changePassword-info-fields flex gap-8 w-full justify-between lg:flex-col lg:gap-2 px-[3%]'>
 
-                    <div className='info-fields-one flex flex-col gap-2 w-full'>
+                    <div className='info-fields-one flex flex-col gap-8 md:gap-2 w-full'>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="password" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>رمز عبور جدید</label>
+                            <label htmlFor="password" className='w-full block text-sm mr-1 text-[#99999A]  whitespace-nowrap md:text-xs'>رمز عبور جدید</label>
                             <div className='relative'>
-                                <input id="hs-toggle-password" type={secondField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, newPassword: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none px-2"/>
+                                <input id="hs-toggle-password" type={secondField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, newPassword: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none"/>
                                 <button className='absolute w-4 bottom-2 left-3' onClick={() => {secondField === 'password' ? setSecondField('text') : setSecondField('password')}}>
                                     <Image src={eye}></Image>
                                 </button>
@@ -251,9 +256,9 @@ export default function DashBoardEditProfile() {
                         </div>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="password" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>رمز عبور قدیمی</label>
+                            <label htmlFor="password" className='w-full block text-sm mr-1 text-[#99999A]  whitespace-nowrap md:text-xs'>رمز عبور قدیمی</label>
                             <div className='relative'>
-                                <input id="hs-toggle-password" type={thirdField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, oldPassword: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none px-2"/>
+                                <input id="hs-toggle-password" type={thirdField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, oldPassword: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none"/>
                                 <button className='absolute w-4 bottom-2 left-3' onClick={() => {thirdField === 'password' ? setThirdField('text') : setThirdField('password')}}>
                                     <Image src={eye}></Image>
                                 </button>
@@ -262,19 +267,19 @@ export default function DashBoardEditProfile() {
 
                     </div>
 
-                    <div className='info-fields-two flex flex-col w-full'>
+                    <div className='info-fields-two flex flex-col w-full gap-8 md:gap-0'>
 
                         <div className='flex justify-between items-center'>
-                            <label htmlFor="password" className='w-full block text-sm mr-2 text-[#99999A] sm:text-xs'>تکرار رمز عبور</label>
+                            <label htmlFor="password" className='w-full block text-sm mr-1 text-[#99999A]  whitespace-nowrap md:text-xs'>تکرار رمز عبور</label>
                             <div className='relative'>
-                                <input id="hs-toggle-password" type={forthField} onChange={(e) => setNewPasswordIteration(e.target.value)} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none px-2"/>
+                                <input id="hs-toggle-password" type={forthField} onChange={(e) => setNewPasswordIteration(e.target.value)} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none"/>
                                 <button className='absolute w-4 bottom-2 left-3' onClick={() => {forthField === 'password' ? setForthField('text') : setForthField('password')}}>
                                     <Image src={eye}></Image>
                                 </button>
                             </div>
                         </div>
 
-                        <div className='flex flex-row-reverse justify-between lg:mx-12 lg:mt-6'>
+                        <div className='flex flex-row-reverse justify-between lg:mx-12 lg:mt-6 pr-20 lg:pr-0'>
                             <Button className='w-[49%]'
                                 variant="contained"
                                 onClick={newProfilePassword.newPassword === newPasswordIteration ? editNewProfilePassword : console.log(newProfilePassword)}
@@ -283,13 +288,12 @@ export default function DashBoardEditProfile() {
                                     color: "black",
                                     borderRadius: "50px",
                                     boxShadow: "none",
-                                    mt: 1,
                                     height: 34,
                                     "&:hover": {
                                         bgcolor: Colors.orange,
                                     },
                                 }}>
-                                <Typography variant='div sm:text-xs'>ذخیره تغییرات</Typography>
+                                <Typography variant='div  whitespace-nowrap lg:text-xs'>ذخیره تغییرات</Typography>
                             </Button>
 
                                 <Button className='w-[49%]'
@@ -303,12 +307,11 @@ export default function DashBoardEditProfile() {
                                     borderRadius: "50px",
                                     boxShadow: "none",
                                     height: 34,
-                                    mt: 1,
                                     "&:hover": {
                                         bgcolor: Colors.orange,
                                     },
                                 }}>
-                                    <Typography variant='div sm:text-xs'>انصراف</Typography>
+                                    <Typography variant='div  whitespace-nowrap lg:text-xs'>انصراف</Typography>
                                 </Button>
                         </div>
                         
@@ -320,6 +323,5 @@ export default function DashBoardEditProfile() {
         </section>
 
 
-    </Card>
   )
 }

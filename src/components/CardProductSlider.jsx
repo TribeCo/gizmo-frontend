@@ -15,28 +15,11 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { Colors } from "@/utils";
 import { ProductCard } from ".";
 
-{
-	/*
-    Inputs:
-    products: a list of all product cards in folowing format:
-		[
-            { name: ..., description: ...},
-            .
-            .
-            .
-        ]
-    
-        itemsPerPage: number of product cards to show in page 
-    
-    swapTime_millisecond: delay time for automatic slider 
-*/
-}
-
 const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const isSmallScreen = useMediaQuery("(max-width:900px)");
-	const itemsPerPage = isSmallScreen ? 1 : 4;
+	const itemsPerPage = isSmallScreen ? 2 : 5;
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -57,9 +40,13 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 		);
 	};
 
-	const productItems = [];
-	for (let index = 0; index < itemsPerPage; index++) {
-		productItems.push(products[(currentIndex + index) % products.length]);
+	let productItems = [];
+	if (products.length > itemsPerPage) {
+		for (let index = 0; index < itemsPerPage; index++) {
+			productItems.push(products[(currentIndex + index) % products.length]);
+		}
+	} else {
+		productItems = products;
 	}
 
 	return (
@@ -69,7 +56,10 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 				display="flex"
 				width="100%"
 				alignItems="center"
-				justifyContent="space-around">
+				justifyContent="space-around"
+				sx={{
+					transform: { xs: "scale(0.63)", sm: "scale(0.63)", md: "scale(1)" },
+				}}>
 				<Box item>
 					<IconButton
 						variant="contained"
@@ -86,9 +76,9 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 				<Box
 					item
 					display="flex">
-					{productItems.map((product, index) => (
+					{productItems.map((product) => (
 						<ProductCard
-							key={index}
+							key={product.id}
 							product={product}
 						/>
 					))}
@@ -108,16 +98,24 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 				</Box>
 			</Box>
 			<Box>
-				<Box height="240px"></Box>
+				<Box sx={{ height: { xs: "223px", lg: "240px" } }}></Box>
 				<Box
-					height="190px"
+					sx={{ height: { xs: "122px", lg: "190px" } }}
 					bgcolor="#DEF0F5"></Box>
 			</Box>
 			{btn && (
-				<Box mt={3}>
+				<Box
+					sx={{
+						mt: { xs: 0, sm: 0, md: 3 },
+					}}>
 					<Button
 						variant="contained"
 						sx={{
+							transform: {
+								xs: "scale(0.7)",
+								sm: "scale(0.8)",
+								md: "scale(1)",
+							},
 							display: "block",
 							mx: "auto",
 							border: `3px solid ${Colors.orange}`,

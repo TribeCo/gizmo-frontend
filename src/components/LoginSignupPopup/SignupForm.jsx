@@ -11,6 +11,7 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
     // form variables
     const [fullName, setFullName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [confirmationCode, setConfirmationCode] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmation, setConfirmaiton] = useState("");
@@ -18,8 +19,14 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [policyAgreed, setPolicyAgreed] = useState(false);
 
+    const [phoneEnter, setPhoneEnter] = useState(false);
+    const [phoneValidate, setPhoneValidate] = useState(false);
+    const [informationComplition, setInformationComplition] = useState(false);
+
     // validation error variables
     const [errors, setErrors] = useState({});
+
+    const { signUp, confirmPhoneSignUpCode, completeSignupInformation } = useContext(AuthContext);
 
     const validationSchema = Yup.object().shape({
         fullName: Yup.string().required('نام و نام خانوادگی الزامی است'),
@@ -51,25 +58,62 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
     };
 
     const handleSignup = async (event) => {
-        event.preventDefault();
-        try {
-          await validationSchema.validate({
-            fullName,
-            phoneNumber,
-            email,
-            password,
-            confirmation,
-            policyAgreed,
-          }, { abortEarly: false });
-          // Handle form submission if validation succeeds
-        } catch (validationErrors) {
-          // Update the errors state with the validation errors
-          const newErrors = {};
-          validationErrors.inner.forEach(error => {
-            newErrors[error.path] = error.message;
-          });
-          setErrors(newErrors);
+        event.preventDefault();        
+
+        console.log("validating phone number");
+
+        const isValidated = await confirmPhoneSignUpCode(phoneNumber, parseInt(confirmationCode, 10));
+
+        if (isValidated === 1) {
+            console.log("validated");
+            setPhoneValidate(true);
         }
+    };
+
+    const handleCompleteInfo = async (event) => {
+        event.preventDefault();
+
+        console.log("complete info");
+
+        const isCompleted = await completeSignupInformation(phoneNumber, fullName, email, password);
+
+        if (isCompleted === 1) {
+            setInformationComplition(true);
+            onClose();
+        }
+
+    };
+
+    const handleSendCode = async (event) => {
+        event.preventDefault();
+        // try {
+        //     await validationSchema.validate({
+        //         fullName,
+        //         phoneNumber,
+        //         email,
+        //         password,
+        //         confirmation,
+        //         policyAgreed,
+        //     }, { abortEarly: false });
+            // Handle form submission if validation succeeds
+
+        console.log("signup running");
+
+        const isSignedUp = await signUp(phoneNumber);
+
+        if (isSignedUp === 1) {
+            console.log("here here");
+            setPhoneEnter(true);
+        }
+
+        // } catch (validationErrors) {
+        //   // Update the errors state with the validation errors
+        //   const newErrors = {};
+        //   validationErrors.inner.forEach(error => {
+        //     newErrors[error.path] = error.message;
+        //   });
+        //   setErrors(newErrors);
+        // }
     };
     
     return (
@@ -79,147 +123,249 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 
             <hr style={{ margin: '16px auto', width: '90%', borderColor: 'rgba(0, 0, 0, 0.2)' }} />
 
-            <Typography variant="body1" mb={1}>نام و نام خانوادگی:</Typography>
-        
-            <TextField
-                variant="outlined"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                fullWidth
-                InputProps={{ dir: 'rtl' }}
-                sx={{
-                    bgcolor: "white",
-                    borderRadius: "20px",
-                    marginBottom: "5%",
-                    '& .MuiOutlinedInput-root': { borderRadius: '20px' }
-                }}
-                error={errors.fullName}
-                helperText={errors.fullName}
-            />
-        
-            <Typography variant="body1" mb={1}>تلفن همراه:</Typography>
-        
-            <TextField
-                variant="outlined"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                fullWidth
-                mb={2}
-                InputProps={{ dir: 'rtl' }}
-                sx={{
-                    bgcolor: "white",
-                    borderRadius: "20px",
-                    marginBottom: "5%",
-                    '& .MuiOutlinedInput-root': { borderRadius: '20px' }
-                }}
-                error={errors.phoneNumber}
-                helperText={errors.phoneNumber}
-            />
-        
-            <Typography variant="body1" mb={1}>ایمیل:</Typography>
-        
-            <TextField
-                variant="outlined"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                fullWidth
-                mb={2}
-                InputProps={{ dir: 'rtl' }}
-                sx={{
-                    bgcolor: "white",
-                    borderRadius: "20px",
-                    marginBottom: "5%",
-                    '& .MuiOutlinedInput-root': { borderRadius: '20px' }
-                }}
-                error={errors.email}
-                helperText={errors.email}
-            />
+            {
+                phoneEnter && phoneValidate ? 
+                <>
+                <Typography variant="body1" mb={1}>نام و نام خانوادگی:</Typography>
+            
+                <TextField
+                    variant="outlined"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    fullWidth
+                    InputProps={{ dir: 'rtl' }}
+                    sx={{
+                        bgcolor: "white",
+                        borderRadius: "20px",
+                        marginBottom: "5%",
+                        '& .MuiOutlinedInput-root': { borderRadius: '20px' }
+                    }}
+                    error={errors.fullName}
+                    helperText={errors.fullName}
+                />
+                </>
+                : <></>
+            } 
 
-            <Typography variant="body1" mb={1}>رمز عبور:</Typography>
-            <TextField
-                variant="outlined"
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                fullWidth
-                InputProps={{
-                    dir: 'rtl',
-                    endAdornment: (
-                    <IconButton onClick={handleTogglePasswordVisibility} edge="end">
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                    ),
-                }}
-                sx={{
-                    bgcolor: "white",
-                    marginBottom: "5%",
-                    borderRadius: "20px",
-                    '& .MuiOutlinedInput-root': { borderRadius: '20px' }
-                }}
-                error={errors.password}
-                helperText={errors.password}
-            />
+            {
+                !phoneEnter ? 
+                <>
+                    <Typography variant="body1" mb={1}>تلفن همراه:</Typography>
+                
+                    <TextField
+                        variant="outlined"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        fullWidth
+                        mb={2}
+                        InputProps={{ dir: 'rtl' }}
+                        sx={{
+                            bgcolor: "white",
+                            borderRadius: "20px",
+                            marginBottom: "5%",
+                            '& .MuiOutlinedInput-root': { borderRadius: '20px' }
+                        }}
+                        error={errors.phoneNumber}
+                        helperText={errors.phoneNumber}
+                    />
+                </>: <></>
+            }
+            
+            {
+                phoneEnter && !phoneValidate ?
+                
+                <>
+                    <Typography variant="body1" mb={1}>کد تایید ارسال شده را وارد کنید</Typography>
+                
+                    <TextField
+                        variant="outlined"
+                        value={confirmationCode}
+                        onChange={(e) => setConfirmationCode(e.target.value)}
+                        fullWidth
+                        mb={2}
+                        InputProps={{ dir: 'rtl' }}
+                        sx={{
+                            bgcolor: "white",
+                            borderRadius: "20px",
+                            marginBottom: "5%",
+                            '& .MuiOutlinedInput-root': { borderRadius: '20px' }
+                        }}
+                        error={errors.phoneNumber}
+                        helperText={errors.phoneNumber}
+                    />
+                </>
+                : <></>
+            }
 
-            <Typography variant="body1" mb={1}>تکرار رمز عبور:</Typography>
-            <TextField
-                variant="outlined"
-                type={showConfirmation ? 'text' : 'password'}
-                value={confirmation}
-                onChange={(e) => setConfirmaiton(e.target.value)}
-                fullWidth
-                InputProps={{
-                    dir: 'rtl',
-                    endAdornment: (
-                    <IconButton onClick={handleToggleConfirmationVisibility} edge="end">
-                        {showConfirmation ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                    ),
-                }}
-                sx={{
-                    bgcolor: "white",
-                    marginBottom: "5%",
-                    borderRadius: "20px",
-                    '& .MuiOutlinedInput-root': { borderRadius: '20px' }
-                }}
-                error={errors.confirmation}
-                helperText={errors.confirmation}
-            />
+            {
+                phoneEnter && phoneValidate ? 
+                <>
+                    <Typography variant="body1" mb={1}>ایمیل:</Typography>
+                
+                    <TextField
+                        variant="outlined"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        fullWidth
+                        mb={2}
+                        InputProps={{ dir: 'rtl' }}
+                        sx={{
+                            bgcolor: "white",
+                            borderRadius: "20px",
+                            marginBottom: "5%",
+                            '& .MuiOutlinedInput-root': { borderRadius: '20px' }
+                        }}
+                        error={errors.email}
+                        helperText={errors.email}
+                    />
 
-            <Button 
-                variant="contained" 
-                color="warning" 
-                onClick={handleSignup} 
-                fullWidth 
-                sx={{ 
-                    color: "black",
-                    bgcolor: "#FFCC70",
-                    marginTop: "5%",
-                    marginBottom: "5%",
-                    borderRadius: '20px' 
-                }}
-            >
-                <Typography
-                    variant="h5" 
-                    align="center" 
-                    id="login-button"
-                >
-                    ثبت نام
-                </Typography>
-            </Button>
+                    <Typography variant="body1" mb={1}>رمز عبور:</Typography>
+                    <TextField
+                        variant="outlined"
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                        InputProps={{
+                            dir: 'rtl',
+                            endAdornment: (
+                            <IconButton onClick={handleTogglePasswordVisibility} edge="end">
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                            ),
+                        }}
+                        sx={{
+                            bgcolor: "white",
+                            marginBottom: "5%",
+                            borderRadius: "20px",
+                            '& .MuiOutlinedInput-root': { borderRadius: '20px' }
+                        }}
+                        error={errors.password}
+                        helperText={errors.password}
+                    />
 
-            <FormControlLabel
-                control={
-                    <Checkbox checked={policyAgreed} onChange={handleAgreeChange} />
-                }
-                label={
-                    <Typography variant="body1">
-                        <span style={{ color: 'red', marginLeft: '4px' }}>*</span>
-                        <span>با قوانین سایت موافقم</span>
-                    </Typography>
-                }
-                error={!!errors.policyAgreed}
-                helperText={errors.policyAgreed}
-            />
+                    <Typography variant="body1" mb={1}>تکرار رمز عبور:</Typography>
+                    <TextField
+                        variant="outlined"
+                        type={showConfirmation ? 'text' : 'password'}
+                        value={confirmation}
+                        onChange={(e) => setConfirmaiton(e.target.value)}
+                        fullWidth
+                        InputProps={{
+                            dir: 'rtl',
+                            endAdornment: (
+                            <IconButton onClick={handleToggleConfirmationVisibility} edge="end">
+                                {showConfirmation ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                            ),
+                        }}
+                        sx={{
+                            bgcolor: "white",
+                            marginBottom: "5%",
+                            borderRadius: "20px",
+                            '& .MuiOutlinedInput-root': { borderRadius: '20px' }
+                        }}
+                        error={errors.confirmation}
+                        helperText={errors.confirmation}
+                    />
+                </> : <></>
+            }
+            {
+                !phoneEnter && !phoneValidate?
+                <>
+
+                    <Button 
+                        variant="contained" 
+                        color="warning" 
+                        onClick={handleSendCode} 
+                        fullWidth 
+                        sx={{ 
+                            color: "black",
+                            bgcolor: "#FFCC70",
+                            marginTop: "5%",
+                            marginBottom: "5%",
+                            borderRadius: '20px' 
+                        }}
+                    >
+                        <Typography
+                            variant="h5" 
+                            align="center" 
+                            id="login-button"
+                        >
+                            ارسال کد
+                        </Typography>
+                    </Button>
+                </> : 
+                <>
+                </>
+            }
+            {
+                phoneEnter && !phoneValidate ?
+                <>
+                    <Button 
+                        variant="contained" 
+                        color="warning" 
+                        onClick={handleSignup} 
+                        fullWidth 
+                        sx={{ 
+                            color: "black",
+                            bgcolor: "#FFCC70",
+                            marginTop: "5%",
+                            marginBottom: "5%",
+                            borderRadius: '20px' 
+                        }}
+                    >
+                        <Typography
+                            variant="h5" 
+                            align="center" 
+                            id="login-button"
+                        >
+                            ثبت نام
+                        </Typography>
+                    </Button>                
+                </> : <></>
+            }
+            {
+                phoneEnter && phoneValidate ?
+                <>
+
+                    <Button 
+                        variant="contained" 
+                        color="warning" 
+                        onClick={handleCompleteInfo} 
+                        fullWidth 
+                        sx={{ 
+                            color: "black",
+                            bgcolor: "#FFCC70",
+                            marginTop: "5%",
+                            marginBottom: "5%",
+                            borderRadius: '20px' 
+                        }}
+                    >
+                        <Typography
+                            variant="h5" 
+                            align="center" 
+                            id="login-button"
+                        >
+                            ثبت نام
+                        </Typography>
+                    </Button>                
+                    <FormControlLabel
+                        control={
+                            <Checkbox checked={policyAgreed} onChange={handleAgreeChange} />
+                        }
+                        label={
+                            <Typography variant="body1">
+                                <span style={{ color: 'red', marginLeft: '4px' }}>*</span>
+                                <span>با قوانین سایت موافقم</span>
+                            </Typography>
+                        }
+                        error={!!errors.policyAgreed}
+                        helperText={errors.policyAgreed}
+                    />
+                </> : <></>
+            }
+
       </>
   );
 };

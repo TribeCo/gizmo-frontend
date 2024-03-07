@@ -182,7 +182,7 @@ export default class introSlider extends Component {
               </Button>
 
               <Button onClick={this.nextBtnAction}>
-              <Image className='nextBtn rotate-180' src={ArrowIcon} alt='goNext'></Image>
+              <Image className='nextBtn rotate-180' src={ArrowIcon} alt='goNext'></
               </Button>
 
             </section>

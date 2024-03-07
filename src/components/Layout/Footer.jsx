@@ -42,19 +42,16 @@ const Footer = () => {
 				alignItems="center"
 				justifyContent="space-between"
 				sx={{
-					flexDirection: {  xs: "column", lg: "row" },
-				}}
-				>
-				<Grid 
+					flexDirection: { xs: "column", lg: "row" },
+				}}>
+				<Grid
 					sx={{
-						mr: {lg: 8},
-					}}
-				>
-					<Grid 
+						mr: { lg: 8 },
+					}}>
+					<Grid
 						sx={{
-							pl: {xs: 0, lg: 6}
-						}}
-					>
+							pl: { xs: 0, lg: 6 },
+						}}>
 						<Grid container>
 							<Box pr={2}>
 								<Image
@@ -67,7 +64,7 @@ const Footer = () => {
 								<Typography
 									variant="h5"
 									fontWeight="bold">
-									خرید مستقیم از دوبی
+									خرید مستقیم از دبی
 								</Typography>
 
 								<Typography
@@ -85,43 +82,40 @@ const Footer = () => {
 					</Grid>
 				</Grid>
 
-				<Grid 
-					display='flex'
+				<Grid
+					display="flex"
 					sx={{
-						mt: {xs: 8, lg: 0},
-						mx: {xs: 1, lg: 0}
-					}}
-					>
-						<Grid 
-							sx={{
-								pr: {xs: 4, lg: 8},
-							}}
-						>
-							<Link href={noon_Link}>
-								<Image
-									src={NoonIcon}
-									width="auto"
-									height={60}
-								/>
-							</Link>
-						</Grid>
-
-						<Grid
-							sx={{
-								mt: {lg: 2},
-								pr: {lg: 12},
-								pl: {xs: 4, lg: 5}
-							}}
-						>
-							<Link href={amazon_Link}>
-								<Image
-									src={AmazonIcon}
-									width="auto"
-									height={45}
-								/>
-							</Link>
-						</Grid>
+						mt: { xs: 8, lg: 0 },
+						mx: { xs: 1, lg: 0 },
+					}}>
+					<Grid
+						sx={{
+							pr: { xs: 4, lg: 8 },
+						}}>
+						<Link href={noon_Link}>
+							<Image
+								src={NoonIcon}
+								width="auto"
+								height={60}
+							/>
+						</Link>
 					</Grid>
+
+					<Grid
+						sx={{
+							mt: { lg: 2 },
+							pr: { lg: 12 },
+							pl: { xs: 4, lg: 5 },
+						}}>
+						<Link href={amazon_Link}>
+							<Image
+								src={AmazonIcon}
+								width="auto"
+								height={45}
+							/>
+						</Link>
+					</Grid>
+				</Grid>
 
 				<Button
 					variant="contained"
@@ -130,18 +124,17 @@ const Footer = () => {
 						color: "black",
 						borderRadius: "50px",
 						boxShadow: "none",
-						mr: { lg:4 },
-						mt: {xs: 8, lg: 0},
-						mb: {xs: 2, lg: 0},
+						mr: { lg: 4 },
+						mt: { xs: 8, lg: 0 },
+						mb: { xs: 2, lg: 0 },
 						"&:hover": {
 							bgcolor: Colors.orange,
 						},
 					}}>
-					<Typography 
-						variant="h6" 
-						fontSize={18}
-					>
-							ارسال لینک
+					<Typography
+						variant="h6"
+						fontSize={18}>
+						ارسال لینک
 					</Typography>
 				</Button>
 			</Box>
@@ -157,18 +150,16 @@ const Footer = () => {
 					pt={5}
 					container
 					sx={{
-						flexDirection: {xs: 'column', md: 'row'},
-						direction: {xs: 'column', md: 'row'},
-						justifyContent: {xs: 'center', md: 'flex-start'},
-						alignItems: {xs: 'center', md: 'start'}
-					}}
-				>
-					<Grid 
+						flexDirection: { xs: "column", md: "row" },
+						direction: { xs: "column", md: "row" },
+						justifyContent: { xs: "center", md: "flex-start" },
+						alignItems: { xs: "center", md: "start" },
+					}}>
+					<Grid
 						sx={{
 							mb: { xs: 2 },
-							ml: { md: 8 },	
-						}}
-					>
+							ml: { md: 8 },
+						}}>
 						<Link href={"/"}>
 							<Image
 								src={Logo}
@@ -180,13 +171,12 @@ const Footer = () => {
 
 					<Typography
 						sx={{
-							pt: { md:2 },
-							pl: { md:3 },
-							width: {xs: '65%', md: 'auto'},
-							textAlign: {xs: 'center'},
+							pt: { md: 2 },
+							pl: { md: 3 },
+							width: { xs: "65%", md: "auto" },
+							textAlign: { xs: "center" },
 						}}
-						variant="h6"
-					>
+						variant="h6">
 						از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید
 						کنید.
 					</Typography>
@@ -197,8 +187,7 @@ const Footer = () => {
 					direction="row"
 					justifyContent="space-around"
 					alignItems="flex-start"
-					mb={4}
-				>
+					mb={4}>
 					<Box
 						mt={3}
 						mb={3}

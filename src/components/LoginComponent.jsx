@@ -16,22 +16,26 @@ const LoginComponent = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100vh',
-                position: 'relative', // Ensure the parent box is positioned relatively
+                height: '47%',
+                width: '30%',
+                position: 'absolute',
+                right: '150px',
+                top: '320px',
             }}
         >
             {/* Welcome Typography outside the Card */}
             <Typography
                 variant="h4"
                 sx={{
-                    color: 'black',
+                    color: '#213346',
                     position: 'absolute',
-                    top: '55%', // Adjust this value based on the card's top and height
-                    left: '50%',
+                    top: '5%', // Adjust this value based on the card's top and height
+                    left: '60%',
                     transform: 'translate(-50%, -100%)', // Center horizontally and move up
                     fontWeight: 'bold',
                     padding: '10px 20px',
                     zIndex: 10, // Ensure it's above the card
+                    width: '100%',
                 }}
             >
                 سلام!! خوش اومدین!
@@ -39,16 +43,14 @@ const LoginComponent = () => {
             <Card
                 sx={{
                     borderRadius: '20px', // Rounded corners
-                    width: '30%', // 30% of the parent width
-                    height: '45%', // 45% of the viewport height
-                    backgroundColor: '#8ECDDD', // Your specified color
+                    backgroundColor: '#BDDDE7', // Your specified color
                     display: 'flex',
                     flexDirection: 'column', // Stack children vertically
                     alignItems: 'center',
                     padding: '20px', // Adjust padding as needed
-                    position: 'relative',
-                    top: '25%', // Adjust top position to align the card almost in the middle
                     border: '1px solid #FFFFFF', // Set card border color
+                    height: '100%',
+                    width: '100%',
                 }}
             >
                 {/* Typography for the title */}
@@ -69,7 +71,7 @@ const LoginComponent = () => {
                 {/* Line divider */}
                 <Divider
                     sx={{
-                        width: '80%', // Adjusted width
+                        width: '90%', // Adjusted width
                         marginBottom: '20px', // Adds space below the divider
                         borderColor: 'rgba(0, 0, 0, 0.42)', // Make the divider color more visible
                     }}
@@ -132,8 +134,8 @@ const LoginComponent = () => {
                         '&:hover': {
                             backgroundColor: '#e6b85c', // Darken button color on hover
                         },
-                        borderRadius: '20px', // Rounded corners for button
-                        padding: '7px 30px', // Padding inside the button
+                        borderRadius: '25px', // Rounded corners for button
+                        padding: '8px 30px', // Padding inside the button
                         color: 'black', // Text color
                         fontWeight: 'bold', // Bold text
                         fontSize: '18px',

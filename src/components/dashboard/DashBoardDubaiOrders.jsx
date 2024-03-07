@@ -8,7 +8,8 @@ import {
 	Typography,
 } from "@mui/material";
 
-import searchIcon from '@/components/siteIcons/searchIcon.svg'
+
+import searchIcon from '@/components/siteIcons/SearchIcon.svg'
 import { products } from '@/utils/fakeProduct';
 
 export default function DashBoardDubaiOrders() {
@@ -63,7 +64,7 @@ export default function DashBoardDubaiOrders() {
 
                     <div onClick={searchProductCode} className='bg-palette-blue w-[15%] flex items-center justify-center'>
                         <Image src={searchIcon} width={16}></Image>
-                    </div>
+                    </div>  
                   
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import LoginComponent from '@/components/Login&SignUp/LoginComponent';
+import SignUp3Component from '@/components/Login&SignUp/SignUp3Component';
 import { Box } from '@mui/material';
 
 function Login() {
@@ -8,8 +8,8 @@ function Login() {
         height: '100vh',
         width: '100vw',
         backgroundImage: {
-          lg: `url("https://gizmoshop.liara.run/images/media/pictures/Log_in.png")`, // Apply background image for lg and up
-          md: `url("https://gizmoshop.liara.run/images/media/pictures/Log_in.png")`, // Apply background image for md and up
+          lg: `url("https://gizmoshop.liara.run/images/media/pictures/Sign_up1.png")`, // Apply background image for lg and up
+          md: `url("https://gizmoshop.liara.run/images/media/pictures/Sign_up1.png")`, // Apply background image for md and up
           sm: 'none', // Remove background image for sm and below
           xs: 'none', // Remove background image for xs
         },
@@ -27,7 +27,7 @@ function Login() {
         backgroundRepeat: 'no-repeat', // Prevent the background image from repeating
       }}
     >
-      <LoginComponent />
+      <SignUp3Component />
     </Box>
   );
 }

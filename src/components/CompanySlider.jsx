@@ -25,7 +25,7 @@ import _24HoursSupport from "@/components/siteIcons/_24hoursSupport.png";
 {
 	/*
     Inputs:
-    logos: a list of all product cards in folowing format:
+    brands: a list of all product cards in folowing format:
 		[
             [imageFile: ..., companyURL: ...],
             .
@@ -34,13 +34,13 @@ import _24HoursSupport from "@/components/siteIcons/_24hoursSupport.png";
         ]
     * note that all images can be found in @/components/comanyIcons
 
-    itemsPerPage: number of logos to show in page 
+    itemsPerPage: number of brands to show in page 
     
     swapTime_millisecond: delay time for automatic slider 
 */
 }
 
-const CompanySlider = ({ logos, swapTime_millisecond }) => {
+const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 	const isSmallScreen = useMediaQuery("(max-width:900px)");
 	const itemsPerPage = isSmallScreen ? 2 : 5;
 
@@ -48,23 +48,29 @@ const CompanySlider = ({ logos, swapTime_millisecond }) => {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setStartIndex((prevIndex) => (prevIndex + 1) % logos.length);
+			setStartIndex((prevIndex) => (prevIndex + 1) % brands.length);
 		}, swapTime_millisecond);
 
 		return () => clearInterval(interval);
 	}, []);
 
 	const handlePrev = () => {
-		setStartIndex((prevIndex) => (prevIndex - 1 + logos.length) % logos.length);
+		setStartIndex(
+			(prevIndex) => (prevIndex - 1 + brands.length) % brands.length,
+		);
 	};
 
 	const handleNext = () => {
-		setStartIndex((prevIndex) => (prevIndex + 1) % logos.length);
+		setStartIndex((prevIndex) => (prevIndex + 1) % brands.length);
 	};
 
-	const slideItems = [];
-	for (let index = 0; index < itemsPerPage; index++) {
-		slideItems.push(logos[(startIndex + index) % logos.length]);
+	let slideItems = [];
+	if (brands.length > itemsPerPage) {
+		for (let index = 0; index < itemsPerPage; index++) {
+			slideItems.push(brands[(startIndex + index) % brands.length]);
+		}
+	} else {
+		slideItems = brands;
 	}
 
 	return (
@@ -75,15 +81,12 @@ const CompanySlider = ({ logos, swapTime_millisecond }) => {
 				pl={3}
 				container
 				justifyContent="space-between"
-				alignItems="center"
-				// sx={ {
-				//     mt:
-				// }}
-			>
+				alignItems="center">
 				<Grid item>
 					<IconButton
 						variant="contained"
 						sx={{
+							transform: { xs: "scale(0.7)", md: "scale(1)" },
 							bgcolor: Colors.blue,
 							position: "relative",
 							"&:hover": {
@@ -95,10 +98,10 @@ const CompanySlider = ({ logos, swapTime_millisecond }) => {
 					</IconButton>
 				</Grid>
 
-				{slideItems.map((item, index) => (
+				{slideItems.map((item) => (
 					<Grid
 						item
-						key={index}>
+						key={item.id}>
 						<Box
 							width="100%"
 							sx={{
@@ -106,13 +109,13 @@ const CompanySlider = ({ logos, swapTime_millisecond }) => {
 							}}
 							textAlign="center">
 							<Link
-								href={item[1]}
+								href={item.website}
 								passHref>
 								<Image
-									src={item[0]}
-									alt="company-logo-item"
-									width="auto"
-									height={50}
+									src={item.logo}
+									alt={item.name}
+									height={200}
+									width={200}
 								/>
 							</Link>
 						</Box>
@@ -123,6 +126,7 @@ const CompanySlider = ({ logos, swapTime_millisecond }) => {
 					<IconButton
 						variant="contained"
 						sx={{
+							transform: { xs: "scale(0.7)", md: "scale(1)" },
 							bgcolor: Colors.blue,
 							position: "relative",
 							"&:hover": {
@@ -134,182 +138,185 @@ const CompanySlider = ({ logos, swapTime_millisecond }) => {
 					</IconButton>
 				</Grid>
 			</Grid>
+			{hasSecondPart ? (
+				<Grid
+					mt={12}
+					component="footer"
+					bgcolor="rgba(142, 205, 221, 0.3)"
+					color="black"
+					py={3}
+					px={16}
+					display="flex"
+					alignItems="center"
+					justifyContent="space-between"
+					flexWrap="wrap"
+					width="100%">
+					<Box
+						mr={1}
+						ml={1}
+						mt={3}
+						mb={3}
+						sx={{
+							textAlign: "center",
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
+						<Image
+							src={ShopIcon}
+							width="auto"
+							height={70}
+						/>
 
-			<Grid
-				mt={12}
-				component="footer"
-				bgcolor="rgba(142, 205, 221, 0.3)"
-				color="black"
-				py={3}
-				px={16}
-				display="flex"
-				alignItems="center"
-				justifyContent="space-between"
-				flexWrap="wrap"
-				width="100%">
-				<Box
-					mr={1}
-					ml={1}
-					mt={3}
-					mb={3}
-					sx={{
-						textAlign: "center",
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "center",
-					}}>
-					<Image
-						src={ShopIcon}
-						width="auto"
-						height={70}
-					/>
+						<Typography
+							variant="h5"
+							fontWeight="bold">
+							خرید مستقیم از دوبی
+						</Typography>
+						<Typography
+							variant="body1"
+							color="GrayText"
+							dir="rtl"
+							mt={1}>
+							خرید بدون واسطه
+							<br /> و مستقیم از دبی
+						</Typography>
+					</Box>
 
-					<Typography
-						variant="h5"
-						fontWeight="bold">
-						خرید مستقیم از دوبی
-					</Typography>
-					<Typography
-						variant="body1"
-						color="GrayText"
-						dir="rtl"
-						mt={1}>
-						خرید بدون واسطه
-						<br /> و مستقیم از دبی
-					</Typography>
-				</Box>
+					<Box
+						mr={1}
+						ml={1}
+						mt={3}
+						mb={3}
+						sx={{
+							textAlign: "center",
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
+						<Image
+							src={DeliveryTruck}
+							width="auto"
+							height={70}
+						/>
 
-				<Box
-					mr={1}
-					ml={1}
-					mt={3}
-					mb={3}
-					sx={{
-						textAlign: "center",
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "center",
-					}}>
-					<Image
-						src={DeliveryTruck}
-						width="auto"
-						height={70}
-					/>
+						<Typography
+							variant="h5"
+							fontWeight="bold">
+							تحویل اکسپرس
+						</Typography>
+						<Typography
+							variant="body1"
+							color="GrayText"
+							dir="rtl"
+							mt={1}>
+							ارسال با پست پیشتاز به
+							<br /> سراسر ایران
+						</Typography>
+					</Box>
 
-					<Typography
-						variant="h5"
-						fontWeight="bold">
-						تحویل اکسپرس
-					</Typography>
-					<Typography
-						variant="body1"
-						color="GrayText"
-						dir="rtl"
-						mt={1}>
-						ارسال با پست پیشتاز به
-						<br /> سراسر ایران
-					</Typography>
-				</Box>
+					<Box
+						mr={1}
+						ml={1}
+						mt={3}
+						mb={3}
+						sx={{
+							textAlign: "center",
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
+						<Image
+							src={Quality}
+							width="auto"
+							height={70}
+						/>
 
-				<Box
-					mr={1}
-					ml={1}
-					mt={3}
-					mb={3}
-					sx={{
-						textAlign: "center",
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "center",
-					}}>
-					<Image
-						src={Quality}
-						width="auto"
-						height={70}
-					/>
+						<Typography
+							variant="h5"
+							fontWeight="bold">
+							ضمانت اصالت کالا
+						</Typography>
+						<Typography
+							variant="body1"
+							color="GrayText"
+							dir="rtl"
+							mt={1}>
+							ضمانت 100% اصالت <br />
+							محصولات
+						</Typography>
+					</Box>
 
-					<Typography
-						variant="h5"
-						fontWeight="bold">
-						ضمانت اصالت کالا
-					</Typography>
-					<Typography
-						variant="body1"
-						color="GrayText"
-						dir="rtl"
-						mt={1}>
-						ضمانت 100% اصالت <br />
-						محصولات
-					</Typography>
-				</Box>
+					<Box
+						mr={1}
+						ml={1}
+						mt={3}
+						mb={3}
+						sx={{
+							textAlign: "center",
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
+						<Image
+							src={_24HoursSupport}
+							width="auto"
+							height={70}
+						/>
 
-				<Box
-					mr={1}
-					ml={1}
-					mt={3}
-					mb={3}
-					sx={{
-						textAlign: "center",
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "center",
-					}}>
-					<Image
-						src={_24HoursSupport}
-						width="auto"
-						height={70}
-					/>
+						<Typography
+							variant="h5"
+							fontWeight="bold">
+							پشتیبانی
+						</Typography>
+						<Typography
+							variant="body1"
+							color="GrayText"
+							dir="rtl"
+							mt={1}>
+							پشتیبانی آنلاین 24 ساعته <br />و 7 روز هفته
+						</Typography>
+					</Box>
 
-					<Typography
-						variant="h5"
-						fontWeight="bold">
-						پشتیبانی
-					</Typography>
-					<Typography
-						variant="body1"
-						color="GrayText"
-						dir="rtl"
-						mt={1}>
-						پشتیبانی آنلاین 24 ساعته <br />و 7 روز هفته
-					</Typography>
-				</Box>
+					<Box
+						mr={1}
+						ml={1}
+						mb={3}
+						mt={3}
+						sx={{
+							textAlign: "center",
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
+						<Image
+							src={MoneyGroth}
+							width="auto"
+							height={70}
+						/>
 
-				<Box
-					mr={1}
-					ml={1}
-					mb={3}
-					mt={3}
-					sx={{
-						textAlign: "center",
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "center",
-					}}>
-					<Image
-						src={MoneyGroth}
-						width="auto"
-						height={70}
-					/>
-
-					<Typography
-						variant="h5"
-						fontWeight="bold">
-						پرداخت امن
-					</Typography>
-					<Typography
-						variant="body1"
-						color="GrayText"
-						dir="rtl"
-						mt={1}>
-						امکان پرداخت آنلاین
-					</Typography>
-				</Box>
-			</Grid>
+						<Typography
+							variant="h5"
+							fontWeight="bold">
+							پرداخت امن
+						</Typography>
+						<Typography
+							variant="body1"
+							color="GrayText"
+							dir="rtl"
+							mt={1}>
+							امکان پرداخت آنلاین
+						</Typography>
+					</Box>
+				</Grid>
+			) : (
+				<Box height={90} />
+			)}
 		</>
 	);
 };

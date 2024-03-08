@@ -15,23 +15,6 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { Colors } from "@/utils";
 import { ProductCard } from ".";
 
-{
-	/*
-    Inputs:
-    products: a list of all product cards in folowing format:
-		[
-            { name: ..., description: ...},
-            .
-            .
-            .
-        ]
-    
-        itemsPerPage: number of product cards to show in page 
-    
-    swapTime_millisecond: delay time for automatic slider 
-*/
-}
-
 const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -57,9 +40,13 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 		);
 	};
 
-	const productItems = [];
-	for (let index = 0; index < itemsPerPage; index++) {
-		productItems.push(products[(currentIndex + index) % products.length]);
+	let productItems = [];
+	if (products.length > itemsPerPage) {
+		for (let index = 0; index < itemsPerPage; index++) {
+			productItems.push(products[(currentIndex + index) % products.length]);
+		}
+	} else {
+		productItems = products;
 	}
 
 	return (
@@ -89,9 +76,9 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 				<Box
 					item
 					display="flex">
-					{productItems.map((product, index) => (
+					{productItems.map((product) => (
 						<ProductCard
-							key={index}
+							key={product.id}
 							product={product}
 						/>
 					))}

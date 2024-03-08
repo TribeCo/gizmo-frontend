@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box } from '@mui/material';
 
@@ -71,6 +70,7 @@ const ProgressBar = ({ activeStep }) => {
                     <text x="175" y="45" fontFamily="IRANSansMobile(FaNum)" fontSize="24" fontWeight={700} fill={getTextColor(2)}>اطلاعات پرداخت</text>
                 </svg>
             </Box>
+
         </Box>
     );
 };

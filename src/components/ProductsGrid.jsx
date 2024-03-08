@@ -6,7 +6,7 @@ import FilterBar from './FilterBar';
 import FilterCard from './FilterCard';
 import PersianPagination from './PersianPagination';
 
-const PRODUCTS_PER_PAGE = 9;
+const PRODUCTS_PER_PAGE = 12;
 
 const ProductsGrid = ({ productsList }) => {
     const [filter, setFilter] = useState('منتخب'); // Could be 'all', 'latest', 'price', 'rating'
@@ -35,7 +35,6 @@ const ProductsGrid = ({ productsList }) => {
             if (isSpecialSale) {
                 tempProducts = tempProducts.filter(product => product.specialSale);
             }
-            // Apply price range filter if minPrice and maxPrice are not empty
             if (minPrice) {
                 tempProducts = tempProducts.filter(product => product.price >= parseInt(minPrice));
             }
@@ -65,11 +64,11 @@ const ProductsGrid = ({ productsList }) => {
     }, [filter, productsList, isAvailable, isFreeShipping, isSpecialSale, minPrice, maxPrice]);
     
     return (
-        <Box sx={{ flexGrow: 1, mr: { xs: 3, sm: 5, md: 7 }, paddingRight: '25px' }}>
+        <Box sx={{ flexGrow: 0, mr: { xs: 3, sm: 5, md: 3 }, paddingRight: '25px' }}>
             <Grid container spacing={6} justifyContent="flex-end">
                 <Grid item xs={12} sm={10} md={9} lg={10}>
                     <FilterBar 
-                        filterNames={['پرفروش‌ترین', 'جدیدترین', 'ارزان‌ترین', 'گران‌ترین', 'منتخب']} 
+                        filterNames={['پرفروش‌ترین', 'جدیدترین', 'ارزان‌ترین', 'گران‌ترین']} 
                         onFilterChange={(selectedFilter) => setFilter(selectedFilter)}
                     />
                 </Grid>
@@ -85,10 +84,10 @@ const ProductsGrid = ({ productsList }) => {
                     setMaxPrice={setMaxPrice}
                     dropdownOptions={['سامسونگ', 'شیائومی', 'اپل']}
                 />
-                <Grid item xs={12} sm={10} md={9} lg={8}>
-                    <Grid container spacing={9}>
+                <Grid item xs={12} sm={10} md={9} lg={9}>
+                    <Grid container spacing={3}>
                         {paginatedProducts.map((product) => (
-                            <Grid item xs={12} sm={6} md={4} key={product.id}>
+                            <Grid item xs={12} sm={6} md={3} key={product.id}>
                                 <ProductCard product={product} />
                             </Grid>
                         ))}

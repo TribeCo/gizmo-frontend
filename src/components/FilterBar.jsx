@@ -15,7 +15,7 @@ const FilterBar = ({ filterNames, onFilterChange }) => {
 
   return (
     <AppBar position="static" sx={{ 
-        width: '80%', 
+        width: '90%', 
         margin: '0 auto', 
         marginRight: '-1rem',
         bgcolor: '#EEEEEE99', 
@@ -59,7 +59,7 @@ const FilterBar = ({ filterNames, onFilterChange }) => {
             scrollButtons="auto"
           >
             {filterNames.map((name, index) => (
-              <Tab key={name} label={name} disableRipple /> // disableRipple prop added here
+              <Tab key={name} label={name} disableRipple sx={{fontSize: '1rem'}} /> // disableRipple prop added here
             ))}
           </Tabs>
         </Box>

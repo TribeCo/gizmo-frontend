@@ -433,23 +433,23 @@ const AppBar = ({ isLanding }) => {
 				</Grid>
 			</Box>
 
-			<Dialog
+			<Modal
 				sx={{
 					mt: 10,
 					display: "flex",
-					alignItems: "flex-start",
+					alignItems: "center",
 					justifyContent: "center",
 				}}
 				open={open}
 				onClose={handleClose}
 				closeAfterTransition
-				// BackdropComponent={Backdrop}
-				// BackdropProps={{
-				// 	timeout: 100,
-				// 	style: {
-				// 		backdropFilter: 'blur(2px)',
-				// 	},
-				// }}
+				BackdropComponent={Backdrop}
+				BackdropProps={{
+					timeout: 100,
+					style: {
+						backdropFilter: 'blur(2px)',
+					},
+				}}
 			>
 				<Box
 					display="flex"
@@ -460,7 +460,7 @@ const AppBar = ({ isLanding }) => {
 					height={"2000px"}>
 					<MenuList />
 				</Box>
-			</Dialog>
+			</Modal>
 		</>
 	);
 };

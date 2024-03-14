@@ -3,6 +3,7 @@ import React from "react";
 import {
     Box,
     Grid,
+    Skeleton,
     Typography,
 } from "@mui/material";
 
@@ -10,6 +11,7 @@ import BlogCard from "@/components/BlogCard";
 import LineSplitter from "@/components/LineSpliter";
 import BlogSlider from "@/components/blog/BlogSlider";
 import CardBlogSlider from "@/components/blog/CardBlogSlider";
+import { BannerImages } from "@/services/Blog";
 
 
 const cartSliderSample = [
@@ -18,12 +20,10 @@ const cartSliderSample = [
     <BlogCard background_color="#F8F8F8" font_color='black' />,
 ]
 
-const testBanners = [
-    "https://s3-alpha-sig.figma.com/img/7192/650c/37d3daf1be0b6aa00f40e5b3c0f87fa6?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=NWM3Gu90pot53i3Wej8NhE6MtFmOA88IIADAWTZQfbR1acaOt7P57tmpJ0Y7dsfxGDnfiz0CxRdvclxB9IIm2hCMbzBiHvNbuodJeZqkD0W~hRw7lqnsPw6N9OXzREed9w0vOwBsjEYN2powzdiaH5sK8ILmhBH-xUPAE0rsMYgz9zo6auVEuaQgMk9knrDhiEWX6ybJlUsrZXaJDAxE424yRp-y6Xk9BHsIyzB1yQ~UsX6Iha-kEoW~BOPfJGECMQRZ5njidUY13TTLi7a4yYtqAFnRoOfEfvkSMHIRIP1jeJV917RAxcesx2xj7Sj6P2aZ6UP1RqwmM3wA4BZPOQ__",
-];
 
+export default async function Blog() {
+    const bannerImages = await BannerImages();
 
-const Blog = () => {
     return (
         <Grid>
             <Grid
@@ -35,7 +35,7 @@ const Blog = () => {
                     alignItems: 'center',
                 }}
             >
-                <BlogSlider banners={testBanners} />
+                <BlogSlider banners={bannerImages} /> 
                 <CardBlogSlider
                     blogs={cartSliderSample}
                     swapTime_millisecond={3000}
@@ -93,5 +93,3 @@ const Blog = () => {
         </Grid>
     );
 }
-
-export default Blog;

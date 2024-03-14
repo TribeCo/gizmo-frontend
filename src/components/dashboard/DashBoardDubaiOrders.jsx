@@ -1,6 +1,5 @@
-'use client'
-import React, { useState } from 'react'
-import Image from 'next/image'
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { Colors } from "@/utils";
 
 import {
@@ -9,45 +8,24 @@ import {
     Typography,
 } from "@mui/material";
 
-
-import searchIcon from '@/components/siteIcons/SearchIcon.svg'
-import { products } from '@/utils/fakeProduct';
+import searchIcon from '@/components/siteIcons/SearchIcon.svg';
 
 export default function DashBoardDubaiOrders() {
-
-    const [realOrders, setRealOrders] = useState([
-        { orderCode: '0786453465', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
-        { orderCode: '0785151622', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
-        { orderCode: '0589465651', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
-    ])
-
     const [orders, setOrders] = useState([
         { orderCode: '0786453465', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
         { orderCode: '0785151622', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
         { orderCode: '0589465651', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
-    ])
+    ]);
+
+    const [searchKey, setSearchKey] = useState('');
 
     const searchProductCode = (event) => {
-        let searchKey = event.target.parentElement.previousElementSibling.value
-        let updatedProducts = orders.filter((order) => {
-            return (order.orderCode.includes(searchKey))
-        })
-        setOrders(updatedProducts)
-    }
+        setSearchKey(event.target.value);
+    };
 
-    const retrieveData = (event) => {
-        let key = event.keyCode || event.charCode;
-        if (key == 8 || key == 46)
-            event.target.value = ''
-        setOrders(realOrders)
-    }
-
-    const handleInputChange = (event) => {
-        event.target.value = event.target.value.replace(/[^0-9]/g,);
-        if (event.target.value == 'undefined') {
-            event.target.value = ''
-        }
-    }
+    const filteredOrders = orders.filter(order =>
+        order.orderCode.includes(searchKey)
+    );
 
     return (
         <Paper
@@ -67,9 +45,9 @@ export default function DashBoardDubaiOrders() {
 
                     <div className='flex border rounded-xl overflow-hidden'>
 
-                        <input onInput={handleInputChange} onKeyDown={retrieveData} className='w-[85%] text-sm p-2' type="text" placeholder='جستوجو کد پیگیری' />
+                        <input onChange={searchProductCode} className='w-[85%] text-sm p-2 rounded-r-xl' type="text" placeholder='جستوجو کد پیگیری' />
 
-                        <div onClick={searchProductCode} className='bg-palette-blue w-[15%] flex items-center justify-center'>
+                        <div className='bg-palette-blue w-[15%] flex items-center justify-center'>
                             <Image src={searchIcon} width={16}></Image>
                         </div>
 
@@ -78,7 +56,7 @@ export default function DashBoardDubaiOrders() {
 
                 <section className='flex flex-col mt-4 gap-4 overflow-scroll'>
 
-                    {orders.map((product, index) => (
+                    {filteredOrders.map((product, index) => (
                         <div key={index} className="OrderCard flex gap-6 px-6 py-6 bg-[#F7F7F7] hover:bg-[#0000000e] transition-all rounded-lg lg:flex-col md:gap-4">
 
                             <div className="rightPart flex w-full flex-col items-end gap-4">
@@ -155,5 +133,5 @@ export default function DashBoardDubaiOrders() {
 
             </section>
         </Paper>
-    )
+    );
 }

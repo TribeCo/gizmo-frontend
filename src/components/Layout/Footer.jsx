@@ -124,7 +124,7 @@ const Footer = () => {
 						color: "black",
 						borderRadius: "50px",
 						boxShadow: "none",
-						mr: { lg: 4 },
+						mr: { lg: 12 },
 						mt: { xs: 8, lg: 0 },
 						mb: { xs: 2, lg: 0 },
 						"&:hover": {

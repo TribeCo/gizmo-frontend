@@ -8,6 +8,7 @@ import {
     SvgIcon,
     Divider
 } from "@mui/material";
+import { Colors } from "@/utils";
 
 
 
@@ -106,13 +107,17 @@ const Summary = () => {
                                     variant="contained"
                                     color="warning"
                                     sx={{
-                                        bgcolor: "#FFCC70",
+                						bgcolor: Colors.orange,
+                                        boxShadow: 'none',
                                         marginTop: { xs: 2, lg: 2 },
                                         width: {xs: '150px', sm: '110px', lg: "185px" },
                                         height: {xs: '35px', sm: "44px"},
                                         padding: "11px, 0px, 11px, 0px",
                                         borderRadius: "20px",
                                         opacity: "0.8px",
+                                        "&:hover": {
+                                            bgcolor: Colors.orange,
+                                        },
                                     }}
                                 >
                                     <Typography
@@ -259,9 +264,13 @@ const Summary = () => {
                         variant="contained"
                         color="warning"
                         sx={{
+                            bgcolor: Colors.orange, 
+                            boxShadow: 'none',
                             width: {xs: '200px', sm: '260px'},
-                            bgcolor: "#FFCC70",
                             borderRadius: "20px",
+                            "&:hover": {
+                                bgcolor: Colors.orange,
+                            },
                         }}
                     >
                         <Typography

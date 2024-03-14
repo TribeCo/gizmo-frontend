@@ -6,22 +6,6 @@ import searchIcon from '@/components/siteIcons/SearchIcon.svg'
 import { Paper } from '@mui/material'
 
 export default function DashBoardOrders() {
-
-    const handleInputChange = (event) => {
-        event.target.value = event.target.value.replace(/[^0-9]/g,);
-        if (event.target.value == 'undefined') {
-            event.target.value = ''
-        }
-    }
-
-    const [realOrders, setRealOrders] = useState([
-        { orderCode: '0786453465', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '4894545456', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '4128546528', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '4654894898', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '0782586558', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-    ])
-
     const [orders, setOrders] = useState([
         { orderCode: '0786453465', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
         { orderCode: '4894545456', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
@@ -29,20 +13,17 @@ export default function DashBoardOrders() {
         { orderCode: '4654894898', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
         { orderCode: '0782586558', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
     ])
+    
+    const [searchKey, setSearchKey] = useState('');
 
     const searchProductCode = (event) => {
-        let searchKey = event.target.parentElement.previousElementSibling.value
-        let updatedProducts = orders.filter((order) => {
-            return (order.orderCode.includes(searchKey))
-        })
-        setOrders(updatedProducts)
-    }
+        setSearchKey(event.target.value);
+    };
 
-    const retrieveData = (event) => {
-        let key = event.keyCode || event.charCode;
-        if (key == 8 || key == 46) event.target.value = ''
-        setOrders(realOrders)
-    }
+    const filteredOrders = orders.filter(order =>
+        order.orderCode.includes(searchKey)
+    );
+
 
     const drawerHandler = (event) => {
         let tempElem = event.target.parentElement.parentElement.parentElement.parentElement
@@ -69,9 +50,9 @@ export default function DashBoardOrders() {
 
                     <div className='flex border rounded-2xl overflow-hidden'>
 
-                        <input onInput={handleInputChange} onKeyDown={retrieveData} className='w-[85%] p-2' type="text" placeholder='جستوجو کد پیگیری' />
+                        <input onChange={searchProductCode} className='w-[85%] text-sm p-2 rounded-r-xl' type="text" placeholder='جستوجو کد پیگیری' />
 
-                        <div onClick={searchProductCode} className='bg-palette-blue w-[15%] flex items-center justify-center cursor-pointer'>
+                        <div className='bg-palette-blue w-[15%] flex items-center justify-center cursor-pointer'>
                             <Image src={searchIcon} width={16}></Image>
                         </div>
 
@@ -80,7 +61,7 @@ export default function DashBoardOrders() {
 
                 <section className='flex flex-col mt-4 px-4 gap-2 overflow-scroll'>
 
-                    {orders.map((order) => (
+                    {filteredOrders.map((order) => (
                         <div className="cursor-pointer hover:bg-[#00000011] transition-all flex flex-col gap-6 bg-[#F7F7F7] rounded-lg md:flex-col md:gap-4">
 
                             <div className="OrderCard flex gap-6 px-6 py-6 md:flex-col md:gap-4">

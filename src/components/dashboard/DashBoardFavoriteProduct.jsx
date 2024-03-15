@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import ProductCard from '@/components/ProductCard';
-import { fakeProducts } from '@/utils/fakeProduct';
+import { products } from '@/utils/fakeProduct';
 
 export default function DashBoardFavoriteProduct() {
-  const [products, setProducts] = useState(fakeProducts);
 
   return (
     <Box
@@ -15,15 +14,18 @@ export default function DashBoardFavoriteProduct() {
         flexDirection: 'column',
         padding: { xs: '15px', md: '50px' },
         width: '100%',
+        maxHeight: '854px',
       }}
     >
       <Box
         sx={{
-          width: { xs: '100%', md: '809px' },
+          width: { xs: '100%', md: '840px' },
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           alignItems: 'flex-start',
+          paddingBottom: '30px', 
+          padding: {xs: '20px', md: '0px'},
         }}
       >
         <Typography
@@ -31,28 +33,30 @@ export default function DashBoardFavoriteProduct() {
             fontWeight: '700',
             fontSize: '20px',
             color: '#213346',
-            marginBottom: '20px',
           }}
         >
           علاقه مندی ها
         </Typography>
-        <Divider sx={{ width: '100%' }} />
+        <Divider sx={{ width: '100%', paddingBottom: '20px' }} />
       </Box>
-
       <Box
         sx={{
-          width: { xs: '100%', md: '809px' },
+          width: { xs: '100%', md: '840px' },
           height: 'auto', // Adjust the height as needed
           overflowY: 'auto', // Enable vertical scrolling
-          marginTop: '20px',
+          overflowX: 'hidden',
+          '&::-webkit-scrollbar': {
+            display: 'none', // Hide scrollbar for Webkit browsers (Chrome, Safari, etc.)
+          },
+          '-ms-overflow-style': 'none', // Hide scrollbar for IE and Edge
+          'scrollbar-width': 'none', // Hide scrollbar for Firefox
         }}
       >
         <Grid container spacing={2}>
           {products.map((product) => (
-            <Grid item xs={12} sm={6} md={4} lg={2.4} key={product.id}>
+            <Grid item xs={6} sm={4} md={2.4} key={product.id}>
               <ProductCard product={product} />
-            </Grid>
-          ))}
+            </Grid>))}
         </Grid>
       </Box>
     </Box>

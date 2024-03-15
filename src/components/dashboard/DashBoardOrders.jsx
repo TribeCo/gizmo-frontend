@@ -67,12 +67,12 @@ export default function DashBoardOrders() {
                 flexDirection: 'column',
                 padding: {xs: '15px', md: '50px'},
                 width: '100%',
-                height: '840px'
+                maxHeight: '854px'
             }}
         >
             <Box
                 sx={{
-                    width: { xs: '100%', md: '809px' },
+                    width: { xs: '100%', md: '840px' },
                     display: 'flex', // Use flex for all sizes for consistency
                     flexDirection: { xs: 'column', sm: 'row' }, // Stack elements vertically on small screens, horizontally on larger
                     justifyContent: 'space-between', // Space out children to opposite ends
@@ -142,9 +142,15 @@ export default function DashBoardOrders() {
             <Box
                 sx={{
                     marginTop: {xs: '15px', sm: '0px'},
-                    height: '661px',
-                    overflow: 'auto',
+                    height: 'auto',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
                     width: '100%',
+                    '&::-webkit-scrollbar': {
+                        display: 'none', // Hide scrollbar for Webkit browsers (Chrome, Safari, etc.)
+                      },
+                      '-ms-overflow-style': 'none', // Hide scrollbar for IE and Edge
+                      'scrollbar-width': 'none', // Hide scrollbar for Firefox
                 }}
             >
                 {filteredOrders.map((order, index) => (
@@ -242,9 +248,9 @@ export default function DashBoardOrders() {
                                         color: '#213346', // Text color
                                         fontWeight: 'bold', // Bold text
                                         fontSize: '14px',
-                                        width: { lg: '131px' }, // Match the width of the text fields
+                                        // width: { lg: '131px' }, // Match the width of the text fields
                                         marginBottom: '15px',
-                                        height: { lg: '31px' }, // Added space for the link below the button
+                                        // height: { lg: '31px' }, // Added space for the link below the button
                                     }}
                                 >
                                     چاپ فاکتور

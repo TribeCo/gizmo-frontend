@@ -284,7 +284,7 @@ export default function Profile() {
                             </Typography>
                         </ListItemButton>
                         <ListItemButton
-                            onClick={() => handleMenuItemClick(8)}
+                            onClick={() => handleMenuItemClick(7)}
                             sx={{
                                 borderRadius: '24px',
                                 py: 3,

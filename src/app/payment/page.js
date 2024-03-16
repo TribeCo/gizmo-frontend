@@ -27,12 +27,11 @@ const TempPage = () => {
             display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
-            width: '100vw',
-            height: '100vh',
             alignItems: 'center',
             margin: '5px',
+            paddingY: 4
         }}>
-            <Box sx={{ marginTop: { xs: 2, md: 6 }, marginBottom: { xs: 0, md: 2 } }}>
+            <Box sx={{ marginTop: { xs: 1, md: 4 }, marginBottom: { xs: 0, md: 2 } }}>
                 <ProgressBar activeStep={2} />
             </Box>
             <Box sx={{ margin: { xs: 2, md: 6 } }}>
@@ -41,11 +40,11 @@ const TempPage = () => {
             {/* Main Content Wrapper */}
             <Box sx={{
                 display: 'flex',
-                flexDirection: { xs: 'column', sm: 'column', md: 'row' }, // Changes the flex direction based on screen size
+                flexDirection: { xs: 'column', md: 'row' }, // Changes the flex direction based on screen size
                 justifyContent: 'space-between',
-                alignItems: { xs: 'center', sm: 'center', md: 'flex-start' }, // Centers items in small screens
+                alignItems: { xs: 'center', md: 'flex-start' }, // Centers items in small screens
                 marginTop: '20px',
-                gap: { xs: '10px', sm: '20px', md: '0px', lg: '50px' }, // Adds gap between items in small screens
+                gap: { xs: '10px', sm: '20px', md: '0px', lg: '20px' }, // Adds gap between items in small screens
             }}>
                 {/* Product Cards List */}
                 <Box sx={{
@@ -53,16 +52,8 @@ const TempPage = () => {
                     flexDirection: 'column', // Stack items vertically
                     alignItems: 'center',
                     width: '100%',
-                    maxHeight: { xs: '220px', sm: '255px', md: '360px', lg: '480px' },
-                    overflowY: 'auto', // Enable vertical scrolling
-                    overflowX: 'hidden', // Prevent horizontal scrolling
-                    '&::-webkit-scrollbar': {
-                        display: 'none',
-                    },
-                    scrollbarWidth: 'none', // For Firefox
-                    msOverflowStyle: 'none',  // For Internet Explorer and Edge
-                    paddingLeft: { xs: '20px', sm: '20px', md: '30px', lg: '' },
-                    paddingRight: { xs: '20px', sm: '20px', md: '', lg: '' },
+                    paddingLeft: { xs: '20px', md: '30px', lg: '0px' },
+                    paddingRight: { xs: '20px', md: '0px', lg: '0px' },
                 }}>
                     {productItems.map((item, index) => (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%'}} key={item.id}>

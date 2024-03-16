@@ -163,7 +163,8 @@ const LoginComponent = () => {
                     sx={{
                         backgroundColor: '#FFCC70', // Button background color
                         '&:hover': {
-                            backgroundColor: '#e6b85c', // Darken button color on hover
+                            bgcolor: '#FFCC70',
+                            opacity: 0.9,
                         },
                         borderRadius: '25px', // Rounded corners for button
                         padding: '8px 30px', // Padding inside the button

@@ -5,26 +5,27 @@ function Login() {
   return (
     <Box
       sx={{
-        height: '100vh',
+        minHeight: '100vh', // Use minHeight to allow the container to grow
         width: '100vw',
         backgroundImage: {
-          lg: `url("https://gizmoshop.liara.run/images/media/pictures/Sign_up1.png")`, // Apply background image for lg and up
-          md: `url("https://gizmoshop.liara.run/images/media/pictures/Sign_up1.png")`, // Apply background image for md and up
-          sm: 'none', // Remove background image for sm and below
-          xs: 'none', // Remove background image for xs
+          lg: `url("https://gizmoshop.liara.run/images/media/pictures/Sign_up1.png")`,
+          md: `url("https://gizmoshop.liara.run/images/media/pictures/Sign_up1.png")`,
+          sm: 'none',
+          xs: 'none',
         },
-        backgroundSize: 'cover', // Cover the entire space, maintaining aspect ratio
+        backgroundSize: 'cover',
         backgroundPosition: {
-          lg: 'center', // Center the background image for lg and up
-          md: 'left', // Align background image to the right for md and down
-          sm: 'center', // Not applicable as image is removed but set for consistency
-          xs: 'center', // Not applicable as image is removed but set for consistency
+          lg: 'center',
+          md: 'left',
+          sm: 'center',
+          xs: 'center',
         },
         backgroundColor: {
-          sm: '#8ECDDD', // Change the background color for sm and below
-          xs: '#8ECDDD', // Change the background color for xs
+          sm: '#8ECDDD',
+          xs: '#8ECDDD',
         },
-        backgroundRepeat: 'no-repeat', // Prevent the background image from repeating
+        backgroundRepeat: 'no-repeat',
+        overflowY: 'auto', // Add vertical scrolling
       }}
     >
       <SignUp3Component />

@@ -17,7 +17,6 @@ import {
 	Backdrop,
 	Paper,
 	InputBase,
-	List,
 	Dialog,
 } from "@mui/material";
 import { Colors } from "@/utils";
@@ -433,34 +432,58 @@ const AppBar = ({ isLanding }) => {
 				</Grid>
 			</Box>
 
-			<Modal
+
+{/* 
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                fullWidth
+                maxWidth="sm"
+                scroll="paper"
+            >
+                <DialogContent>
+                    <Grid
+                        variant="outlined"
+                        sx={{
+                            px: { xs: '2rem', sm: '4rem' },
+                            py: '2rem',
+                            mt: 2,
+                            borderRadius: '15px',
+                        }}
+                    >
+                        <MenuList />
+                    </Grid>
+                </DialogContent>
+			</Dialog> */}
+
+			<Dialog
 				sx={{
 					mt: 10,
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
 				}}
 				open={open}
 				onClose={handleClose}
 				closeAfterTransition
 				BackdropComponent={Backdrop}
 				BackdropProps={{
-					timeout: 100,
-					style: {
-						backdropFilter: 'blur(2px)',
-					},
+					sx: { backdropFilter: "blur(3px)" },
 				}}
 			>
-				<Box
-					display="flex"
-					alignItems="center"
-					justifyContent="center"
-					bgcolor="transparent"
-					width={"800px"}
-					height={"2000px"}>
-					<MenuList />
-				</Box>
-			</Modal>
+					{/* <Box
+						display="flex"
+						alignItems="center"
+						justifyContent="center"
+						bgcolor="transparent"
+						width={"800px"}
+						height={"2000px"}>
+					</Box> */}
+					<Box 
+						width="700px"
+						height='2000px'
+					>
+						<MenuList />
+					</Box>
+						
+			</Dialog>
 		</>
 	);
 };

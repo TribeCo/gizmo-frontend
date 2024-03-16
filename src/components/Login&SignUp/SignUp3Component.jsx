@@ -43,8 +43,8 @@ const SignUp3Component = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '736px', // Minimum height to maintain size
-                width: { xs: 345, sm: 400, md: 460 }, // Minimum width to maintain size
+                height: 736, // Minimum height to maintain size
+                width: { xs: 325, sm: 400, md: 460 }, // Minimum width to maintain size
                 position: 'absolute',
                 right: {xs: '', sm: '50%' ,md: '50%', lg: '25%'}, // Centered horizontally
                 top: '50%', // Centered vertically
@@ -60,12 +60,11 @@ const SignUp3Component = () => {
         >
             {/* Welcome Typography outside the Card */}
             <Typography
-                variant="h4"
                 sx={{
                     color: '#213346',
                     position: 'absolute',
-                    top: '3%',
-                    left: '55%',
+                    top: '4%',
+                    left: '58%',
                     transform: 'translate(-50%, -100%)',
                     fontWeight: 'bold',
                     padding: '10px 20px',
@@ -97,8 +96,6 @@ const SignUp3Component = () => {
             >
                 {/* Typography for the title */}
                 <Typography
-                    variant="h5"
-                    component="h2"
                     sx={{
                         fontWeight: 'bold',
                         marginTop: '10px',
@@ -235,7 +232,8 @@ const SignUp3Component = () => {
                     sx={{
                         backgroundColor: '#FFCC70', // Button background color
                         '&:hover': {
-                            backgroundColor: '#e6b85c', // Darken button color on hover
+                            bgcolor: '#FFCC70',
+                            opacity: 0.9,
                         },
                         borderRadius: '25px', // Rounded corners for button
                         padding: '8px 30px', // Padding inside the button

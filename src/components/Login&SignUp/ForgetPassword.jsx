@@ -115,8 +115,11 @@ const ForgetPassword = () => {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: '#FFCC70',
-            '&:hover': { backgroundColor: '#e6b85c' },
+            backgroundColor: '#FFCC70', // Button background color
+            '&:hover': {
+                bgcolor: '#FFCC70',
+                opacity: 0.9,
+            },
             borderRadius: '25px',
             color: 'black',
             fontWeight: 'bold',

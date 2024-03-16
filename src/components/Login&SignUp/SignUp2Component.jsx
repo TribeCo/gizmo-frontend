@@ -31,8 +31,8 @@ const SignUp2Component = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: { xs: 400, sm: 420, md: 436 }, // Minimum height to maintain size
-                width: { xs: 345, sm: 400, md: 460 }, // Minimum width to maintain size
+                height: { xs: 420, md: 436 }, // Minimum height to maintain size
+                width: { xs: 320, sm: 400, md: 460 }, // Minimum width to maintain size
                 position: 'absolute',
                 right: {xs: '', sm: '50%' ,md: '50%', lg: '23%'}, // Centered horizontally
                 top: '50%', // Centered vertically
@@ -146,7 +146,8 @@ const SignUp2Component = () => {
                     sx={{
                         backgroundColor: '#FFCC70', // Button background color
                         '&:hover': {
-                            backgroundColor: '#e6b85c', // Darken button color on hover
+                            bgcolor: '#FFCC70',
+                            opacity: 0.9,
                         },
                         borderRadius: '25px', // Rounded corners for button
                         padding: '8px 30px', // Padding inside the button

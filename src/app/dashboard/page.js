@@ -1,14 +1,7 @@
 "use client";
 
-import React from "react";
 import { useState } from "react";
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
     Paper,
     Grid,
     Typography,
@@ -16,6 +9,12 @@ import {
     SvgIcon,
     List,
     ListItemButton,
+    Dialog,
+    DialogTitle,
+    DialogContentText,
+    DialogActions,
+    Button,
+    DialogContent,
 } from '@mui/material';
 import { Colors } from "@/utils";
 import Avatar from '@mui/material/Avatar';

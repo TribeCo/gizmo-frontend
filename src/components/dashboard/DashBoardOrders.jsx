@@ -1,142 +1,265 @@
 'use client'
-import React, { useState } from 'react'
-import Image from 'next/image'
-
-import searchIcon from '@/components/siteIcons/SearchIcon.svg'
-import { Paper } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { Box, Divider, Grid, Typography, TextField, InputAdornment, IconButton, Button } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchIcon from '@mui/icons-material/Search';
+import LevelofOrdering from './LevelofOrdering';
 
 export default function DashBoardOrders() {
-    const [orders, setOrders] = useState([
-        { orderCode: '0786453465', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '4894545456', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '4128546528', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '4654894898', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-        { orderCode: '0782586558', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000' },
-    ])
-    
-    const [searchKey, setSearchKey] = useState('');
 
-    const searchProductCode = (event) => {
-        setSearchKey(event.target.value);
+    const [inputValue, setInputValue] = useState('');
+    useEffect(() => {
+        setSearchTerm(convertToPersian(inputValue));
+    }, [inputValue]);
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const handleSearchChange = (event) => {
+        const input = event.target.value;
+        const currentDisplayValue = convertToPersian(inputValue);
+        if (input !== currentDisplayValue) {
+            const newValue = input.replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, '').replace(/[۰۱۲۳۴۵۶۷۸۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+            setInputValue(newValue);
+        }
     };
 
-    const filteredOrders = orders.filter(order =>
-        order.orderCode.includes(searchKey)
+    const convertToPersian = (num) => {
+        const numStr = num.toString();
+        const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return numStr.replace(/\d/g, (x) => persianNumbers[englishNumbers.indexOf(x)]);
+    };
+
+    const [expanded, setExpanded] = useState({});
+    const handleExpandClick = (index) => {
+        setExpanded((prevExpanded) => ({
+            ...prevExpanded,
+            [index]: !prevExpanded[index],
+        }));
+    };
+
+    const [realOrders, setRealOrders] = useState([
+        { orderCode: '0786453465', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
+        { orderCode: '4894545456', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
+        { orderCode: '4128546528', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
+        { orderCode: '4654894898', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
+        { orderCode: '0782586558', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
+    ])
+
+    const [orders, setOrders] = useState([
+        { orderCode: '0786453465', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
+        { orderCode: '4894545456', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 2 },
+        { orderCode: '4128546528', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 3 },
+        { orderCode: '4654894898', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 4 },
+        { orderCode: '0782586558', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
+    ])
+    
+    const filteredOrders = realOrders.filter((order) =>
+        convertToPersian(order.orderCode).includes(searchTerm) || order.orderCode.includes(searchTerm)
     );
 
 
-    const drawerHandler = (event) => {
-        let tempElem = event.target.parentElement.parentElement.parentElement.parentElement
-        tempElem.classList.toggle('min-h-80')
-        tempElem.lastElementChild.classList.toggle('hidden')
-        event.target.nextSibling.classList.toggle('rotate-180')
-    }
-
     return (
-        <Paper
-            variant="outlined"
+        <Box
             sx={{
-                height: 'fit-content',
-                borderRadius: '15px',
-                boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                padding: {xs: '15px', md: '50px'},
+                width: '100%',
+                maxHeight: '854px'
             }}
         >
-            <section className=" py-4 px-[4%] w-[60rem] flex flex-col h-[47rem] overflow-scroll lg:w-full rounded-xl shadow-lg">
+            <Box
+                sx={{
+                    width: { xs: '100%', md: '840px' },
+                    display: 'flex', // Use flex for all sizes for consistency
+                    flexDirection: { xs: 'column', sm: 'row' }, // Stack elements vertically on small screens, horizontally on larger
+                    justifyContent: 'space-between', // Space out children to opposite ends
+                    textAlign: { xs: 'left', sm: 'initial' }, // Text align left on xs screens, default for others
+                    alignItems: { xs: 'flex-start', sm: 'center' }, // Align items flex-start on xs for top alignment, center for others
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontWeight: '700',
+                        fontSize: '20px',
+                        color: '#213346',
+                    }}
+                >
+                    سفارشات
+                </Typography>
+                <Divider
+                    sx={{
+                        display: { xs: 'block', sm: 'none' }, // Only display the divider on xs screens
+                        width: '100%',
+                        my: 2, // Margin top and bottom for spacing around the divider
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    size="small"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    placeholder="جستجو..."
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <Box sx={{ backgroundColor: '#22668D', borderRadius: '0 15px 15px 0' }}>
+                                    <SearchIcon sx={{ color: '#fff', fontSize: '2.40rem' }} />
+                                </Box>
+                            </InputAdornment>
+                        ),
+                        sx: {
+                            borderRadius: '15px', // Add borderRadius to TextField
+                            paddingRight: '0px',
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'rgba(0, 0, 0, 0.23)', // Adjust the border color if needed
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#22668D', // Adjust the border color on hover if needed
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#22668D', // Adjust the border color on focus if needed
+                                },
+                            },
+                        },
+                    }}
+                    sx={{ width: '230px', alignSelf: {xs:'flex-end', sm: 'auto'} }} // Adjust width as needed
+                />
+            </Box>
 
-                <div className="flex border-b border-[#EDEDED] justify-between py-2 gap-2 mb-4">
-                    <h3 className='font-bold flex items-center text-lg md:text-md'>
-                        سفارشات
-                    </h3>
+            <Divider sx={{
+                display: { xs: 'none', sm: 'block' },
+                width: '98%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '10px',
+                marginBottom: '10px',
+                bgcolor: '#EDEDED',
+            }} />
+            <Box
+                sx={{
+                    marginTop: {xs: '15px', sm: '0px'},
+                    height: 'auto',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    width: '100%',
+                    '&::-webkit-scrollbar': {
+                        display: 'none', // Hide scrollbar for Webkit browsers (Chrome, Safari, etc.)
+                      },
+                      '-ms-overflow-style': 'none', // Hide scrollbar for IE and Edge
+                      'scrollbar-width': 'none', // Hide scrollbar for Firefox
+                }}
+            >
+                {filteredOrders.map((order, index) => (
+                    <Box
+                        key={index}
+                        sx={{
+                            bgcolor: '#F7F7F7',
+                            borderRadius: '20px',
+                            pl: {xs: '15px', md: '40px'},
+                            pt: {xs: '15px', md: '30px'},
+                            width: { xs: '100%', lg: '809px' },
+                            height: { xs: 'auto', md: 'auto' },
+                            boxSizing: 'border-box',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                            marginBottom: '10px',
+                        }}
+                    >
+                        <Grid container spacing={2} sx={{ width: '100%' }}>
+                            <Grid item xs={12} md={6}>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:'6px' }} align="left">
+                                    کد پیگیری: {convertToPersian(order.orderCode)}<span style={{ marginLeft: '20px', visibility: 'hidden' }}>A</span>
+                                </Typography>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:'6px' }} align="left">
+                                    آدرس ارسال: <span style={{ marginRight: '20px' }}></span>{order.destinationAddress}
+                                </Typography>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:'6px' }} align="left">
+                                    نام گیرنده: <span style={{ marginRight: '30px' }}></span>{order.receiverName}
+                                </Typography>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:'6px' }} align="left">
+                                    تاریخ سفارش: {convertToPersian(order.date)}<span style={{ marginLeft: '2px', visibility: 'hidden' }}>A</span>
+                                </Typography>
+                            </Grid>
 
-                    <div className='flex border rounded-2xl overflow-hidden'>
+                            {/* Second Column */}
+                            <Grid item sm={6} md={2} sx={{display: {xs: 'none', md: 'block'}}}>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:{xs: '4px', md: '3px'} }} align="left">قیمت کل سفارش:</Typography>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:{xs: '4px', md: '3px'} }} align="left">میزان تخفیف:</Typography>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:{xs: '4px', md: '3px'} }} align="left">مبلغ قابل پرداخت:</Typography>
+                            </Grid>
 
-                        <input onChange={searchProductCode} className='w-[85%] text-sm p-2 rounded-r-xl' type="text" placeholder='جستوجو کد پیگیری' />
+                            {/* Second Column */}
+                            <Grid item xs={12} sx={{display: {xs: 'block', md: 'none'}}}>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:{xs: '4px', md: '3px'} }} align="left">قیمت کل سفارش: {convertToPersian(order.price)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:{xs: '4px', md: '3px'} }} align="left">میزان تخفیف: {convertToPersian(order.discountPrice)}<span style={{ marginRight: '45px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding:{xs: '4px', md: '3px'} }} align="left">مبلغ قابل پرداخت: {convertToPersian(order.finalPrice)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                            </Grid>
 
-                        <div className='bg-palette-blue w-[15%] flex items-center justify-center cursor-pointer'>
-                            <Image src={searchIcon} width={16}></Image>
-                        </div>
-
-                    </div>
-                </div>
-
-                <section className='flex flex-col mt-4 px-4 gap-2 overflow-scroll'>
-
-                    {filteredOrders.map((order) => (
-                        <div className="cursor-pointer hover:bg-[#00000011] transition-all flex flex-col gap-6 bg-[#F7F7F7] rounded-lg md:flex-col md:gap-4">
-
-                            <div className="OrderCard flex gap-6 px-6 py-6 md:flex-col md:gap-4">
-
-                                <div className="rightPart flex w-full flex-col items-end gap-4">
-
-                                    <div className="infoRow flex w-full gap-6 md:gap-0 md:justify-between">
-                                        <span className='font-extrabold md:text-sm'>کد پیگیری: </span>
-                                        <div className=' md:text-sm'>{order.orderCode}</div>
-                                    </div>
-
-                                    <div className="infoRow flex w-full gap-6 md:gap-4 md:justify-between">
-                                        <span className='font-extrabold md:text-sm whitespace-nowrap'>آدرس ارسال: </span>
-                                        <div className=' md:text-xs'>{order.destinationAddress}</div>
-                                    </div>
-
-                                    <div className="infoRow flex w-full gap-6 md:gap-0 md:justify-between">
-                                        <span className='font-extrabold md:text-sm'>نام گیرنده: </span>
-                                        <div className=' md:text-sm'>{order.receiverName}</div>
-                                    </div>
-
-                                    <div className="infoRow flex w-full gap-6 md:gap-0 md:justify-between">
-                                        <span className='font-extrabold md:text-sm'>تاریخ سفارش: </span>
-                                        <div className=' md:text-sm'>{order.date}</div>
-                                    </div>
-
-                                </div>
-
-                                <div className="leftPart w-full flex flex-col gap-4">
-
-                                    <div className="infoRow flex w-full justify-between">
-                                        <span className='font-extrabold md:text-xs'>قیمت کل سفارش: </span>
-                                        <div className='flex gap-1'>
-                                            <span className=' md:text-sm'>{order.price}</span>
-                                            <span className=' md:text-sm'>تومان</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="infoRow flex w-full justify-between">
-                                        <span className='font-extrabold md:text-sm'>میزان تخفیف: </span>
-                                        <div className='flex gap-1'>
-                                            <span className=' md:text-sm'>{order.discountPrice}</span>
-                                            <span className=' md:text-sm'>تومان</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="infoRow flex w-full justify-between">
-                                        <span className='font-extrabold md:text-xs'>مبلغ قابل پرداخت: </span>
-                                        <div className='flex gap-1 font-extrabold'>
-                                            <span className=' md:text-sm'>{order.finalPrice}</span>
-                                            <span className=' md:text-sm'>تومان</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="infoRow flex w-full gap-2 justify-end items-center select-none">
-                                        <span onClick={drawerHandler} className='font-extrabold text-palette-blue md:text-sm'>پیگیری سفارش</span>
-                                        <svg className='transition-all' width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6.70337 9.51299L0.330366 3.13998C-0.110122 2.6995 -0.110122 1.98722 0.330366 1.55142L1.38941 0.492373C1.8299 0.0518866 2.54217 0.0518866 2.97798 0.492373L7.5 5.00503L12.0173 0.487687C12.4578 0.0472002 13.1701 0.0472002 13.6059 0.487687L14.6696 1.54673C15.1101 1.98722 15.1101 2.6995 14.6696 3.1353L8.29663 9.50831C7.85614 9.95348 7.14386 9.95348 6.70337 9.51299Z" fill="#22668D" />
-                                        </svg>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div className="w-full hidden">
-                                Hello
-                            </div>
-
-                        </div>
-                    ))}
-
-                </section>
-
-            </section>
-        </Paper>
-    )
-}
+                            {/* Third Column */}
+                            <Grid item sm={12} md={3} sx={{position: 'relative', bottom: {xs: '100px', sm: '165px', md: '0px'}, pr: {xs: '30px',sm: '20px', md: '0px'}, display: {xs: 'none', md:'block'}}}>
+                                <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.price)} تومان</Typography>
+                                <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.discountPrice)} تومان</Typography>
+                                <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '700' }} align="right">{convertToPersian(order.finalPrice)} تومان</Typography>
+                            </Grid>
+                        </Grid>
+                        {/* Dropdown arrow and text */}
+                        <Box sx={{ alignSelf: {xs: 'center', md: 'flex-end'}, cursor: 'pointer', display: 'flex', alignItems: 'center', paddingRight: {xs: '0px' , md:'50px'}, paddingTop: '10px', position: 'relative', bottom: {md: '40px'}, paddingBottom: '10px'}} onClick={() => handleExpandClick(index)}>
+                            <Typography sx={{ fontWeight: '700', color: '#22668D', fontSize: '14px' }}>پیگیری سفارش</Typography>
+                            <IconButton
+                                aria-expanded={expanded[index]}
+                                aria-label="show more"
+                                size="small"
+                            >
+                                <ExpandMoreIcon sx={{ transform: expanded[index] ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s', color: '#22668D' }} />
+                            </IconButton>
+                        </Box>
+                        {expanded[index] && (
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    display: 'flex', // Use flexbox layout
+                                    flexDirection: 'column', // Stack children vertically
+                                    alignItems: 'center', // Center children horizontally
+                                    justifyContent: 'center', // Center children vertically (if you have a set height and want to center vertically as well)
+                                    gap: '10px', // Optional: Adds space between the children
+                                }}
+                            >
+                                <Box sx={{display: {xs: 'none', md:'block'}}}>
+                                    <LevelofOrdering level={order.LevelofOrdering}/>
+                                </Box>
+                                <Box sx={{display: {xs: 'block', md:'none'}}}>
+                                    <LevelofOrdering level={(order.LevelofOrdering) + 4}/>
+                                </Box>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: '#FFCC70', // Button background color
+                                        '&:hover': {
+                                            backgroundColor: '#e6b85c', // Darken button color on hover
+                                        },
+                                        borderRadius: '25px', // Rounded corners for button
+                                        padding: '8px 30px', // Padding inside the button
+                                        color: '#213346', // Text color
+                                        fontWeight: 'bold', // Bold text
+                                        fontSize: '14px',
+                                        // width: { lg: '131px' }, // Match the width of the text fields
+                                        marginBottom: '15px',
+                                        // height: { lg: '31px' }, // Added space for the link below the button
+                                    }}
+                                >
+                                    چاپ فاکتور
+                                </Button>
+                            </Box>
+                        )}
+                    </Box>
+                ))}
+            </Box>
+        </Box>
+    );
+};

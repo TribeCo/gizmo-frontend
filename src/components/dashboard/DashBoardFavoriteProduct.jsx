@@ -1,45 +1,64 @@
-'use client'
-import ProductCard from '@/components/ProductCard'
-import React, { useState } from 'react'
-import { fakeProducts } from '@/utils/fakeProduct'
-import { products } from '@/utils/fakeProduct'
-import { Paper } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { Box, Divider, Grid, Typography } from '@mui/material';
+import ProductCard from '@/components/ProductCard';
+import { products } from '@/utils/fakeProduct';
 
 export default function DashBoardFavoriteProduct() {
 
-  const [products, setProducts] = useState(fakeProducts)
-
   return (
-    <Paper
-      variant="outlined"
+    <Box
       sx={{
-        height: 'fit-content',
-        borderRadius: '15px',
-        boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        padding: { xs: '15px', md: '50px' },
+        width: '100%',
+        maxHeight: '854px',
       }}
     >
-      <section className='w-[60rem]  lg:w-[21rem] m-4 flex justify-end h-[47rem] lg:h-max'>
-
-        <section className=" py-4 w-[70%] px-[4%] flex flex-col lg:w-full rounded-xl shadow-lg">
-
-          <div className="flex border-b border-[#EDEDED] justify-between py-2 mb-4">
-            <h3 className='font-bold flex items-center text-lg md:text-md'>
-              علاقه‌مندی‌ها
-            </h3>
-          </div>
-
-          <section className='flex gap-2 mt-4 flex-wrap'>
-            {console.log(products)}
-            {products.map((product, index) => {
-              return (
-                <ProductCard product={product[index]}></ProductCard>
-              )
-            })}
-
-          </section>
-
-        </section>
-      </section>
-    </Paper>
-  )
+      <Box
+        sx={{
+          width: { xs: '100%', md: '840px' },
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          paddingBottom: '30px', 
+          padding: {xs: '20px', md: '0px'},
+        }}
+      >
+        <Typography
+          sx={{
+            fontWeight: '700',
+            fontSize: '20px',
+            color: '#213346',
+          }}
+        >
+          علاقه مندی ها
+        </Typography>
+        <Divider sx={{ width: '100%', paddingBottom: '20px' }} />
+      </Box>
+      <Box
+        sx={{
+          width: { xs: '100%', md: '840px' },
+          height: 'auto', // Adjust the height as needed
+          overflowY: 'auto', // Enable vertical scrolling
+          overflowX: 'hidden',
+          '&::-webkit-scrollbar': {
+            display: 'none', // Hide scrollbar for Webkit browsers (Chrome, Safari, etc.)
+          },
+          '-ms-overflow-style': 'none', // Hide scrollbar for IE and Edge
+          'scrollbar-width': 'none', // Hide scrollbar for Firefox
+        }}
+      >
+        <Grid container spacing={2}>
+          {products.map((product) => (
+            <Grid item xs={6} sm={4} md={2.4} key={product.id}>
+              <ProductCard product={product} />
+            </Grid>))}
+        </Grid>
+      </Box>
+    </Box>
+  );
 }

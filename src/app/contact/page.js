@@ -6,6 +6,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import ContactUsTextfields from "@/components/ContactUsTextfields";
 import LocationOnIcon from '@mui/icons-material/LocationOn'; // Location icon
 import EmailIcon from '@mui/icons-material/Email'; // Gmail icon
+import LineSplitter from '@/components/LineSpliter';
 
 // Define your channel URLs
 const instagram_channel = "https://instagram.com/gizmo_shop";
@@ -35,167 +36,176 @@ function ContactUs() {
     return (
         <Box
             sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '150vh',
-                padding: '70px', // Adjusted padding
-            }}
-        >
-            {/* New Typography for the introduction text */}
-            <Typography
-                variant="h6" // Smaller font size for the introductory text
-                sx={{
-                    textAlign: 'center', // Center the text
-                    color: 'black',
-                    marginBottom: 5, // Add some space before the main title
-                }}
-            >
-                گیزموشاپ یک سایت فروشگاهی است که در زمینه فروش وسایل الکتریکی فعالیت می‌کند. ما در گیزموشاپ به فروش انواع لوازم الکترونیکی و برقی، از جمله تلویزیون، موبایل، لپ تاپ، دوربین، لوازم خانگی و... می‌پردازیم. ما با ارائه محصولات با کیفیت و قیمت مناسب، تلاش می‌کنیم تا نیازهای مشتریان را به بهترین نحو برطرف کنیم. همچنین، در گیزموشاپ به عنوان یک فروشگاه آنلاین، سعی می‌کنیم تا فرآیند خرید را برای مشتریان ساده و راحت کنیم.
-            </Typography>
+                padding: '20px', // Adjusted padding
+                paddingX: '50px'
+            }}>
 
-            {/* Typography for the main title */}
-            <Typography
-                variant="h4" // Adjusted for a slightly smaller size than the original h4
+            <LineSplitter text={"درباره ما"} />
+            <Box
                 sx={{
-                    fontWeight: 'bold',
-                    color: 'black',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: 'auto',
                 }}
             >
-                سوالی دارید؟!
-            </Typography>
-            <ContactUsTextfields />
-            {/* Typography for the subtitle */}
-            <Typography
-                variant="h4"
-                sx={{
-                    fontWeight: 'bold',
-                    color: 'black',
-                    // marginBottom: 10, // Adjust spacing to match your layout
-                }}
-            >
-                راه‌های ارتباط با ما
-            </Typography>
-            {/* Grid for contact info */}
-            <Grid container spacing={4} sx={{ width: '80%', maxWidth: 'none', margin: 'auto', marginTop: 10 }}>
-                <Grid item xs={6} display="flex" alignItems="center">
-                    <Link href="/">
-                        <Box
-                            component="span"
-                            sx={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                width: 50,
-                                height: 50,
-                                borderRadius: "50%",
-                                bgcolor: "#22668D",
-                                mr: 2,
-                            }}
-                        >
-                            <LocalPhoneIcon sx={{ color: "white", fontSize: '2rem'  }} />
-                        </Box>
-                    </Link>
-                    <Typography variant="h6" sx={{ color: '#213346' }}>شماره تماس: ‌۰۹۹۷۷۵۵۳۵۶</Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" alignItems="center">
-                    <Link href={instagram_channel}>
-                        <Box
-                            component="span"
-                            sx={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                width: 50,
-                                height: 50,
-                                borderRadius: "50%",
-                                bgcolor: "#22668D",
-                                mr: 2,
-                            }}
-                        >
-                            <InstagramIcon sx={{ color: "white", fontSize: '2rem'  }} />
-                        </Box>
-                    </Link>
-                    <Typography variant="h6" sx={{ color: '#213346' }}>پیج اینستاگرام:‌ Gizmo_shop</Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" alignItems="center">
-                    <Link href={telegram_channel}>
-                        <Box
-                            component="span"
-                            sx={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                width: 50,
-                                height: 50,
-                                borderRadius: "50%",
-                                bgcolor: "#22668D",
-                                mr: 2,
-                            }}
-                        >
-                            <TelegramIcon sx={{ color: "white", fontSize: '2rem'  }} />
-                        </Box>
-                    </Link>
-                    <Typography variant="h6" sx={{ color: '#213346' }}>کانال تلگرام</Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" alignItems="center">
-                    <Link href={telegram_channel}>
-                        <Box
-                            component="span"
-                            sx={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                width: 50,
-                                height: 50,
-                                borderRadius: "50%",
-                                bgcolor: "#22668D",
-                                mr: 2,
-                            }}
-                        >
-                            <EmailIcon sx={{ color: "white", fontSize: '2rem' }} />
-                        </Box>
-                    </Link>
-                    <Typography variant="h6" sx={{ color: '#213346' }}>salkmncc@gmail.com</Typography>
-                </Grid>
-                <Grid item xs={6} display="flex" alignItems="center">
-                    <Link href={telegram_channel}>
-                        <Box
-                            component="span"
-                            sx={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                width: 50,
-                                height: 50,
-                                borderRadius: "50%",
-                                bgcolor: "#22668D",
-                                mr: 2,
-                            }}
-                        >
-                            <LocationOnIcon sx={{ color: "white", fontSize: '2rem'  }} />
-                        </Box>
-                    </Link>
-                    <Typography variant="h6" sx={{ color: '#213346' }}>آدرس: شیراز</Typography>
-                </Grid>
-            </Grid>
-            {/* Grid for photos with text */}
-            <Grid container spacing={2} justifyContent="center" sx={{ width: '100%', maxWidth: 'none', marginTop: 10 }}>
-                {imageUrls.map((url, index) => (
-                    <Grid item xs={4} key={index} sx={{ textAlign: 'center' }}>
-                        <Link href={url} target="_blank" rel="noopener noreferrer">
-                            <Box component="img" src={url} sx={{ width: '20%', height: 'auto', margin: 'auto' }} />
+                {/* New Typography for the introduction text */}
+                <Typography
+                    variant="h6" // Smaller font size for the introductory text
+                    sx={{
+                        color: 'black',
+                        fontWeight: '300',
+                        paddingBottom: 8, // Add some space before the main title
+                        paddingX: 10,
+                        fontSize: '32px',
+                    }}
+                >
+                    گیزموشاپ یک سایت فروشگاهی است که در زمینه فروش وسایل الکتریکی فعالیت می‌کند. ما در گیزموشاپ به فروش انواع لوازم الکترونیکی و برقی، از جمله تلویزیون، موبایل، لپ تاپ، دوربین، لوازم خانگی و... می‌پردازیم. ما با ارائه محصولات با کیفیت و قیمت مناسب، تلاش می‌کنیم تا نیازهای مشتریان را به بهترین نحو برطرف کنیم. همچنین، در گیزموشاپ به عنوان یک فروشگاه آنلاین، سعی می‌کنیم تا فرآیند خرید را برای مشتریان ساده و راحت کنیم.            </Typography>
+
+                {/* Typography for the main title */}
+                <Typography
+                    sx={{
+                        color: 'black',
+                        fontSize: '36px',
+                        fontWeight: '900',
+                        paddingBottom: 2
+                    }}
+                >
+                    سوالی دارید؟!
+                </Typography>
+                <ContactUsTextfields />
+                {/* Typography for the subtitle */}
+                <Typography
+                    sx={{
+                        color: 'black',
+                        fontSize: '36px',
+                        fontWeight: '900',
+                        paddingTop: 3
+                    }}
+                >
+                    راه‌های ارتباط با ما
+                </Typography>
+                {/* Grid for contact info */}
+                <Grid container spacing={4} sx={{ width: '80%', margin: 'auto', marginTop: 5 }}>
+                    <Grid item xs={6} display="flex" alignItems="center">
+                        <Link href="/">
+                            <Box
+                                component="span"
+                                sx={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: "50%",
+                                    bgcolor: "#22668D",
+                                    mr: 2,
+                                }}
+                            >
+                                <LocalPhoneIcon sx={{ color: "white", fontSize: '2rem' }} />
+                            </Box>
                         </Link>
-                        <Typography variant="h6" sx={{ color: '#252B48', marginTop: 2, fontWeight: 'bold', marginBottom: 1 }}>
-                            {imageTexts[index]}
-                        </Typography>
-                        <Typography variant="body" sx={{ color: 'gray', marginTop: 1 }}>
-                            {imageExplanations[index]}
-                        </Typography>
+                        <Typography variant="h6" sx={{ color: '#213346' }}>شماره تماس: ‌۰۹۹۷۷۵۵۳۵۶</Typography>
                     </Grid>
-                ))}
-            </Grid>
+                    <Grid item xs={6} display="flex" alignItems="center">
+                        <Link href={instagram_channel}>
+                            <Box
+                                component="span"
+                                sx={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: "50%",
+                                    bgcolor: "#22668D",
+                                    mr: 2,
+                                }}
+                            >
+                                <InstagramIcon sx={{ color: "white", fontSize: '2rem' }} />
+                            </Box>
+                        </Link>
+                        <Typography variant="h6" sx={{ color: '#213346' }}>پیج اینستاگرام:‌ Gizmo_shop</Typography>
+                    </Grid>
+                    <Grid item xs={6} display="flex" alignItems="center">
+                        <Link href={telegram_channel}>
+                            <Box
+                                component="span"
+                                sx={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: "50%",
+                                    bgcolor: "#22668D",
+                                    mr: 2,
+                                }}
+                            >
+                                <TelegramIcon sx={{ color: "white", fontSize: '2rem' }} />
+                            </Box>
+                        </Link>
+                        <Typography variant="h6" sx={{ color: '#213346' }}>کانال تلگرام</Typography>
+                    </Grid>
+                    <Grid item xs={6} display="flex" alignItems="center">
+                        <Link href={telegram_channel}>
+                            <Box
+                                component="span"
+                                sx={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: "50%",
+                                    bgcolor: "#22668D",
+                                    mr: 2,
+                                }}
+                            >
+                                <EmailIcon sx={{ color: "white", fontSize: '2rem' }} />
+                            </Box>
+                        </Link>
+                        <Typography variant="h6" sx={{ color: '#213346' }}>salkmncc@gmail.com</Typography>
+                    </Grid>
+                    <Grid item xs={6} display="flex" alignItems="center">
+                        <Link href={telegram_channel}>
+                            <Box
+                                component="span"
+                                sx={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: "50%",
+                                    bgcolor: "#22668D",
+                                    mr: 2,
+                                }}
+                            >
+                                <LocationOnIcon sx={{ color: "white", fontSize: '2rem' }} />
+                            </Box>
+                        </Link>
+                        <Typography variant="h6" sx={{ color: '#213346' }}>آدرس: شیراز</Typography>
+                    </Grid>
+                </Grid>
+                {/* Grid for photos with text */}
+                <Grid container spacing={2} justifyContent="center" sx={{ width: '100%', marginTop: 5, padding: 7 }}>
+                    {imageUrls.map((url, index) => (
+                        <Grid item xs={4} key={index} sx={{ textAlign: 'center' }}>
+                            <Link href={url} target="_blank" rel="noopener noreferrer">
+                                <Box component="img" src={url} sx={{ width: '20%', height: 'auto', margin: 'auto' }} />
+                            </Link>
+                            <Typography variant="h6" sx={{ color: '#252B48', marginTop: 2, fontWeight: 'bold', marginBottom: 1 }}>
+                                {imageTexts[index]}
+                            </Typography>
+                            <Typography variant="body" sx={{ color: 'gray', marginTop: 1 }}>
+                                {imageExplanations[index]}
+                            </Typography>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
         </Box>
     );
 }

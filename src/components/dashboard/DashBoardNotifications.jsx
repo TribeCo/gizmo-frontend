@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import notifBell from '@/components/siteIcons/notifBell.svg'
 import envelopIcon from '@/components/siteIcons/EnvelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 import { Paper } from '@mui/material'
@@ -40,7 +39,18 @@ export default function DashBoardNotifications() {
 
           <div className='flex gap-2 items-center cursor-pointer hover:bg-[#6d4cff1e] transition-all p-2 rounded-lg'>
 
-            <Image className='w-5' src={notifBell}></Image>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.0166 24.4997C12.2119 24.8549 12.499 25.1511 12.8479 25.3574C13.1968 25.5637 13.5947 25.6726 14 25.6726C14.4053 25.6726 14.8032 25.5637 15.1521 25.3574C15.501 25.1511 15.788 24.8549 15.9833 24.4997M4.66665 2.33301C3.26665 4.31634 2.33331 6.64967 2.33331 9.33301M25.6666 9.33301C25.6666 6.64967 24.7333 4.31634 23.3333 2.33301M6.99998 9.33301C6.99998 7.47649 7.73748 5.69601 9.05023 4.38326C10.363 3.07051 12.1435 2.33301 14 2.33301C15.8565 2.33301 17.637 3.07051 18.9497 4.38326C20.2625 5.69601 21 7.47649 21 9.33301C21 17.4997 24.5 19.833 24.5 19.833H3.49998C3.49998 19.833 6.99998 17.4997 6.99998 9.33301Z" stroke="#22668D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              <g clip-path="url(#clip0_1581_3213)">
+                <rect x="14" y="12" width="14" height="12" rx="6" fill="white" />
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M25.6707 13.7684C25.823 13.9208 25.9086 14.1274 25.9086 14.3429C25.9086 14.5583 25.823 14.7649 25.6707 14.9173L19.5808 21.0073C19.5003 21.0878 19.4047 21.1516 19.2996 21.1952C19.1944 21.2388 19.0817 21.2612 18.9679 21.2612C18.854 21.2612 18.7413 21.2388 18.6362 21.1952C18.531 21.1516 18.4355 21.0878 18.355 21.0073L15.3292 17.9821C15.2516 17.9071 15.1897 17.8175 15.1471 17.7183C15.1046 17.6192 15.0821 17.5126 15.0812 17.4047C15.0803 17.2968 15.1008 17.1898 15.1417 17.09C15.1825 16.9901 15.2429 16.8994 15.3192 16.8231C15.3954 16.7468 15.4862 16.6865 15.586 16.6456C15.6859 16.6048 15.7929 16.5842 15.9007 16.5852C16.0086 16.5861 16.1152 16.6085 16.2144 16.6511C16.3135 16.6937 16.4031 16.7556 16.4781 16.8332L18.9676 19.3227L24.5213 13.7684C24.5968 13.6929 24.6864 13.633 24.785 13.5922C24.8836 13.5513 24.9893 13.5303 25.096 13.5303C25.2028 13.5303 25.3085 13.5513 25.4071 13.5922C25.5057 13.633 25.5953 13.6929 25.6707 13.7684Z" fill="#22668D" />
+              </g>
+              <defs>
+                <clipPath id="clip0_1581_3213">
+                  <rect x="14" y="12" width="14" height="12" rx="6" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
 
             <span onClick={markAllAsRead} className='text-palette-blue font-bold md:text-xs select-none'>تغییر پیام ها به خوانده شده</span>
           </div>

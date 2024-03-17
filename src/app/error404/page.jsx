@@ -12,84 +12,93 @@ import Link from 'next/link';
 
 const Error404 = () => {
     return (
-        <Box
+        <Grid
             display='flex'
-            justifyContent='flex-end'
+            justifyContent='center'
             alignItems='center'
-            sx={{
-                backgroundImage: {
-                    lg: `url("https://gizmoshop.liara.run/images/media/pictures/404-large.jpg")`,
-                    xs: `url("https://gizmoshop.liara.run/images/media/pictures/404-small.jpg")`,
-                },
-                height: '100vh',
-                width: 'auto',
-                backgroundSize: 'cover',
-                backgroundPosition: {xs: 'start', lg: 'center'},
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: '8ECDDD',
-            }}
+            bgcolor='#8ECDDD'
+            width='100vw'
+            height='100vh'
         >
-
-            <Grid
+            <Box
                 display='flex'
-                justifyContent='center'
-                flexDirection='column'
-                alignItems='center'
-                wrap='nowrap'
+                border='solid'
                 sx={{
-                    mt: {xs: 10, sm: 85, md: 0},
-                    width: {xs: '100%', lg: '50%'},
+                    alignItems: 'center',
+                    justifyContent: {xs: 'center', lg: 'flex-end'},
+                    backgroundImage: {
+                        lg: `url("https://gizmoshop.liara.run/images/media/pictures/404-large.jpg")`,
+                        xs: `url("https://gizmoshop.liara.run/images/media/pictures/404-small.jpg")`,
+                    },
+                    height: '100vh',
+                    width: '100vw',
+                    backgroundSize: {lg: 'cover'},
+                    backgroundPositionX: 'center',
+                    backgroundRepeat: 'no-repeat',
+
                 }}
             >
-                <Typography
-                    fontWeight='bold'
-                    color='rgba(37, 43, 72, 1)'
+                <Grid
+                    display='flex'
+                    flexDirection='column'
+                    alignItems='center'
+                    wrap='nowrap'
                     sx={{
-                        fontSize: {xs: 35, md: 45, lg: 60},
-                        mb: {xs: 2, lg: 3},
+                        mt: {xs: 40, lg: 0},
+                        width: {xs: '100%', lg: '50%'},
                     }}
                 >
-                    ای واااای!!
-                </Typography>
-                <Typography
-                    fontWeight='bold'
-                    color='rgba(37, 43, 72, 1)'
-                    textAlign='center'
-                    sx={{
-                        fontSize: {xs: 25, md: 30, lg: 40},
-                        width: {xs: 300, lg: 400},
-                        mb: 3,
-                    }}
-                >
-                    چیزی که میخواستی رو فضاییا بردن!!
-                </Typography>
-
-                <Link href='/'>
-                    <Button
-                        variant='contained'
+                    <Typography
+                        fontWeight='bold'
+                        color='rgba(37, 43, 72, 1)'
                         sx={{
-                            backgroundColor: Colors.orange,
-                            borderRadius: '30px',
-                            boxShadow: 'none',
-                            ":hover": {
-                                backgroundColor: Colors.orange,
-                            }
+                            fontSize: {xs: 45, sm: 55, lg: 65},
+                            mb: {xs: 2, lg: 3},
                         }}
                     >
-                        <Typography
+                        ای واااای!!
+                    </Typography>
+                    <Typography
+                        fontWeight='bold'
+                        color='rgba(37, 43, 72, 1)'
+                        textAlign='center'
+                        sx={{
+                            fontSize: {xs: 32, sm: 35, lg: 45},
+                            width: {xs: 340, lg: 450},
+                            mb: 3,
+                        }}
+                    >
+                        چیزی که میخواستی رو فضاییا بردن!!
+                    </Typography>
+
+                    <Link href='/'>
+                        <Button
+                            variant='contained'
                             sx={{
-                                fontSize: { xs: 20, md: 25, lg: 30 },
-                                px: {xs: 4, md: 6},
+                                backgroundColor: Colors.orange,
+                                borderRadius: '30px',
+                                boxShadow: 'none',
+                                ":hover": {
+                                    backgroundColor: Colors.orange,
+                                }
                             }}
-                            fontWeight='bold'
-                            color='rgba(37, 43, 72, 1)'
                         >
-                            برگردیم به سایت
-                        </Typography>
-                    </Button>
-                </Link>
-            </Grid>
-        </Box>
+                            <Typography
+                                sx={{
+                                    fontSize: { xs: 26, sm: 30, lg: 35 },
+                                    px: {xs: 4, sm: 6},
+                                }}
+                                fontWeight='bold'
+                                color='rgba(37, 43, 72, 1)'
+                            >
+                                برگردیم به سایت
+                            </Typography>
+                        </Button>
+                    </Link>
+                </Grid>
+            </Box>
+        </Grid>
+    
     )
 }
 

@@ -195,11 +195,12 @@ export default function DashBoardEditProfile() {
                                 </div>
                             </div>
 
-                            <div className='justify-self-start flex justify-between flex-row-reverse lg:mx-12 lg:mt-6 pr-20 lg:pr-0'>
-                                <Button className='w-[49%]'
+                            <div className='justify-self-start flex justify-between flex-row-reverse lg:mx-12 md:mt-6 pr-20 lg:pr-0'>
+                                <Button
                                     variant="contained"
                                     onClick={console.log(newProfileData)}
                                     sx={{
+                                        width: 215,
                                         bgcolor: Colors.orange,
                                         color: "black",
                                         borderRadius: "50px",
@@ -212,7 +213,7 @@ export default function DashBoardEditProfile() {
                                     <Typography variant='div  whitespace-nowrap lg:text-xs'>ذخیره تغییرات</Typography>
                                 </Button>
 
-                                <Button className='w-[49%]'
+                                {/* <Button className='w-[49%]'
                                     variant="contained"
                                     // onClick={editNewProfile}
                                     sx={{
@@ -228,7 +229,7 @@ export default function DashBoardEditProfile() {
                                         },
                                     }}>
                                     <Typography variant='div  whitespace-nowrap lg:text-xs'>انصراف</Typography>
-                                </Button>
+                                </Button> */}
                             </div>
 
                         </div>
@@ -238,7 +239,7 @@ export default function DashBoardEditProfile() {
                 </Stack>
 
 
-                <Stack className='mt-8'>
+                <Stack className='md:mt-8 sm:mt-3'>
 
                     <div className="mt-8 mb-8 md:mt-2 changePassword-info flex border-b border-[#EDEDED] justify-between py-2">
                         <Typography
@@ -287,11 +288,12 @@ export default function DashBoardEditProfile() {
                                 </div>
                             </div>
 
-                            <div className='flex flex-row-reverse justify-between lg:mx-12 lg:mt-6 pr-20 lg:pr-0'>
-                                <Button className='w-[49%]'
+                            <div className='flex flex-row-reverse justify-between lg:mx-12 md:mt-6  pr-20 lg:pr-0'>
+                                <Button
                                     variant="contained"
                                     onClick={newProfilePassword.newPassword === newPasswordIteration ? editNewProfilePassword : console.log(newProfilePassword)}
                                     sx={{
+                                        width: 200,
                                         bgcolor: Colors.orange,
                                         color: "black",
                                         borderRadius: "50px",
@@ -304,7 +306,7 @@ export default function DashBoardEditProfile() {
                                     <Typography variant='div  whitespace-nowrap lg:text-xs'>ذخیره تغییرات</Typography>
                                 </Button>
 
-                                <Button className='w-[49%]'
+                                {/* <Button className='w-[49%]'
                                     variant="contained"
                                     // onClick={addNewAddress}
                                     sx={{
@@ -320,7 +322,7 @@ export default function DashBoardEditProfile() {
                                         },
                                     }}>
                                     <Typography variant='div  whitespace-nowrap lg:text-xs'>انصراف</Typography>
-                                </Button>
+                                </Button> */}
                             </div>
 
                         </div>

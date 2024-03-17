@@ -353,7 +353,7 @@ const LogoutDialog = ({ logoutModalOpen, setLogoutModalOpen, handleLogout }) => 
         >
             <DialogTitle>خروج از حساب کاربری</DialogTitle>
             <DialogContent>
-                <DialogContentText>از خروج از حساب کاربری مطمعن هستید؟</DialogContentText>
+                <DialogContentText>از خروج از حساب کاربری مطمئن هستید؟</DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button

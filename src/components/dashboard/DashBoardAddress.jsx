@@ -7,7 +7,6 @@ import {
     Button,
     Typography,
     Grid,
-    Card,
     Stack,
     FormControl,
     FormLabel,
@@ -239,23 +238,53 @@ export default function DashBoardAddress(props) {
 
                     <div className='addNewAddressWrapper w-full flex justify-start'>
 
+                    <Grid 
+                        display='flex'
+                        flexWrap='wrap'
+                        sx={{
+                            justifyContent: {xs: 'center', md: 'none'},
+                            alignItems: 'center',
+                            columnGap: 2,
+                        }}
+                    >
                         <Button
                             className='setDefaultBtn'
                             variant="contained"
                             onClick={addToDefault}///
                             sx={{
+                                width: 200,
                                 bgcolor: Colors.orange,
                                 color: "black",
                                 borderRadius: "50px",
                                 boxShadow: "none",
-                                mr: 4,
-                                mb: 4,
+                                mb: {xs: 2, md: 4},
                                 "&:hover": {
                                     bgcolor: Colors.orange,
                                 },
                             }}>
                             <Typography variant='div'>افزودن آدرس به پیش فرض</Typography>
                         </Button>
+
+
+                        <Button
+                            className='setDefaultBtn'
+                            variant="contained"
+                            // onClick={}/// delete api
+                            sx={{
+                                width: 200,
+                                bgcolor: '#f59595',
+                                color: "black",
+                                borderRadius: "50px",
+                                boxShadow: "none",
+                                mb: 4,
+                                "&:hover": {
+                                    bgcolor: '#f59595',
+                                },
+                            }}>
+                            <Typography variant='div'>حذف آدرس انتخاب شده</Typography>
+                        </Button>
+                    </Grid>
+
 
                     </div>
 

@@ -22,7 +22,6 @@ const Error404 = () => {
         >
             <Box
                 display='flex'
-                border='solid'
                 sx={{
                     alignItems: 'center',
                     justifyContent: {xs: 'center', lg: 'flex-end'},

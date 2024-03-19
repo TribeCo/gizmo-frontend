@@ -4,6 +4,8 @@ import { Colors } from "@/utils";
 
 import {
     Button,
+    Divider,
+    Grid,
     Paper,
     Typography,
 } from "@mui/material";
@@ -23,7 +25,7 @@ export default function DashBoardDubaiOrders() {
         setSearchKey(event.target.value);
     };
 
-    const filteredOrders = orders.filter(order =>   
+    const filteredOrders = orders.filter(order =>
         order.orderCode.includes(searchKey)
     );
 
@@ -36,23 +38,38 @@ export default function DashBoardDubaiOrders() {
                 boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
             }}
         >
-            <section className=" w-[60rem] md:w-[24rem] py-4 px-[4%] flex flex-col lg:w-full rounded-xl">
+            <section className="w-[60rem] md:w-[24rem] py-4 px-3 flex flex-col lg:w-full rounded-xl">
 
-                <div className="flex border-b border-[#EDEDED] justify-between py-2 mb-4">
-                    <h3 className='font-bold flex items-center text-lg md:text-sm'>
+                <Grid
+                    display='flex'
+                    justifyContent='space-between'
+                    sx={{
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        rowGap: 2,
+                        columnGap: 10,
+                    }}
+                >
+                    <Typography 
+                        fontWeight='bold'                        
+                        sx={{
+                            fontSize:{xs: 16, md: 19},
+                            mt: '5px',
+                        }}
+                    >
                         استعلام قیمت محصولات خرید از دبی
-                    </h3>
+                    </Typography>
 
-                    <div className='flex border rounded-xl overflow-hidden'>
+                    <div className='flex border rounded-xl overflow-hidden h-9'>
 
-                        <input onChange={searchProductCode} className='w-[85%] text-sm p-2 rounded-r-xl' type="text" placeholder='جستوجو کد پیگیری' />
+                        <input onChange={searchProductCode} className='w-[85%] text-sm pr-2 rounded-r-xl' type="text" placeholder='جستوجو کد پیگیری' />
 
                         <div className='bg-palette-blue w-[15%] flex items-center justify-center'>
                             <Image src={searchIcon} width={16}></Image>
                         </div>
-
                     </div>
-                </div>
+
+                </Grid>
+                <Divider sx={{ mt: 2, }} />
 
                 <section className='flex flex-col mt-4 gap-4 overflow-scroll'>
 

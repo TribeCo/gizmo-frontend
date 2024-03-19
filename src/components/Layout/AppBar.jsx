@@ -18,6 +18,7 @@ import {
 	Paper,
 	InputBase,
 	Dialog,
+	Slide,
 } from "@mui/material";
 import { Colors } from "@/utils";
 
@@ -26,6 +27,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Logo from "@/components/siteIcons/logo.png";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import MenuList from "@/components/Layout/Menu";
+import CloseIcon from '@mui/icons-material/Close';
 
 const AppBar = ({ isLanding }) => {
 	const [open, setOpen] = useState(false);
@@ -47,6 +49,7 @@ const AppBar = ({ isLanding }) => {
 
 	const handleClose = () => {
 		setOpen(false);
+
 	};
 
 	const handleMenuOpen = (event) => {
@@ -432,61 +435,37 @@ const AppBar = ({ isLanding }) => {
 				</Grid>
 			</Box>
 
-
-{/* 
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                fullWidth
-                maxWidth="sm"
-                scroll="paper"
-            >
-                <DialogContent>
-                    <Grid
-                        variant="outlined"
-                        sx={{
-                            px: { xs: '2rem', sm: '4rem' },
-                            py: '2rem',
-                            mt: 2,
-                            borderRadius: '15px',
-                        }}
-                    >
-                        <MenuList />
-                    </Grid>
-                </DialogContent>
-			</Dialog> */}
-
 			<Dialog
-				sx={{
-					mt: 10,
-				}}
+				fullScreen
 				open={open}
 				onClose={handleClose}
-				closeAfterTransition
 				BackdropComponent={Backdrop}
+				TransitionComponent={Transition}
 				BackdropProps={{
 					sx: { backdropFilter: "blur(3px)" },
 				}}
 			>
-					{/* <Box
-						display="flex"
-						alignItems="center"
-						justifyContent="center"
-						bgcolor="transparent"
-						width={"800px"}
-						height={"2000px"}>
-					</Box> */}
-					<Box 
-						width="700px"
-						height='2000px'
-					>
-						<MenuList />
-					</Box>
-						
+				<Grid p={2}>
+					<IconButton
+						onClick={handleClose}
+						>
+						<CloseIcon fontSize="large" />
+					</IconButton>
+				</Grid>
+				<Grid
+					display='flex'
+					justifyContent='center'
+				>
+					<MenuList handleClose={handleClose}/>
+				</Grid>
 			</Dialog>
 		</>
 	);
 };
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+	return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const SearchField = () => {
 	const [searchQuery, setSearchQuery] = useState("");

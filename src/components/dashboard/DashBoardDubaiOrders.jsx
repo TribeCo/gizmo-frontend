@@ -23,7 +23,7 @@ export default function DashBoardDubaiOrders() {
         setSearchKey(event.target.value);
     };
 
-    const filteredOrders = orders.filter(order =>
+    const filteredOrders = orders.filter(order =>   
         order.orderCode.includes(searchKey)
     );
 

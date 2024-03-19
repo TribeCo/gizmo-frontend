@@ -10,14 +10,25 @@ import {
 } from '@mui/material';
 import Link from "next/link";
 import { QuestionMark } from '@mui/icons-material';
+import LogoutDialog from "../dashboard/LogoutDialog";
 
+import { useMenuItemContext } from "../dashboard/DashBoardMenuSelector";
 
-const Menu = () => {
+const Menu = ({ handleClose })  => {
+    const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+    const { menuItemValue, setMenuItemValue } = useMenuItemContext();
+
+    const handleLogout = () => {
+        // TODO: logout api 
+        setLogoutModalOpen(false);
+    };
+
     return (
-        <Grid mb={10} position='absolute'>
+        <Grid position='absolute'>
             <Grid
                 variant="outlined"
                 sx={{
+                    mb: 2,
                     mt: 2,
                     borderRadius: '15px',
                 }}
@@ -28,11 +39,13 @@ const Menu = () => {
                         justifyContent: 'center',
                         flexWrap: 'wrap',
                         alignItems: 'center',
-                        flexDirection: 'row',
+                        flexDirection: {xs: 'column', lg: 'row'},
                         columnGap: 2,
                     }}
                 >
                         <MenuItem
+                            handleClose={handleClose}
+                            onClick={() => setMenuItemValue(0)}
                             link="/dashboard"
                             label="حساب کاربری"
                             icon={
@@ -43,6 +56,8 @@ const Menu = () => {
                         />
 
                             <MenuItem
+                                handleClose={handleClose}
+                                onClick={() => setMenuItemValue(1)}
                                 link="/dashboard"
                                 label="ویرایش اطلاعات حساب"
                                 icon={
@@ -53,6 +68,8 @@ const Menu = () => {
                             />
 
                             <MenuItem
+                                handleClose={handleClose}
+                                onClick={() => setMenuItemValue(2)}
                                 link="/dashboard"
                                 label="آدرس ها"
                                 icon={
@@ -65,6 +82,8 @@ const Menu = () => {
 
 
                             <MenuItem
+                                handleClose={handleClose}
+                                onClick={() => setMenuItemValue(3)}
                                 link="/dashboard"
                                 label="پیغام ها"
                                 icon={
@@ -75,6 +94,8 @@ const Menu = () => {
                             />
 
                             <MenuItem
+                                handleClose={handleClose}
+                                onClick={() => setMenuItemValue(4)}
                                 link="/dashboard"
                                 label="سفارشات"
                                 icon={
@@ -85,6 +106,8 @@ const Menu = () => {
                             />
 
                             <MenuItem
+                                handleClose={handleClose}
+                                onClick={() => setMenuItemValue(5)}
                                 link="/dashboard"
                                 label="استعلام قیمت"
                                 icon={
@@ -95,6 +118,8 @@ const Menu = () => {
                             />
 
                             <MenuItem
+                                handleClose={handleClose}
+                                onClick={() => setMenuItemValue(6)}
                                 link="/dashboard"
                                 label="علاقه مندی ها"
                                 icon={
@@ -113,28 +138,35 @@ const Menu = () => {
                     >
 
                         <MenuItem
+                            handleClose={handleClose}
                             link="/dubai"
                             label="خرید از دبی"
                             iconHide
                         />
 
                         <MenuItem
+                            handleClose={handleClose}
                             link="/contact"
-                            label="ارتباط با ما"
+                            label="درباره ما"
                             iconHide
                         />
 
-                        <Categories />
+                        <Categories handleClose={handleClose}/>
 
                         <MenuItem
+                            handleClose={handleClose}
                             link="/faq"
                             label="سوالات متداول"
                             iconHide
                         />
                     </Grid>
 
+                    <Box
+                        onClick={() => setLogoutModalOpen(true)}
+                    >
                     <MenuItem
-                        link="/"
+                        link="/dashboard"
+                        disableAction
                         arrowHide
                         label="خروج از حساب"
                         icon={
@@ -142,9 +174,15 @@ const Menu = () => {
                                 <path d="M25.5 13L20.5 7.99997V11.75H10.5V14.25H20.5V18M23 20.5C21.4259 22.5988 19.2313 24.1491 16.7271 24.9314C14.2229 25.7136 11.5361 25.6881 9.04715 24.8585C6.55825 24.0289 4.39348 22.4372 2.85947 20.3088C1.32547 18.1805 0.5 15.6235 0.5 13C0.5 10.3764 1.32547 7.81941 2.85947 5.69109C4.39348 3.56277 6.55825 1.97106 9.04715 1.14143C11.5361 0.311795 14.2229 0.286298 16.7271 1.06855C19.2313 1.8508 21.4259 3.40114 23 5.49997H19.5875C18.1441 4.22705 16.3641 3.39765 14.4611 3.11129C12.558 2.82494 10.6128 3.09379 8.85874 3.88559C7.1047 4.67739 5.6164 5.95851 4.57241 7.5752C3.52843 9.1919 2.97312 11.0755 2.97312 13C2.97312 14.9244 3.52843 16.808 4.57241 18.4247C5.6164 20.0414 7.1047 21.3225 8.85874 22.1143C10.6128 22.9061 12.558 23.175 14.4611 22.8886C16.3641 22.6023 18.1441 21.7729 19.5875 20.5H23Z" fill="#BB0000" />
                             </SvgIcon>
                         }
-                    />
+                        />
+                    </Box>
                 </Grid>
             </Grid>
+            <LogoutDialog
+                logoutModalOpen={logoutModalOpen}
+                setLogoutModalOpen={setLogoutModalOpen}
+                handleLogout={handleLogout}
+            />
         </Grid>
     );
 }
@@ -154,13 +192,27 @@ const MenuItem = ({
     label,
     link,
     icon = <QuestionMark />,
+    handleClose = () => {},
+    onClick = () => {},
     isSubItem = false,
     arrowHide = false,
     iconHide = false,
+    disableAction = false,
     rightSideIcon = <SvgIcon width="8" height="16" viewBox="0 0 8 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.50127 16C7.62779 16 7.75726 15.9463 7.85436 15.842C8.04855 15.6335 8.04855 15.2923 7.85436 15.0838L1.20779 7.94708L7.75726 0.914596C7.95145 0.706085 7.95145 0.364887 7.75726 0.156377C7.56307 -0.0521336 7.24531 -0.0521336 7.05112 0.156377L0.145638 7.56797C-0.0485516 7.77648 -0.0485516 8.11768 0.145638 8.32619L7.14527 15.842C7.24531 15.9495 7.37183 16 7.50127 16Z" fill="#22668D" />
-    </SvgIcon>
-}) => {
+                        <path d="M7.50127 16C7.62779 16 7.75726 15.9463 7.85436 15.842C8.04855 15.6335 8.04855 15.2923 7.85436 15.0838L1.20779 7.94708L7.75726 0.914596C7.95145 0.706085 7.95145 0.364887 7.75726 0.156377C7.56307 -0.0521336 7.24531 -0.0521336 7.05112 0.156377L0.145638 7.56797C-0.0485516 7.77648 -0.0485516 8.11768 0.145638 8.32619L7.14527 15.842C7.24531 15.9495 7.37183 16 7.50127 16Z" fill="#22668D" />
+                    </SvgIcon>
+    }) => {
+    
+    const handleClick = () => {
+        if (!disableAction) {
+            onClick();
+            handleClose();
+        }
+        else {
+            handleClose();
+        }
+    }
+
     const linkCondition = "دسته بندی ها";
     const innerItems = (
         <>
@@ -210,15 +262,16 @@ const MenuItem = ({
     if (isSubItem) {
         menu = (
             <Box
+                onClick={handleClick}
                 variant="outlined"
                 display='flex'
                 justifyContent='space-between'
                 pl={3}
                 sx={{
-                    mt: 1,
+                    mt: 2,
                     scale: '0.9',
-                    width: { sm: '100%', md: '500px' },
-                    py: { xs: '15px', sm: '25px', md: '30px' },
+                    width: { sm: '100%', sm: '500px'},
+                    py: { xs: '12px', sm: '30px' },
                     borderRadius: '20px',
                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
                     transition: '0.2s',
@@ -233,6 +286,7 @@ const MenuItem = ({
     } else {
         menu = (
             <Box
+                onClick={handleClick}
                 variant="outlined"
                 display='flex'
                 justifyContent='space-between'
@@ -240,8 +294,8 @@ const MenuItem = ({
                 columnGap={1}
                 sx={{
                     mt: 2,
-                    width: { sm: '100%', md: '500px' },
-                    py: { xs: '15px', sm: '25px', md: '30px' },
+                    width: { sm: '100%', sm: '500px'},
+                    py: { xs: '12px', sm: '30px' },
                     borderRadius: '20px',
                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
                     transition: '0.2s',
@@ -270,15 +324,12 @@ const MenuItem = ({
 }
 
 
-
-const Categories = () => {
+const Categories = ({ handleClose }) => {
     const [isOpened, setisOpened] = useState(false);
 
     const arrowOpen = <SvgIcon width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 7.5042C0 7.63072 0.0537072 7.76019 0.157962 7.85729C0.366473 8.05148 0.707671 8.05148 0.916182 7.85729L8.05292 1.21072L15.0854 7.76019C15.2939 7.95438 15.6351 7.95438 15.8436 7.76019C16.0521 7.566 16.0521 7.24824 15.8436 7.05405L8.43203 0.148565C8.22352 -0.0456238 7.88232 -0.0456238 7.67381 0.148565L0.157962 7.1482C0.050548 7.24824 0 7.37476 0 7.5042Z" fill="#22668D" />
-    </SvgIcon>
-
-
+                          <path d="M0 7.5042C0 7.63072 0.0537072 7.76019 0.157962 7.85729C0.366473 8.05148 0.707671 8.05148 0.916182 7.85729L8.05292 1.21072L15.0854 7.76019C15.2939 7.95438 15.6351 7.95438 15.8436 7.76019C16.0521 7.566 16.0521 7.24824 15.8436 7.05405L8.43203 0.148565C8.22352 -0.0456238 7.88232 -0.0456238 7.67381 0.148565L0.157962 7.1482C0.050548 7.24824 0 7.37476 0 7.5042Z" fill="#22668D" />
+                      </SvgIcon>
 
     const handleClick = () => {
         setisOpened(!isOpened);
@@ -288,7 +339,7 @@ const Categories = () => {
     if (!isOpened) {
         categoryStatus = (
             <MenuItem
-                link="/"
+                link="/" // it will be ignored
                 label="دسته بندی ها"
                 iconHide
             />
@@ -296,7 +347,7 @@ const Categories = () => {
     } else {
         categoryStatus = (
             <MenuItem
-                link="/"
+                link="/"  // it will be ignored
                 label="دسته بندی ها"
                 iconHide
                 rightSideIcon={arrowOpen}
@@ -313,7 +364,8 @@ const Categories = () => {
             {isOpened &&
                 <>
                     <MenuItem
-                        link="/"
+                        handleClose={handleClose}
+                        link="/categories/لوازم آشپزخانه"
                         label="لوازم آشپزخانه"
                         isSubItem
                         arrowHide
@@ -321,7 +373,8 @@ const Categories = () => {
                     />
 
                     <MenuItem
-                        link="/"
+                        handleClose={handleClose}
+                        link="/categories/لوازم بهداشتی"
                         label="لوازم بهداشتی"
                         isSubItem
                         arrowHide
@@ -329,7 +382,8 @@ const Categories = () => {
                     />
 
                     <MenuItem
-                        link="/"
+                        handleClose={handleClose}
+                        link="/categories/لوازم جانبی"
                         label="لوازم جانبی"
                         isSubItem
                         arrowHide
@@ -337,7 +391,8 @@ const Categories = () => {
                     />
 
                     <MenuItem
-                        link="/"
+                        handleClose={handleClose}
+                        link="/categories/لوازم ورزشی"
                         label="لوازم ورزشی"
                         isSubItem
                         arrowHide
@@ -345,7 +400,8 @@ const Categories = () => {
                     />
 
                     <MenuItem
-                        link="/"
+                        handleClose={handleClose}
+                        link="/categories/لوازم برقی"
                         label="لوازم برقی"
                         isSubItem
                         arrowHide
@@ -356,7 +412,6 @@ const Categories = () => {
         </Grid>
     );
 }
-
 
 export default Menu;
 

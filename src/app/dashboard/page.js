@@ -9,15 +9,10 @@ import {
     SvgIcon,
     List,
     ListItemButton,
-    Dialog,
-    DialogTitle,
-    DialogContentText,
-    DialogActions,
-    Button,
-    DialogContent,
 } from '@mui/material';
 import { Colors } from "@/utils";
 import Avatar from '@mui/material/Avatar';
+
 import UserInfoPage from "@/components/dashboard/UserInfoPage";
 import DashBoardEditProfile from "@/components/dashboard/DashBoardEditProfile";
 import DashBoardAddress from "@/components/dashboard/DashBoardAddress";
@@ -25,14 +20,18 @@ import DashBoardNotifications from "@/components/dashboard/DashBoardNotification
 import DashBoardOrders from "@/components/dashboard/DashBoardOrders";
 import DashBoardDubaiOrders from "@/components/dashboard/DashBoardDubaiOrders";
 import DashBoardFavoriteProduct from "@/components/dashboard/DashBoardFavoriteProduct";
+import LogoutDialog from "@/components/dashboard/LogoutDialog";
 
+import { useMenuItemContext } from "@/components/dashboard/DashBoardMenuSelector";
 
 export default function Profile() {
-    const [selectedMenuItem, setSelectedMenuItem] = useState(0);
+    // const [selectedMenuItem, setSelectedMenuItem] = useState(0);
     const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+    const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 
     const handleMenuItemClick = (menuItem) => {
-        setSelectedMenuItem(menuItem);
+        // setSelectedMenuItem(menuItem);
+        setMenuItemValue(menuItem);
     };
 
     const handleLogout = () => {
@@ -42,13 +41,13 @@ export default function Profile() {
 
 
     const functionList = [
-        <UserInfoPage />, // حساب کاربری
-        <DashBoardEditProfile />, // ویرایش اطلاعات حساب
-        <DashBoardAddress />, // آدرس ها
-        <DashBoardNotifications />, // پیغام ها
-        <DashBoardOrders />, // سفارشات
-        <DashBoardDubaiOrders />, // استعلام قیمت
-        <DashBoardFavoriteProduct /> // علاقه مندی ها
+        <UserInfoPage />, // حساب کاربری 0
+        <DashBoardEditProfile />, // ویرایش اطلاعات حساب 1
+        <DashBoardAddress />, // آدرس ها 2
+        <DashBoardNotifications />, // پیغام ها 3
+        <DashBoardOrders />, // سفارشات 4
+        <DashBoardDubaiOrders />, // استعلام قیمت 5
+        <DashBoardFavoriteProduct /> // علاقه مندی ها 6
     ]
 
     return (
@@ -323,7 +322,7 @@ export default function Profile() {
                     </Paper>
                 </Grid>
 
-                {functionList[selectedMenuItem]}
+                {functionList[menuItemValue]}
             </Grid>
             <LogoutDialog
                 logoutModalOpen={logoutModalOpen}
@@ -333,63 +332,3 @@ export default function Profile() {
         </Grid>
     )
 }
-
-
-
-const LogoutDialog = ({ logoutModalOpen, setLogoutModalOpen, handleLogout }) => {
-    return (
-        <Dialog
-            open={logoutModalOpen}
-            onClose={() => setLogoutModalOpen(false)}
-            sx={{
-                '& .MuiPaper-root': {
-                    borderRadius: '20px',
-                },
-                '& .MuiDialog-paper': {
-                    px: 2,
-                    py: 1,
-                }
-            }}
-        >
-            <DialogTitle>خروج از حساب کاربری</DialogTitle>
-            <DialogContent>
-                <DialogContentText>از خروج از حساب کاربری مطمئن هستید؟</DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button
-                    onClick={() => setLogoutModalOpen(false)}
-                    variant="outlined"
-                    sx={{
-                        borderRadius: '20px',
-                        borderColor: Colors.blue,
-                        boxShadow: 'none',
-                        ":hover": {
-                            borderColor: Colors.blue,
-
-                        }
-                    }}
-                >
-                    <Typography sx={{ width: 45}}>
-                        لغو
-                    </Typography>
-                </Button>
-                <Button
-                    variant="contained"
-                    onClick={handleLogout}
-                    sx={{
-                        borderRadius: '20px',
-                        bgcolor: '#ef5350',
-                        boxShadow: 'none',
-                        ":hover": {
-                            bgcolor: '#ef5350',
-                        }
-                    }}
-                >
-                    <Typography sx={{ width: 45}}>
-                        خروج
-                    </Typography>
-                </Button>
-            </DialogActions>
-        </Dialog>
-    );
-};

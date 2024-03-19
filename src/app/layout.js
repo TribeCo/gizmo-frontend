@@ -1,5 +1,6 @@
 // theme
 import ThemeProvider from "@/utils/ThemeProvider";
+import { MenuItemSelectorProvider } from "@/components/dashboard/DashBoardMenuSelector";
 
 // Css Files
 import "./globals.css";
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
 			lang="fa-IR"
 			dir="rtl">
 			<body>
-				<ThemeProvider>{children}</ThemeProvider>
+				<MenuItemSelectorProvider>
+					<ThemeProvider>{children}</ThemeProvider>
+				</MenuItemSelectorProvider>
 			</body>
 		</html>
 	);

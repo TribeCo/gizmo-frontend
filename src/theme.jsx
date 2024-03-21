@@ -2,8 +2,13 @@
 
 import { createTheme } from "@mui/material/styles";
 import localFont from "next/font/local";
+import { Vazirmatn } from "next/font/google";
 
-const vazir = localFont({ src: "./Vazir.woff2" });
+// const vazir = localFont({ src: "./Vazir.woff2" });
+const vazir = Vazirmatn({
+	subsets: ["arabic"],
+	display: "swap",
+});
 
 export const theme = createTheme({
 	direction: "rtl",

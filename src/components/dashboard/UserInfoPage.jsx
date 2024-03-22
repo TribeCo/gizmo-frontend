@@ -15,8 +15,13 @@ const convertToPersian = (number) => {
     // return number.toString().replace(/\d/g, (x) => persianNumbers[x]);
 };
 
+function createFullName(firstName, lastName) {
+    return `${firstName} ${lastName}`;
+}
+
 const UserInfoPage = () => {
     const [activities, setActivites] = useState([]);
+    const [information, setInformation] = useState([]);
     useEffect(() => {
         const fetchActivties = async () => {
             try {
@@ -34,7 +39,24 @@ const UserInfoPage = () => {
                 console.error("There was a problem with the fetch operation:", error);
             }
         };
+        const fetchInformation = async () => {
+            try {
+                const response = await fetch('https://gizmoshop.liara.run/api/users/info/', {
+                    headers: {
+                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setInformation(data);
+            } catch (error) {
+                console.error("There was a problem with the fetch operation:", error);
+            }
+        };
         fetchActivties();
+        fetchInformation();
     }, []); // Empty dependency array ensures this runs only on component mount, similar to page reload
 
 
@@ -145,7 +167,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {createFullName(information.first_name, information.last_name)}
                                 </Typography>
                             </Grid>
                             <Grid
@@ -172,7 +194,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {information.gender}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -201,7 +223,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {information.email}
                                 </Typography>
                             </Grid>
                             <Grid
@@ -228,7 +250,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {information.phoneNumber}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -257,7 +279,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {information.phoneNumber}
                                 </Typography>
                             </Grid>
                         </Grid>

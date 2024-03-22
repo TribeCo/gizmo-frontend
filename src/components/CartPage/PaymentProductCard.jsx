@@ -18,7 +18,7 @@ const PaymentProductCard = (pid) => {
                         borderRadius: "10px",
                         overflow: 'hidden'
                     }}>
-                        <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="https://s3-alpha-sig.figma.com/img/4050/86fb/624274b23cab9a4bbe014728fb02db1a?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=USsQe5PBUYVoJbd3oYbLvvxoEI4AC6PpRdnDlgmv9Kb2oxwL89BF78VQT9yGvoH2Ees0kTqpbJT~9W6PUgaVzOvuMVpiQhe41BjI1Onu627Y0ysoY1ppdAmghFUkqhUC~JgKlH6bwy2~mY3q81md6~FWZBjZbl7NGLEUx78F6mA6kpWcAHszp7tnjEic9h2kmbNLhqenCMKVDxbbkCeuNmZGIoLzDVoutefbak4T3~rfHzCw8XUKPGZHTYj9dCv-k6NLF8bFfxuqs~vmMnCt3X5d2VEHHr73e5wOy0guA7~iNEzQCGZ030pHVo8aMVZmQ6yTAuRE7R-RcJuGssr26Q__" alt="Product" />
+                        <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="https://s3-alpha-sig.figma.com/img/4050/86fb/624274b23cab9a4bbe014728fb02db1a?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jsXE0Xy9Sz1y43uvI03e-VnS8W5Vh7zGJxi1UjEa5KrVPe4x8JBJ6Vsr3x6HvgR3HzVXp-WqqqWdljRHN1gP4G3w81R1qMfKP8uigsRmQ2ExFGSS9nhfbi1kOQUr9jlATIUHz3ctCrMvZ10mOHLSWsdNBW2LT~6Qz188~zr3P7byaI1k-4AQcG1JXit5mNWhj79YiVjdQ5hcjgfHlF-n3w0~xNdk9OESTpTGnIthzMxFVCebpwjlKTp6Zg9g5drNn-tyo442E3q8mCw~FP~rT8ywgC~qkL3Wzn8Eu6oECYwz8Re3Oo7rm2kMQcDkLMhrJLd5Xh499jRM5tHT7meEXA__" alt="Product" />
                     </Box>
                 </Grid>
                 <Grid item md={4} sm={4} xs={4}>

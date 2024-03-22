@@ -1,5 +1,4 @@
 "use client";
-
 import { Colors } from "@/utils";
 import {
 	Button,
@@ -168,7 +167,8 @@ const ProductCard = ({ product }) => {
 							fontWeight="400"
 							lineHeight="20px"
 							mt="10px">
-							{`${convert(parseInt(product.discounted_price))} تومان`}
+								{convert((product.discount) / 100 * product.price) +
+									" تومان"}
 						</Typography>
 					)}
 				</IconButton>

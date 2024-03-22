@@ -5,7 +5,10 @@ function Login() {
   return (
     <Box
       sx={{
-        minHeight: '100vh', // Use minHeight to allow the container to grow
+        '@media (max-height: 800px)':{
+          height: 'calc(100vh + (850px - 100vh))'
+        },
+        height: '100vh',
         width: '100vw',
         backgroundImage: {
           lg: `url("https://gizmoshop.liara.run/images/media/pictures/Sign_up1.png")`,
@@ -25,7 +28,8 @@ function Login() {
           xs: '#8ECDDD',
         },
         backgroundRepeat: 'no-repeat',
-        overflowY: 'auto', // Add vertical scrolling
+        overflowY: 'auto',
+        position: 'absolute', // Add vertical scrolling
       }}
     >
       <SignUp3Component />

@@ -46,7 +46,7 @@ const SignUp3Component = () => {
                 height: 736, // Minimum height to maintain size
                 width: { xs: 325, sm: 400, md: 460 }, // Minimum width to maintain size
                 position: 'absolute',
-                right: {xs: '', sm: '50%' ,md: '50%', lg: '25%'}, // Centered horizontally
+                right: {sm: '50%', lg: '25%'}, // Centered horizontally
                 top: '50%', // Centered vertically
                 transform: 'translate(50%, -50%)', // Adjust position to truly center
                 '@media (max-width: 768px)': {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import {
     Paper,
     Button,
@@ -9,7 +10,34 @@ import {
 } from '@mui/material';
 import { Colors } from "@/utils";
 
+const convertToPersian = (number) => {
+    const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    // return number.toString().replace(/\d/g, (x) => persianNumbers[x]);
+};
+
 const UserInfoPage = () => {
+    const [activities, setActivites] = useState([]);
+    useEffect(() => {
+        const fetchActivties = async () => {
+            try {
+                const response = await fetch('https://gizmoshop.liara.run/api/orders/count/', {
+                    headers: {
+                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setActivites(data);
+            } catch (error) {
+                console.error("There was a problem with the fetch operation:", error);
+            }
+        };
+        fetchActivties();
+    }, []); // Empty dependency array ensures this runs only on component mount, similar to page reload
+
+
     return (
         <Grid
             item
@@ -304,7 +332,7 @@ const UserInfoPage = () => {
                             mt={3}
                             sx={{
                                 width: { xs: '3rem', sm: '5rem', md: '7rem' },
-                                height: { xs: '3rem', sm: '5rem', md: '7rem'},
+                                height: { xs: '3rem', sm: '5rem', md: '7rem' },
                                 alignItems: "center",
                                 justifyContent: "center",
                                 display: "flex",
@@ -315,12 +343,12 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h6"
                                 fontWeight='bold'
-                                sx={{ 
-                                    fontSize: {xs: 20, sm: 26, md: 40},
-                                    mt: {xs: 0, sm: 1} 
+                                sx={{
+                                    fontSize: { xs: 20, sm: 26, md: 40 },
+                                    mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                ۰
+                                {convertToPersian(activities.orders_count)}
                             </Typography>
                         </Box>
                     </Box>
@@ -351,7 +379,7 @@ const UserInfoPage = () => {
                             mt={3}
                             sx={{
                                 width: { xs: '3rem', sm: '5rem', md: '7rem' },
-                                height: { xs: '3rem', sm: '5rem', md: '7rem'},
+                                height: { xs: '3rem', sm: '5rem', md: '7rem' },
                                 alignItems: "center",
                                 justifyContent: "center",
                                 display: "flex",
@@ -362,12 +390,12 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h6"
                                 fontWeight='bold'
-                                sx={{ 
-                                    fontSize: {xs: 20, sm: 26, md: 40},
-                                    mt: {xs: 0, sm: 1} 
+                                sx={{
+                                    fontSize: { xs: 20, sm: 26, md: 40 },
+                                    mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                ۲
+                                {convertToPersian(activities.foreign_returns_count)}
                             </Typography>
                         </Box>
                     </Box>
@@ -398,7 +426,7 @@ const UserInfoPage = () => {
                             mt={3}
                             sx={{
                                 width: { xs: '3rem', sm: '5rem', md: '7rem' },
-                                height: { xs: '3rem', sm: '5rem', md: '7rem'},
+                                height: { xs: '3rem', sm: '5rem', md: '7rem' },
                                 alignItems: "center",
                                 justifyContent: "center",
                                 display: "flex",
@@ -409,12 +437,12 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h6"
                                 fontWeight='bold'
-                                sx={{ 
-                                    fontSize: {xs: 20, sm: 26, md: 40},
-                                    mt: {xs: 0, sm: 1} 
+                                sx={{
+                                    fontSize: { xs: 20, sm: 26, md: 40 },
+                                    mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                ۰
+                                {convertToPersian(activities.returns_count)}
                             </Typography>
                         </Box>
                     </Box>

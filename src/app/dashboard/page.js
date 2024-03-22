@@ -34,8 +34,22 @@ export default function Profile() {
         setMenuItemValue(menuItem);
     };
 
-    const handleLogout = () => {
-        // TODO: logout api 
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('https://gizmoshop.liara.run/api/users/info/', {
+                headers: {
+                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                }
+            });
+            if (response.ok) {
+                console.log('Logged out successfully.');
+            } else {
+                console.error('Failed to log out on the server.');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+        localStorage.removeItem('userToken');
         setLogoutModalOpen(false);
     };
 

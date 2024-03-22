@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { Box } from "@mui/material";
 import ProductsGrid from "@/components/ProductsGrid";
 import LineSplitter from "@/components/LineSpliter";
 // import { products } from '@/utils/fakeProduct';
@@ -25,10 +26,22 @@ function ProductsPage({ categoryName }) {
     }, [categoryName]); // Re-fetch when categoryName changes
 
     return (
-        <div>
+        <Box>
             <LineSplitter text={`محصولات ${categoryName}`} />
-            <ProductsGrid productsList={productsList} />
-        </div>
+            <Box
+                sx={{
+                    display: 'flex', // Use flexbox layout
+                    flexDirection: 'column', // Stack children vertically
+                    justifyContent: 'center', // Center children vertically
+                    alignItems: {xs: 'end', xl: 'center'}, // Center children horizontally
+                    width: '100%', // Optional: Adjust width as needed
+                    height: '100%', // Optional: Adjust height as needed
+                }}
+            >
+                <ProductsGrid productsList={productsList} />
+            </Box>
+        </Box>
+
     );
 }
 

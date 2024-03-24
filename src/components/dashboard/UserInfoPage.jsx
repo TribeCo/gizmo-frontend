@@ -15,9 +15,6 @@ const UserInfoPage = () => {
             item
             display='flex'
             flexDirection='column'
-            sx={{
-                ml: { xs: 0, xl: 2 }
-            }}
         >
             <Paper
                 variant="outlined"

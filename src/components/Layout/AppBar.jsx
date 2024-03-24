@@ -29,7 +29,10 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import MenuList from "@/components/Layout/Menu";
 import CloseIcon from '@mui/icons-material/Close';
 
+import { useMenuItemContext } from "../dashboard/DashBoardMenuSelector";
+
 const AppBar = ({ isLanding }) => {
+    const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [anchorElProfile, setAnchorElProfile] = useState(null);
@@ -105,7 +108,7 @@ const AppBar = ({ isLanding }) => {
 								sx={{
 									pr: 2,
 									scale: { xs: "1", sm: "1.3" },
-									display: { lg: "felx", xl: "none" },
+									display: { md: "felx", lg: "none" },
 								}}
 								onClick={handleOpen}>
 								<SvgIcon
@@ -360,10 +363,12 @@ const AppBar = ({ isLanding }) => {
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
 								onClick={handleProfileClose}>
-								<Typography
-									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
-									پنل کاربری
-								</Typography>
+								<Link href={'/dashboard'}>
+									<Typography
+										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
+										پنل کاربری
+									</Typography>
+								</Link>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}

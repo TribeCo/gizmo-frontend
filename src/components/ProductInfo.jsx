@@ -1,4 +1,5 @@
 "use client";
+
 import { Colors, convert } from "@/utils";
 import {
 	Box,
@@ -12,10 +13,10 @@ import {
 	Typography,
 } from "@mui/material";
 import Image from "next/image";
-import noon from "./comanyIcons/noon.png";
 import { useState } from "react";
 import PhotosModal from "./PhotosModal";
-import { Add, Close } from "@mui/icons-material";
+import Link from "next/link";
+import { baseUrl } from "@/services";
 
 const arr = {
 	"توان دستگاه": "850 وات",
@@ -25,7 +26,8 @@ const arr = {
 	"نشانگر میزان آب": "دارد",
 };
 
-function ProductInfo() {
+function ProductInfo({ data }) {
+	console.log(data);
 	const [openDialog, setOpenDialog] = useState(false);
 	const [selectedColor, setSelectedColor] = useState(0);
 	const [like, setLike] = useState(false);
@@ -62,7 +64,7 @@ function ProductInfo() {
 						}}>
 						<Box>
 							<CardMedia
-								image="https://s3-alpha-sig.figma.com/img/f2f3/7d64/38b32147300a8a027a86c2e954e52da6?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pU1iuy2FT7yCide8~~rx5B91PtYvYfEpF-hzE2Bg0NSudy8mxlr2Q3yQyy525rVKxH4NWblGEMbgj7oEEKfC--jjKzk9RhePs4IWbjZAdjyVNwjbKjPKikaYFgBKVvqMv3PigQibvEIZ-mfIgtUWFRZuzShcabx3vEVGIiLeqkRtF1QNVQLtQ68Oqjsxf3A2X8MKdRONJALEZJDRoQbrZz-8iw~noMoNfqqE23GJ-w8INtGeab~KId2luFoSSVtlV-ZeEi7hYQred-FLC9B5kfzsB4pjL06HoWSyUpVIseE9Lke57pnREjL8ZX1ljf52sUB1KrpJd5rZS4F9Noygig__"
+								image={baseUrl + data.image1}
 								sx={{
 									// border: "1px solid",
 									m: {
@@ -120,7 +122,7 @@ function ProductInfo() {
 										mt: 1,
 									}}>
 									<CardMedia
-										image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"
+										image={baseUrl + data.image1}
 										sx={{
 											border: "0.2em solid #22668D",
 											borderRadius: 3,
@@ -147,7 +149,7 @@ function ProductInfo() {
 										mt: 1,
 									}}>
 									<CardMedia
-										image="https://s3-alpha-sig.figma.com/img/7832/cae5/08b444fc9e51e32ed3f58d547dbfb93c?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jsK0FljZ87ZnVJl1S3Q~73XDwvVAW2oIY2J6~ucjymms~IXEQApBIODliBIISmcNPAcvVVliUWPwpBir0kuC~aP7YWiyZ2aIXzX0mNLJ2LcNT~4yOmDSwIlAMDxedd4HVi5hM1aUX-ZYUkZepNoguPHW6K3mXMWp~AHQUl3i7VvDko1K5Gt65uk9MdQIxR5Le~lZoYkbf7f7REejId3~V-4RuzsyuXP-eSUlwJUQ2Q28HCNNK0Zj9cq8skkdsg7IvvmZK6ahBPvaf3KtzKEiJIuFgyjeiUKQ8A4ysTo20jBFVvdH23pNvheg40NRki0mUt-EuuzIhJLzLnj5bz0CBQ__"
+										image={baseUrl + data.image2}
 										sx={{
 											border: "0.2em solid #22668D",
 											borderRadius: 3,
@@ -227,14 +229,14 @@ function ProductInfo() {
 				mt={6}
 				sm={12}
 				md={6}
+				xl={5}
 				maxWidth="400px">
 				<Box>
 					<Box display="flex">
 						<Typography
-							variant="h3"
-							fontSize={32}
-							fontWeight={600}>
-							{"اسپرسوساز نون مدل CM540 3D-GS"}
+							variant="h5"
+							fontWeight={900}>
+							{data.content}
 						</Typography>
 						<Box
 							ml={2.5}
@@ -328,20 +330,21 @@ function ProductInfo() {
 							fontWeight={400}>
 							{`دسته بندی:`}
 						</Typography>
-						<Button sx={{ height: 20 }}>
-							<Typography
-								fontSize={14}
-								fontWeight={400}>
-								{"آشپزخانه"}
-							</Typography>
-						</Button>
-						<Button sx={{ height: 20 }}>
-							<Typography
-								fontSize={14}
-								fontWeight={400}>
-								{"وسایل برقی"}
-							</Typography>
-						</Button>
+						{data.category.map((c) => {
+							return (
+								<Link
+									style={{ textDecoration: "none" }}
+									href={"/products"}>
+									<Button sx={{ height: 20 }}>
+										<Typography
+											fontSize={14}
+											fontWeight={400}>
+											{c.name}
+										</Typography>
+									</Button>
+								</Link>
+							);
+						})}
 					</Box>
 					<Box
 						display="flex"
@@ -356,8 +359,10 @@ function ProductInfo() {
 							{`برند:`}
 						</Typography>
 						<Image
-							src={noon}
-							height={24}
+							src={baseUrl + data.brand.logo}
+							alt="kkk"
+							height={2}
+							width={50}
 							style={{
 								borderRadius: 10,
 							}}
@@ -489,42 +494,62 @@ function ProductInfo() {
 					<Box
 						mt={3}
 						ml={3}
-						maxWidth={400}
+						maxWidth={data.discounted ? 400 : 160}
 						display="flex"
 						justifyContent="space-between">
 						<Typography
-							color="#22668D"
+							noWrap
+							color={!data.available ? "#D2D2D2" : "#22668D"}
 							fontWeight={900}
 							fontSize={20}>
 							{"قیمت: "}
 						</Typography>
-						<Box>
-							<Box
-								mt={2}
-								position="absolute"
-								bgcolor="#BB0000"
-								borderRadius="2em"
-								px={7}
-								pt={0.25}
-								color="#fff"></Box>
-							<Typography
-								mt={0.5}
-								align="center"
-								fontSize={20}
-								fontWeight={400}
-								sx={{ color: "#BFBFBF" }}>
-								{convert(10000) + " تومان"}
-							</Typography>
-						</Box>
-						<Box>
-							<Typography
-								mt={0.5}
-								align="center"
-								fontSize={20}
-								fontWeight={400}>
-								{convert(9000) + " تومان"}
-							</Typography>
-						</Box>
+						{data.discounted ? (
+							<Box>
+								<Box
+									mt={2}
+									position="absolute"
+									bgcolor="#BB0000"
+									borderRadius="2em"
+									px={7}
+									pt={0.25}
+									color="#fff"></Box>
+								<Typography
+									noWrap
+									mt={0.5}
+									align="center"
+									fontSize={20}
+									fontWeight={400}
+									sx={{ color: "#BFBFBF" }}>
+									{convert(10000) + " تومان"}
+								</Typography>
+							</Box>
+						) : (
+							""
+						)}
+						{!data.available ? (
+							<Box>
+								<Typography
+									noWrap
+									align="center"
+									fontSize={20}
+									fontWeight={400}
+									sx={{ color: "#D2D2D2" }}>
+									{"ناموجود"}
+								</Typography>
+							</Box>
+						) : (
+							<Box>
+								<Typography
+									noWrap
+									mt={0.5}
+									align="center"
+									fontSize={20}
+									fontWeight={400}>
+									{convert(9000) + " تومان"}
+								</Typography>
+							</Box>
+						)}
 					</Box>
 
 					<Box
@@ -544,8 +569,11 @@ function ProductInfo() {
 							}}>
 							<Typography
 								variant="h5"
-								fontWeight={900}>
-								{"افزودن به سبد خرید"}
+								fontWeight={900}
+								sx={{
+									fontSize: { xs: 19, md: 24 },
+								}}>
+								{data.available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 							</Typography>
 						</Button>
 						<IconButton

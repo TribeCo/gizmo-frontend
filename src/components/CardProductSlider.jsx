@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import {
 	Box,
 	Button,
-	Grid,
 	IconButton,
 	Typography,
 	useMediaQuery,
@@ -14,6 +13,7 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 
 import { Colors } from "@/utils";
 import { ProductCard } from ".";
+let counter = 0;
 
 {
 	/*
@@ -67,7 +67,7 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 			<Box
 				position="absolute"
 				display="flex"
-				width="100%"
+				width="100vw"
 				alignItems="center"
 				justifyContent="space-around">
 				<Box item>

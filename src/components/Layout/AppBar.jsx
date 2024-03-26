@@ -20,8 +20,10 @@ import { Colors } from '@/utils';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Logo from "@/components/siteIcons/logo.png";
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import MenuList from "@/components/Layout/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import LoginSignupModal from "../LoginSignupPopup/LoginSignupPopup";
 
 import LoginSignupModal from "@/components/LoginSignupPopup/LoginSignupPopup";
 
@@ -30,6 +32,21 @@ const AppBar = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [loginOpen, setLoginOpen] = useState(false);
 	const [popupState, setPopupState] = useState("phone-login");
+	const categories = [
+		{ name: "لوازم آشپزخانه", slug: "kitchenware" },
+		{ name: "لوازم بهداشتی", slug: "hygiene-products" },
+		{ name: "لوازم جانبی", slug: "accessories" },
+		{ name: "لوازم ورزشی", slug: "sports-equipment" },
+		{ name: "لوازم برقی", slug: "electrical-appliances" },
+	];
+
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 
 	const handleMenuOpen = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -47,7 +64,6 @@ const AppBar = () => {
 		setLoginOpen(false);
 		setPopupState("phone-login");
 	};
-
 	return (
 		<Box
 			bgcolor={Colors.yellow}
@@ -203,32 +219,31 @@ const AppBar = () => {
 
 					<SearchField />
 
-					<Button
-						variant='contained'
-						sx={{
-							borderRadius: '24px',
-							ml: 3,
-							boxShadow: 'none',
-							bgcolor: Colors.blue,
-							color: "white",
-							display: { xs: 'none', xl: 'flex' },
-							'&:hover': {
-								backgroundColor: Colors.blue,
-								boxShadow: 'none',
-							},
-						}}>
-
-						<Typography
-							variant='h6'
-							noWrap
+						<Button
+							onClick={handleLoginModalOpen}
+							variant="contained"
 							sx={{
-								display: { xs: 'none', xl: 'flex' },
-								p: { xs: '0px', xl: '2px' },
-							}}
-						>
-							ورود / ثبت نام
-						</Typography>
-					</Button>
+								borderRadius: "24px",
+								ml: 2,
+								boxShadow: "none",
+								bgcolor: Colors.blue,
+								color: "white",
+								display: { xs: "none", xl: "flex" },
+								"&:hover": {
+									backgroundColor: Colors.blue,
+									boxShadow: "none",
+								},
+							}}>
+							<Typography
+								variant="h6"
+								noWrap
+								sx={{
+									display: { xs: "none", xl: "flex" },
+									p: { xs: "0px", xl: "2px" },
+								}}>
+								ورود / ثبت نام
+							</Typography>
+						</Button>
 
 					<IconButton
 						variant='contained'
@@ -251,27 +266,76 @@ const AppBar = () => {
 						</SvgIcon>
 					</IconButton>
 
-					<IconButton
-						variant='contained'
-						sx={{
-							p: { xs: '8px', sm: '12px' },
-							scale: { xs: '0.9', sm: '1' },
-							ml: { xs: 1, sm: 2 },
-							mr: { xs: 0, sm: 1 },
-							bgcolor: Colors.blue,
-							color: "white",
-							'&:hover': {
-								backgroundColor: Colors.blue,
-							},
-						}}>
-						<ShoppingBagOutlinedIcon />
+						<IconButton
+							variant="contained"
+							sx={{
+								p: { xs: "11px", sm: "13px" },
+								scale: "0.8",
+								ml: { xs: "4px", sm: 1 },
+								mr: { xs: 0, sm: 1 },
+								bgcolor: Colors.blue,
+								color: "white",
+								"&:hover": {
+									backgroundColor: Colors.blue,
+								},
+							}}>
+							<LocalMallOutlinedIcon
+								fontSize="medium"
+								sx={{
+									display: { xs: "flex", sm: "none" },
+								}}
+							/>
+							<LocalMallOutlinedIcon
+								fontSize="large"
+								sx={{
+									display: { xs: "none", sm: "flex" },
+								}}
+							/>
+						</IconButton>
+					</Grid>
+				</Grid>
+			</Box>
+
+			<LoginSignupModal
+				popupState={popupState}
+				setPopupState={setPopupState}
+				open={loginOpen}
+				onClose={handleLoginModalClose}
+			/>
+
+			<Dialog
+				fullScreen
+				open={open}
+				onClose={handleClose}
+				BackdropComponent={Backdrop}
+				TransitionComponent={Transition}
+				BackdropProps={{
+					sx: { backdropFilter: "blur(3px)" },
+				}}>
+				<Grid p={2}>
+					<IconButton onClick={handleClose}>
+						<CloseIcon fontSize="large" />
 					</IconButton>
 				</Grid>
-			</Grid>
-		</Box>
+				<Grid
+					display="flex"
+					justifyContent="center">
+					<MenuList handleClose={handleClose} />
+				</Grid>
+			</Dialog>
+		</>
 	);
-}
+};
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+	return (
+		<Slide
+			direction="up"
+			ref={ref}
+			{...props}
+		/>
+	);
+});
 
 const SearchField = () => {
 	const [searchQuery, setSearchQuery] = useState('');

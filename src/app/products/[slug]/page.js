@@ -2,9 +2,11 @@ import { Comment } from "@/components";
 import CardProductSlider from "@/components/CardProductSlider";
 import DescriptionComponent from "@/components/DescriptionComponent";
 import LineSplitter from "@/components/LineSpliter";
-import { products } from "@/utils/fakeProduct";
 import { Box } from "@mui/material";
 import ProductInfo from "@/components/ProductInfo";
+
+import { getSimilar, productData } from "@/services/ProductPage";
+import RecentlySeen from "@/components/RecentlySeen";
 
 // test content for introduction section
 const content =
@@ -24,7 +26,20 @@ const comments = [
 	},
 ];
 
-const Products = () => {
+const fakeProductInfo = [
+	{ attribute: "برند", value: "برند نمونه" },
+	{ attribute: "مدل", value: "ABC123" },
+	{ attribute: "رنگ", value: "سیاه" },
+	{ attribute: "وزن", value: "1.5 کیلوگرم" },
+	{ attribute: "ابعاد", value: "10 × 5 × 3 اینچ" },
+	{ attribute: "مواد", value: "پلاستیک" },
+	{ attribute: "کشور سازنده", value: "چین" },
+];
+
+const Products = async () => {
+	const productInfo = await productData({ pid: 1 });
+	// const comments = await getComments({ pid: 1 });
+	const similar = await getSimilar({ pid: 1 });
 	return (
 		<Box
 			component="main"
@@ -33,25 +48,22 @@ const Products = () => {
 				overflow: "auto",
 				mt: { xs: 0, md: 3 },
 			}}
-			maxWidth="xl"
 			mb={9}>
-			<ProductInfo />
-			<DescriptionComponent
-				introductionContent={content}
-				CommentsSection={<Comment Comments={comments} />}
-			/>
-			<LineSplitter text={"محصولات مرتبط"} />
-			<CardProductSlider
-				btn={false}
-				products={products}
-				swapTime_millisecond={3000}
-			/>
-			<LineSplitter text={"محصولات مشاهده شده"} />
-			<CardProductSlider
-				btn={true}
-				products={products}
-				swapTime_millisecond={3000}
-			/>
+			<Box>
+				<ProductInfo data={productInfo} />
+				<DescriptionComponent
+					introductionContent={content}
+					CommentsSection={<Comment Comments={comments} />}
+					productInfo={fakeProductInfo}
+				/>
+				<LineSplitter text={"محصولات مرتبط"} />
+				<CardProductSlider
+					btn={false}
+					products={similar.data}
+					swapTime_millisecond={3000}
+				/>
+				<RecentlySeen />
+			</Box>
 		</Box>
 	);
 };

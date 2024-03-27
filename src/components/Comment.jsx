@@ -78,16 +78,19 @@ const Comment = ({ Comments }) => {
 	});
 
 	return (
-		<Box sx={{ mt: 4, mb: 4 }}>
+		<Box
+			maxWidth="lg"
+			sx={{
+				mt: 4,
+				mb: 4,
+				mx: "auto",
+			}}>
 			{Comments.map((comment) => {
 				return (
 					<>
 						<Box
 							key={comment.id}
-							maxWidth="lg"
-							display="flex"
-							flexDirection="row"
-							mx="auto">
+							display="flex">
 							<Avatar
 								src={comment.user.image}
 								sx={{ width: 30, height: 30, mr: 2 }}

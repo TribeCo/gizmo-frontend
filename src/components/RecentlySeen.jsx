@@ -36,7 +36,9 @@ const RecentlySeen = () => {
 			setProducts(data);
 		};
 
-		getData();
+		if (tokens) {
+			getData();
+		}
 	}, [tokens]);
 
 	if (products && products.length > 0) {

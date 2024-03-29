@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TextField, Button, Link, Typography, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import AuthContext from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import * as Yup from "yup";
 
 const LoginForm = ({ open, onClose, setPopupState }) => {
@@ -20,7 +20,7 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 		password: Yup.string().required("رمز عبور الزامی است"),
 	});
 
-	const { loginUser } = useContext(AuthContext);
+	const { loginUser } = useAuth();
 
 	const handleLogin = async (event) => {
 		event.preventDefault();

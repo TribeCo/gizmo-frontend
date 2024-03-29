@@ -1,4 +1,5 @@
 "use client";
+
 import { Colors } from "@/utils";
 import {
 	Button,
@@ -13,17 +14,21 @@ import {
 import { useState } from "react";
 
 import { convert } from "@/utils";
+import { useRouter } from "next/navigation";
 
 const handleAddToCart = () => {
 	//TODO
-	console.log("Go to cart");
-};
-const handleGoToProduct = () => {
-	//TODO
-	console.log("Go to Product page");
+	console.log("Add to cart");
 };
 
 const ProductCard = ({ product }) => {
+	const router = useRouter();
+
+	const handleGoToProduct = () => {
+		console.log(product);
+		const url = "/products/" + product.slug;
+		router.push(url);
+	};
 	const [like, setLike] = useState(false);
 	const [show, setShow] = useState(false);
 	return (
@@ -167,8 +172,7 @@ const ProductCard = ({ product }) => {
 							fontWeight="400"
 							lineHeight="20px"
 							mt="10px">
-								{convert((product.discount) / 100 * product.price) +
-									" تومان"}
+							{convert((product.discount / 100) * product.price) + " تومان"}
 						</Typography>
 					)}
 				</IconButton>

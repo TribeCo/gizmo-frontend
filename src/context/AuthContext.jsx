@@ -7,13 +7,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [tokens, setAccessToken] = useState(null);
+	const [tokens, setTokens] = useState(null);
 
 	useEffect(() => {
 		const storedToken = localStorage.getItem("tokens");
 
 		if (storedToken) {
-			setAccessToken(JSON.parse(storedToken));
+			setTokens(JSON.parse(storedToken));
 		}
 	}, []);
 

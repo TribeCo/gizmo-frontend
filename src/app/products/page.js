@@ -1,10 +1,9 @@
 import { Box } from "@mui/material";
+import { redirect } from "next/navigation";
 
 function Products() {
-	return (
-		<Box></Box>
-		// TODO category page
-	);
+	redirect("/404");
+	return <Box></Box>;
 }
 
 export default Products;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Box, Typography } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 
 import LoginForm from "./LoginForm";
 import ForgetPasswordForm from "./ForgetPasswordForm";

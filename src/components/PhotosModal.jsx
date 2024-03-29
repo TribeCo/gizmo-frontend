@@ -13,7 +13,7 @@ import {
 	Typography,
 } from "@mui/material";
 
-function PhotosModal({ open, handleClose, title }) {
+function PhotosModal({ open, handleClose, title, mainImage, imageList }) {
 	return (
 		<Dialog
 			open={open}
@@ -63,7 +63,8 @@ function PhotosModal({ open, handleClose, title }) {
 								border: "5px solid #22668D",
 								borderRadius: 5,
 							}}
-							image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"></CardMedia>
+							image={mainImage}
+						/>
 					</Box>
 					<Box>
 						<Typography
@@ -86,102 +87,22 @@ function PhotosModal({ open, handleClose, title }) {
 						<ImageList
 							cols={4}
 							gap={0}>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"
-								/>
-							</IconButton>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"
-								/>
-							</IconButton>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"
-								/>
-							</IconButton>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/7832/cae5/08b444fc9e51e32ed3f58d547dbfb93c?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jsK0FljZ87ZnVJl1S3Q~73XDwvVAW2oIY2J6~ucjymms~IXEQApBIODliBIISmcNPAcvVVliUWPwpBir0kuC~aP7YWiyZ2aIXzX0mNLJ2LcNT~4yOmDSwIlAMDxedd4HVi5hM1aUX-ZYUkZepNoguPHW6K3mXMWp~AHQUl3i7VvDko1K5Gt65uk9MdQIxR5Le~lZoYkbf7f7REejId3~V-4RuzsyuXP-eSUlwJUQ2Q28HCNNK0Zj9cq8skkdsg7IvvmZK6ahBPvaf3KtzKEiJIuFgyjeiUKQ8A4ysTo20jBFVvdH23pNvheg40NRki0mUt-EuuzIhJLzLnj5bz0CBQ__"
-								/>
-							</IconButton>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/7832/cae5/08b444fc9e51e32ed3f58d547dbfb93c?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jsK0FljZ87ZnVJl1S3Q~73XDwvVAW2oIY2J6~ucjymms~IXEQApBIODliBIISmcNPAcvVVliUWPwpBir0kuC~aP7YWiyZ2aIXzX0mNLJ2LcNT~4yOmDSwIlAMDxedd4HVi5hM1aUX-ZYUkZepNoguPHW6K3mXMWp~AHQUl3i7VvDko1K5Gt65uk9MdQIxR5Le~lZoYkbf7f7REejId3~V-4RuzsyuXP-eSUlwJUQ2Q28HCNNK0Zj9cq8skkdsg7IvvmZK6ahBPvaf3KtzKEiJIuFgyjeiUKQ8A4ysTo20jBFVvdH23pNvheg40NRki0mUt-EuuzIhJLzLnj5bz0CBQ__"
-								/>
-							</IconButton>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"
-								/>
-							</IconButton>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"
-								/>
-							</IconButton>
-							<IconButton disableRipple>
-								<CardMedia
-									sx={{
-										height: 90,
-										width: 90,
-										border: "2px solid #22668D",
-										borderRadius: 5,
-										mt: 2,
-									}}
-									image="https://s3-alpha-sig.figma.com/img/a95b/553d/07b7f8faa305d5e35585d3a62a1ffdd3?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=bkT~k9c0jfB0djJsoSBJ~2zMqMQIDWayZZBvNo1Z-AguG~qtemTvGOfK9RV8q5~LXBZoVTF9JT4keTBE59I9EILWHczZ2In2mnTMUOKPEFWGr4VWKT-Md0PG4S6jWXOj69wrFNrb7mxxwPq161tHfNZ8~7L~xUfgEPj6bRVtCEGfysaYHp-HkHb-IgO41tNC0oODRSp36bYX3gJzixAQ0zyyuq6-nD9KHTvgh1mQ6kHadEx3ruooK53pjXi3EI6U6v3HBKL7KglIy9yf1haW4bjsnRUpzGOkftALIUp10z8-Omm8lYSqO3JxFxv7ruVA-McSuPPSjRlVt21n8X5vXg__"
-								/>
-							</IconButton>
+							{imageList.map((image) => {
+								<IconButton
+									key={image}
+									disableRipple>
+									<CardMedia
+										sx={{
+											height: 90,
+											width: 90,
+											border: "2px solid #22668D",
+											borderRadius: 5,
+											mt: 2,
+										}}
+										image={image}
+									/>
+								</IconButton>;
+							})}
 						</ImageList>
 					</Box>
 				</Box>

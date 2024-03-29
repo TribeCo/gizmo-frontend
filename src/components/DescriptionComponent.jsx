@@ -14,11 +14,13 @@ import {
 	TableRow,
 	Paper,
 } from "@mui/material";
+import Comment from "./Comment";
 
 const DescriptionComponent = ({
+	pid,
 	introductionContent,
-	CommentsSection,
-	productInfo,
+	attributes,
+	comments,
 }) => {
 	const [selectedTab, setSelectedTab] = useState(0);
 
@@ -77,12 +79,15 @@ const DescriptionComponent = ({
 			<TabPanel
 				value={selectedTab}
 				index={1}>
-				<ProductTable productInfo={productInfo} />
+				<ProductTable productInfo={attributes} />
 			</TabPanel>
 			<TabPanel
 				value={selectedTab}
 				index={2}>
-				{CommentsSection}
+				<Comment
+					pid={pid}
+					comments={comments}
+				/>
 			</TabPanel>
 		</Grid>
 	);
@@ -137,7 +142,7 @@ const ProductTable = ({ productInfo }) => {
 									backgroundColor: index % 2 === 0 ? "#f5f5f5" : "#ffffff",
 								}}>
 								<TableCell align="left">
-									<Typography variant="body1">{item.attribute}</Typography>
+									<Typography variant="body1">{item.key}</Typography>
 								</TableCell>
 								<TableCell align="left">
 									<Typography variant="body1">{item.value}</Typography>

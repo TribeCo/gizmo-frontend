@@ -1,1 +1,1 @@
-export const baseUrl = "https://gizmoshop.liara.run";
+export const baseUrl = "https://gn01.liara.run";

@@ -29,7 +29,7 @@ const ContactUsTextfields = () => {
             return; // Stop if the user cancels the deletion
         }
         try {
-            const response = await fetch(`https://gizmoshop.liara.run/api/addresses/delete/${addressId}/`, { // Replace the URL with your actual endpoint
+            const response = await fetch(`https://gn01.liara.run/api/addresses/delete/${addressId}/`, { // Replace the URL with your actual endpoint
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ const ContactUsTextfields = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('https://gizmoshop.liara.run/api/ticket/', {
+            const response = await fetch('https://gn01.liara.run/api/ticket/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

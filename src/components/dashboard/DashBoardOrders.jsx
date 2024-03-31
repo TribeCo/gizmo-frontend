@@ -7,6 +7,20 @@ import LevelofOrdering from './LevelofOrdering';
 
 export default function DashBoardOrders() {
 
+    function calculateOrderLevel(processed, packing, shipped, deliveried) {
+        if (deliveried) {
+            return 4;
+        } else if (shipped) {
+            return 3;
+        } else if (packing) {
+            return 2;
+        } else if (processed) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
     const [inputValue, setInputValue] = useState('');
     useEffect(() => {
         setSearchTerm(convertToPersian(inputValue));
@@ -40,9 +54,9 @@ export default function DashBoardOrders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch('https://gizmoshop.liara.run/api/orders/user/', {
+                const response = await fetch('https://gn01.liara.run/api/orders/user/', {
                     headers: {
-                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTc3MDMzLCJpYXQiOjE3MTE0OTA2MzMsImp0aSI6ImE4NjYxZTY2MDc3NTRlODlhODFlNTMyNDBkMzIzYjUxIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.TnAmTpVafP_kWA6YmBGDCRpPa_6v9VRpAwYypmwSBA8`
                     }
                 });
                 if (!response.ok) {
@@ -65,8 +79,8 @@ export default function DashBoardOrders() {
         { orderCode: '0782586558', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
     ])
 
-    const filteredOrders = realOrders.filter((order) =>
-        convertToPersian(order.orderCode).includes(searchTerm) || order.orderCode.includes(searchTerm)
+    const filteredOrders = orders.filter((order) =>
+        convertToPersian(order.ref_id).includes(searchTerm) || order.ref_id.includes(searchTerm)
     );
 
 
@@ -194,16 +208,16 @@ export default function DashBoardOrders() {
                             <Grid container spacing={2} sx={{ width: '100%' }}>
                                 <Grid item xs={12} md={6}>
                                     <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        کد پیگیری: {convertToPersian(order.orderCode)}<span style={{ marginLeft: '20px', visibility: 'hidden' }}>A</span>
+                                        کد پیگیری: {convertToPersian(order.ref_id)}<span style={{ marginLeft: '20px', visibility: 'hidden' }}>A</span>
                                     </Typography>
                                     <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        آدرس ارسال: <span style={{ marginRight: '20px' }}></span>{order.destinationAddress}
+                                        آدرس ارسال: <span style={{ marginRight: '20px' }}></span>{`استان: ${order.address.province}, شهر: ${order.address.city}, آدرس: ${order.address.straight_address}, کد پستی: ${order.address.postal_code}`}
                                     </Typography>
                                     <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        نام گیرنده: <span style={{ marginRight: '30px' }}></span>{order.receiverName}
+                                        نام گیرنده: <span style={{ marginRight: '30px' }}></span>{order.user.full_name}
                                     </Typography>
                                     <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        تاریخ سفارش: {convertToPersian(order.date)}<span style={{ marginLeft: '2px', visibility: 'hidden' }}>A</span>
+                                        تاریخ سفارش: {convertToPersian(order.shamsi_date)}<span style={{ marginLeft: '2px', visibility: 'hidden' }}>A</span>
                                     </Typography>
                                 </Grid>
 
@@ -216,16 +230,16 @@ export default function DashBoardOrders() {
 
                                 {/* Second Column */}
                                 <Grid item xs={12} sx={{ display: { xs: 'block', md: 'none' } }}>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش: {convertToPersian(order.price)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف: {convertToPersian(order.discountPrice)}<span style={{ marginRight: '45px', visibility: 'hidden' }}>A</span> تومان</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت: {convertToPersian(order.finalPrice)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش: {convertToPersian(order.total_price)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف: {convertToPersian(order.discount_amount)}<span style={{ marginRight: '45px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت: {convertToPersian(order.pay_amount)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
                                 </Grid>
 
                                 {/* Third Column */}
                                 <Grid item sm={12} md={3} sx={{ position: 'relative', bottom: { xs: '100px', sm: '165px', md: '0px' }, pr: { xs: '30px', sm: '20px', md: '0px' }, display: { xs: 'none', md: 'block' } }}>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.price)} تومان</Typography>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.discountPrice)} تومان</Typography>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '700' }} align="right">{convertToPersian(order.finalPrice)} تومان</Typography>
+                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.total_price)} تومان</Typography>
+                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.discount_amount)} تومان</Typography>
+                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '700' }} align="right">{convertToPersian(order.pay_amount)} تومان</Typography>
                                 </Grid>
                             </Grid>
                             {/* Dropdown arrow and text */}
@@ -251,10 +265,10 @@ export default function DashBoardOrders() {
                                     }}
                                 >
                                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                                        <LevelofOrdering level={order.LevelofOrdering} />
+                                        <LevelofOrdering level={calculateOrderLevel(order.processed, order.packing, order.shipped, order.deliveried)} />
                                     </Box>
                                     <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-                                        <LevelofOrdering level={(order.LevelofOrdering) + 4} />
+                                        <LevelofOrdering level={calculateOrderLevel(order.processed, order.packing, order.shipped, order.deliveried) + 4} />
                                     </Box>
                                     <Button
                                         variant="contained"

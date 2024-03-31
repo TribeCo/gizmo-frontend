@@ -2,7 +2,7 @@
 
 import LineSplitter from "@/components/LineSpliter";
 import { Box, Button, Grid, Paper, SvgIcon, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import key from '@/components/siteIcons/key.png';
 import distribution from '@/components/siteIcons/distribution.png';
@@ -14,124 +14,77 @@ import Image from "next/image";
 import { Colors } from "@/utils";
 import FaqQuestion from "@/components/FaqQuestion";
 
-
-
-const key_list = ( // ورود و ثبت نام
-    <>
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-    </>
-); // 1
-const onlineShop_list = ( // ثبت سفارش
-    <>
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-    </>
-); // 2
-const distribution_list = ( // پیگیری ارسال سفارش
-    <>
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-    </>
-); // 3
-const logistics_list = ( //سفارشات دبی
-    <>
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-    </>
-); // 4
-const guarantee_list = ( // پیگیری ارسال سفارش
-    <>
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-    </>
-); // 5
-const _return_list = ( //بازگشت کلا
-    <>
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-        <FaqQuestion
-            question="برای خرید حتما باید در سایت عضو باشم ؟"
-            answear="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان"
-        />
-    </>
-); // 6
-
-
 const FAQ = () => {
+    const [questions, setQuestions] = useState([]);
     const [faqComponent, setfaqComponent] = useState(0);
+    const [questionList, setQuestionList] = useState();
+    const [icons, setIcons] = useState([]);
+    const [photo, setPhoto] = useState('');
+    const fetchQuestions = async (id) => {
+        try {
+            const response = await fetch(`https://gn01.liara.run/api/faqs/groups/read/${id}`, {
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setQuestions(data.data);
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+        }
+    };
 
-    const handleFaqChange = (id) => {
-        console.log(id);
-        setfaqComponent(id);
+    const fetchIcons = async () => {
+        try {
+            const response = await fetch('https://gn01.liara.run/api/faqs/groups/all/', {
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setIcons(data.data);
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+        }
+    };
+    
+    useEffect(() => {
+        fetchIcons();
+    }, []);
+
+    const handleFaqChange = async (id) => {
+        try {
+            await fetchQuestions(id);
+            setPhoto(icons.find(icon => icon.id === id)?.icon || ''); // Set photo path to empty string if icon is not found
+            setQuestionList(generateQuestionList());
+            setfaqComponent(1);
+        } catch (error) {
+            console.error("There was a problem fetching the questions:", error);
+        }
     }
 
+    const generateQuestionList = () => {
+        if (!questions || !questions.faqs || questions.faqs.length === 0) {
+            return <p>No questions available</p>;
+        }
+        return (
+            <>
+                {questions.faqs.map((faq, index) => (
+                    <FaqQuestion
+                        key={index}
+                        question={faq.question}
+                        answer={faq.answer}
+                    />
+                ))}
+            </>
+        );
+    };
 
-    const boxList = [
-        [<PaperIcon logo={key} text="ورود و ثبت نام" />],
-        [<PaperIcon logo={onlineShop} text="ثبت سفارش" />],
-        [<PaperIcon logo={distribution} text="پیگیری ارسال سفارش" />],
-        [<PaperIcon logo={logistics} text="سفارشات دبی" />],
-        [<PaperIcon logo={guarantee} text="ضمانت اصالت" />],
-        [<PaperIcon logo={_return} text="بازگشت کلا" />],
-    ];
-
+    const boxList = icons
+    .sort((a, b) => a.id - b.id) // Sort the icons array by ID in ascending order
+    .map(icon => (
+        <PaperIcon key={icon.id} logo={icon.icon} text={icon.title} />
+    ));
 
     let page;
     if (faqComponent === 0) {
@@ -218,7 +171,7 @@ const FAQ = () => {
                                 height: { xs: '50px', sm: '60px', md: '80px' },
                             }}
                         >
-                            <Image src={key} />
+                            <img src={photo} />
                         </Grid>
                         <Grid>
                             <Typography
@@ -229,14 +182,14 @@ const FAQ = () => {
                                     fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
                                 }}
                             >
-                                ورود و ثبت نام
+                                {questions.title}
                             </Typography>
                         </Grid>
                     </Grid>
 
                     <Grid>
                         <Button
-                            onClick={() => handleFaqChange(0)}
+                            onClick={() => setfaqComponent(0)}
                             variant="contained"
                             sx={{
                                 bgcolor: Colors.orange,
@@ -277,444 +230,9 @@ const FAQ = () => {
                     justifyContent='center'
                     alignItems='center'
                 >
-                    {key_list}
+                    {questionList}
                 </Grid>
             </Grid>
-        );
-    } else if (faqComponent === 2) {
-        page = (
-            <>
-                <Grid mb={30}>
-                    <Grid
-                        display='flex'
-                        flexDirection='row'
-                        alignItems='center'
-                        justifyContent='space-around'
-                        px={1}
-                    >
-                        <Grid
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Grid
-                                sx={{
-                                    width: { xs: '50px', sm: '60px', md: '80px' },
-                                    height: { xs: '50px', sm: '60px', md: '80px' },
-                                }}
-                            >
-                                <Image src={onlineShop} />
-                            </Grid>
-                            <Grid>
-                                <Typography
-                                    pl={2}
-                                    variant="h6"
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
-                                    }}
-                                >
-                                    ثبت سفارش
-                                </Typography>
-                            </Grid>
-                        </Grid>
-
-                        <Grid>
-                            <Button
-                                onClick={() => handleFaqChange(0)}
-                                variant="contained"
-                                sx={{
-                                    bgcolor: Colors.orange,
-                                    color: "black",
-                                    borderRadius: "20px",
-                                    boxShadow: "none",
-                                    "&:hover": {
-                                        bgcolor: Colors.orange,
-                                    },
-                                }}>
-                                <Typography
-                                    variant="h6"
-                                    color="#213346"
-                                    sx={{
-                                        display: { xs: 'none', sm: 'flex' },
-                                        pr: { xs: 0, sm: 1, md: 2 },
-                                        fontSize: { xs: 13, sm: 14, md: 18, lg: 20 },
-                                    }}
-                                >
-                                    بازگشت به صفحه موضوعات
-                                </Typography>
-                                <Grid
-                                    sx={{
-                                        scale: { xs: '0.8', md: '0.9', lg: '1' },
-                                    }}
-                                >
-                                    <SvgIcon width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.99992 7.50094L1.11617 8.38469L0.232422 7.50094L1.11617 6.61719L1.99992 7.50094ZM23.2499 17.5009C23.2499 17.8325 23.1182 18.1504 22.8838 18.3848C22.6494 18.6192 22.3314 18.7509 21.9999 18.7509C21.6684 18.7509 21.3505 18.6192 21.116 18.3848C20.8816 18.1504 20.7499 17.8325 20.7499 17.5009H23.2499ZM7.36617 14.6347L1.11617 8.38469L2.88367 6.61719L9.13367 12.8672L7.36617 14.6347ZM1.11617 6.61719L7.36617 0.367188L9.13367 2.13469L2.88367 8.38469L1.11617 6.61719ZM1.99992 6.25094H14.4999V8.75094H1.99992V6.25094ZM23.2499 15.0009V17.5009H20.7499V15.0009H23.2499ZM14.4999 6.25094C16.8206 6.25094 19.0462 7.17281 20.6871 8.81375C22.328 10.4547 23.2499 12.6803 23.2499 15.0009H20.7499C20.7499 13.3433 20.0914 11.7536 18.9193 10.5815C17.7472 9.40942 16.1575 8.75094 14.4999 8.75094V6.25094Z" fill="#213346" />
-                                    </SvgIcon>
-                                </Grid>
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                    <Grid
-                        display='flex'
-                        flexDirection='column'
-                        justifyContent='center'
-                        alignItems='center'
-                    >
-                     {onlineShop_list}
-                    </Grid>
-                </Grid>
-            </>
-        );
-    } else if (faqComponent === 3) {
-        page = (
-            <>
-                <Grid mb={30}>
-                    <Grid
-                        display='flex'
-                        flexDirection='row'
-                        alignItems='center'
-                        justifyContent='space-around'
-                        px={1}
-                    >
-                        <Grid
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Grid
-                                sx={{
-                                    width: { xs: '50px', sm: '60px', md: '80px' },
-                                    height: { xs: '50px', sm: '60px', md: '80px' },
-                                }}
-                            >
-                                <Image src={distribution} />
-                            </Grid>
-                            <Grid>
-                                <Typography
-                                    pl={2}
-                                    variant="h6"
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
-                                    }}
-                                >
-                                    پیگیری ارسال سفارش
-                                </Typography>
-                            </Grid>
-                        </Grid>
-
-                        <Grid>
-                            <Button
-                                onClick={() => handleFaqChange(0)}
-                                variant="contained"
-                                sx={{
-                                    bgcolor: Colors.orange,
-                                    color: "black",
-                                    borderRadius: "20px",
-                                    boxShadow: "none",
-                                    "&:hover": {
-                                        bgcolor: Colors.orange,
-                                    },
-                                }}>
-                                <Typography
-                                    variant="h6"
-                                    color="#213346"
-                                    sx={{
-                                        display: { xs: 'none', sm: 'flex' },
-                                        pr: { xs: 0, sm: 1, md: 2 },
-                                        fontSize: { xs: 13, sm: 14, md: 18, lg: 20 },
-                                    }}
-                                >
-                                    بازگشت به صفحه موضوعات
-                                </Typography>
-                                <Grid
-                                    sx={{
-                                        scale: { xs: '0.8', md: '0.9', lg: '1' },
-                                    }}
-                                >
-                                    <SvgIcon width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.99992 7.50094L1.11617 8.38469L0.232422 7.50094L1.11617 6.61719L1.99992 7.50094ZM23.2499 17.5009C23.2499 17.8325 23.1182 18.1504 22.8838 18.3848C22.6494 18.6192 22.3314 18.7509 21.9999 18.7509C21.6684 18.7509 21.3505 18.6192 21.116 18.3848C20.8816 18.1504 20.7499 17.8325 20.7499 17.5009H23.2499ZM7.36617 14.6347L1.11617 8.38469L2.88367 6.61719L9.13367 12.8672L7.36617 14.6347ZM1.11617 6.61719L7.36617 0.367188L9.13367 2.13469L2.88367 8.38469L1.11617 6.61719ZM1.99992 6.25094H14.4999V8.75094H1.99992V6.25094ZM23.2499 15.0009V17.5009H20.7499V15.0009H23.2499ZM14.4999 6.25094C16.8206 6.25094 19.0462 7.17281 20.6871 8.81375C22.328 10.4547 23.2499 12.6803 23.2499 15.0009H20.7499C20.7499 13.3433 20.0914 11.7536 18.9193 10.5815C17.7472 9.40942 16.1575 8.75094 14.4999 8.75094V6.25094Z" fill="#213346" />
-                                    </SvgIcon>
-                                </Grid>
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                    <Grid
-                        display='flex'
-                        flexDirection='column'
-                        justifyContent='center'
-                        alignItems='center'
-                    >
-                        {distribution_list}
-                    </Grid>
-                </Grid>
-            </>
-        );
-    } else if (faqComponent === 4) {
-        page = (
-            <>
-                <Grid mb={30}>
-                    <Grid
-                        display='flex'
-                        flexDirection='row'
-                        alignItems='center'
-                        justifyContent='space-around'
-                        px={1}
-                    >
-                        <Grid
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Grid
-                                sx={{
-                                    width: { xs: '50px', sm: '60px', md: '80px' },
-                                    height: { xs: '50px', sm: '60px', md: '80px' },
-                                }}
-                            >
-                                <Image src={logistics} />
-                            </Grid>
-                            <Grid>
-                                <Typography
-                                    pl={2}
-                                    variant="h6"
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
-                                    }}
-                                >
-                                    سفارشات دبی
-                                </Typography>
-                            </Grid>
-                        </Grid>
-
-                        <Grid>
-                            <Button
-                                onClick={() => handleFaqChange(0)}
-                                variant="contained"
-                                sx={{
-                                    bgcolor: Colors.orange,
-                                    color: "black",
-                                    borderRadius: "20px",
-                                    boxShadow: "none",
-                                    "&:hover": {
-                                        bgcolor: Colors.orange,
-                                    },
-                                }}>
-                                <Typography
-                                    variant="h6"
-                                    color="#213346"
-                                    sx={{
-                                        display: { xs: 'none', sm: 'flex' },
-                                        pr: { xs: 0, sm: 1, md: 2 },
-                                        fontSize: { xs: 13, sm: 14, md: 18, lg: 20 },
-                                    }}
-                                >
-                                    بازگشت به صفحه موضوعات
-                                </Typography>
-                                <Grid
-                                    sx={{
-                                        scale: { xs: '0.8', md: '0.9', lg: '1' },
-                                    }}
-                                >
-                                    <SvgIcon width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.99992 7.50094L1.11617 8.38469L0.232422 7.50094L1.11617 6.61719L1.99992 7.50094ZM23.2499 17.5009C23.2499 17.8325 23.1182 18.1504 22.8838 18.3848C22.6494 18.6192 22.3314 18.7509 21.9999 18.7509C21.6684 18.7509 21.3505 18.6192 21.116 18.3848C20.8816 18.1504 20.7499 17.8325 20.7499 17.5009H23.2499ZM7.36617 14.6347L1.11617 8.38469L2.88367 6.61719L9.13367 12.8672L7.36617 14.6347ZM1.11617 6.61719L7.36617 0.367188L9.13367 2.13469L2.88367 8.38469L1.11617 6.61719ZM1.99992 6.25094H14.4999V8.75094H1.99992V6.25094ZM23.2499 15.0009V17.5009H20.7499V15.0009H23.2499ZM14.4999 6.25094C16.8206 6.25094 19.0462 7.17281 20.6871 8.81375C22.328 10.4547 23.2499 12.6803 23.2499 15.0009H20.7499C20.7499 13.3433 20.0914 11.7536 18.9193 10.5815C17.7472 9.40942 16.1575 8.75094 14.4999 8.75094V6.25094Z" fill="#213346" />
-                                    </SvgIcon>
-                                </Grid>
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                    <Grid
-                        display='flex'
-                        flexDirection='column'
-                        justifyContent='center'
-                        alignItems='center'
-                    >
-                        {logistics_list }
-                    </Grid>
-                </Grid>
-            </>
-        );
-    } else if (faqComponent === 5) {
-        page = (
-            <>
-                <Grid mb={30}>
-                    <Grid
-                        display='flex'
-                        flexDirection='row'
-                        alignItems='center'
-                        justifyContent='space-around'
-                        px={1}
-                    >
-                        <Grid
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Grid
-                                sx={{
-                                    width: { xs: '50px', sm: '60px', md: '80px' },
-                                    height: { xs: '50px', sm: '60px', md: '80px' },
-                                }}
-                            >
-                                <Image src={guarantee} />
-                            </Grid>
-                            <Grid>
-                                <Typography
-                                    pl={2}
-                                    variant="h6"
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
-                                    }}
-                                >
-                                    ضمانت اصالت
-                                </Typography>
-                            </Grid>
-                        </Grid>
-
-                        <Grid>
-                            <Button
-                                onClick={() => handleFaqChange(0)}
-                                variant="contained"
-                                sx={{
-                                    bgcolor: Colors.orange,
-                                    color: "black",
-                                    borderRadius: "20px",
-                                    boxShadow: "none",
-                                    "&:hover": {
-                                        bgcolor: Colors.orange,
-                                    },
-                                }}>
-                                <Typography
-                                    variant="h6"
-                                    color="#213346"
-                                    sx={{
-                                        display: { xs: 'none', sm: 'flex' },
-                                        pr: { xs: 0, sm: 1, md: 2 },
-                                        fontSize: { xs: 13, sm: 14, md: 18, lg: 20 },
-                                    }}
-                                >
-                                    بازگشت به صفحه موضوعات
-                                </Typography>
-                                <Grid
-                                    sx={{
-                                        scale: { xs: '0.8', md: '0.9', lg: '1' },
-                                    }}
-                                >
-                                    <SvgIcon width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.99992 7.50094L1.11617 8.38469L0.232422 7.50094L1.11617 6.61719L1.99992 7.50094ZM23.2499 17.5009C23.2499 17.8325 23.1182 18.1504 22.8838 18.3848C22.6494 18.6192 22.3314 18.7509 21.9999 18.7509C21.6684 18.7509 21.3505 18.6192 21.116 18.3848C20.8816 18.1504 20.7499 17.8325 20.7499 17.5009H23.2499ZM7.36617 14.6347L1.11617 8.38469L2.88367 6.61719L9.13367 12.8672L7.36617 14.6347ZM1.11617 6.61719L7.36617 0.367188L9.13367 2.13469L2.88367 8.38469L1.11617 6.61719ZM1.99992 6.25094H14.4999V8.75094H1.99992V6.25094ZM23.2499 15.0009V17.5009H20.7499V15.0009H23.2499ZM14.4999 6.25094C16.8206 6.25094 19.0462 7.17281 20.6871 8.81375C22.328 10.4547 23.2499 12.6803 23.2499 15.0009H20.7499C20.7499 13.3433 20.0914 11.7536 18.9193 10.5815C17.7472 9.40942 16.1575 8.75094 14.4999 8.75094V6.25094Z" fill="#213346" />
-                                    </SvgIcon>
-                                </Grid>
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                    <Grid
-                        display='flex'
-                        flexDirection='column'
-                        justifyContent='center'
-                        alignItems='center'
-                    >
-                        {guarantee_list}
-                    </Grid>
-                </Grid>
-            </>
-        );
-    } else if (faqComponent === 6) {
-        page = (
-            <>
-                <Grid mb={30}>
-                    <Grid
-                        display='flex'
-                        flexDirection='row'
-                        alignItems='center'
-                        justifyContent='space-around'
-                        px={1}
-                    >
-                        <Grid
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Grid
-                                sx={{
-                                    width: { xs: '50px', sm: '60px', md: '80px' },
-                                    height: { xs: '50px', sm: '60px', md: '80px' },
-                                }}
-                            >
-                                <Image src={_return} />
-                            </Grid>
-                            <Grid>
-                                <Typography
-                                    pl={2}
-                                    variant="h6"
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
-                                    }}
-                                >
-                                    بازگشت کالا
-                                </Typography>
-                            </Grid>
-                        </Grid>
-
-                        <Grid>
-                            <Button
-                                onClick={() => handleFaqChange(0)}
-                                variant="contained"
-                                sx={{
-                                    bgcolor: Colors.orange,
-                                    color: "black",
-                                    borderRadius: "20px",
-                                    boxShadow: "none",
-                                    "&:hover": {
-                                        bgcolor: Colors.orange,
-                                    },
-                                }}>
-                                <Typography
-                                    variant="h6"
-                                    color="#213346"
-                                    sx={{
-                                        display: { xs: 'none', sm: 'flex' },
-                                        pr: { xs: 0, sm: 1, md: 2 },
-                                        fontSize: { xs: 13, sm: 14, md: 18, lg: 20 },
-                                    }}
-                                >
-                                    بازگشت به صفحه موضوعات
-                                </Typography>
-                                <Grid
-                                    sx={{
-                                        scale: { xs: '0.8', md: '0.9', lg: '1' },
-                                    }}
-                                >
-                                    <SvgIcon width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.99992 7.50094L1.11617 8.38469L0.232422 7.50094L1.11617 6.61719L1.99992 7.50094ZM23.2499 17.5009C23.2499 17.8325 23.1182 18.1504 22.8838 18.3848C22.6494 18.6192 22.3314 18.7509 21.9999 18.7509C21.6684 18.7509 21.3505 18.6192 21.116 18.3848C20.8816 18.1504 20.7499 17.8325 20.7499 17.5009H23.2499ZM7.36617 14.6347L1.11617 8.38469L2.88367 6.61719L9.13367 12.8672L7.36617 14.6347ZM1.11617 6.61719L7.36617 0.367188L9.13367 2.13469L2.88367 8.38469L1.11617 6.61719ZM1.99992 6.25094H14.4999V8.75094H1.99992V6.25094ZM23.2499 15.0009V17.5009H20.7499V15.0009H23.2499ZM14.4999 6.25094C16.8206 6.25094 19.0462 7.17281 20.6871 8.81375C22.328 10.4547 23.2499 12.6803 23.2499 15.0009H20.7499C20.7499 13.3433 20.0914 11.7536 18.9193 10.5815C17.7472 9.40942 16.1575 8.75094 14.4999 8.75094V6.25094Z" fill="#213346" />
-                                    </SvgIcon>
-                                </Grid>
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                    <Grid
-                        display='flex'
-                        flexDirection='column'
-                        justifyContent='center'
-                        alignItems='center'
-                    >
-                        {_return_list}
-                    </Grid>
-                </Grid>
-            </>
         );
     }
 
@@ -758,7 +276,7 @@ const PaperIcon = ({ logo, text }) => {
                         height: { xs: '60px', sm: '80px', md: '100px' },
                     }}
                 >
-                    <Image src={logo} />
+                    <img src={logo}/>
                 </Box>
                 <Typography
                     variant="h6"

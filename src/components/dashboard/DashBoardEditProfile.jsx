@@ -37,10 +37,9 @@ export default function DashBoardEditProfile() {
     });
 
     const [newProfilePassword, setNewProfilePassword] = useState({
-        name: '',
-        familyName: '',
-        oldPassword: '',
-        newPassword: '',
+        new_password_confirm: '',
+        password: '',
+        new_password: '',
     });
 
     const handleInputChange = (event) => {
@@ -84,41 +83,36 @@ export default function DashBoardEditProfile() {
     };
 
     const editNewProfilePassword = async () => {
-        // Define the API endpoint for adding a new address
-        const addApiUrl = 'https://example.com/api/addNewAddress';
-
+        if (newProfilePassword.new_password !== newProfilePassword.new_password_confirm) {
+            alert("Passwords do not match. Please make sure your new password and confirm password fields match.");
+            return; // Stop further execution
+        }
+        console.log(newProfilePassword);
         try {
-            const response = await fetch(addApiUrl, {
+            const response = await fetch('https://gn01.liara.run/api/users/password/old/change/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTc3MDMzLCJpYXQiOjE3MTE0OTA2MzMsImp0aSI6ImE4NjYxZTY2MDc3NTRlODlhODFlNTMyNDBkMzIzYjUxIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.TnAmTpVafP_kWA6YmBGDCRpPa_6v9VRpAwYypmwSBA8`
                 },
                 body: JSON.stringify(newProfilePassword),
             });
-
+    
             if (response.ok) {
-                // Optionally, you can fetch updated data after adding the new address
                 fetchData();
-                // Reset the newAddressData state after successfully adding the address
-                setNewProfileData({
-                    name: '',
-                    familyName: '',
-                    phoneNumber: '',
-                    birthDay: '',
-                    gender: '',
-                    email: '',
-                    password: ''
+                setNewProfilePassword({
+                    new_password_confirm: '',
+                    password: '',
+                    new_password: '',
                 });
             } else {
                 console.error('Error adding new address:', response.statusText);
-                //بچه ها اگه بک ارور داد اینجا بهش نشون بدین
             }
         } catch (error) {
             console.error('Error sending data to the API:', error);
-            //////
         }
     };
-
+    
     return (
         <Paper
             variant="outlined"
@@ -257,7 +251,7 @@ export default function DashBoardEditProfile() {
                             <div className='flex justify-between items-center'>
                                 <label htmlFor="password" className='w-full block text-sm mr-1 text-[#99999A]  whitespace-nowrap md:text-xs'>رمز عبور جدید</label>
                                 <div className='relative'>
-                                    <input id="hs-toggle-password" type={secondField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, newPassword: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none" />
+                                    <input id="hs-toggle-password" type={secondField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, new_password: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none" />
                                     <button className='absolute w-4 bottom-2 left-3' onClick={() => { secondField === 'password' ? setSecondField('text') : setSecondField('password') }}>
                                         <Image src={eye}></Image>
                                     </button>
@@ -267,7 +261,7 @@ export default function DashBoardEditProfile() {
                             <div className='flex justify-between items-center'>
                                 <label htmlFor="password" className='w-full block text-sm mr-1 text-[#99999A]  whitespace-nowrap md:text-xs'>رمز عبور قدیمی</label>
                                 <div className='relative'>
-                                    <input id="hs-toggle-password" type={thirdField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, oldPassword: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none" />
+                                    <input id="hs-toggle-password" type={thirdField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, password: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none" />
                                     <button className='absolute w-4 bottom-2 left-3' onClick={() => { thirdField === 'password' ? setThirdField('text') : setThirdField('password') }}>
                                         <Image src={eye}></Image>
                                     </button>
@@ -281,7 +275,7 @@ export default function DashBoardEditProfile() {
                             <div className='flex justify-between items-center'>
                                 <label htmlFor="password" className='w-full block text-sm mr-1 text-[#99999A]  whitespace-nowrap md:text-xs'>تکرار رمز عبور</label>
                                 <div className='relative'>
-                                    <input id="hs-toggle-password" type={forthField} onChange={(e) => setNewPasswordIteration(e.target.value)} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none" />
+                                    <input id="hs-toggle-password" type={forthField} onChange={(e) => setNewProfilePassword({ ...newProfilePassword, new_password_confirm: e.target.value })} class="rounded-full border-[#747678] border-2 border-opacity-70 h-8 lg:mt-2 outline-none" />
                                     <button className='absolute w-4 bottom-2 left-3' onClick={() => { forthField === 'password' ? setForthField('text') : setForthField('password') }}>
                                         <Image src={eye}></Image>
                                     </button>
@@ -291,7 +285,7 @@ export default function DashBoardEditProfile() {
                             <div className='flex flex-row-reverse justify-between lg:mx-12 md:mt-6  pr-20 lg:pr-0'>
                                 <Button
                                     variant="contained"
-                                    onClick={newProfilePassword.newPassword === newPasswordIteration ? editNewProfilePassword : console.log(newProfilePassword)}
+                                    onClick={editNewProfilePassword}
                                     sx={{
                                         width: 200,
                                         bgcolor: Colors.orange,

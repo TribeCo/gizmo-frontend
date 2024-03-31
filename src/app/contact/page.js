@@ -15,7 +15,7 @@ function ContactUs() {
     useEffect(() => {
         const fetchGizmo = async () => {
             try {
-                const response = await fetch('https://gizmoshop.liara.run/api/config/aboutus/', {
+                const response = await fetch('https://gn01.liara.run/api/config/aboutus/', {
                 });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -55,6 +55,9 @@ function ContactUs() {
                 padding: { xs: 0, md: '20px' }, // Adjusted padding
                 paddingX: { xs: 0, md: '50px' }
             }}>
+            <Box>
+                {gizmoinfo.gif}
+            </Box>
             <LineSplitter text={"درباره گیزموشاپ"} />
             <Box
                 sx={{
@@ -75,7 +78,8 @@ function ContactUs() {
                         fontSize: { xs: '16px', md: '32px' },
                     }}
                 >
-                    گیزموشاپ یک سایت فروشگاهی است که در زمینه فروش وسایل الکتریکی فعالیت می‌کند. ما در گیزموشاپ به فروش انواع لوازم الکترونیکی و برقی، از جمله تلویزیون، موبایل، لپ تاپ، دوربین، لوازم خانگی و... می‌پردازیم. ما با ارائه محصولات با کیفیت و قیمت مناسب، تلاش می‌کنیم تا نیازهای مشتریان را به بهترین نحو برطرف کنیم. همچنین، در گیزموشاپ به عنوان یک فروشگاه آنلاین، سعی می‌کنیم تا فرآیند خرید را برای مشتریان ساده و راحت کنیم.            </Typography>
+                    {gizmoinfo.description}
+                    </Typography>
                 {/* Typography for the main title */}
                 <Typography
                     sx={{

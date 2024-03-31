@@ -25,7 +25,7 @@ const PaymentHeader = () => {
                     width: { xs: '27px', sm: '32px', md: '38px', lg: '44px' },
                     height: { xs: '22px', sm: '26px', md: '30px', lg: '35px' },
                 }}>
-                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="https://gizmoshop.liara.run/images/media/pictures/Credit.png" alt="Product" />
+                    <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="https://gn01.liara.run/images/media/pictures/Credit.png" alt="Product" />
                 </Box>
                 <Typography sx={{ padding: '5px', paddingLeft: '15px', letterSpacing: '-0.05rem', fontSize: { xs: '12px', sm: '16px', md: '20px', lg: '24px' } }} fontWeight={"bold"}>
                     خلاصه سفارش و اطلاعات پرداخت

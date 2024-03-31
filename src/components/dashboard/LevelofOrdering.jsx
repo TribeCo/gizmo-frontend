@@ -15,10 +15,10 @@ const LevelofOrdering = ({ level }) => {
                         <rect x="213.5" y="34.5" width="15" height="15" rx="4.5" stroke="#747678" />
                         <rect x="411.5" y="34.5" width="15" height="15" rx="4.5" stroke="#747678" />
                         <rect x="15.5" y="34.5" width="15" height="15" rx="4.5" stroke="#747678" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-60" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-60" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-60" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-60" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-60" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-60" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-60" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-60" width="70" height="70" />
                     </svg>
                 );
             case 2:
@@ -31,10 +31,10 @@ const LevelofOrdering = ({ level }) => {
                         <path d="M241.333 22C241.333 10.2179 231.782 0.666667 220 0.666666C208.218 0.666665 198.667 10.2179 198.667 22C198.667 33.7821 208.218 43.3333 220 43.3333C231.782 43.3333 241.333 33.7821 241.333 22ZM43.3333 22C43.3333 10.2179 33.7821 0.66665 22 0.666649C10.2179 0.666648 0.666673 10.2179 0.666672 22C0.666671 33.7821 10.2179 43.3333 22 43.3333C33.7821 43.3333 43.3333 33.7821 43.3333 22ZM220 18L22 18L22 26L220 26L220 18Z" fill="#FFCC70" fill-opacity="0.42" />
                         <rect x="213.5" y="14.5" width="15" height="15" rx="4.5" stroke="#747678" />
                         <rect x="15.5" y="14.5" width="15" height="15" rx="4.5" stroke="#747678" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-80" width="70" height="70" />
                     </svg>
                 );
             case 3:
@@ -48,10 +48,10 @@ const LevelofOrdering = ({ level }) => {
                         <rect x="15.5" y="14.5" width="15" height="15" rx="4.5" stroke="#747678" />
                         <path d="M241.333 22C241.333 10.2179 231.782 0.666667 220 0.666666C208.218 0.666665 198.667 10.2179 198.667 22C198.667 33.7821 208.218 43.3333 220 43.3333C231.782 43.3333 241.333 33.7821 241.333 22ZM220 18L42 18L42 26L220 26L220 18Z" fill="#22668D" />
                         <path d="M228 17L218 27L213 22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-80" width="70" height="70" />
                     </svg>
                 );
             case 4:
@@ -64,10 +64,10 @@ const LevelofOrdering = ({ level }) => {
                         <path d="M241.333 22C241.333 10.2179 231.782 0.666667 220 0.666666C208.218 0.666665 198.667 10.2179 198.667 22C198.667 33.7821 208.218 43.3333 220 43.3333C231.782 43.3333 241.333 33.7821 241.333 22ZM43.3333 22C43.3333 10.2179 33.7821 0.66665 22 0.666649C10.2179 0.666648 0.666673 10.2179 0.666672 22C0.666671 33.7821 10.2179 43.3333 22 43.3333C33.7821 43.3333 43.3333 33.7821 43.3333 22ZM220 18L22 18L22 26L220 26L220 18Z" fill="#22668D" />
                         <path d="M228 17L218 27L213 22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M30 17L20 27L15 22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-80" width="70" height="70" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="580" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="380" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="180" y="-80" width="70" height="70" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="-20" y="-80" width="70" height="70" />
                     </svg>
                 );
             case 5:
@@ -80,10 +80,10 @@ const LevelofOrdering = ({ level }) => {
                         <path d="M22 398.667C10.2179 398.667 0.666667 408.218 0.666666 420C0.666665 431.782 10.2179 441.333 22 441.333C33.7821 441.333 43.3333 431.782 43.3333 420C43.3333 408.218 33.7821 398.667 22 398.667ZM22 596.667C10.2179 596.667 0.66665 606.218 0.666649 618C0.666648 629.782 10.2179 639.333 22 639.333C33.7821 639.333 43.3333 629.782 43.3333 618C43.3333 606.218 33.7821 596.667 22 596.667ZM18 420L18 618L26 618L26 420L18 420Z" fill="#FFCC70" fill-opacity="0.42" />
                         <rect x="14.5" y="426.5" width="15" height="15" rx="4.5" transform="rotate(-90 14.5 426.5)" stroke="#747678" />
                         <rect x="14.5" y="625.5" width="15" height="15" rx="4.5" transform="rotate(-90 14.5 625.5)" stroke="#747678" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
                     </svg>
                 );
             case 6:
@@ -96,10 +96,10 @@ const LevelofOrdering = ({ level }) => {
                         <path d="M22 398.667C10.2179 398.667 0.666667 408.218 0.666666 420C0.666665 431.782 10.2179 441.333 22 441.333C33.7821 441.333 43.3333 431.782 43.3333 420C43.3333 408.218 33.7821 398.667 22 398.667ZM22 596.667C10.2179 596.667 0.66665 606.218 0.666649 618C0.666648 629.782 10.2179 639.333 22 639.333C33.7821 639.333 43.3333 629.782 43.3333 618C43.3333 606.218 33.7821 596.667 22 596.667ZM18 420L18 618L26 618L26 420L18 420Z" fill="#FFCC70" fill-opacity="0.42" />
                         <rect x="14.5" y="427.5" width="15" height="15" rx="4.5" transform="rotate(-90 14.5 427.5)" stroke="#747678" />
                         <rect x="14.5" y="625.5" width="15" height="15" rx="4.5" transform="rotate(-90 14.5 625.5)" stroke="#747678" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
                     </svg>
                 );
             case 7:
@@ -113,10 +113,10 @@ const LevelofOrdering = ({ level }) => {
                         <path d="M30 416L20 426L15 421" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M22 597.667C10.2179 597.667 0.666667 607.218 0.666666 619C0.666665 630.782 10.2179 640.333 22 640.333C33.7821 640.333 43.3333 630.782 43.3333 619C43.3333 607.218 33.7821 597.667 22 597.667ZM18 619L18 619L26 619L26 619L18 619Z" fill="#FFCC70" fill-opacity="0.42" />
                         <rect x="14.5" y="626.5" width="15" height="15" rx="4.5" transform="rotate(-90 14.5 626.5)" stroke="#747678" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
                     </svg>
                 );
             case 8:
@@ -129,10 +129,10 @@ const LevelofOrdering = ({ level }) => {
                         <path d="M22 398.667C10.2179 398.667 0.666667 408.218 0.666666 420C0.666665 431.782 10.2179 441.333 22 441.333C33.7821 441.333 43.3333 431.782 43.3333 420C43.3333 408.218 33.7821 398.667 22 398.667ZM22 596.667C10.2179 596.667 0.66665 606.218 0.666649 618C0.666648 629.782 10.2179 639.333 22 639.333C33.7821 639.333 43.3333 629.782 43.3333 618C43.3333 606.218 33.7821 596.667 22 596.667ZM18 420L18 618L26 618L26 420L18 420Z" fill="#22668D" />
                         <path d="M30 416L20 426L15 421" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M30 613L20 623L15 618" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
-                        <image href="https://gizmoshop.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FirstLevel.png" x="150" y="-10" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/SecondLevel.png" x="150" y="180" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/ThirdLevel.png" x="150" y="380" height="70px" width="70px" />
+                        <image href="https://gn01.liara.run/images/media/pictures/FourthLevel.png" x="150" y="580" height="70px" width="70px" />
                     </svg>
                 );
             default:

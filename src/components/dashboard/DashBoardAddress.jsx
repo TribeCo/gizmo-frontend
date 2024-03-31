@@ -64,7 +64,7 @@ export default function DashBoardAddress(props) {
             return;
         }
         try {
-            const response = await fetch('https://gizmoshop.liara.run/api/addresses/set/', {
+            const response = await fetch('https://gn01.liara.run/api/addresses/set/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export default function DashBoardAddress(props) {
             return; // Exit the function if the user cancels the operation
         }
         try {
-            const response = await fetch(`https://gizmoshop.liara.run/api/addresses/delete/${selectedAddressId}/`, {
+            const response = await fetch(`https://gn01.liara.run/api/addresses/delete/${selectedAddressId}/`, {
                 method: 'DELETE', // Use the DELETE method for the request
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export default function DashBoardAddress(props) {
 
     const fetchAddresses = async () => {
         try {
-            const response = await fetch('https://gizmoshop.liara.run/api/addresses/user/', {
+            const response = await fetch('https://gn01.liara.run/api/addresses/user/', {
                 headers: {
                     'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
                 }
@@ -141,7 +141,7 @@ export default function DashBoardAddress(props) {
     const addNewAddress = async () => {
         console.log(newAddressData);
         try {
-            const response = await fetch('https://gizmoshop.liara.run/api/addresses/create/', {
+            const response = await fetch('https://gn01.liara.run/api/addresses/create/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ const GizmoLog = ({ data }) => {
 			<Grid
 				container
 				sx={{
-					px: 3,
+					px: { xs: 4, sm: 3, md: 3, lg: 5, xl: 15 },
 				}}
 				spacing={2}>
 				{data.map((itemData) => (

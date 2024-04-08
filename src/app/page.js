@@ -51,6 +51,7 @@ export default async function Home() {
 				<RecentlySeen />
 				<LineSplitter text={"برترین برند های گیزمو"} />
 				<CompanySlider
+					hasSecondPart={true}
 					brands={brandsList}
 					itemsPerPage={5}
 					swapTime_millisecond={3000}

@@ -212,7 +212,7 @@ const SelectProduct = ({ data }) => {
 			<Box
 				mt={3}
 				ml={3}
-				maxWidth={data.discounted ? 400 : 160}
+				maxWidth={data.discounted ? 400 : 300}
 				display="flex"
 				justifyContent="space-between">
 				<Typography
@@ -275,7 +275,6 @@ const SelectProduct = ({ data }) => {
 				display="flex"
 				mt={6}>
 				<Button
-					// disabled={!}
 					onClick={
 						!data.available ? () => console.log("goToCart") : handleNotification
 					}
@@ -294,7 +293,7 @@ const SelectProduct = ({ data }) => {
 						variant="h5"
 						fontWeight={900}
 						sx={{
-							fontSize: { xs: 19, md: 24 },
+							fontSize: { xs: 16, md: 24 },
 						}}>
 						{data.available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 					</Typography>

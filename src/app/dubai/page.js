@@ -78,8 +78,7 @@ const DubaiPage = () => {
 							fullWidth
 						/>
 						<Button
-							// onClick={() => setShowProduct(true)}
-							onClick={test}
+							onClick={() => setShowProduct(true)}
 							variant="contained"
 							sx={{
 								mt: 3,

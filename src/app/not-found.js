@@ -1,10 +1,10 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
+import Link from "next/link";
 
 import { Colors } from "@/utils";
-import Link from "next/link";
 import { baseUrl } from "@/services";
 
-const Error404 = () => {
+export default function NotFound() {
 	return (
 		<Grid
 			display="flex"
@@ -84,6 +84,4 @@ const Error404 = () => {
 			</Box>
 		</Grid>
 	);
-};
-
-export default Error404;
+}

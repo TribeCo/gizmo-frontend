@@ -7,25 +7,9 @@ import ProductInfo from "@/components/ProductInfo";
 import { getComments, getSimilar, productData } from "@/services/ProductPage";
 import RecentlySeen from "@/components/RecentlySeen";
 
-// const comments = [
-// 	{
-// 		id: 1,
-// 		user: {
-// 			name: "رضا بوذرجمهری",
-// 			image:
-// 				"https://www.mountsinai.on.ca/wellbeing/our-team/team-images/person-placeholder/image",
-// 		},
-// 		satisfaction: 1,
-// 		text: "متن تستی",
-// 		date: "3 روز قبل",
-// 	},
-// ];
-
 const Products = async ({ params }) => {
 	const productInfo = await productData({ slug: params.slug });
-	console.log(productInfo);
 	const comments = await getComments({ pid: productInfo.id });
-	console.log(comments);
 	const similar = await getSimilar({ pid: productInfo.id });
 	return (
 		<Box

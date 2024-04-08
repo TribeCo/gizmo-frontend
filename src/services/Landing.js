@@ -13,8 +13,7 @@ export const topSlider = async () => {
 		});
 		return response.json();
 	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
+		console.log(error);
 		return 0;
 	}
 };
@@ -32,8 +31,7 @@ export const banners = async () => {
 		});
 		return response.json();
 	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
+		console.log(error);
 		return 0;
 	}
 };
@@ -51,8 +49,7 @@ export const newProducts = async () => {
 		});
 		return response.json();
 	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
+		console.log(error);
 		return 0;
 	}
 };
@@ -73,31 +70,11 @@ export const discountProducts = async () => {
 		);
 		return response.json();
 	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
+		console.log(error);
 		return 0;
 	}
 };
 
-export const recentlySeenProduct = async ({ access }) => {
-	try {
-		const response = await fetch(`${baseUrl}/api/product/observed/`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${access}`,
-			},
-			next: {
-				revalidate: 10,
-			},
-		});
-		return response.json();
-	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
-		return 0;
-	}
-};
 export const category = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/api/category/landing/`, {
@@ -111,8 +88,7 @@ export const category = async () => {
 		});
 		return response.json();
 	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
+		console.log(error);
 		return 0;
 	}
 };
@@ -130,8 +106,7 @@ export const brands = async () => {
 		});
 		return response.json();
 	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
+		console.log(error);
 		return 0;
 	}
 };
@@ -149,8 +124,7 @@ export const gizmologCards = async () => {
 		});
 		return response.json();
 	} catch (error) {
-		alert("unhandeled error");
-		alert(error);
+		console.log(error);
 		return 0;
 	}
 };

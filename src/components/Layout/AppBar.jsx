@@ -27,12 +27,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Logo from "@/components/siteIcons/logo.png";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import MenuList from "@/components/Layout/Menu";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useMenuItemContext } from "../dashboard/DashBoardMenuSelector";
+import LoginSignupModal from "../LoginSignupPopup/LoginSignupPopup";
 
 const AppBar = ({ isLanding }) => {
-    const { menuItemValue, setMenuItemValue } = useMenuItemContext();
+	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [anchorElProfile, setAnchorElProfile] = useState(null);
@@ -52,7 +53,6 @@ const AppBar = ({ isLanding }) => {
 
 	const handleClose = () => {
 		setOpen(false);
-
 	};
 
 	const handleMenuOpen = (event) => {
@@ -270,6 +270,7 @@ const AppBar = ({ isLanding }) => {
 						<SearchField />
 
 						<Button
+							onClick={handleLoginModalOpen}
 							variant="contained"
 							sx={{
 								borderRadius: "24px",
@@ -363,7 +364,7 @@ const AppBar = ({ isLanding }) => {
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
 								onClick={handleProfileClose}>
-								<Link href={'/dashboard'}>
+								<Link href={"/dashboard"}>
 									<Typography
 										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
 										پنل کاربری
@@ -439,6 +440,12 @@ const AppBar = ({ isLanding }) => {
 					</Grid>
 				</Grid>
 			</Box>
+			<LoginSignupModal
+				popupState={popupState}
+				setPopupState={setPopupState}
+				open={loginOpen}
+				onClose={handleLoginModalClose}
+			/>
 
 			<Dialog
 				fullScreen
@@ -448,20 +455,16 @@ const AppBar = ({ isLanding }) => {
 				TransitionComponent={Transition}
 				BackdropProps={{
 					sx: { backdropFilter: "blur(3px)" },
-				}}
-			>
+				}}>
 				<Grid p={2}>
-					<IconButton
-						onClick={handleClose}
-						>
+					<IconButton onClick={handleClose}>
 						<CloseIcon fontSize="large" />
 					</IconButton>
 				</Grid>
 				<Grid
-					display='flex'
-					justifyContent='center'
-				>
-					<MenuList handleClose={handleClose}/>
+					display="flex"
+					justifyContent="center">
+					<MenuList handleClose={handleClose} />
 				</Grid>
 			</Dialog>
 		</>
@@ -469,7 +472,13 @@ const AppBar = ({ isLanding }) => {
 };
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-	return <Slide direction="up" ref={ref} {...props} />;
+	return (
+		<Slide
+			direction="up"
+			ref={ref}
+			{...props}
+		/>
+	);
 });
 
 const SearchField = () => {

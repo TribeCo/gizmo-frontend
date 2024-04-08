@@ -17,7 +17,7 @@ function Banner({ data }) {
 				justifyContent: { xs: "", md: "space-around" },
 				alignItems: "center",
 				my: { xs: 2, md: 6 },
-				px: 5,
+				px: { xs: 0, md: 5 },
 				flexDirection: {
 					xs: "column",
 					sm: "column",
@@ -32,15 +32,15 @@ function Banner({ data }) {
 						xs: 0.6 * 360,
 						sm: 0.8 * 360,
 						md: 1.0 * 360,
-						lg: 1.0 * 360,
-						xl: 1.1 * 360,
+						lg: 1.1 * 360,
+						xl: 1.3 * 360,
 					},
 					width: {
 						xs: 0.6 * 640,
 						sm: 0.8 * 640,
 						md: 1.0 * 640,
-						lg: 1.0 * 640,
-						xl: 1.1 * 640,
+						lg: 1.1 * 640,
+						xl: 1.3 * 640,
 					},
 					borderRadius: "20px",
 				}}>
@@ -51,22 +51,22 @@ function Banner({ data }) {
 								xs: 0.6 * 360,
 								sm: 0.8 * 360,
 								md: 1.0 * 360,
-								lg: 1.0 * 360,
-								xl: 1.1 * 360,
+								lg: 1.1 * 360,
+								xl: 1.3 * 360,
 							},
 							width: {
 								xs: 0.6 * 640,
 								sm: 0.8 * 640,
 								md: 1.0 * 640,
-								lg: 1.0 * 640,
-								xl: 1.1 * 640,
+								lg: 1.1 * 640,
+								xl: 1.3 * 640,
 							},
 						}}
 						image={data[0].image}
 						alt={data[0].alt}>
 						<Button
 							sx={{
-								mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 36 },
+								mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 40 },
 								ml: { xs: 2, md: 12 },
 								px: 5,
 								py: 1,
@@ -78,6 +78,9 @@ function Banner({ data }) {
 							}}
 							variant="contained">
 							<Typography
+								sx={{
+									fontSize: { xs: "12px", md: "20px" },
+								}}
 								variant="h6"
 								fontWeight="700"
 								color="#000">
@@ -94,15 +97,15 @@ function Banner({ data }) {
 						xs: 0.6 * 360,
 						sm: 0.8 * 360,
 						md: 1.0 * 360,
-						lg: 1.0 * 360,
-						xl: 1.1 * 360,
+						lg: 1.1 * 360,
+						xl: 1.3 * 360,
 					},
 					width: {
 						xs: 0.6 * 640,
 						sm: 0.8 * 640,
 						md: 1.0 * 640,
-						lg: 1.0 * 640,
-						xl: 1.1 * 640,
+						lg: 1.1 * 640,
+						xl: 1.3 * 640,
 					},
 					borderRadius: "20px",
 				}}>
@@ -114,15 +117,15 @@ function Banner({ data }) {
 									xs: 0.6 * 360,
 									sm: 0.8 * 360,
 									md: 1.0 * 360,
-									lg: 1.0 * 360,
-									xl: 1.1 * 360,
+									lg: 1.1 * 360,
+									xl: 1.3 * 360,
 								},
 								width: {
 									xs: 0.6 * 640,
 									sm: 0.8 * 640,
 									md: 1.0 * 640,
-									lg: 1.0 * 640,
-									xl: 1.1 * 640,
+									lg: 1.1 * 640,
+									xl: 1.3 * 640,
 								},
 								objectFit: "cover",
 							}}
@@ -130,7 +133,7 @@ function Banner({ data }) {
 							alt={data[1].alt}>
 							<Button
 								sx={{
-									mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 36 },
+									mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 40 },
 									ml: { xs: 2, md: 12 },
 									px: 5,
 									py: 1,
@@ -142,6 +145,9 @@ function Banner({ data }) {
 								}}
 								variant="contained">
 								<Typography
+									sx={{
+										fontSize: { xs: "12px", md: "20px" },
+									}}
 									variant="h6"
 									fontWeight="700"
 									color="#000">

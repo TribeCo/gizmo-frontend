@@ -40,14 +40,14 @@ export default function BlogCard({ data, background_color, font_color }) {
 						width: {
 							xs: "150px",
 							sm: "360px",
-							md: "420px",
+							md: "423px",
 							lg: "380px",
 							xl: "365px",
 						},
 						height: {
 							xs: "100px",
 							sm: "240px",
-							md: "270px",
+							md: "272px",
 							lg: "255px",
 							xl: "250px",
 						},

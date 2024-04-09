@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Colors } from "@/utils";
-
 import {
     Button,
     Divider,
@@ -11,15 +10,24 @@ import {
 } from "@mui/material";
 
 import searchIcon from '@/components/siteIcons/SearchIcon.svg';
+import { fetchDubaiOrders } from '@/services/DashBoard';
 
 export default function DashBoardDubaiOrders() {
-    const [orders, setOrders] = useState([
-        { orderCode: '0786453465', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
-        { orderCode: '0785151622', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
-        { orderCode: '0589465651', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
-    ]);
-
+    // const [orders, setOrders] = useState([
+    //     { orderCode: '0786453465', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
+    //     { orderCode: '0785151622', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
+    //     { orderCode: '0589465651', productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000' },
+    // ]);
+    const [orders, setOrders] = useState([]);
     const [searchKey, setSearchKey] = useState('');
+
+    const calculateFinalPrice = (price, discountedprice) => {
+        return price - discountedprice;
+    };
+
+    const handleGetOrders = async () => {
+        setOrders(await fetchDubaiOrders().data);
+    }
 
     const searchProductCode = (event) => {
         setSearchKey(event.target.value);
@@ -85,7 +93,7 @@ export default function DashBoardDubaiOrders() {
 
                                 <div className="infoRow flex justify-between w-full gap-[10%]">
                                     <span className='font-extrabold lg:text-sm whitespace-nowrap'>نام محصول: </span>
-                                    <div className=' lg:text-sm'>{product.productName}</div>
+                                    <div className=' lg:text-sm'>{product.name}</div>
                                 </div>
 
                                 <div className="infoRow flex justify-between w-full gap-[10%]">
@@ -95,7 +103,7 @@ export default function DashBoardDubaiOrders() {
 
                                 <div className="infoRow flex justify-between w-full gap-[10%]">
                                     <span className='font-extrabold lg:text-sm whitespace-nowrap'>لینک محصول: </span>
-                                    <div className=' lg:text-sm'>{product.productLink}</div>
+                                    <div className=' lg:text-sm'>{product.link}</div>
                                 </div>
 
                             </div>
@@ -110,7 +118,7 @@ export default function DashBoardDubaiOrders() {
                                 <div className="infoRow flex justify-between w-full gap-[10%]">
                                     <span className='font-extrabold md:text-sm whitespace-nowrap'>قیمت تومانی: </span>
                                     <div className='flex gap-1'>
-                                        <span className=' md:text-sm'>{product.price}</span>
+                                        <span className=' md:text-sm'>calculateFinalPrice(product.price, product.discounted_price)</span>
                                         <span className=' md:text-sm'>تومان</span>
                                     </div>
                                 </div>

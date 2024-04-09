@@ -3,6 +3,7 @@ import { baseUrl } from "./index";
 export const fetchQuestions = async (id) => {
     try {
         const response = await fetch(`${baseUrl}/api/faqs/groups/read/${id}`, {
+            method: "GET",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -13,7 +14,7 @@ export const fetchQuestions = async (id) => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return (response.json().data);
+        return (response.json());
     } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
     }
@@ -21,7 +22,8 @@ export const fetchQuestions = async (id) => {
 
 export const fetchIcons = async () => {
     try {
-        const response = await fetch(`https://gn01.liara.run/api/faqs/groups/all/`, {
+        const response = await fetch(`${baseUrl}/api/faqs/groups/all/`, {
+            method: "GET",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -32,7 +34,7 @@ export const fetchIcons = async () => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return (response.json().data);
+        return (response.json());
     } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
     }

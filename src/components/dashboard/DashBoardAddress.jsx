@@ -14,6 +14,7 @@ import {
     FormControlLabel,
     Paper,
 } from "@mui/material";
+import { AddNewAddress, DeleteAddress, MakeDefaultAddress, fetchAddresses } from '@/services/DashBoard';
 
 
 export default function DashBoardAddress(props) {
@@ -50,7 +51,12 @@ export default function DashBoardAddress(props) {
         current: false
     })
 
+    const [address, setAddress] = useState([]);
     const [selectedAddressId, setSelectedAddressId] = useState();
+
+    const handleGetAddress = async () => {
+        setAddress(await fetchAddresses().data)
+    }
 
     // Handler for radio button change
     const handleRadioChange = (event) => {
@@ -63,26 +69,8 @@ export default function DashBoardAddress(props) {
             alert('Please select an address first');
             return;
         }
-        try {
-            const response = await fetch('https://gn01.liara.run/api/addresses/set/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
-                },
-                body: JSON.stringify({ id: selectedAddressId })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to set the address as default');
-            }
-            const result = await response.json();
-            console.log(result);
-            alert('Address set as default successfully');
-
-        } catch (error) {
-            console.error('Error setting address as default:', error);
-            alert('Error setting address as default');
-        }
+        const response = await MakeDefaultAddress(selectedAddressId).message;
+        alert(`${response}`);
     };
 
     const deleteAddress = async (selectedAddressId) => {
@@ -94,63 +82,15 @@ export default function DashBoardAddress(props) {
         if (!isConfirmed) {
             return; // Exit the function if the user cancels the operation
         }
-        try {
-            const response = await fetch(`https://gn01.liara.run/api/addresses/delete/${selectedAddressId}/`, {
-                method: 'DELETE', // Use the DELETE method for the request
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Include the authorization token in the request headers
-                    'Authorization': `Bearer your_token_here`
-                }
-            });
-            if (!response.ok) {
-                throw new Error('Failed to delete the address. Please try again.');
-            }
-            const result = await response.json();
-            console.log("Address deleted successfully:", result);
-            alert('Address deleted successfully');
-        } catch (error) {
-            console.error("Error deleting the address:", error);
-            alert('Error deleting the address');
-        }
-    };
-
-    const [address, setAddress] = useState([]);
-    useEffect(() => {
-
-        fetchAddresses();
-    }, []);
-
-    const fetchAddresses = async () => {
-        try {
-            const response = await fetch('https://gn01.liara.run/api/addresses/user/', {
-                headers: {
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
-                }
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setAddress(data.data);
-        } catch (error) {
-            console.error("There was a problem with the fetch operation:", error);
-        }
+        const response = await DeleteAddress(selectedAddressId);
+        alert(`${response}`);
     };
 
     const addNewAddress = async () => {
-        console.log(newAddressData);
         try {
-            const response = await fetch('https://gn01.liara.run/api/addresses/create/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
-                },
-                body: JSON.stringify(newAddressData),
-            });
+            const response = await AddNewAddress(newAddressData);
             if (response.ok) {
-                fetchAddresses();
+                (await handleGetAddress());
                 setNewAddressData({
                     province: '',
                     city: '',
@@ -164,8 +104,6 @@ export default function DashBoardAddress(props) {
             console.error('Error sending data to the API:', error);
         }
     };
-
-
 
     return (
         <Paper

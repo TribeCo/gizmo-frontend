@@ -53,8 +53,9 @@ export default function DashBoardFactor() {
                 <Box
                     width={840}
                     bgcolor={'#F7F7F7'}
-                    borderRadius={5}
-                    p={5}
+                    borderRadius={3}
+                    px={5}
+                    py={3}
                     mt={2}
                 >
                     <Box>
@@ -80,37 +81,89 @@ export default function DashBoardFactor() {
                         </Grid>
                     </Box>
                     <Box
-                        py={3}
+                        // py={3}
                         pt={5}
                     >
                         <TableContainer
                             component={Paper}
                             sx={{
                                 borderRadius: '8px', // Add border-radius to the table
-                                overflow: 'hidden', // Ensure the border-radius is visible
+                                overflow: 'hidden',
+                                border: '1px solid #363636', // Apply consistent border color around the table // Ensure the border-radius is visible
                             }}
                         >
-                            <Table sx={{ minWidth: 650 }} aria-label="customized table">
+                            <Table>
                                 <TableHead>
-                                    <TableRow>
-                                        <TableCell sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}>شماره</TableCell>
-                                        <TableCell align="left" sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}>جزئیات سفارش</TableCell>
-                                        <TableCell align="left" sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}>تعداد</TableCell>
-                                        <TableCell align="left" sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}>قیمت</TableCell>
-                                        <TableCell align="left">مجموع</TableCell> {/* Last cell, no border */}
+                                    <TableRow> {/* Add this line for row divider */}
+                                        <TableCell sx={{ borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }} >شماره</TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }}>جزئیات سفارش</TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }}>تعداد</TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }}>قیمت</TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ verticalAlign: 'top', borderBottom: '1px solid #363636', fontSize: 16, fontWeight: 500 }}>مجموع</TableCell> {/* Adjust alignment, Last cell, no border */}
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableRow>
-                                        <TableCell component="th" scope="row" sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}> Data 1 </TableCell>
-                                        <TableCell align="left" sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}>Data 2</TableCell>
-                                        <TableCell align="left" sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}>Data 3</TableCell>
-                                        <TableCell align="left" sx={{ borderRight: '1px solid rgba(224, 224, 224, 1)' }}>Data 4</TableCell>
-                                        <TableCell align="left">Data 5</TableCell> {/* Last cell, no border */}
+                                    <TableRow> {/* Add this line for row divider */}
+                                        <TableCell component="th" scope="row" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}> Data 1 </TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 2</TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 3</TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 4</TableCell> {/* Adjust alignment */}
+                                        <TableCell align="left" sx={{ verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 5</TableCell> {/* Adjust alignment, Last cell, no border */}
                                     </TableRow>
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                    </Box>
+                    <Box
+                        display={'flex'}
+                        justifyContent={'flex-end'}
+                    >
+                        <Box
+                            width={413}
+                            height={50}
+                            borderRadius={'0 0px 10px 10px'}
+                            display={'flex'}
+                            alignItems={'center'}
+                            justifyContent={'space-between'}
+                            border={'1px solid #363636'}
+                            px={3}
+                        >
+                            <Typography fontSize={16} fontWeight={700}>
+                                جمع فاکتور
+                            </Typography>
+                            <Typography fontSize={16} fontWeight={700}>
+                                2300000 تومان
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Box
+                        display={'flex'}
+                        justifyContent={'flex-end'}
+                    >
+                        <Box
+                            display={'flex'}
+                            alignItems={'center'}
+                            pt={3}
+                        >
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: '#FFCC70', // Button background color
+                                    '&:hover': {
+                                        bgcolor: '#FFCC70',
+                                        opacity: 0.9,
+                                    },
+                                    borderRadius: '25px', // Rounded corners for button
+                                    padding: '8px 30px', // Padding inside the button
+                                    color: '#213346', // Text color
+                                    fontWeight: 'bold', // Bold text
+                                    fontSize: '14px',
+                                    marginBottom: '15px',
+                                }}
+                            >
+                                چاپ فاکتور
+                            </Button>
+                        </Box>
                     </Box>
                 </Box>
             </Box>

@@ -1,5 +1,5 @@
 import { Button, Grid, Typography } from "@mui/material";
-import React from "react";
+import Link from "next/link";
 import BlogCard from "../BlogCard";
 import { Colors } from "@/utils";
 
@@ -21,37 +21,39 @@ const GizmoLog = ({ data }) => {
 					/>
 				))}
 			</Grid>
-			<Button
-				variant="contained"
-				sx={{
-					transform: {
-						xs: "scale(0.7)",
-						sm: "scale(0.8)",
-						md: "scale(1)",
-					},
-					display: "block",
-					mt: { xs: 0, md: 5 },
-					mb: 5,
-					mx: "auto",
-					border: `3px solid ${Colors.orange}`,
-					color: "#000000",
-					bgcolor: "#FFFFFF",
-					borderRadius: "30px",
-					width: "300px",
-					height: "60px",
-					"&:hover": {
-						bgcolor: Colors.orange,
-					},
-				}}>
-				<Typography
-					variant="h5"
+			<Link href="/blog">
+				<Button
+					variant="contained"
 					sx={{
-						fontWeight: "700",
-						fontSize: "20px",
+						transform: {
+							xs: "scale(0.7)",
+							sm: "scale(0.8)",
+							md: "scale(1)",
+						},
+						display: "block",
+						mt: { xs: 0, md: 5 },
+						mb: 5,
+						mx: "auto",
+						border: `3px solid ${Colors.orange}`,
+						color: "#000000",
+						bgcolor: "#FFFFFF",
+						borderRadius: "30px",
+						width: "300px",
+						height: "60px",
+						"&:hover": {
+							bgcolor: Colors.orange,
+						},
 					}}>
-					{"مشاهده محصولات بیشتر"}
-				</Typography>
-			</Button>
+					<Typography
+						variant="h5"
+						sx={{
+							fontWeight: "700",
+							fontSize: "20px",
+						}}>
+						{"مشاهده محصولات بیشتر"}
+					</Typography>
+				</Button>
+			</Link>
 		</>
 	);
 };

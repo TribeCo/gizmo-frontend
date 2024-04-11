@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
 	Box,
 	Grid,
@@ -16,6 +17,7 @@ import {
 import { Colors } from "../../utils";
 
 const TopSlider = ({ data }) => {
+	const router = useRouter();
 	const [active, setActive] = useState(0);
 
 	const handleNext = () => {
@@ -263,48 +265,52 @@ const TopSlider = ({ data }) => {
 											variant="body1">
 											{item.description}
 										</Typography>
+										<Button
+											onClick={() => router.push(item.abs_link)}
+											variant="contained"
+											sx={{
+												my: 5,
+												px: 3,
+												py: 2,
+												bgcolor: Colors.orange,
+												color: Colors.blue,
+												borderRadius: 6,
+												"&:hover": {
+													bgcolor: Colors.orange,
+												},
+											}}>
+											<Typography
+												mr={2}
+												variant="h6"
+												fontWeight={900}
+												noWrap>
+												{"هم اکنون خرید کنید!"}
+											</Typography>
+											<svg
+												width="35"
+												height="35"
+												viewBox="0 0 35 35"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg">
+												<circle
+													cx="17.5"
+													cy="17.5"
+													r="17.5"
+													fill="white"
+												/>
+												<path
+													d="M20.8454 28C21.0115 28 21.1814 27.9295 21.3088 27.7927C21.5637 27.519 21.5637 27.0712 21.3088 26.7975L12.5852 17.4305L21.1814 8.20041C21.4363 7.92674 21.4363 7.47892 21.1814 7.20525C20.9265 6.93158 20.5095 6.93158 20.2546 7.20525L11.1912 16.933C10.9363 17.2066 10.9363 17.6545 11.1912 17.9281L20.3782 27.7927C20.5095 27.9337 20.6755 28 20.8454 28Z"
+													fill="#22668D"
+												/>
+											</svg>
+										</Button>
 									</Box>
 								</Fade>
 							);
 						})}
-						<Button
-							variant="contained"
-							sx={{
-								my: 5,
-								px: 3,
-								py: 2,
-								bgcolor: Colors.orange,
-								color: Colors.blue,
-								borderRadius: 6,
-								"&:hover": {
-									bgcolor: Colors.orange,
-								},
-							}}>
-							<Typography
-								mr={2}
-								variant="h6"
-								fontWeight={900}
-								noWrap>
-								{"هم اکنون خرید کنید!"}
-							</Typography>
-							<svg
-								width="35"
-								height="35"
-								viewBox="0 0 35 35"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<circle
-									cx="17.5"
-									cy="17.5"
-									r="17.5"
-									fill="white"
-								/>
-								<path
-									d="M20.8454 28C21.0115 28 21.1814 27.9295 21.3088 27.7927C21.5637 27.519 21.5637 27.0712 21.3088 26.7975L12.5852 17.4305L21.1814 8.20041C21.4363 7.92674 21.4363 7.47892 21.1814 7.20525C20.9265 6.93158 20.5095 6.93158 20.2546 7.20525L11.1912 16.933C10.9363 17.2066 10.9363 17.6545 11.1912 17.9281L20.3782 27.7927C20.5095 27.9337 20.6755 28 20.8454 28Z"
-									fill="#22668D"
-								/>
-							</svg>
-						</Button>
+						{/* <Link> */}
+
+						{/* </Link> */}
 					</Box>
 				</Grid>
 			</Grid>

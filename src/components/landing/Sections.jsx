@@ -1,13 +1,5 @@
-import {
-	Box,
-	Card,
-	CardActionArea,
-	CardMedia,
-	Grid,
-	Typography,
-	Button,
-	IconButton,
-} from "@mui/material";
+import { Box, CardMedia, Grid, Typography, IconButton } from "@mui/material";
+import Link from "next/link";
 
 function Sections({ data }) {
 	return (
@@ -20,53 +12,55 @@ function Sections({ data }) {
 					item
 					xs={6}
 					md={3}>
-					<IconButton
-						disableRipple
-						sx={{
-							mx: "auto",
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-						}}>
-						<CardMedia
+					<Link href={`/categories/${item.slug}`}>
+						<IconButton
+							disableRipple
 							sx={{
-								width: { xs: 156, md: 260 },
-								height: { xs: 168, md: 280 },
-								position: "absolute",
-								mb: 5,
-								px: "auto",
-							}}
-							image={item.image}
-							alt={item.name}
-						/>
-						<Box>
-							<Box
+								mx: "auto",
+								display: "flex",
+								flexDirection: "column",
+								alignItems: "center",
+							}}>
+							<CardMedia
 								sx={{
-									px: "auto",
-									height: { xs: 84, md: 140 },
-								}}
-							/>
-							<Box
-								sx={{
-									border: "3px Dashed #22668D",
-									px: "auto",
 									width: { xs: 156, md: 260 },
-									height: { xs: 84, md: 140 },
-									bgcolor: `#${item.color}`,
-									borderRadius: "100px",
+									height: { xs: 168, md: 280 },
+									position: "absolute",
+									mb: 5,
+									px: "auto",
 								}}
+								image={item.image}
+								alt={item.name}
 							/>
-						</Box>
-						<Typography
-							pt={2}
-							variant="h6"
-							fontWeight="800"
-							display="block"
-							noWrap={true}
-							color="black">
-							{item.name}
-						</Typography>
-					</IconButton>
+							<Box>
+								<Box
+									sx={{
+										px: "auto",
+										height: { xs: 84, md: 140 },
+									}}
+								/>
+								<Box
+									sx={{
+										border: "3px Dashed #22668D",
+										px: "auto",
+										width: { xs: 156, md: 260 },
+										height: { xs: 84, md: 140 },
+										bgcolor: `#${item.color}`,
+										borderRadius: "100px",
+									}}
+								/>
+							</Box>
+							<Typography
+								pt={2}
+								variant="h6"
+								fontWeight="800"
+								display="block"
+								noWrap={true}
+								color="black">
+								{item.name}
+							</Typography>
+						</IconButton>
+					</Link>
 				</Grid>
 			))}
 		</Grid>

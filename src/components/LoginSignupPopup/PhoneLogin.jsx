@@ -26,8 +26,6 @@ const PhoneLoginForm = ({ onClose, setPopupState }) => {
 	};
 
 	const handleLogin = () => {
-		// Handle login logic here
-
 		onClose();
 	};
 

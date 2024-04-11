@@ -1,5 +1,6 @@
 "use client";
 
+import { baseUrl } from "@/services";
 import { Box, CardMedia, Typography } from "@mui/material";
 import { useEffect } from "react";
 
@@ -16,25 +17,33 @@ export default function Error({ error, reset }) {
 			justifyContent="center"
 			width="100vw"
 			height="100vh"
-			bgcolor="#8ECDDD">
-			{/* <Typography
-				fontWeight={600}
-				fontSize={300}
-				color="#252B48">
-				{error.name}
-			</Typography> */}
+			bgcolor="#9BCADA">
 			<Typography
+				sx={{
+					fontSize: { xs: 190, md: 300 },
+					mt: { xs: 10, md: 0 },
+				}}
 				fontWeight={600}
-				fontSize={60}
+				lineHeight={1}
+				color="#252B48">
+				{"707"}
+			</Typography>
+			<Typography
+				sx={{
+					fontSize: { xs: 30, md: 60 },
+					mt: { xs: 5, md: 0 },
+				}}
+				mb={10}
+				fontWeight={600}
 				color="#252B48">
 				{"با عرض شرمندگی سرور پوکید!!!"}
 			</Typography>
 			<CardMedia
 				sx={{
-					height: 200,
-					width: 400,
+					height: { xs: 190, md: 400 },
+					width: { xs: 380, md: 800 },
 				}}
-				image=""
+				image={`${baseUrl}/images/media/pictures/photo_2024-04-08_15-42-22.jpg`}
 			/>
 		</Box>
 	);

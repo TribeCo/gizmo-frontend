@@ -106,7 +106,7 @@ const SelectProduct = ({ data }) => {
 											borderRadius={2.5}
 											width={45}
 											height={45}>
-											{!color.available ? (
+											{!color.is_available ? (
 												<svg
 													width="39"
 													height="39"
@@ -217,7 +217,7 @@ const SelectProduct = ({ data }) => {
 				justifyContent="space-between">
 				<Typography
 					noWrap
-					color={!data.available ? "#D2D2D2" : "#22668D"}
+					color={!data.is_available ? "#D2D2D2" : "#22668D"}
 					fontWeight={900}
 					fontSize={20}>
 					{"قیمت: "}
@@ -245,7 +245,7 @@ const SelectProduct = ({ data }) => {
 				) : (
 					""
 				)}
-				{!data.available ? (
+				{!data.is_available ? (
 					<Box>
 						<Typography
 							noWrap
@@ -276,7 +276,9 @@ const SelectProduct = ({ data }) => {
 				mt={6}>
 				<Button
 					onClick={
-						!data.available ? () => console.log("goToCart") : handleNotification
+						!data.is_available
+							? () => console.log("goToCart")
+							: handleNotification
 					}
 					variant="contained"
 					sx={{
@@ -295,7 +297,7 @@ const SelectProduct = ({ data }) => {
 						sx={{
 							fontSize: { xs: 16, md: 24 },
 						}}>
-						{data.available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
+						{data.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 					</Typography>
 				</Button>
 				<IconButton

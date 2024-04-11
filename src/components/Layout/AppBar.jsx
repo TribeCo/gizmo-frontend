@@ -38,7 +38,7 @@ const AppBar = ({ isLanding }) => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [anchorElProfile, setAnchorElProfile] = useState(null);
 	const [loginOpen, setLoginOpen] = useState(false);
-	const [popupState, setPopupState] = useState("phone-login");
+	const [popupState, setPopupState] = useState("login");
 	const categories = [
 		{ name: "لوازم آشپزخانه", slug: "kitchenware" },
 		{ name: "لوازم بهداشتی", slug: "hygiene-products" },
@@ -77,7 +77,7 @@ const AppBar = ({ isLanding }) => {
 
 	const handleLoginModalClose = (e) => {
 		setLoginOpen(false);
-		setPopupState("phone-login");
+		setPopupState("login");
 	};
 
 	return (

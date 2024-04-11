@@ -116,27 +116,28 @@ const Footer = () => {
 						</Link>
 					</Grid>
 				</Grid>
-
-				<Button
-					variant="contained"
-					sx={{
-						bgcolor: Colors.orange,
-						color: "black",
-						borderRadius: "50px",
-						boxShadow: "none",
-						mr: { lg: 12 },
-						mt: { xs: 8, lg: 0 },
-						mb: { xs: 2, lg: 0 },
-						"&:hover": {
+				<Link href="/dubai">
+					<Button
+						variant="contained"
+						sx={{
 							bgcolor: Colors.orange,
-						},
-					}}>
-					<Typography
-						variant="h6"
-						fontSize={18}>
-						ارسال لینک
-					</Typography>
-				</Button>
+							color: "black",
+							borderRadius: "50px",
+							boxShadow: "none",
+							mr: { lg: 12 },
+							mt: { xs: 8, lg: 0 },
+							mb: { xs: 2, lg: 0 },
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
+						}}>
+						<Typography
+							variant="h6"
+							fontSize={18}>
+							ارسال لینک
+						</Typography>
+					</Button>
+				</Link>
 			</Box>
 
 			<Grid

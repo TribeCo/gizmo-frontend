@@ -10,7 +10,6 @@ const BlogDetail = () => {
 				flexDirection="column"
 				alignItems="center"
 				item
-				bgcolor="#f98"
 				height={900}
 				md={8}>
 				<Typography
@@ -34,7 +33,6 @@ const BlogDetail = () => {
 			</Grid>
 			<Grid
 				item
-				bgcolor="#f08"
 				height={900}
 				md={4}>
 				<LineSplitter text={"اخبار های مرتبط"} />

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import Link from "next/link";
 import {
 	TextField,
 	Button,
@@ -11,6 +12,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
 
 import * as Yup from "yup";
+import { Colors } from "@/utils";
 
 const SignupForm = ({ open, onClose, setPopupState }) => {
 	const { signUp, confirmPhoneSignUpCode, completeSignupInformation } =
@@ -351,6 +353,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"
@@ -359,7 +364,14 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							ارسال کد
 						</Typography>
 					</Button>
-					<Button onClick={() => setPopupState("login")}>{"ورود"}</Button>
+					<Link
+						href="#"
+						variant="body2"
+						underline="false"
+						color="black"
+						onClick={() => setPopupState("login")}>
+						{"ورود"}
+					</Link>
 				</>
 			) : (
 				<></>
@@ -377,6 +389,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"
@@ -402,6 +417,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"

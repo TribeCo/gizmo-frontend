@@ -9,6 +9,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { useAuth } from "@/context/AuthContext";
+import { Colors } from "@/utils";
 
 const ForgetPasswordForm = ({ onClose }) => {
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -109,6 +110,9 @@ const ForgetPasswordForm = ({ onClose }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"
@@ -211,6 +215,9 @@ const ForgetPasswordForm = ({ onClose }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"

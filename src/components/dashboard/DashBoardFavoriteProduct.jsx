@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Divider, Grid, Typography, Paper } from '@mui/material';
 import ProductCard from '@/components/ProductCard';
+import { fetchFavoriteProducts } from '@/services/DashBoard';
 // import { products } from '@/utils/fakeProduct';
 
 export default function DashBoardFavoriteProduct() {
 
     const[products, setProducts] = useState([])
     useEffect(() => {
-        const fetchFavoriteProducts = async () => {
-            try {
-                const response = await fetch('https://gn01.liara.run/api/favorites/', {
-                    headers: {
-                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                setProducts(data.data);
-            } catch (error) {
-                console.error("There was a problem with the fetch operation:", error);
-            }
-        };
-        fetchFavoriteProducts();
+        GetFavoriteProducts();
+        console.log(products);
     }, []);
+
+    const GetFavoriteProducts = async () => {
+        setProducts((await fetchFavoriteProducts()).data)
+    }
 
     return (
         <Paper

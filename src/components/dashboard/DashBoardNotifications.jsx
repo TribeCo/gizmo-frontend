@@ -4,32 +4,19 @@ import Image from 'next/image'
 import envelopIcon from '@/components/siteIcons/EnvelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 import { Paper } from '@mui/material'
+import { fetchNotifications } from '@/services/DashBoard'
 
 
 export default function DashBoardNotifications() {
 
     const [notifications, setNotifications] = useState([]);
     useEffect(() => {
-
-        fetchAddresses();
+        GetNotifications();
     }, []);
 
-    const fetchAddresses = async () => {
-        try {
-            const response = await fetch('https://gn01.liara.run/api/messages/user/', {
-                headers: {
-                    'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
-                }
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setNotifications(data.data);
-        } catch (error) {
-            console.error("There was a problem with the fetch operation:", error);
-        }
-    };
+    const GetNotifications = async () => {
+        setNotifications((await fetchNotifications()).data)
+    }
 
     const [notifs, setNotifs] = React.useState([
         { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: false, shamsi_date: '1402 اسفند 7' },

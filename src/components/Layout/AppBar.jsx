@@ -83,6 +83,7 @@ const AppBar = ({ isLanding }) => {
 	return (
 		<>
 			<Box
+				displayPrint={'none'}
 				bgcolor={Colors.yellow}
 				borderRadius={isLanding ? "50px 50px 0px 0px" : "50px"}
 				mt={2}

@@ -9,11 +9,29 @@ import {
     Box,
 } from '@mui/material';
 import { Colors } from "@/utils";
+import { fetchActivties, fetchInformation } from "@/services/DashBoard";
 
 const convertToPersian = (number) => {
+    if (number === undefined || number === null) {
+        console.error('Invalid input: number is undefined or null');
+        return number; // Or return a default value or an error message depending on your use case
+    }
     const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-    // return number.toString().replace(/\d/g, (x) => persianNumbers[x]);
+    return number.toString().replace(/\d/g, (x) => persianNumbers[x]);
 };
+
+function getGenderDescription(genderCode) {
+    if (!genderCode) {
+        return 'خالی';
+    }
+    const genderMap = {
+        'm': 'مرد',
+        'f': 'زن',
+        'u': 'مایل به گفتن ندارم'
+    };
+    return genderMap[genderCode.toLowerCase()] || 'خالی';
+}
+
 
 function createFullName(firstName, lastName) {
     return `${firstName} ${lastName}`;
@@ -23,42 +41,13 @@ const UserInfoPage = () => {
     const [activities, setActivites] = useState([]);
     const [information, setInformation] = useState([]);
     useEffect(() => {
-        const fetchActivties = async () => {
-            try {
-                const response = await fetch('https://gn01.liara.run/api/orders/count/', {
-                    headers: {
-                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTc3MDMzLCJpYXQiOjE3MTE0OTA2MzMsImp0aSI6ImE4NjYxZTY2MDc3NTRlODlhODFlNTMyNDBkMzIzYjUxIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.TnAmTpVafP_kWA6YmBGDCRpPa_6v9VRpAwYypmwSBA8`
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                setActivites(data);
-            } catch (error) {
-                console.error("There was a problem with the fetch operation:", error);
-            }
-        };
-        const fetchInformation = async () => {
-            try {
-                const response = await fetch('https://gn01.liara.run/api/users/info/', {
-                    headers: {
-                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTc3MDMzLCJpYXQiOjE3MTE0OTA2MzMsImp0aSI6ImE4NjYxZTY2MDc3NTRlODlhODFlNTMyNDBkMzIzYjUxIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.TnAmTpVafP_kWA6YmBGDCRpPa_6v9VRpAwYypmwSBA8`
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                setInformation(data);
-            } catch (error) {
-                console.error("There was a problem with the fetch operation:", error);
-            }
-        };
-        fetchActivties();
-        fetchInformation();
-    }, []); // Empty dependency array ensures this runs only on component mount, similar to page reload
+        GetInformation();
+    }, []);
 
+    const GetInformation = async () => {
+        setActivites((await fetchActivties()));
+        setInformation((await fetchInformation()));
+    }
 
     return (
         <Grid
@@ -191,7 +180,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    {information.gender}
+                                    {getGenderDescription(information.gender)}
                                 </Typography>
                             </Grid>
                         </Grid>

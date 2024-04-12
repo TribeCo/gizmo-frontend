@@ -8,6 +8,51 @@ import LevelofOrdering from './LevelofOrdering';
 
 export default function DashBoardFactor() {
 
+    const [activePrintId, setActivePrintId] = useState(null);
+    const receipts = [
+        {
+            id: 1,
+            customerName: 'علی رضایی',
+            orderDate: '1402/07/21',
+            address: 'ایران, تهران, خیابان انقلاب',
+            orderNumber: '123456',
+            phoneNumber: '09123456789',
+            email: 'ali@example.com',
+            total: '2300000',
+            orderDetails: [
+                { id: 1, detail: 'محصول A', quantity: 2, price: '100', total: '200' },
+                { id: 2, detail: 'محصول B', quantity: 1, price: '150', total: '150' },
+            ],
+        },
+        {
+            id: 2,
+            customerName: 'مریم میرزایی',
+            orderDate: '1402/07/22',
+            address: 'ایران, مشهد, بلوار پیروزی',
+            orderNumber: '789101',
+            phoneNumber: '09213456789',
+            email: 'maryam@example.com',
+            total: '3200000',
+            orderDetails: [
+                { id: 3, detail: 'محصول C', quantity: 3, price: '200', total: '600' },
+                { id: 4, detail: 'محصول D', quantity: 2, price: '250', total: '500' },
+            ],
+        },
+    ];
+
+    const handlePrint = (id) => {
+        setActivePrintId(id);
+        window.print();
+    };
+
+    useEffect(() => {
+        const handleAfterPrint = () => setActivePrintId(null);
+        window.addEventListener('afterprint', handleAfterPrint);
+        return () => {
+            window.removeEventListener('afterprint', handleAfterPrint);
+        };
+    }, []);
+
     return (
         <Paper
             variant="outlined"
@@ -24,19 +69,20 @@ export default function DashBoardFactor() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     padding: { xs: '15px', md: '30px' },
-                    width: '900px',
-                    maxHeight: '840px',
+                    width: { xs: '90vw', md: '900px' },
+                    maxHeight: '915px',
                 }}
             >
                 <Box
-                    width={850}
+                    width={{ xs: '100%', md: 850 }}
                 >
                     <Typography
                         sx={{
-                            fontWeight: '700',
+                            width: '100%',
                             fontSize: '20px',
                             color: '#213346',
-                            marginX: 2
+                            fontWeight: '700',
+                            marginX: 2,
                         }}
                     >
                         فاکتور
@@ -48,123 +94,192 @@ export default function DashBoardFactor() {
                         bgcolor: '#EDEDED',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        displayPrint: 'none',
+                        
                     }} />
                 </Box>
                 <Box
-                    width={840}
-                    bgcolor={'#F7F7F7'}
-                    borderRadius={3}
-                    px={5}
-                    py={3}
-                    mt={2}
-                >
-                    <Box>
-                        <Grid container spacing={1} justifyContent="space-between">
-                            <Grid item xs={6}>
-                                <Typography sx={{ textAlign: 'left' }} fontWeight={700} fontSize={14}>نام مشتری:</Typography>
-                            </Grid>
-                            <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <Typography fontWeight={700} fontSize={14}>تاریخ سفارش:</Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography sx={{ textAlign: 'left' }} fontWeight={700} fontSize={14}>آدرس:</Typography>
-                            </Grid>
-                            <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <Typography fontWeight={700} fontSize={14}>شماره سفارش:</Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography sx={{ textAlign: 'left' }} fontWeight={700} fontSize={14}>شماره تماس:</Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography sx={{ textAlign: 'left' }} fontWeight={700} fontSize={14}>ایمیل:</Typography>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                    <Box
-                        // py={3}
-                        pt={5}
-                    >
-                        <TableContainer
-                            component={Paper}
-                            sx={{
-                                borderRadius: '8px', // Add border-radius to the table
-                                overflow: 'hidden',
-                                border: '1px solid #363636', // Apply consistent border color around the table // Ensure the border-radius is visible
-                            }}
-                        >
-                            <Table>
-                                <TableHead>
-                                    <TableRow> {/* Add this line for row divider */}
-                                        <TableCell sx={{ borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }} >شماره</TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }}>جزئیات سفارش</TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }}>تعداد</TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: 16, fontWeight: 500 }}>قیمت</TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ verticalAlign: 'top', borderBottom: '1px solid #363636', fontSize: 16, fontWeight: 500 }}>مجموع</TableCell> {/* Adjust alignment, Last cell, no border */}
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow> {/* Add this line for row divider */}
-                                        <TableCell component="th" scope="row" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}> Data 1 </TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 2</TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 3</TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ borderRight: '1px solid #363636', verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 4</TableCell> {/* Adjust alignment */}
-                                        <TableCell align="left" sx={{ verticalAlign: 'top', height: 120, fontSize: 14, fontWeight: 400 }}>Data 5</TableCell> {/* Adjust alignment, Last cell, no border */}
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Box>
-                    <Box
-                        display={'flex'}
-                        justifyContent={'flex-end'}
-                    >
+                    sx={{
+                        height: 'auto',
+                        overflowY: 'auto', 
+                        overflowX: 'hidden',
+                        '&::-webkit-scrollbar': {
+                            display: 'none',
+                        },
+                        '-ms-overflow-style': 'none',
+                        'scrollbar-width': 'none',
+                    }}>
+                    {receipts.map((receipt) => (
                         <Box
-                            width={413}
-                            height={50}
-                            borderRadius={'0 0px 10px 10px'}
-                            display={'flex'}
-                            alignItems={'center'}
-                            justifyContent={'space-between'}
-                            border={'1px solid #363636'}
-                            px={3}
+                            key={receipt.id}
+                            width={{ xs: 'auto', md: 840 }}
+                            bgcolor={'#F7F7F7'}
+                            borderRadius={3}
+                            px={{xs: 2, sm: 5}}
+                            py={3}
+                            mt={2}
+                            sx={{ displayPrint: activePrintId === receipt.id ? 'block' : 'none' }}
                         >
-                            <Typography fontSize={16} fontWeight={700}>
-                                جمع فاکتور
-                            </Typography>
-                            <Typography fontSize={16} fontWeight={700}>
-                                2300000 تومان
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Box
-                        display={'flex'}
-                        justifyContent={'flex-end'}
-                    >
-                        <Box
-                            display={'flex'}
-                            alignItems={'center'}
-                            pt={3}
-                        >
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    backgroundColor: '#FFCC70', // Button background color
-                                    '&:hover': {
-                                        bgcolor: '#FFCC70',
-                                        opacity: 0.9,
-                                    },
-                                    borderRadius: '25px', // Rounded corners for button
-                                    padding: '8px 30px', // Padding inside the button
-                                    color: '#213346', // Text color
-                                    fontWeight: 'bold', // Bold text
-                                    fontSize: '14px',
-                                    marginBottom: '15px',
-                                }}
+                            <Box
+                                display={{ xs: 'none', md: 'block' }}
                             >
-                                چاپ فاکتور
-                            </Button>
+                                <Grid container spacing={1} justifyContent="space-between">
+                                    <Grid item xs={6}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            نام مشتری: <span style={{ fontWeight: 500 }}>{receipt.customerName}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                        <Typography fontWeight={700} fontSize={14}>
+                                            تاریخ سفارش: <span style={{ fontWeight: 500 }}>{receipt.orderDate}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            آدرس: <span style={{ fontWeight: 500 }}>{receipt.address}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                        <Typography fontWeight={700} fontSize={14}>
+                                            شماره سفارش: <span style={{ fontWeight: 500 }}>{receipt.orderNumber}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            شماره تماس: <span style={{ fontWeight: 500 }}>{receipt.phoneNumber}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.email}</span>
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box display={{ xs: 'block', md: 'none' }}>
+                                <Grid container spacing={1} justifyContent="space-between">
+                                    <Grid item xs={12}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            نام مشتری: <span style={{ fontWeight: 500 }}>{receipt.customerName}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography fontWeight={700} fontSize={14}>
+                                            تاریخ سفارش: <span style={{ fontWeight: 500 }}>{receipt.orderDate}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            آدرس: <span style={{ fontWeight: 500 }}>{receipt.address}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography fontWeight={700} fontSize={14}>
+                                            شماره سفارش: <span style={{ fontWeight: 500 }}>{receipt.orderNumber}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            شماره تماس: <span style={{ fontWeight: 500 }}>{receipt.phoneNumber}</span>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
+                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.email}</span>
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box
+                                pt={5}
+                            >
+                                <TableContainer
+                                    component={Paper}
+                                    sx={{
+                                        borderRadius: '8px 8px 0px 0px',
+                                        overflow: 'hidden',
+                                        border: '1px solid #363636',
+                                    }}
+                                >
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell sx={{ width: {xs: "15%", sm: 70},borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: {xs: 11, sm: 14}, fontWeight: 500 }}>شماره</TableCell>
+                                                <TableCell align="left" sx={{ width: {xs: "40%", sm: 150},borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: {xs: 11, sm: 14}, fontWeight: 500 }}>جزئیات سفارش</TableCell>
+                                                <TableCell align="left" sx={{ width: {xs: "15%", sm: 70},borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: {xs: 11, sm: 14}, fontWeight: 500 }}>تعداد</TableCell>
+                                                <TableCell align="left" sx={{ width: {xs: "15%", sm: 70},borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: {xs: 11, sm: 14}, fontWeight: 500 }}>قیمت</TableCell>
+                                                <TableCell align="left" sx={{ width: {xs: "15%", sm: 70},verticalAlign: 'top', borderBottom: '1px solid #363636', fontSize: {xs: 11, sm: 14}, fontWeight: 500 }}>مجموع</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {receipt.orderDetails.map((detail, index) => (
+                                                <TableRow key={detail.id}>
+                                                    <TableCell component="th" scope="row" sx={{ width: {xs: "15%", sm: 70}, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{index + 1}</TableCell>
+                                                    <TableCell align="left" sx={{ width: {xs: "40%", sm: 150}, borderRight: '1px solid #363636', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.detail}</TableCell>
+                                                    <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.quantity}</TableCell>
+                                                    <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.price}</TableCell>
+                                                    <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.total}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Box>
+                            <Box
+                                display={'flex'}
+                                justifyContent={'flex-end'}
+                            >
+                                <Box
+                                    width={{ xs: "100%", sm: "49.2%" }}
+                                    height={50}
+                                    borderRadius={'0 0px 10px 10px'}
+                                    display={'flex'}
+                                    alignItems={'center'}
+                                    justifyContent={'space-between'}
+                                    border={'1px solid #363636'}
+                                    px={4}
+                                >
+                                    <Typography fontSize={14} fontWeight={700}>
+                                        جمع فاکتور
+                                    </Typography>
+                                    <Typography fontSize={14} fontWeight={700}>
+                                        {receipt.total} تومان
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <Box
+                                displayPrint={'none'}
+                                display={'flex'}
+                                justifyContent={'flex-end'}
+                            >
+                                <Box
+                                    display={'flex'}
+                                    alignItems={'center'}
+                                    pt={3}
+                                >
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => handlePrint(receipt.id)}
+                                        sx={{
+                                            backgroundColor: '#FFCC70',
+                                            '&:hover': {
+                                                bgcolor: '#FFCC70',
+                                                opacity: 0.9,
+                                            },
+                                            borderRadius: '25px',
+                                            padding: '4px 30px',
+                                            fontWeight: 'bold',
+                                            fontSize: {xs: 14, md: 16},
+                                            marginBottom: '15px',
+                                            color: '#213346',
+                                        }}
+                                    >
+                                        چاپ فاکتور
+                                    </Button>
+                                </Box>
+                            </Box>
                         </Box>
-                    </Box>
+                    ))}
                 </Box>
             </Box>
         </Paper>

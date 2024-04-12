@@ -34,6 +34,7 @@ const Footer = () => {
 	return (
 		<>
 			<Box
+				displayPrint={'none'}
 				component="footer"
 				bgcolor="rgba(142, 205, 221, 0.3)"
 				color="black"
@@ -183,6 +184,7 @@ const Footer = () => {
 				</Grid>
 
 				<Grid
+					displayPrint={'none'}
 					container
 					direction="row"
 					justifyContent="space-around"

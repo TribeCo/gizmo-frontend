@@ -54,22 +54,25 @@ export default function DashBoardAddress(props) {
     const [address, setAddress] = useState([]);
     const [selectedAddressId, setSelectedAddressId] = useState();
 
+    useEffect(() => {
+        handleGetAddress();
+    }, []);
+
     const handleGetAddress = async () => {
-        setAddress(await fetchAddresses().data)
+        setAddress((await fetchAddresses()).data)
     }
 
-    // Handler for radio button change
+
     const handleRadioChange = (event) => {
         setSelectedAddressId(event.target.value);
     };
 
-    // Handler for setting an address as default
-    const addToDefault = async () => {// Debugging line
+    const addToDefault = async () => {
         if (!selectedAddressId) {
             alert('Please select an address first');
             return;
         }
-        const response = await MakeDefaultAddress(selectedAddressId).message;
+        const response = (await MakeDefaultAddress(selectedAddressId)).message;
         alert(`${response}`);
     };
 

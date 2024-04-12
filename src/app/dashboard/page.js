@@ -62,8 +62,8 @@ export default function Profile() {
         <DashBoardNotifications />, // پیغام ها 3
         <DashBoardOrders />, // سفارشات 4
         <DashBoardDubaiOrders />, // استعلام قیمت 5
-        <DashBoardFavoriteProduct />, // علاقه مندی ها 6
-        <DashBoardFactor />
+        <DashBoardFactor />,
+        <DashBoardFavoriteProduct /> // علاقه مندی ها 6
     ]
 
     return (

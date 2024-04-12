@@ -6,7 +6,7 @@ export const fetchDubaiOrders = async () => {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
             },
             next: {
                 revalidate: 10,
@@ -23,9 +23,9 @@ export const fetchDubaiOrders = async () => {
 
 export const fetchAddresses = async () => {
     try {
-        const response = await fetch('https://gn01.liara.run/api/addresses/user/', {
+        const response = await fetch(`${baseUrl}/api/addresses/user/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
             }
         });
         if (!response.ok) {
@@ -37,18 +37,17 @@ export const fetchAddresses = async () => {
     }
 };
 
-const fetchFavoriteProducts = async () => {
+export const fetchFavoriteProducts = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/favorites/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
             }
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        const data = await response.json();
-        setProducts(data.data);
+        return (response.json());
     } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
     }
@@ -60,7 +59,7 @@ export const MakeDefaultAddress = async (id) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
             },
             body: JSON.stringify({ id: id })
         });
@@ -79,7 +78,7 @@ export const DeleteAddress = async (id) => {
             method: 'DELETE', // Use the DELETE method for the request
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
             }
         });
         if (!response.ok) {
@@ -98,7 +97,7 @@ export const AddNewAddress = async (newAddress) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEwNzEyMzk4LCJpYXQiOjE3MTA2MjU5OTgsImp0aSI6ImM5ZjBlYTI2NmQxZDRjNDU5NGQ0YmE4M2FkNWQyZDA5IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.UjiWSFIKvUHUGCJNJvwzUom8-2sCbCAL7x2JBBmmkw8`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
             },
             body: JSON.stringify(newAddress),
         });
@@ -111,3 +110,64 @@ export const AddNewAddress = async (newAddress) => {
     }
 };
 
+export const fetchNotifications = async () => {
+    try {
+        const response = await fetch(`${baseUrl}/api/messages/user/`, {
+            headers: {
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};
+
+export const fetchOrders = async () => {
+    try {
+        const response = await fetch(`${baseUrl}/api/orders/user/`, {
+            headers: {
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};
+export const fetchActivties = async () => {
+    try {
+        const response = await fetch(`${baseUrl}/api/orders/count/`, {
+            headers: {
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};
+export const fetchInformation = async () => {
+    try {
+        const response = await fetch(`${baseUrl}/api/users/info/`, {
+            headers: {
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};

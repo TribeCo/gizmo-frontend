@@ -21,6 +21,48 @@ export const fetchDubaiOrders = async () => {
     }
 };
 
+export const fetchFactors = async () => {
+    try {
+        const response = await fetch(`${baseUrl}/api/order/factor/1/`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
+            },
+            next: {
+                revalidate: 10,
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return (response.json());
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};
+
+export const SeenMessages = async () => {
+    try {
+        const response = await fetch(`${baseUrl}/api/messages/user/all/seen/`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyOTU5Njk2LCJpYXQiOjE3MTI4NzMyOTYsImp0aSI6IjY2OGIyNGQ1MWI4ZTQwMTliYTI0YWExYTE0ZDEwODAzIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.mVfpfPDBQtBlgUr_XqhBnAIKOpMAU_T8JVeFzI6s-JQ`
+            },
+            next: {
+                revalidate: 10,
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return (response.json());
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};
+
 export const fetchAddresses = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/addresses/user/`, {

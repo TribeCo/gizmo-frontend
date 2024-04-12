@@ -28,7 +28,7 @@ export default async function FAQ() {
     }
 
     const boxList = Icons
-    .sort((a, b) => a.id - b.id) // Sort the icons array by ID in ascending order
+    .sort((a, b) => a.id - b.id)
     .map(icon => (
         <PaperIcon key={icon.id} logo={icon.icon} text={icon.title} />
     ));

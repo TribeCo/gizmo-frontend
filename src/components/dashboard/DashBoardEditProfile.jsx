@@ -49,12 +49,8 @@ export default function DashBoardEditProfile() {
         }
     }
 
-
-
     const editNewProfile = async () => {
-        // Define the API endpoint for adding a new address
         const addApiUrl = 'https://example.com/api/addNewAddress';
-
         try {
             const response = await fetch(addApiUrl, {
                 method: 'POST',

@@ -4,6 +4,7 @@ import { Box, Divider, Grid, Typography, TextField, InputAdornment, IconButton, 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
 import LevelofOrdering from './LevelofOrdering';
+import { fetchOrders } from '@/services/DashBoard';
 
 export default function DashBoardOrders() {
 
@@ -52,24 +53,12 @@ export default function DashBoardOrders() {
     };
     const [orders, setOrders] = useState([]);
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const response = await fetch('https://gn01.liara.run/api/orders/user/', {
-                    headers: {
-                        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTc3MDMzLCJpYXQiOjE3MTE0OTA2MzMsImp0aSI6ImE4NjYxZTY2MDc3NTRlODlhODFlNTMyNDBkMzIzYjUxIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.TnAmTpVafP_kWA6YmBGDCRpPa_6v9VRpAwYypmwSBA8`
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                setOrders(data.data);
-            } catch (error) {
-                console.error("There was a problem with the fetch operation:", error);
-            }
-        };
-        fetchOrders();
+        GetOrders();
     }, []);
+
+    const GetOrders = async () => {
+        setOrders((await fetchOrders()).data)
+    }
 
     const [realOrders, setRealOrders] = useState([
         { orderCode: '0786453465', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },

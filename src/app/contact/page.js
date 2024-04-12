@@ -55,9 +55,13 @@ function ContactUs() {
                 padding: { xs: 0, md: '20px' }, // Adjusted padding
                 paddingX: { xs: 0, md: '50px' }
             }}>
-            <Box>
-                {gizmoinfo.gif}
-            </Box>
+        <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+        >
+            <img src={gizmoinfo.gif} alt="Gizmo GIF" />
+        </Box>
             <LineSplitter text={"درباره گیزموشاپ"} />
             <Box
                 sx={{

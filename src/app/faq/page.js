@@ -1,86 +1,33 @@
+/* eslint-disable @next/next/no-async-client-component */
 "use client";
-
 import LineSplitter from "@/components/LineSpliter";
 import { Box, Button, Grid, Paper, SvgIcon, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
-
-import key from '@/components/siteIcons/key.png';
-import distribution from '@/components/siteIcons/distribution.png';
-import guarantee from '@/components/siteIcons/guarantee.png';
-import logistics from '@/components/siteIcons/logistics.png';
-import onlineShop from '@/components/siteIcons/online-shop.png';
 import _return from '@/components/siteIcons/return.png';
-import Image from "next/image";
+
 import { Colors } from "@/utils";
 import FaqQuestion from "@/components/FaqQuestion";
+import { fetchIcons, fetchQuestions } from "../../services/Faq";
 
-const FAQ = () => {
-    const [questions, setQuestions] = useState([]);
+export default async function FAQ() {
     const [faqComponent, setfaqComponent] = useState(0);
-    const [questionList, setQuestionList] = useState();
-    const [icons, setIcons] = useState([]);
-    const [photo, setPhoto] = useState('');
-    const fetchQuestions = async (id) => {
-        try {
-            const response = await fetch(`https://gn01.liara.run/api/faqs/groups/read/${id}`, {
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setQuestions(data.data);
-        } catch (error) {
-            console.error("There was a problem with the fetch operation:", error);
-        }
-    };
-
-    const fetchIcons = async () => {
-        try {
-            const response = await fetch('https://gn01.liara.run/api/faqs/groups/all/', {
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setIcons(data.data);
-        } catch (error) {
-            console.error("There was a problem with the fetch operation:", error);
-        }
-    };
-    
-    useEffect(() => {
-        fetchIcons();
-    }, []);
+    const [photo, setPhoto] = useState();
+    const Icons = (await fetchIcons()).data;
+    let Questions = (await fetchQuestions(1)).data;
 
     const handleFaqChange = async (id) => {
         try {
-            await fetchQuestions(id);
-            setPhoto(icons.find(icon => icon.id === id)?.icon || ''); // Set photo path to empty string if icon is not found
-            setQuestionList(generateQuestionList());
+            Questions = (await fetchQuestions(id)).data;
+            console.log(Questions);
+            setPhoto(Icons.find(icon => icon.id === id)?.icon || '');
+            // generateQuestionList(Questions);
             setfaqComponent(1);
         } catch (error) {
             console.error("There was a problem fetching the questions:", error);
         }
     }
 
-    const generateQuestionList = () => {
-        if (!questions || !questions.faqs || questions.faqs.length === 0) {
-            return <p>No questions available</p>;
-        }
-        return (
-            <>
-                {questions.faqs.map((faq, index) => (
-                    <FaqQuestion
-                        key={index}
-                        question={faq.question}
-                        answer={faq.answer}
-                    />
-                ))}
-            </>
-        );
-    };
-
-    const boxList = icons
+    const boxList = Icons
     .sort((a, b) => a.id - b.id) // Sort the icons array by ID in ascending order
     .map(icon => (
         <PaperIcon key={icon.id} logo={icon.icon} text={icon.title} />
@@ -111,7 +58,7 @@ const FAQ = () => {
                             alignItems: 'center',
                         }}
                     >
-                        <Box onClick={() => handleFaqChange(1)}>{boxList[0]}</Box>
+                        <Box onClick={async () => await handleFaqChange(1)}>{boxList[0]}</Box>
                         <Box onClick={() => handleFaqChange(2)}>{boxList[1]}</Box>
                         <Box onClick={() => handleFaqChange(3)}>{boxList[2]}</Box>
                         <Box onClick={() => handleFaqChange(4)}>{boxList[3]}</Box>
@@ -140,7 +87,7 @@ const FAQ = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Box onClick={() => handleFaqChange(1)}>{boxList[0]}</Box>
+                    <Box onClick={async () => await handleFaqChange(1)}>{boxList[0]}</Box>
                     <Box onClick={() => handleFaqChange(2)}>{boxList[1]}</Box>
                     <Box onClick={() => handleFaqChange(3)}>{boxList[2]}</Box>
                     <Box onClick={() => handleFaqChange(4)}>{boxList[3]}</Box>
@@ -182,7 +129,7 @@ const FAQ = () => {
                                     fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
                                 }}
                             >
-                                {questions.title}
+                                {Questions.title}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -230,7 +177,13 @@ const FAQ = () => {
                     justifyContent='center'
                     alignItems='center'
                 >
-                    {questionList}
+                    {Questions.faqs.map((faq, index) => (
+                        <FaqQuestion
+                            key={index}
+                            question={faq.question}
+                            answer={faq.answer}
+                        />
+                    ))}
                 </Grid>
             </Grid>
         );
@@ -293,6 +246,3 @@ const PaperIcon = ({ logo, text }) => {
         </Paper>
     )
 }
-
-
-export default FAQ;

@@ -14,7 +14,7 @@ export default function SignUpRendering ({ loginInfo }) {
     const renderComponent = () => {
         switch (component) {
             case 'Login': return <LoginComponent/>;
-            case 'Forget-Pass': return <ForgetPassword/>;
+            case 'Forget-Pass': return <ForgetPassword/>;///
             case 'Level1': return <SignUpComponent/>;
             case 'Level2': return <SignUp2Component/>;
             case 'Level3': return <SignUp3Component/>;

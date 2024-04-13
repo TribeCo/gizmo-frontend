@@ -4,7 +4,7 @@ import Image from 'next/image'
 import envelopIcon from '@/components/siteIcons/EnvelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 import { Paper } from '@mui/material'
-import { fetchNotifications } from '@/services/DashBoard'
+import { fetchNotifications, SeenMessages } from '@/services/DashBoard'
 
 
 export default function DashBoardNotifications() {
@@ -16,6 +16,10 @@ export default function DashBoardNotifications() {
 
     const GetNotifications = async () => {
         setNotifications((await fetchNotifications()).data)
+    }
+
+    const SeenAllMessages = async () => {
+        alert((await SeenMessages()).message)
     }
 
     const [notifs, setNotifs] = React.useState([
@@ -62,7 +66,7 @@ export default function DashBoardNotifications() {
                             </defs>
                         </svg>
 
-                        <span onClick={markAllAsRead} className='text-palette-blue font-bold md:text-xs select-none'>تغییر پیام ها به خوانده شده</span>
+                        <span onClick={SeenAllMessages} className='text-palette-blue font-bold md:text-xs select-none'>تغییر پیام ها به خوانده شده</span>
                     </div>
                 </div>
 

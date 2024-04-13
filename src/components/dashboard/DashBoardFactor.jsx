@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Divider, Grid, Typography, TextField, InputAdornment, IconButton, Button, Paper } from '@mui/material';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SearchIcon from '@mui/icons-material/Search';
-import LevelofOrdering from './LevelofOrdering';
 import { fetchFactors } from '@/services/DashBoard';
 
 export default function DashBoardFactor() {
@@ -44,8 +41,9 @@ export default function DashBoardFactor() {
 
     function formatFullAddress(address) {
         const { province, city, straight_address, postal_code, current } = address;
-        const fullAddress = `${straight_address}, ${city}, ${province}, Postal Code: ${postal_code}`;
-        return current ? `${fullAddress} (Current Address)` : fullAddress;
+        const fullAddress = `استان: ${province}, شهر: ${city}, آدرس: ${straight_address}, کد پستی: ${postal_code}`;
+        return fullAddress;
+        // return current ? `${fullAddress} (Current Address)` : fullAddress;
     }
 
     const handlePrint = (id) => {
@@ -139,12 +137,12 @@ export default function DashBoardFactor() {
                                 <Grid container spacing={1} justifyContent="space-between">
                                     <Grid item xs={6}>
                                         <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
-                                            نام مشتری: <span style={{ fontWeight: 500 }}>{receipt.customerName}</span>
+                                            نام مشتری: <span style={{ fontWeight: 500 }}>{receipt.user.full_name}</span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
                                         <Typography fontWeight={700} fontSize={14}>
-                                            تاریخ سفارش: <span style={{ fontWeight: 500 }}>{receipt.orderDate}</span>
+                                            تاریخ سفارش: <span style={{ fontWeight: 500 }}>{receipt.shamsi_date}</span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
@@ -154,12 +152,12 @@ export default function DashBoardFactor() {
                                     </Grid>
                                     <Grid item xs={6} style={{ display: 'flex', justifyContent: 'flex-end' }}>
                                         <Typography fontWeight={700} fontSize={14}>
-                                            شماره سفارش: <span style={{ fontWeight: 500 }}>{receipt.orderNumber}</span>
+                                            شماره سفارش: <span style={{ fontWeight: 500 }}>{receipt.get_order_number}</span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
-                                            شماره تماس: <span style={{ fontWeight: 500 }}>{receipt.phoneNumber}</span>
+                                            شماره تماس: <span style={{ fontWeight: 500 }}>{receipt.user.phoneNumber}</span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
@@ -183,22 +181,22 @@ export default function DashBoardFactor() {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
-                                            آدرس: <span style={{ fontWeight: 500 }}>{receipt.address}</span>
+                                            آدرس: <span style={{ fontWeight: 500 }}>{formatFullAddress(receipt.address)}</span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography fontWeight={700} fontSize={14}>
-                                            شماره سفارش: <span style={{ fontWeight: 500 }}>{receipt.ref_id}</span>
+                                            شماره سفارش: <span style={{ fontWeight: 500 }}>{receipt.get_order_number}</span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
-                                            شماره تماس: <span style={{ fontWeight: 500 }}>{receipt.phoneNumber}</span>
+                                            شماره تماس: <span style={{ fontWeight: 500 }}>{receipt.user.phoneNumber}</span>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
-                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.user.phoneNumber}</span>
+                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.user.email}</span>
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -228,10 +226,10 @@ export default function DashBoardFactor() {
                                             {receipt.items.map((detail, index) => (
                                                 <TableRow key={detail.id}>
                                                     <TableCell component="th" scope="row" sx={{ width: {xs: "15%", sm: 70}, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{index + 1}</TableCell>
-                                                    <TableCell align="left" sx={{ width: {xs: "40%", sm: 150}, borderRight: '1px solid #363636', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.detail}</TableCell>
+                                                    <TableCell align="left" sx={{ width: {xs: "40%", sm: 150}, borderRight: '1px solid #363636', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.product.name}</TableCell>
                                                     <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.quantity}</TableCell>
-                                                    <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.price}</TableCell>
-                                                    <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.total}</TableCell>
+                                                    <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.product.discount_price}</TableCell>
+                                                    <TableCell align="left" sx={{ width: {xs: "15%", sm: 70}, verticalAlign: 'top', height: 100, fontSize: {xs: 9, sm: 14}, fontWeight: 400 }}>{detail.get_cost_from_product}</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -256,7 +254,7 @@ export default function DashBoardFactor() {
                                         جمع فاکتور
                                     </Typography>
                                     <Typography fontSize={14} fontWeight={700}>
-                                        {receipt.total} تومان
+                                        {receipt.pay_amount} تومان
                                     </Typography>
                                 </Box>
                             </Box>

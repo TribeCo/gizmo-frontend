@@ -3,11 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { Card, Box, Typography, Divider, TextField, Button, IconButton, InputAdornment, Link } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useAuth } from '@/context/AuthContext';
+import * as Yup from "yup";
 
 const LoginComponent = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [inputValue, setInputValue] = useState('');
+    const [phoneNumber, setphoneNumber] = useState('');
+    const [password, setPassword] = useState('');
     const [displayValue, setDisplayValue] = useState('');
+    const [errors, setErrors] = useState({});
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
     const toPersianDigits = (num) => {
         const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -15,16 +19,46 @@ const LoginComponent = () => {
     };
 
     useEffect(() => {
-        setDisplayValue(toPersianDigits(inputValue));
-    }, [inputValue]);
+        setDisplayValue(toPersianDigits(phoneNumber));
+    }, [phoneNumber]);
 
     // Handle phone number change, allow only digits
     const handlePhoneNumberChange = (event) => {
         const input = event.target.value;
-        const currentDisplayValue = toPersianDigits(inputValue);
+        const currentDisplayValue = toPersianDigits(phoneNumber);
         if (input !== currentDisplayValue) {
             const newValue = input.replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, '').replace(/[۰۱۲۳۴۵۶۷۸۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
-            setInputValue(newValue);
+            setphoneNumber(newValue);
+        }
+    };
+
+    const validationSchema = Yup.object().shape({
+        phoneNumber: Yup.string()
+            .min(11, "تلفن همراه ۱۱ رقم است")
+            .max(11, "تلفن همراه ۱۱ رقم است")
+            .required("تلفن همراه الزامی است"),
+        password: Yup.string().required("رمز عبور الزامی است"),
+    });
+
+    const { loginUser } = useAuth();
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        try {
+            await validationSchema.validate(
+                {
+                    phoneNumber,
+                    password,
+                },
+                { abortEarly: false },
+            );
+            loginUser(phoneNumber, password);
+        } catch (validationErrors) {
+            const newErrors = {};
+            validationErrors.inner.forEach((error) => {
+                newErrors[error.path] = error.message;
+            });
+            setErrors(newErrors);
         }
     };
 
@@ -32,45 +66,30 @@ const LoginComponent = () => {
         <Box
             sx={{
                 display: 'flex',
+                flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: { xs: 400, sm: 420, md: 436 }, // Minimum height to maintain size
-                width: { xs: 345, sm: 400, md: 460 }, // Minimum width to maintain size
-                position: 'absolute',
-                right: {xs: '', sm: '50%' ,md: '50%', lg: '25%'}, // Centered horizontally
-                top: '50%', // Centered vertically
-                transform: 'translate(50%, -50%)', // Adjust position to truly center
-                '@media (max-width: 768px)': {
-                    right: '50%', // Adjust for smaller screens
-                    transform: 'translate(50%, -50%)', // Keep it centered
-                },
-                '@media (max-width: 480px)': {
-                    minWidth: '300px', // Adjust width for very small devices
-                },
+                height: 'auto', // Minimum height to maintain size
+                width: { xs: 350, sm: 400, md: 460 }, // Minimum width to maintain size
             }}
         >
             {/* Welcome Typography outside the Card */}
             <Typography
                 variant="h4"
                 sx={{
+                    position: 'relative',
+                    top: 17,
                     color: '#213346',
-                    position: 'absolute',
-                    top: '5%',
-                    left: { xs: '58%', sm: '59%', md: '62%' },
-                    transform: 'translate(-50%, -100%)',
                     fontWeight: 'bold',
-                    padding: '10px 20px',
-                    zIndex: 10,
-                    width: '100%',
-                    fontSize: { 
-                    xs: '1.75rem', // Smaller size for extra small screens
-                    sm: '2rem', // Medium size for small screens
-                    md: '2.25rem', // Large size for medium screens
-                    lg: '2.25rem', // Extra large size for large screens
+                    fontSize: {
+                        xs: '1.75rem', // Smaller size for extra small screens
+                        sm: '2rem', // Medium size for small screens
+                        md: '2.25rem', // Large size for medium screens
+                        lg: '2.25rem', // Extra large size for large screens
                     },
                     letterSpacing: '-0.10rem',
                 }}
-                >
+            >
                 سلام!! خوش اومدین!
             </Typography>
             <Card
@@ -97,13 +116,13 @@ const LoginComponent = () => {
                         textAlign: 'center',
                         padding: '10px',
                         fontSize: {
-                        xs: '1.25rem', // Smaller size for extra small screens
-                        sm: '1.5rem', // Medium size for small screens
-                        md: '1.5rem', // Large size for medium screens
-                        lg: '1.5rem', // Extra large size for large screens
+                            xs: '1.25rem', // Smaller size for extra small screens
+                            sm: '1.5rem', // Medium size for small screens
+                            md: '1.5rem', // Large size for medium screens
+                            lg: '1.5rem', // Extra large size for large screens
                         },
                     }}
-                    >
+                >
                     ورود / ثبت نام
                 </Typography>
                 {/* Line divider */}
@@ -118,25 +137,39 @@ const LoginComponent = () => {
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        width: '100%', // Match the width of the card content area
-                        padding: '20px 20px', // Horizontal padding
+                        width: '100%',
+                        padding: '20px 20px',
                     }}
                 >
                     <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px' }}>شماره تلفن:</Typography>
                     <TextField
                         variant="outlined"
-                        value={displayValue} // Use displayValue for rendering
+                        value={displayValue}
                         onChange={handlePhoneNumberChange}
-                        sx={{ backgroundColor: '#FFFFFF', borderRadius: '20px', marginBottom: '5px', '& .MuiOutlinedInput-root': { borderRadius: '20px' }}}
-                    />
-                    {/* Similar setup as your LoginComponent */}
-                    <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px'}}>رمز عبور: </Typography>
-                    <TextField
-                        variant="outlined"
-                        type={showPassword ? "text" : "password"}
                         sx={{
                             backgroundColor: '#FFFFFF',
                             borderRadius: '20px',
+                            marginBottom: '3px',
+                            '& .MuiOutlinedInput-root': {
+                                borderRadius: '20px',
+                            },
+                        }}
+                    />
+                    {errors.phoneNumber && (
+                        <Typography color="error" sx={{ fontSize: '0.80rem', paddingLeft: '15px' }}>
+                            {errors.phoneNumber}
+                        </Typography>
+                    )}
+                    <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px' }}>رمز عبور: </Typography>
+                    <TextField
+                        variant="outlined"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        sx={{
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '20px',
+                            marginBottom: '3px',
                             '& .MuiOutlinedInput-root': {
                                 borderRadius: '20px',
                             },
@@ -145,20 +178,24 @@ const LoginComponent = () => {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
-                                        sx={{ color: '#22668D'}}
-                                        aria-label="toggle password visibility"
                                         onClick={togglePasswordVisibility}
                                         edge="end"
+                                        sx={{ color: '#22668D' }}
                                     >
-                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
+                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                     </IconButton>
                                 </InputAdornment>
                             ),
                         }}
                     />
+                    {errors.password && (
+                        <Typography color="error" sx={{ fontSize: '0.80rem', paddingLeft: '15px' }}>
+                            {errors.password}
+                        </Typography>
+                    )}
                 </Box>
-                {/* Submit Button */}
                 <Button
+                    onClick={handleLogin}
                     variant="contained"
                     sx={{
                         backgroundColor: '#FFCC70', // Button background color
@@ -179,7 +216,6 @@ const LoginComponent = () => {
                 >
                     ورود
                 </Button>
-                {/* Password Reset Link */}
                 <Link
                     href="/login/forgetpass" // Add your password reset link here
                     sx={{

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Divider, Grid, Typography, TextField, InputAdornment, IconButton, Button, Paper } from '@mui/material';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { fetchFactors } from '@/services/DashBoard';
+import { CleaningServices } from '@mui/icons-material';
 
 export default function DashBoardFactor() {
 
@@ -10,33 +11,48 @@ export default function DashBoardFactor() {
     const [factors, setFactors] = useState([]);
     const receipts = [
         {
-            id: 1,
-            customerName: 'علی رضایی',
-            orderDate: '1402/07/21',
-            address: 'ایران, تهران, خیابان انقلاب',
-            orderNumber: '123456',
-            phoneNumber: '09123456789',
-            email: 'ali@example.com',
-            total: '2300000',
-            orderDetails: [
-                { id: 1, detail: 'محصول A', quantity: 2, price: '100', total: '200' },
-                { id: 2, detail: 'محصول B', quantity: 1, price: '150', total: '150' },
+            "user": {
+                "phoneNumber": "2",
+                "full_name": "رضا کریمی",
+                "email": "RezaK9000@gmail.com"
+            },
+            "address": {
+                "province": "تهران",
+                "city": "تهران",
+                "straight_address": "خیابان ولیعصر",
+                "postal_code": "1133557799",
+                "current": true
+            },
+            "items": [
+                {
+                    "product": {
+                        "name": "دستگاه قهوه ساز Delonghi Magnifica S",
+                        "price": 4500000,
+                        "id": 3,
+                        "discount": 15,
+                        "discounted": true,
+                        "discount_price": "3,825,000"
+                    },
+                    "price": 4500000,
+                    "quantity": 2,
+                    "get_cost_from_product": "9,000,000"
+                }
             ],
-        },
-        {
-            id: 2,
-            customerName: 'مریم میرزایی',
-            orderDate: '1402/07/22',
-            address: 'ایران, مشهد, بلوار پیروزی',
-            orderNumber: '789101',
-            phoneNumber: '09213456789',
-            email: 'maryam@example.com',
-            total: '3200000',
-            orderDetails: [
-                { id: 3, detail: 'محصول C', quantity: 3, price: '200', total: '600' },
-                { id: 4, detail: 'محصول D', quantity: 2, price: '250', total: '500' },
-            ],
-        },
+            "shamsi_date": "۱۵ شهریور ۱۴۰۲",
+            "paid": true,
+            "discount": 15,
+            "ref_id": "78ujnmki9",
+            "authority": "789ijhgt5",
+            "processed": true,
+            "packing": true,
+            "shipped": false,
+            "deliveried": false,
+            "total_price": 9000000.0,
+            "discount_string": "15 درصد تخفیف اعمال شده است",
+            "discount_amount": 1350000.0,
+            "pay_amount": 7650000.0,
+            "get_order_number": "46003"
+        }    
     ];
 
     function formatFullAddress(address) {
@@ -56,12 +72,12 @@ export default function DashBoardFactor() {
     }
 
     useEffect(() => {
+        handleGetFactors();
         const handleAfterPrint = () => setActivePrintId(null);
         window.addEventListener('afterprint', handleAfterPrint);
         return () => {
             window.removeEventListener('afterprint', handleAfterPrint);
         };
-        handleGetFactors();
     }, []);
 
     return (
@@ -120,7 +136,7 @@ export default function DashBoardFactor() {
                         '-ms-overflow-style': 'none',
                         'scrollbar-width': 'none',
                     }}>
-                    {factors.map((receipt) => (
+                    {receipts.map((receipt) => (
                         <Box
                             key={receipt.id}
                             width={{ xs: 'auto', md: 840 }}

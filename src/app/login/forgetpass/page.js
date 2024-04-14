@@ -25,6 +25,10 @@ function ForgetPass() {
           xs: '#8ECDDD', // Change the background color for xs
         },
         backgroundRepeat: 'no-repeat', // Prevent the background image from repeating
+        display: 'flex',
+        justifyContent: {xs: 'center', lg: 'flex-start'},
+        alignItems: 'center',
+        pl: {lg: 30}
       }}
     >
       <ForgetPassword />

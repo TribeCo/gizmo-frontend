@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
 	Box,
 	Button,
@@ -50,21 +51,24 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 	}
 
 	return (
-		<Box>
-			<Box
-				position="absolute"
-				display="flex"
-				width="100%"
-				alignItems="center"
-				justifyContent="space-around"
-				sx={{
-					transform: { xs: "scale(0.63)", sm: "scale(0.63)", md: "scale(1)" },
-				}}>
-				<Box item>
+		<>
+			<Box>
+				<Box
+					mt={2}
+					position="absolute"
+					display="flex"
+					width="100vw"
+					alignItems="center"
+					justifyContent="space-around">
 					<IconButton
 						variant="contained"
 						sx={{
 							bgcolor: Colors.blue,
+							transform: {
+								xs: "scale(0.6)",
+								sm: "scale(0.6)",
+								md: "scale(1)",
+							},
 							"&:hover": {
 								backgroundColor: Colors.blue,
 							},
@@ -72,22 +76,25 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 						onClick={handleNext}>
 						<ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
 					</IconButton>
-				</Box>
-				<Box
-					item
-					display="flex">
-					{productItems.map((product) => (
-						<ProductCard
-							key={product.id}
-							product={product}
-						/>
-					))}
-				</Box>
-				<Box item>
+					<Box
+						item
+						display="flex">
+						{productItems.map((product) => (
+							<ProductCard
+								key={product.id}
+								product={product}
+							/>
+						))}
+					</Box>
 					<IconButton
 						variant="contained"
 						sx={{
 							bgcolor: Colors.blue,
+							transform: {
+								xs: "scale(0.6)",
+								sm: "scale(0.6)",
+								md: "scale(1)",
+							},
 							"&:hover": {
 								backgroundColor: Colors.blue,
 							},
@@ -96,50 +103,53 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 						<ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
 					</IconButton>
 				</Box>
-			</Box>
-			<Box>
-				<Box sx={{ height: { xs: "223px", lg: "240px" } }}></Box>
-				<Box
-					sx={{ height: { xs: "122px", lg: "190px" } }}
-					bgcolor="#DEF0F5"></Box>
+				<Box>
+					<Box sx={{ height: { xs: "166px", md: "240px" } }} />
+					<Box
+						sx={{ height: { xs: "122px", md: "190px" } }}
+						bgcolor="#DEF0F5"
+					/>
+				</Box>
 			</Box>
 			{btn && (
 				<Box
 					sx={{
 						mt: { xs: 0, sm: 0, md: 3 },
 					}}>
-					<Button
-						variant="contained"
-						sx={{
-							transform: {
-								xs: "scale(0.7)",
-								sm: "scale(0.8)",
-								md: "scale(1)",
-							},
-							display: "block",
-							mx: "auto",
-							border: `3px solid ${Colors.orange}`,
-							color: "#000000",
-							bgcolor: "#FFFFFF",
-							borderRadius: "30px",
-							width: "300px",
-							height: "60px",
-							"&:hover": {
-								bgcolor: Colors.orange,
-							},
-						}}>
-						<Typography
-							variant="h5"
+					<Link href={`/categories/${btn}`}>
+						<Button
+							variant="contained"
 							sx={{
-								fontWeight: "700",
-								fontSize: "20px",
+								transform: {
+									xs: "scale(0.7)",
+									sm: "scale(0.8)",
+									md: "scale(1)",
+								},
+								display: "block",
+								mx: "auto",
+								border: `3px solid ${Colors.orange}`,
+								color: "#000000",
+								bgcolor: "#FFFFFF",
+								borderRadius: "30px",
+								width: "300px",
+								height: "60px",
+								"&:hover": {
+									bgcolor: Colors.orange,
+								},
 							}}>
-							{"مشاهده محصولات بیشتر"}
-						</Typography>
-					</Button>
+							<Typography
+								variant="h5"
+								sx={{
+									fontWeight: "700",
+									fontSize: "20px",
+								}}>
+								{"مشاهده محصولات بیشتر"}
+							</Typography>
+						</Button>
+					</Link>
 				</Box>
 			)}
-		</Box>
+		</>
 	);
 };
 export default CardProductSlider;

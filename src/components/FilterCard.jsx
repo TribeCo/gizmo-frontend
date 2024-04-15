@@ -75,16 +75,18 @@ const FilterCard = ({
     // Inside FilterCard component, when handling text field changes for price range
     const handleMinPriceChange = (filter, rawFilter) => (event) => {
         const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
-        const formattedValue = formatNumberWithCommas(numericValue); 
+        const formattedValue = formatNumberWithCommas(numericValue);
         setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
-        setMinPrice(event.target.value); // Use the passed setter function to update minPrice
+        setMinPrice(numericValue); // Use the passed setter function to update minPrice
+        console.log(minPrice);
     };
 
     const handleMaxPriceChange = (filter, rawFilter) => (event) => {
         const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
         const formattedValue = formatNumberWithCommas(numericValue);
         setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue }); 
-        setMaxPrice(event.target.value); // Use the passed setter function to update maxPrice
+        setMaxPrice(numericValue); // Use the passed setter function to update maxPrice
+        console.log(maxPrice);
     }; 
 
     const resetFilters = () => {
@@ -94,19 +96,15 @@ const FilterCard = ({
     return (
         <Box
             sx={{
-                width: '23%',
                 height: '100%', // 50% of the viewport height
-                display: 'flex',
+                display: {xs: 'none',md:'flex'},
                 justifyContent: 'center',
                 alignItems: 'center',
-                position: 'relative',
-                top: '-4rem',
-                paddingRight: '40px',
             }}
         >
             <Card
                 sx={{
-                    width: '100%', // Takes full width of the Box container
+                    width: {xs:'100%', xl: '340px'}, // Takes full width of the Box container
                     height: '100%', // Takes full height of the Box container
                     bgcolor: '#FFFFFF',
                     borderColor: '#C0C2CE40',
@@ -276,10 +274,11 @@ const FilterCard = ({
                             opacity: 0.9,
                         },
                         color: 'black',
-                        mt: 2,
+                        margin: '10px',
                         fontWeight: 'bold',
+                        marginTop: '20px',
                         padding: '10px',
-                        borderRadius: '20px'
+                        borderRadius: '25px'
                     }}
                 >
                     اعمال فیلتر

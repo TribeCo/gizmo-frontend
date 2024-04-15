@@ -21,7 +21,7 @@ const LineSplitter = ({ text, margin = 10 }) => {
 			/>
 			<Typography
 				dir="center"
-				fontWeight="900"
+				fontWeight={900}
 				variant="h4"
 				sx={{
 					fontSize: { xs: 18, sm: 26, md: 32 },

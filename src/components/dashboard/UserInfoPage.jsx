@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import {
     Paper,
     Button,
@@ -8,16 +9,51 @@ import {
     Box,
 } from '@mui/material';
 import { Colors } from "@/utils";
+import { fetchActivties, fetchInformation } from "@/services/DashBoard";
+
+const convertToPersian = (number) => {
+    if (number === undefined || number === null) {
+        console.error('Invalid input: number is undefined or null');
+        return number; // Or return a default value or an error message depending on your use case
+    }
+    const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return number.toString().replace(/\d/g, (x) => persianNumbers[x]);
+};
+
+function getGenderDescription(genderCode) {
+    if (!genderCode) {
+        return 'خالی';
+    }
+    const genderMap = {
+        'm': 'مرد',
+        'f': 'زن',
+        'u': 'مایل به گفتن ندارم'
+    };
+    return genderMap[genderCode.toLowerCase()] || 'خالی';
+}
+
+
+function createFullName(firstName, lastName) {
+    return `${firstName} ${lastName}`;
+}
 
 const UserInfoPage = () => {
+    const [activities, setActivites] = useState([]);
+    const [information, setInformation] = useState([]);
+    useEffect(() => {
+        GetInformation();
+    }, []);
+
+    const GetInformation = async () => {
+        setActivites((await fetchActivties()));
+        setInformation((await fetchInformation()));
+    }
+
     return (
         <Grid
             item
             display='flex'
             flexDirection='column'
-            sx={{
-                ml: { xs: 0, xl: 2 }
-            }}
         >
             <Paper
                 variant="outlined"
@@ -117,7 +153,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {createFullName(information.first_name, information.last_name)}
                                 </Typography>
                             </Grid>
                             <Grid
@@ -144,7 +180,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {getGenderDescription(information.gender)}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -173,7 +209,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {information.email}
                                 </Typography>
                             </Grid>
                             <Grid
@@ -200,7 +236,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {information.birth_day}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -229,7 +265,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    -
+                                    {convertToPersian(information.phoneNumber)}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -304,7 +340,7 @@ const UserInfoPage = () => {
                             mt={3}
                             sx={{
                                 width: { xs: '3rem', sm: '5rem', md: '7rem' },
-                                height: { xs: '3rem', sm: '5rem', md: '7rem'},
+                                height: { xs: '3rem', sm: '5rem', md: '7rem' },
                                 alignItems: "center",
                                 justifyContent: "center",
                                 display: "flex",
@@ -315,12 +351,12 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h6"
                                 fontWeight='bold'
-                                sx={{ 
-                                    fontSize: {xs: 20, sm: 26, md: 40},
-                                    mt: {xs: 0, sm: 1} 
+                                sx={{
+                                    fontSize: { xs: 20, sm: 26, md: 40 },
+                                    mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                ۰
+                                {convertToPersian(activities.orders_count)}
                             </Typography>
                         </Box>
                     </Box>
@@ -351,7 +387,7 @@ const UserInfoPage = () => {
                             mt={3}
                             sx={{
                                 width: { xs: '3rem', sm: '5rem', md: '7rem' },
-                                height: { xs: '3rem', sm: '5rem', md: '7rem'},
+                                height: { xs: '3rem', sm: '5rem', md: '7rem' },
                                 alignItems: "center",
                                 justifyContent: "center",
                                 display: "flex",
@@ -362,12 +398,12 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h6"
                                 fontWeight='bold'
-                                sx={{ 
-                                    fontSize: {xs: 20, sm: 26, md: 40},
-                                    mt: {xs: 0, sm: 1} 
+                                sx={{
+                                    fontSize: { xs: 20, sm: 26, md: 40 },
+                                    mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                ۲
+                                {convertToPersian(activities.foreign_returns_count)}
                             </Typography>
                         </Box>
                     </Box>
@@ -398,7 +434,7 @@ const UserInfoPage = () => {
                             mt={3}
                             sx={{
                                 width: { xs: '3rem', sm: '5rem', md: '7rem' },
-                                height: { xs: '3rem', sm: '5rem', md: '7rem'},
+                                height: { xs: '3rem', sm: '5rem', md: '7rem' },
                                 alignItems: "center",
                                 justifyContent: "center",
                                 display: "flex",
@@ -409,12 +445,12 @@ const UserInfoPage = () => {
                             <Typography
                                 variant="h6"
                                 fontWeight='bold'
-                                sx={{ 
-                                    fontSize: {xs: 20, sm: 26, md: 40},
-                                    mt: {xs: 0, sm: 1} 
+                                sx={{
+                                    fontSize: { xs: 20, sm: 26, md: 40 },
+                                    mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                ۰
+                                {convertToPersian(activities.returns_count)}
                             </Typography>
                         </Box>
                     </Box>

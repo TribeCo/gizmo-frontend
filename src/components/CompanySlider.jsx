@@ -22,24 +22,6 @@ import MoneyGroth from "@/components/siteIcons/moneyGroth.png";
 import Quality from "@/components/siteIcons/quality.png";
 import _24HoursSupport from "@/components/siteIcons/_24hoursSupport.png";
 
-{
-	/*
-    Inputs:
-    brands: a list of all product cards in folowing format:
-		[
-            [imageFile: ..., companyURL: ...],
-            .
-            .
-            .
-        ]
-    * note that all images can be found in @/components/comanyIcons
-
-    itemsPerPage: number of brands to show in page 
-    
-    swapTime_millisecond: delay time for automatic slider 
-*/
-}
-
 const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 	const isSmallScreen = useMediaQuery("(max-width:900px)");
 	const itemsPerPage = isSmallScreen ? 2 : 5;
@@ -86,7 +68,11 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 					<IconButton
 						variant="contained"
 						sx={{
-							transform: { xs: "scale(0.7)", md: "scale(1)" },
+							transform: {
+								xs: "scale(0.6)",
+								sm: "scale(0.6)",
+								md: "scale(1)",
+							},
 							bgcolor: Colors.blue,
 							position: "relative",
 							"&:hover": {
@@ -109,6 +95,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							}}
 							textAlign="center">
 							<Link
+								target="_blank"
 								href={item.website}
 								passHref>
 								<Image
@@ -126,7 +113,11 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 					<IconButton
 						variant="contained"
 						sx={{
-							transform: { xs: "scale(0.7)", md: "scale(1)" },
+							transform: {
+								xs: "scale(0.6)",
+								sm: "scale(0.6)",
+								md: "scale(1)",
+							},
 							bgcolor: Colors.blue,
 							position: "relative",
 							"&:hover": {

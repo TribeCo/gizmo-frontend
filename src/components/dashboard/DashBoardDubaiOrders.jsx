@@ -1,154 +1,169 @@
-'use client'
-import React, {useState} from 'react'
-import Image from 'next/image'
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Colors } from "@/utils";
-
 import {
-	Button,
-	Typography,
+    Button,
+    Divider,
+    Grid,
+    Paper,
+    Typography,
 } from "@mui/material";
 
-
-import searchIcon from '@/components/siteIcons/SearchIcon.svg'
-import { products } from '@/utils/fakeProduct';
+import searchIcon from '@/components/siteIcons/SearchIcon.svg';
+import { fetchDubaiOrders } from '@/services/DashBoard';
 
 export default function DashBoardDubaiOrders() {
+    const [orders, setOrders] = useState([]);
+    const [searchKey, setSearchKey] = useState('');
 
-    const [realOrders, setRealOrders] = useState([
-        {orderCode: '0786453465' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},
-        {orderCode: '0785151622' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},
-        {orderCode: '0589465651' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},
-    ])
+    useEffect(() => {
+        handleGetOrders();
+    }, []);
 
-    const [orders, setOrders] = useState([
-        {orderCode: '0786453465' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},
-        {orderCode: '0785151622' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},
-        {orderCode: '0589465651' ,productName: 'اسپرسو ساز', referencedSite: 'آمازون', productLink: 'jdfkljgdflkfsjdk', inquiryDate: '1402/5/6', price: '398000', finalPrice: '398000'},
-    ])
+    const handleGetOrders = async () => {
+        setOrders((await fetchDubaiOrders()).data);
+    }
 
     const searchProductCode = (event) => {
-        let searchKey = event.target.parentElement.previousElementSibling.value
-        let updatedProducts = orders.filter((order) => {
-            return (order.orderCode.includes(searchKey))
-        })
-        setOrders(updatedProducts)
-    }
+        setSearchKey(event.target.value);
+    };
 
-    const retrieveData = (event) => {
-        let key = event.keyCode || event.charCode;
-        if( key == 8 || key == 46 )
-            event.target.value = ''
-            setOrders(realOrders)
-    }
-
-    const handleInputChange = (event) => {
-        event.target.value = event.target.value.replace(/[^0-9]/g,);
-        if (event.target.value == 'undefined') {
-            event.target.value = ''
+    const handleCopyLink = async (link) => {
+        try {
+            await navigator.clipboard.writeText(link);
+            alert('Link copied to clipboard!'); // Optionally show a message or use a more subtle notification
+        } catch (err) {
+            console.error('Failed to copy:', err);
         }
-    }
+    };
 
-  return (
-    <div>
-    
-          <section className=" w-[60rem] md:w-[24rem] py-4 px-[4%] flex flex-col lg:w-full rounded-xl">
+    // const filteredOrders = orders.filter(order =>
+    //     order.tracking_code.includes(searchKey)
+    // );
 
-            <div className="flex border-b border-[#EDEDED] justify-between py-2 mb-4">
-                <h3 className='font-bold flex items-center text-lg md:text-sm'>
-                    استعلام قیمت محصولات خرید از دبی
-                </h3>
+    return (
+        <Paper
+            variant="outlined"
+            sx={{
+                height: 'fit-content',
+                borderRadius: '15px',
+                boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.1)',
+            }}
+        >
+            <section className="w-[60rem] md:w-[24rem] py-4 px-3 flex flex-col lg:w-full rounded-xl">
 
-                <div className='flex border rounded-xl overflow-hidden'>
+                <Grid
+                    display='flex'
+                    justifyContent='space-between'
+                    sx={{
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        rowGap: 2,
+                        columnGap: 10,
+                    }}
+                >
+                    <Typography
+                        fontWeight='bold'
+                        sx={{
+                            fontSize: { xs: 16, md: 19 },
+                            mt: '5px',
+                        }}
+                    >
+                        استعلام قیمت محصولات خرید از دبی
+                    </Typography>
 
-                    <input onInput={handleInputChange} onKeyDown={retrieveData} className='w-[85%] text-sm p-2' type="text" placeholder='جستوجو کد پیگیری'/>
+                    <div className='flex border rounded-xl overflow-hidden h-9'>
 
-                    <div onClick={searchProductCode} className='bg-palette-blue w-[15%] flex items-center justify-center'>
-                        <Image src={searchIcon} width={16}></Image>
-                    </div>  
-                  
-                </div>
-            </div>
+                        <input onChange={searchProductCode} className='w-[85%] text-sm pr-2 rounded-r-xl' type="text" placeholder='جستوجو کد پیگیری' />
 
-            <section className='flex flex-col mt-4 gap-4 overflow-scroll'>
-
-              {orders.map((product, index) => (
-                    <div key={index} className="OrderCard flex gap-6 px-6 py-6 bg-[#F7F7F7] hover:bg-[#0000000e] transition-all rounded-lg lg:flex-col md:gap-4">
-
-                    <div className="rightPart flex w-full flex-col items-end gap-4">
-
-                        <div className="infoRow flex justify-between w-full gap-[10%]">
-                            <span className='font-extrabold lg:text-sm whitespace-nowrap'>کد پیگیری: </span>
-                            <div className=' lg:text-sm'>{product.orderCode}</div>
+                        <div className='bg-palette-blue w-[15%] flex items-center justify-center'>
+                            <Image src={searchIcon} width={16}></Image>
                         </div>
-
-                        <div className="infoRow flex justify-between w-full gap-[10%]">
-                            <span className='font-extrabold lg:text-sm whitespace-nowrap'>نام محصول: </span>
-                            <div className=' lg:text-sm'>{product.productName}</div>
-                        </div>
-
-                        <div className="infoRow flex justify-between w-full gap-[10%]">
-                            <span className='font-extrabold lg:text-sm whitespace-nowrap'>سایت درخواست شده: </span>
-                            <div className=' lg:text-sm'>آمازون</div>
-                        </div>
-
-                        <div className="infoRow flex justify-between w-full gap-[10%]">
-                            <span className='font-extrabold lg:text-sm whitespace-nowrap'>لینک محصول: </span>
-                            <div className=' lg:text-sm'>{product.productLink}</div>
-                        </div>
-
                     </div>
 
-                    <div className="leftPart w-full flex flex-col gap-4">
+                </Grid>
+                <Divider sx={{ mt: 2, }} />
 
-                        <div className="infoRow flex justify-between w-full gap-[10%]">
-                            <span className='font-extrabold md:text-sm whitespace-nowrap'>تاریخ استعلام: </span>
-                            <span className=' md:text-sm'>{product.inquiryDate}</span>
-                        </div>
+                <section className='flex flex-col mt-4 gap-4 overflow-scroll'>
 
-                        <div className="infoRow flex justify-between w-full gap-[10%]">
-                            <span className='font-extrabold md:text-sm whitespace-nowrap'>قیمت تومانی: </span>
-                            <div className='flex gap-1'>
-                                <span className=' md:text-sm'>{product.price}</span>
-                                <span className=' md:text-sm'>تومان</span>
+                    {orders.map((product, index) => (
+                        <div key={index} className="OrderCard flex gap-6 px-6 py-6 bg-[#F7F7F7] hover:bg-[#0000000e] transition-all rounded-lg lg:flex-col md:gap-4">
+
+                            <div className="rightPart flex w-full flex-col items-end gap-4">
+
+                                <div className="infoRow flex justify-between w-full gap-[10%]">
+                                    <span className='font-extrabold lg:text-sm whitespace-nowrap'>کد پیگیری: </span>
+                                    <div className=' lg:text-sm'>{product.tracking_code}</div>
+                                </div>
+
+                                <div className="infoRow flex justify-between w-full gap-[10%]">
+                                    <span className='font-extrabold lg:text-sm whitespace-nowrap'>نام محصول: </span>
+                                    <div className=' lg:text-sm'>{product.name}</div>
+                                </div>
+
+                                <div className="infoRow flex justify-between w-full gap-[10%]">
+                                    <span className='font-extrabold lg:text-sm whitespace-nowrap'>سایت درخواست شده: </span>
+                                    <div className=' lg:text-sm'>{product.website_name}</div>
+                                </div>
+
+                                <div className="infoRow flex justify-between w-full gap-[10%]">
+                                    <span className='font-extrabold lg:text-sm whitespace-nowrap'>لینک محصول: </span>
+                                    <div
+                                        onClick={() => handleCopyLink(product.link)}
+                                        title="Click to copy link"
+                                    >
+                                        {product.link}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="leftPart w-full flex flex-col gap-4">
+
+                                <div className="infoRow flex justify-between w-full gap-[10%]">
+                                    <span className='font-extrabold md:text-sm whitespace-nowrap'>تاریخ استعلام: </span>
+                                    <span className=' md:text-sm'>{product.shamsi_date}</span>
+                                </div>
+
+                                <div className="infoRow flex justify-between w-full gap-[10%]">
+                                    <span className='font-extrabold md:text-sm whitespace-nowrap'>قیمت تومانی: </span>
+                                    <div className='flex gap-1'>
+                                        <span className=' md:text-sm'>{product.toman_price}</span>
+                                        <span className=' md:text-sm'>تومان</span>
+                                    </div>
+                                </div>
+
+                                <div className="infoRow flex justify-between w-full gap-[10%]">
+                                    <span className='font-extrabold lg:text-sm text-palette-blue whitespace-nowrap'>قیمت نهایی با ارسال: </span>
+                                    <div className='flex gap-1 font-extrabold text-palette-blue'>
+                                        <span className=' lg:text-sm'>{product.toman_total}</span>
+                                        <span className=' lg:text-sm'>تومان</span>
+                                    </div>
+                                </div>
+
+                                <div className="infoRow flex w-full justify-center md:justify-center">
+                                    <Button
+                                        className='w-[43%]'
+                                        variant="contained"
+                                        sx={{
+                                            bgcolor: product.admin_checked ? Colors.orange : 'grey', // Optional: Change color when disabled
+                                            color: "black",
+                                            borderRadius: "50px",
+                                            boxShadow: "none",
+                                            mt: 1,
+                                            height: 34,
+                                            "&:hover": {
+                                                bgcolor: product.admin_checked ? Colors.orange : 'grey', // Keep bgcolor the same on hover when disabled
+                                            },
+                                        }}
+                                        disabled={!product.admin_checked} // Button is disabled if product.admin_checked is false
+                                    >
+                                        <Typography variant='div' component="div" sx={{ fontSize: '0.875rem', whiteSpace: 'nowrap' }}>ثبت سفارش</Typography>
+                                    </Button>
+                                </div>
                             </div>
                         </div>
-
-                        <div className="infoRow flex justify-between w-full gap-[10%]">
-                            <span className='font-extrabold lg:text-sm text-palette-blue whitespace-nowrap'>قیمت نهایی با ارسال: </span>
-                            <div className='flex gap-1 font-extrabold text-palette-blue'>
-                                <span className=' lg:text-sm'>{product.finalPrice}</span>
-                                <span className=' lg:text-sm'>تومان</span>
-                            </div>
-                        </div>
-
-                        <div className="infoRow flex w-full justify-center md:justify-center">
-                            <Button className='w-[43%]'
-                                    variant="contained"
-                                    sx={{
-                                        bgcolor: Colors.orange,
-                                        color: "black",
-                                        borderRadius: "50px",
-                                        boxShadow: "none",
-                                        mt: 1,
-                                        height: 34,
-                                        "&:hover": {
-                                            bgcolor: Colors.orange,
-                                        },
-                                    }}>
-                                    <Typography variant='div lg:text-xs whitespace-nowrap'>ثبت سفارش</Typography>
-                                </Button>
-                        </div>
-
-                    </div>
-
-                </div>
-              ))}
-
+                    ))}
+                </section>
             </section>
-
-          </section>
-
-    
-    </div>
-  )
+        </Paper>
+    );
 }

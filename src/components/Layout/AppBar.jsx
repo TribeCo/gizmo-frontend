@@ -17,8 +17,8 @@ import {
 	Backdrop,
 	Paper,
 	InputBase,
-	List,
 	Dialog,
+	Slide,
 } from "@mui/material";
 import { Colors } from "@/utils";
 
@@ -27,13 +27,18 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Logo from "@/components/siteIcons/logo.png";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import MenuList from "@/components/Layout/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+
+import { useMenuItemContext } from "../dashboard/DashBoardMenuSelector";
+import LoginSignupModal from "../LoginSignupPopup/LoginSignupPopup";
 
 const AppBar = ({ isLanding }) => {
+	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [anchorElProfile, setAnchorElProfile] = useState(null);
 	const [loginOpen, setLoginOpen] = useState(false);
-	const [popupState, setPopupState] = useState("phone-login");
+	const [popupState, setPopupState] = useState("login");
 	const categories = [
 		{ name: "لوازم آشپزخانه", slug: "kitchenware" },
 		{ name: "لوازم بهداشتی", slug: "hygiene-products" },
@@ -72,12 +77,13 @@ const AppBar = ({ isLanding }) => {
 
 	const handleLoginModalClose = (e) => {
 		setLoginOpen(false);
-		setPopupState("phone-login");
+		setPopupState("login");
 	};
 
 	return (
 		<>
 			<Box
+				displayPrint={'none'}
 				bgcolor={Colors.yellow}
 				borderRadius={isLanding ? "50px 50px 0px 0px" : "50px"}
 				mt={2}
@@ -103,7 +109,7 @@ const AppBar = ({ isLanding }) => {
 								sx={{
 									pr: 2,
 									scale: { xs: "1", sm: "1.3" },
-									display: { lg: "felx", xl: "none" },
+									display: { md: "felx", lg: "none" },
 								}}
 								onClick={handleOpen}>
 								<SvgIcon
@@ -265,6 +271,7 @@ const AppBar = ({ isLanding }) => {
 						<SearchField />
 
 						<Button
+							onClick={handleLoginModalOpen}
 							variant="contained"
 							sx={{
 								borderRadius: "24px",
@@ -358,10 +365,12 @@ const AppBar = ({ isLanding }) => {
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
 								onClick={handleProfileClose}>
-								<Typography
-									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
-									پنل کاربری
-								</Typography>
+								<Link href={"/dashboard"}>
+									<Typography
+										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
+										پنل کاربری
+									</Typography>
+								</Link>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
@@ -432,38 +441,46 @@ const AppBar = ({ isLanding }) => {
 					</Grid>
 				</Grid>
 			</Box>
+			<LoginSignupModal
+				popupState={popupState}
+				setPopupState={setPopupState}
+				open={loginOpen}
+				onClose={handleLoginModalClose}
+			/>
 
 			<Dialog
-				sx={{
-					mt: 10,
-					display: "flex",
-					alignItems: "flex-start",
-					justifyContent: "center",
-				}}
+				fullScreen
 				open={open}
 				onClose={handleClose}
-				closeAfterTransition
-				// BackdropComponent={Backdrop}
-				// BackdropProps={{
-				// 	timeout: 100,
-				// 	style: {
-				// 		backdropFilter: 'blur(2px)',
-				// 	},
-				// }}
-			>
-				<Box
+				BackdropComponent={Backdrop}
+				TransitionComponent={Transition}
+				BackdropProps={{
+					sx: { backdropFilter: "blur(3px)" },
+				}}>
+				<Grid p={2}>
+					<IconButton onClick={handleClose}>
+						<CloseIcon fontSize="large" />
+					</IconButton>
+				</Grid>
+				<Grid
 					display="flex"
-					alignItems="center"
-					justifyContent="center"
-					bgcolor="transparent"
-					width={"800px"}
-					height={"2000px"}>
-					<MenuList />
-				</Box>
+					justifyContent="center">
+					<MenuList handleClose={handleClose} />
+				</Grid>
 			</Dialog>
 		</>
 	);
 };
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+	return (
+		<Slide
+			direction="up"
+			ref={ref}
+			{...props}
+		/>
+	);
+});
 
 const SearchField = () => {
 	const [searchQuery, setSearchQuery] = useState("");

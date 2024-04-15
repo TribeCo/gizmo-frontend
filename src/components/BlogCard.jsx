@@ -1,5 +1,5 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
+import Link from "next/link";
+
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
@@ -40,14 +40,14 @@ export default function BlogCard({ data, background_color, font_color }) {
 						width: {
 							xs: "150px",
 							sm: "360px",
-							md: "420px",
+							md: "423px",
 							lg: "380px",
 							xl: "365px",
 						},
 						height: {
 							xs: "100px",
 							sm: "240px",
-							md: "270px",
+							md: "272px",
 							lg: "255px",
 							xl: "250px",
 						},
@@ -92,24 +92,26 @@ export default function BlogCard({ data, background_color, font_color }) {
 							mt: { xs: 0, sm: 2, md: 5 },
 							mx: 1,
 						}}>
-						<Button
-							variant="contained"
-							sx={{
-								borderRadius: "20px",
-								backgroundColor: Colors.orange,
-								color: "#252B48",
-								"&:hover": {
-									backgroundColor: Colors.orange,
-								},
-							}}>
-							<Typography
-								variant="body1"
+						<Link href={`/blog/${data.slug}`}>
+							<Button
+								variant="contained"
 								sx={{
-									fontSize: { xs: 8, sm: 10, md: 20, lg: 16 },
+									borderRadius: "20px",
+									backgroundColor: Colors.orange,
+									color: "#252B48",
+									"&:hover": {
+										backgroundColor: Colors.orange,
+									},
 								}}>
-								{"بیشتر بخوانید"}
-							</Typography>
-						</Button>
+								<Typography
+									variant="body1"
+									sx={{
+										fontSize: { xs: 8, sm: 10, md: 20, lg: 16 },
+									}}>
+									{"بیشتر بخوانید"}
+								</Typography>
+							</Button>
+						</Link>
 						<Box
 							display="flex"
 							pt={1}>

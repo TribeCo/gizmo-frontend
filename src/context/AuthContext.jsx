@@ -1,75 +1,54 @@
 "use client";
 
-import { createContext, useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { baseUrl } from "@/services";
+import { redirect } from "next/navigation";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
-export default AuthContext;
-
 export const AuthProvider = ({ children }) => {
-	const localStorageGetItem = (item) => {
-		if (typeof window !== "undefined") {
-			return localStorage.getItem(item);
+	const [tokens, setTokens] = useState(null);
+
+	useEffect(() => {
+		const storedToken = localStorage.getItem("tokens");
+
+		if (storedToken) {
+			setTokens(JSON.parse(storedToken));
 		}
-	};
+	}, []);
 
 	const localStorageSetItem = (key, value) => {
 		if (typeof window !== "undefined") {
 			localStorage.setItem(key, value);
 		}
 	};
-
 	const localStorageRemoveItem = (item) => {
 		if (typeof window !== "undefined") {
 			localStorage.removeItem(item);
 		}
 	};
 
-	const extractUserData = (data) => {
-		return {
-			id: data.user_id,
-			phone_number: data["phoneNumber"],
-			email: data["email"],
-			is_admin: data["is_admin"],
-			is_active: data["is_active"],
-		};
-	};
-
-	const [authData, setAuthData] = useState(() =>
-		localStorageGetItem("authData")
-			? JSON.parse(localStorageGetItem("authData"))
-			: null,
-	);
-
-	const [user, setUser] = useState(null);
-
-	const [loading, setLoading] = useState(true);
-
 	const loginUser = async (phoneNumber, pwd, destination = null) => {
 		try {
-			const response = await fetch("https://gizmoshop.liara.run/api/token/", {
+			const response = await fetch(`${baseUrl}/api/token/`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+				},
+				next: {
+					revalidate: 1,
 				},
 				body: JSON.stringify({ phoneNumber, password: pwd }),
 			});
 
 			if (response.ok) {
 				const data = await response.json();
-				setAuthData(data);
-				setUser(extractUserData(jwtDecode(data.access)));
-				localStorageSetItem("authData", JSON.stringify(data));
-
-				console.log("user: ", user);
-
+				console.log(data);
+				setTokens(data);
+				localStorageSetItem("tokens", JSON.stringify(data));
 				if (destination) {
-					// redirect if neccessary
+					redirect(destination);
 				}
-
-				alert("با موفقیت وارد شدید.");
-				console.log("data: ", data);
 			} else {
 				alert("شماره موبایل یا رمز عبور اشتباه است");
 			}
@@ -80,59 +59,54 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const logoutUser = () => {
-		setAuthData(null);
-		setUser(null);
-		localStorageRemoveItem("authData");
-		alert("logout");
+		setTokens(null);
+		localStorageRemoveItem("tokens");
+		alert("خروج با موفقیت انجام شد.");
 	};
 
 	const signUp = async (phoneNumber) => {
 		try {
-			const response = await fetch(
-				"https://gizmoshop.liara.run/api/users/create/phone/",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ phoneNumber: phoneNumber }),
+			const response = await fetch(`${baseUrl}/api/users/create/phone/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			);
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify({ phoneNumber: phoneNumber }),
+			});
 
 			if (response.ok) {
-				alert("success");
 				console.log(response.json());
 				return 1;
 			} else {
-				alert("failure");
 				console.log(response.json());
 				return 0;
 			}
 		} catch (error) {
-			alert("unhandeled error");
-			alert(error);
+			console.log(error);
 			return 0;
 		}
 	};
 
 	const confirmPhoneSignUpCode = async (phoneNumber, code) => {
 		try {
-			const response = await fetch(
-				"https://gizmoshop.liara.run/api/users/auth/code/",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						phoneNumber: phoneNumber,
-						code: parseInt(code, 10),
-					}),
+			const response = await fetch(`${baseUrl}/api/users/auth/code/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			);
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify({
+					phoneNumber: phoneNumber,
+					code: parseInt(code, 10),
+				}),
+			});
 
 			if (response.ok) {
-				alert("success");
 				console.log(response.json());
 				return 1;
 			} else {
@@ -141,63 +115,61 @@ export const AuthProvider = ({ children }) => {
 				return 0;
 			}
 		} catch (error) {
-			alert("unhandeled error");
-			alert(error);
+			console.log(error);
 			return 0;
 		}
 	};
 
 	const completeSignupInformation = async (
 		phoneNumber,
-		fullName,
+		firstName,
+		lastName,
 		email,
 		password,
 	) => {
 		try {
-			const response = await fetch(
-				"https://gizmoshop.liara.run/api/users/sign_up/",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						phoneNumber: phoneNumber,
-						full_name: fullName,
-						email: email,
-						password,
-					}),
+			const response = await fetch(`${baseUrl}/api/users/sign_up/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			);
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify({
+					phoneNumber,
+					first_name: firstName,
+					last_name: lastName,
+					email,
+					password,
+				}),
+			});
 
 			if (response.ok) {
-				alert("success");
-				console.log(response.json());
+				loginUser(phoneNumber, password);
 				return 1;
 			} else {
-				alert("failure");
 				console.log(response.json());
 				return 0;
 			}
 		} catch (error) {
-			alert("unhandeled error");
-			alert(error);
+			console.log(error);
 			return 0;
 		}
 	};
 
 	const forgetPassword = async (phoneNumber) => {
 		try {
-			const response = await fetch(
-				"https://gizmoshop.liara.run/api/users/password/change/",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ phoneNumber: phoneNumber }),
+			const response = await fetch(`${baseUrl}/api/users/password/change/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			);
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify({ phoneNumber: phoneNumber }),
+			});
 
 			if (response.ok) {
 				alert("success");
@@ -209,28 +181,27 @@ export const AuthProvider = ({ children }) => {
 				return 0;
 			}
 		} catch (error) {
-			alert("unhandeled error");
-			alert(error);
+			console.log(error);
 			return 0;
 		}
 	};
 
 	const changePassword = async (phoneNumber, newPassword, code) => {
 		try {
-			const response = await fetch(
-				"https://gizmoshop.liara.run/api/users/password/confirm/",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						phoneNumber: phoneNumber,
-						password: newPassword,
-						code: code,
-					}),
+			const response = await fetch(`${baseUrl}/api/users/password/confirm/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			);
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify({
+					phoneNumber: phoneNumber,
+					password: newPassword,
+					code: code,
+				}),
+			});
 
 			if (response.ok) {
 				alert("success");
@@ -242,30 +213,29 @@ export const AuthProvider = ({ children }) => {
 				return 0;
 			}
 		} catch (error) {
-			alert("unhandeled error");
-			alert(error);
+			console.log(error);
 			return 0;
 		}
 	};
 
 	const refreshToken = async () => {
 		try {
-			const refreshToken = authData.refresh;
-			const response = await fetch(
-				"https://gizmoshop.liara.run/api/token/refresh/",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ refresh: refreshToken }),
+			const refreshToken = tokens.refresh;
+			const response = await fetch(`${baseUrl}/api/token/refresh/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			);
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify({ refresh: refreshToken }),
+			});
 
 			if (response.ok) {
 				const data = await response.json();
-				setAuthData(data);
-				localStorageSetItem("authData", JSON.stringify(data));
+				setTokens(data);
+				localStorageSetItem("tokens", JSON.stringify(data));
 				console.log("Access token refreshed.");
 				return data.access;
 			} else {
@@ -278,16 +248,8 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
-	useEffect(() => {
-		if (authData) {
-			setUser(extractUserData(jwtDecode(authData.access)));
-		}
-		setLoading(false);
-	}, [authData]);
-
 	const contextData = {
-		user: user,
-		authData: authData,
+		tokens: tokens,
 		loginUser: loginUser,
 		logOut: logoutUser,
 		signUp: signUp,
@@ -298,8 +260,10 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={contextData}>
-			{loading ? null : children}
-		</AuthContext.Provider>
+		<AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
 	);
+};
+
+export const useAuth = () => {
+	return useContext(AuthContext);
 };

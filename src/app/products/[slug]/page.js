@@ -1,30 +1,16 @@
-import { Comment } from "@/components";
 import CardProductSlider from "@/components/CardProductSlider";
 import DescriptionComponent from "@/components/DescriptionComponent";
 import LineSplitter from "@/components/LineSpliter";
-import { products } from "@/utils/fakeProduct";
 import { Box } from "@mui/material";
 import ProductInfo from "@/components/ProductInfo";
 
-// test content for introduction section
-const content =
-	"اسپرسو ساز واکاکو مدل Minipresso مح می باشد. با به همراه داشتن اسپرسو ساز قابل حمل Minipresso می توانید یک فنجان اسپرسو خوش طعم را در هنگام کوهنوردی، کمپینگ، سفر و حتی محیط کار نوش جان کنید.این مینی پرسو دارای یک پیمانه، یک عدد فنجان و محفظه ای مجزا برای پودر قهوه با حجم 8 گرم و مخزنی به ظرفیت 80 میلی لیتر برای آب جوش می باشد که با ساختاری کوچک و سبک، تمامی امکانات و کارایی یک دستگاه بزرگ و حرفه ای اسپرسو را دارا می باشد.";
+import { getComments, getSimilar, productData } from "@/services/ProductPage";
+import RecentlySeen from "@/components/RecentlySeen";
 
-const comments = [
-	{
-		id: 1,
-		user: {
-			name: "رضا بوذرجمهری",
-			image:
-				"https://www.mountsinai.on.ca/wellbeing/our-team/team-images/person-placeholder/image",
-		},
-		satisfaction: 1,
-		text: "متن تستی",
-		date: "3 روز قبل",
-	},
-];
-
-const Products = () => {
+const Products = async ({ params }) => {
+	const productInfo = await productData({ slug: params.slug });
+	const comments = await getComments({ pid: productInfo.id });
+	const similar = await getSimilar({ pid: productInfo.id });
 	return (
 		<Box
 			component="main"
@@ -33,25 +19,23 @@ const Products = () => {
 				overflow: "auto",
 				mt: { xs: 0, md: 3 },
 			}}
-			maxWidth="xl"
 			mb={9}>
-			<ProductInfo />
-			<DescriptionComponent
-				introductionContent={content}
-				CommentsSection={<Comment Comments={comments} />}
-			/>
-			<LineSplitter text={"محصولات مرتبط"} />
-			<CardProductSlider
-				btn={false}
-				products={products}
-				swapTime_millisecond={3000}
-			/>
-			<LineSplitter text={"محصولات مشاهده شده"} />
-			<CardProductSlider
-				btn={true}
-				products={products}
-				swapTime_millisecond={3000}
-			/>
+			<Box>
+				<ProductInfo data={productInfo} />
+				<DescriptionComponent
+					pid={productInfo.id}
+					introductionContent={productInfo.content}
+					comments={comments}
+					attributes={productInfo.attributes}
+				/>
+				<LineSplitter text={"محصولات مرتبط"} />
+				<CardProductSlider
+					btn={false}
+					products={similar.data}
+					swapTime_millisecond={3000}
+				/>
+				<RecentlySeen />
+			</Box>
 		</Box>
 	);
 };

@@ -25,6 +25,10 @@ function Login() {
           xs: '#8ECDDD', // Change the background color for xs
         },
         backgroundRepeat: 'no-repeat', // Prevent the background image from repeating
+        display: 'flex',
+        justifyContent: {xs: 'center', lg: 'flex-end'},
+        alignItems: 'center',
+        pr: {lg: 30}
       }}
     >
       <SignUpComponent />

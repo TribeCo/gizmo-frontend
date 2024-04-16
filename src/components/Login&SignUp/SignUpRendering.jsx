@@ -2,8 +2,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { baseUrl } from '@/services';
-import LoginComponent from './LoginComponent';
-import ForgetPassword from './ForgetPassword';
 import SignUpComponent from './SignUpComponent';
 import SignUp2Component from './SignUp2Component';
 import SignUp3Component from './SignUp3Component';
@@ -13,12 +11,10 @@ export default function SignUpRendering ({ loginInfo }) {
 
     const renderComponent = () => {
         switch (component) {
-            case 'Login': return <LoginComponent/>;
-            case 'Forget-Pass': return <ForgetPassword/>;///
-            case 'Level1': return <SignUpComponent/>;
-            case 'Level2': return <SignUp2Component/>;
-            case 'Level3': return <SignUp3Component/>;
-            default: return <LoginComponent/>;
+            case '1': return <SignUpComponent/>;
+            case '2': return <SignUp2Component/>;
+            case '3': return <SignUp3Component/>;
+            default: return <SignUpComponent/>;
         }
     };
 
@@ -44,6 +40,10 @@ export default function SignUpRendering ({ loginInfo }) {
                     xs: '#8ECDDD', // Change the background color for xs
                 },
                 backgroundRepeat: 'no-repeat', // Prevent the background image from repeating
+                display: 'flex',
+                justifyContent: {xs: 'center', lg: 'flex-end'},
+                alignItems: 'center',
+                pr: {lg: 30}
             }}
         >
             {renderComponent()}

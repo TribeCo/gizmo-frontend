@@ -5,6 +5,9 @@ function Login() {
   return (
     <Box
       sx={{
+        '@media (max-height: 800px)':{
+          height: 'calc(100vh + (950px - 100vh))'
+        },
         height: '100vh',
         width: '100vw',
         backgroundImage: {

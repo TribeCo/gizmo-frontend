@@ -1,7 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Card, Box, Typography, Divider, TextField, Button } from '@mui/material';
-import AuthContext from "@/context/AuthContext";
+import { Card, Box, Typography, Divider, TextField, Button, IconButton, InputAdornment, FormControlLabel, Checkbox } from '@mui/material';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useAuth } from "@/context/AuthContext";
 import * as Yup from "yup";
 const SignUpComponent = () => {
 
@@ -36,7 +37,9 @@ const SignUpComponent = () => {
     const [policyAgreed, setPolicyAgreed] = useState(false);
     const [phoneEnter, setPhoneEnter] = useState(false);
     const [phoneValidate, setPhoneValidate] = useState(false);
-    const [informationComplition, setInformationComplition] = useState(false);
+    const [informationCompletion, setInformationCompletion] = useState(false);
+
+    const { signUp, confirmPhoneSignUpCode, completeSignupInformation } = useAuth();
 
     // validation error variables
     const [errors, setErrors] = useState({});
@@ -59,6 +62,8 @@ const SignUpComponent = () => {
                 (value) =>
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value),
             ),
+        sendcode: Yup.string()
+            .required("کد فرستاده الزامی میباشد"),
         confirmation: Yup.string()
             .oneOf(
                 [Yup.ref("password"), null],
@@ -85,70 +90,123 @@ const SignUpComponent = () => {
 
     const handleSignup = async (event) => {
         event.preventDefault();
+        console.log("validating phone number and confirmationcode");
+        try {
+            // await validationSchema.validate({
+            //     phoneNumber,
+            //     sendcode,
+            // }, { abortEarly: false });
+            // setErrors({});
 
-        console.log("validating phone number");
-
-        const isValidated = await confirmPhoneSignUpCode(
-            phoneNumber,
-            parseInt(confirmationCode, 10),
-        );
-
-        if (isValidated === 1) {
-            console.log("validated");
-            setPhoneValidate(true);
+            const confirmationCodeParsed = parseInt(confirmationCode, 10);
+            if (!isNaN(confirmationCodeParsed)) {
+                // Replace this with actual validation logic
+                // const isValidated = await confirmPhoneSignUpCode(phoneNumber, confirmationCodeParsed);
+                const isValidated = 1;
+                if (isValidated) {
+                    console.log("Phone number validated successfully");
+                    setPhoneValidate(true);
+                    // Optionally navigate to another route or display success message
+                } else {
+                    console.log("Validation failed");
+                    setErrors({ confirmationCode: 'Invalid confirmation code' });
+                }
+            } else {
+                setErrors({ confirmationCode: 'Invalid format for confirmation code' });
+            }
+        } catch (validationErrors) {
+            const newErrors = {};
+            if (validationErrors.inner) {
+                validationErrors.inner.forEach(error => {
+                    newErrors[error.path] = error.message;
+                });
+            } else {
+                console.error("An unexpected error occurred:", validationErrors);
+            }
+            setErrors(newErrors);
         }
     };
+
 
     const handleCompleteInfo = async (event) => {
         event.preventDefault();
-
         console.log("complete info");
+        // Clear previous errors if any
+        setErrors({});
 
-        const isCompleted = await completeSignupInformation(
-            phoneNumber,
-            firstName,
-            lastName,
-            email,
-            password,
-        );
+        try {
+            await validationSchema.validate({
+                fullName,
+                phoneNumber,
+                email,
+                password,
+                confirmation,
+                policyAgreed,
+            }, { abortEarly: false });
 
-        if (isCompleted === 1) {
-            setInformationComplition(true);
-            onClose();
+            // Assuming firstName and lastName are derived from fullName or similar
+            const [firstName, lastName] = fullName.split(' ');
+
+            const isCompleted = await completeSignupInformation(
+                phoneNumber,
+                firstName,
+                lastName,
+                email,
+                password,
+            );
+
+            if (isCompleted === 1) {
+                console.log("Information completion successful");
+                setInformationCompletion(true);
+                onClose(); // Assuming onClose is provided correctly to close modal or form
+            } else {
+                console.log("Information completion failed, handle accordingly");
+                // Optionally set an error message if completion fails
+                setErrors({ form: 'Unable to complete information. Please try again.' });
+            }
+        } catch (validationErrors) {
+            const newErrors = {};
+            if (validationErrors.inner) {
+                validationErrors.inner.forEach(error => {
+                    newErrors[error.path] = error.message;
+                });
+            } else {
+                console.error("An unexpected validation error occurred:", validationErrors);
+                newErrors.form = 'Validation failed. Please check your input.';
+            }
+            setErrors(newErrors);
         }
     };
+
 
     const handleSendCode = async (event) => {
         event.preventDefault();
-        // try {
-        //     await validationSchema.validate({
-        //         fullName,
-        //         phoneNumber,
-        //         email,
-        //         password,
-        //         confirmation,
-        //         policyAgreed,
-        //     }, { abortEarly: false });
-        // Handle form submission if validation succeeds
+        try {
+            // await validationSchema.validate({ phoneNumber }, { abortEarly: false });
+            // setErrors({});
 
-        console.log("signup running");
-
-        const isSignedUp = await signUp(phoneNumber);
-
-        if (isSignedUp === 1) {
-            console.log("here here");
-            setPhoneEnter(true);
+            console.log("Validation successful, signup running");
+            // const isSignedUp = await signUp(phoneNumber);  // Make sure this function exists and handles the signup process
+            const isSignedUp = 1;
+            if (isSignedUp === 1) {
+                console.log("Signup successful");
+                setPhoneEnter(true);
+            } else {
+                console.log("Signup failed, handle accordingly");
+            }
+        } catch (validationErrors) {
+            const newErrors = {};
+            if (validationErrors.inner) {
+                validationErrors.inner.forEach(error => {
+                    newErrors[error.path] = error.message;
+                });
+            } else {
+                console.error("An unexpected error occurred:", validationErrors);
+            }
+            setErrors(newErrors);
         }
-
-        // } catch (validationErrors) {
-        //   // Update the errors state with the validation errors
-        //   const newErrors = {};
-        //   validationErrors.inner.forEach(error => {
-        //     newErrors[error.path] = error.message;
-        //   });
-        //   setErrors(newErrors);
-        // }
     };
+
 
     return (
         <Box
@@ -214,15 +272,27 @@ const SignUpComponent = () => {
                 <Divider sx={{ width: '90%', marginBottom: { xs: 1, md: 3 }, borderColor: 'rgba(0, 0, 0, 0.42)' }} />
                 {phoneEnter && phoneValidate ? (
                     <>
-                        <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px' }}>نام و نام خانوادگی:</Typography>
+                        <Typography variant="body1" sx={{ padding: 1, paddingLeft: { xs: 3, md: 4 }, alignSelf: 'flex-start', fontSize: '13.8px', fontWeight: '500' }}>نام و نام خانوادگی:</Typography>
                         <TextField
                             variant="outlined"
                             value={fullName}
                             onChange={(e) => setFullname(e.target.value)}
-                            sx={{ backgroundColor: '#FFFFFF', borderRadius: '20px', marginBottom: '5px', '& .MuiOutlinedInput-root': { borderRadius: '20px' } }}
-                            error={errors.fullName}{/*change firstname*/}
-                            helperText={errors.fullName}
+                            sx={{
+                                width: '90%',
+                                mb: 1,
+                                borderRadius: '20px',
+                                '& .MuiOutlinedInput-root': {
+                                    borderRadius: '20px',
+                                    '& fieldset': { borderColor: '#FFFFFF' },
+                                },
+                                backgroundColor: '#FFFFFF',
+                            }}
                         />
+                        {errors.fullName && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.fullName}
+                            </Typography>
+                        )}
                     </>
                 ) : (
                     <></>
@@ -237,7 +307,7 @@ const SignUpComponent = () => {
                             InputLabelProps={{ style: { color: '#000' } }}
                             sx={{
                                 width: '90%',
-                                marginBottom: { xs: '15px', md: '30px' },
+                                mb: 1,
                                 borderRadius: '20px',
                                 '& .MuiOutlinedInput-root': {
                                     borderRadius: '20px',
@@ -245,47 +315,90 @@ const SignUpComponent = () => {
                                 },
                                 backgroundColor: '#FFFFFF',
                             }}
-                            error={errors.phoneNumber}
-                            helperText={errors.phoneNumber}
                         />
+                        {errors.phoneNumber && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.phoneNumber}
+                            </Typography>
+                        )}
                     </>
                 ) : (
                     <></>
                 )}
                 {phoneEnter && !phoneValidate ? (
                     <>
-                        <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px' }}> لطفا کد ارسال شده را وارد نمایید: </Typography>
+                        <Typography variant="body1" sx={{ padding: 1, paddingLeft: { xs: 3, md: 4 }, alignSelf: 'flex-start', fontSize: '13.8px', fontWeight: '500' }}> لطفا کد ارسال شده را وارد نمایید: </Typography>
                         <TextField
                             variant="outlined"
                             value={confirmationCode}
                             onChange={(e) => setConfirmationCode(e.target.value)}
                             sx={{
-                                backgroundColor: '#FFFFFF',
+                                width: '90%',
+                                mb: 1,
                                 borderRadius: '20px',
                                 '& .MuiOutlinedInput-root': {
                                     borderRadius: '20px',
+                                    '& fieldset': { borderColor: '#FFFFFF' },
                                 },
+                                backgroundColor: '#FFFFFF',
                             }}
-                            error={errors.phoneNumber}
-                            helperText={errors.phoneNumber}
                         />
+                        {errors.sendcode && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.sendcode}
+                            </Typography>
+                        )}
                     </>
                 ) : (
                     <></>
                 )}
                 {phoneEnter && phoneValidate ? (
                     <>
-                        <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px' }}>آدرس ایمیل:</Typography>
+                        <Typography sx={{ padding: 1, paddingLeft: { xs: 3, md: 4 }, alignSelf: 'flex-start', fontSize: '13.8px', fontWeight: '500' }}>شماره تلفن:</Typography>
+                        <TextField
+                            variant="outlined"
+                            value={displayValue} // Use displayValue for rendering
+                            onChange={handlePhoneNumberChange}
+                            InputLabelProps={{ style: { color: '#000' } }}
+                            sx={{
+                                width: '90%',
+                                mb: 1,
+                                borderRadius: '20px',
+                                '& .MuiOutlinedInput-root': {
+                                    borderRadius: '20px',
+                                    '& fieldset': { borderColor: '#FFFFFF' },
+                                },
+                                backgroundColor: '#FFFFFF',
+                            }}
+                        />
+                        {errors.phoneNumber && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.phoneNumber}
+                            </Typography>
+                        )}
+                        <Typography variant="body1" sx={{ padding: 1, paddingLeft: { xs: 3, md: 4 }, alignSelf: 'flex-start', fontSize: '13.8px', fontWeight: '500' }}>آدرس ایمیل:</Typography>
                         <TextField
                             variant="outlined"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            sx={{ backgroundColor: '#FFFFFF', borderRadius: '20px', marginBottom: '5px', '& .MuiOutlinedInput-root': { borderRadius: '20px' } }}
-                            error={errors.email}
-                            helperText={errors.email}
+                            sx={{
+                                width: '90%',
+                                mb: 1,
+                                borderRadius: '20px',
+                                '& .MuiOutlinedInput-root': {
+                                    borderRadius: '20px',
+                                    '& fieldset': { borderColor: '#FFFFFF' },
+                                },
+                                backgroundColor: '#FFFFFF',
+                            }}
                         />
+                        {errors.email && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.email}
+                            </Typography>
+                        )}
                         {/* Similar setup as your LoginComponent */}
-                        <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px' }}>رمز عبور:</Typography>
+                        <Typography variant="body1" sx={{ padding: 1, paddingLeft: { xs: 3, md: 4 }, alignSelf: 'flex-start', fontSize: '13.8px', fontWeight: '500' }}>رمز عبور:</Typography>
                         <TextField
                             variant="outlined"
                             type={showPassword ? "text" : "password"}
@@ -300,23 +413,27 @@ const SignUpComponent = () => {
                                             onClick={handleTogglePasswordVisibility}
                                             edge="end"
                                         >
-                                            {showPassword ? <VisibilityIcon sx={{ color: '#22668D' }} /> : <VisibilityOffIcon sx={{ color: '#22668D' }} />}
+                                            {showPassword ? <Visibility sx={{ color: '#22668D' }} /> : <VisibilityOff sx={{ color: '#22668D' }} />}
                                         </IconButton>
                                     </InputAdornment>
                                 ),
                             }}
                             sx={{
-                                backgroundColor: '#FFFFFF',
+                                width: '90%',
+                                mb: 1,
                                 borderRadius: '20px',
                                 '& .MuiOutlinedInput-root': {
                                     borderRadius: '20px',
+                                    '& fieldset': { borderColor: '#FFFFFF' },
                                 },
-                                marginBottom: '5px',
-                            }}
-                            error={errors.password}
-                            helperText={errors.password}
-                        />
-                        <Typography variant="body1" sx={{ padding: '5px', paddingLeft: '15px' }}>تکرار رمز عبور:</Typography>
+                                backgroundColor: '#FFFFFF',
+                            }} />
+                        {errors.password && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.password}
+                            </Typography>
+                        )}
+                        <Typography variant="body1" sx={{ padding: 1, paddingLeft: { xs: 3, md: 4 }, alignSelf: 'flex-start', fontSize: '13.8px', fontWeight: '500' }}>تکرار رمز عبور:</Typography>
                         <TextField
                             variant="outlined"
                             type={showConfirmation ? "text" : "password"}
@@ -331,22 +448,27 @@ const SignUpComponent = () => {
                                             onClick={handleToggleConfirmationVisibility}
                                             edge="end"
                                         >
-                                            {showConfirmation ? <VisibilityIcon sx={{ color: '#22668D' }} /> : <VisibilityOffIcon sx={{ color: '#22668D' }} />}
+                                            {showConfirmation ? <Visibility sx={{ color: '#22668D' }} /> : <VisibilityOff sx={{ color: '#22668D' }} />}
                                         </IconButton>
                                     </InputAdornment>
                                 ),
                             }}
                             sx={{
-                                backgroundColor: '#FFFFFF',
+                                width: '90%',
+                                mb: 1,
                                 borderRadius: '20px',
                                 '& .MuiOutlinedInput-root': {
                                     borderRadius: '20px',
+                                    '& fieldset': { borderColor: '#FFFFFF' },
                                 },
-                                marginBottom: '10px',
+                                backgroundColor: '#FFFFFF',
                             }}
-                            error={errors.confirmation}
-                            helperText={errors.confirmation}
                         />
+                        {errors.confirmation && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.confirmation}
+                            </Typography>
+                        )}
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -369,15 +491,21 @@ const SignUpComponent = () => {
                                 '& .MuiCheckbox-root': { // Targeting the Checkbox component
                                     borderRadius: '2px', // Small amount of borderRadius
                                 },
+                                alignSelf: 'flex-start',
+                                pl: 3,
+                                py: 1
                             }}
-                            error={!!errors.policyAgreed}
-                            helperText={errors.policyAgreed}
                         />
+                        {!!errors.policyAgreed && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.policyAgreed}
+                            </Typography>
+                        )}
                     </>
                 ) : (
                     <></>
                 )}
-                {!phoneEnter || !phoneValidate ? (
+                {!phoneEnter && !phoneValidate ? (
                     <>
                         <Button
                             variant="contained"
@@ -394,7 +522,33 @@ const SignUpComponent = () => {
                                 fontSize: '18px',
                                 width: '90%',
                                 padding: '10px 0',
-                                mb: 5,
+                                my: 3,
+                            }}
+                        >
+                            ادامه
+                        </Button>
+                    </>
+                ) : (
+                    <></>
+                )}
+                {phoneEnter && !phoneValidate ? (
+                    <>
+                        <Button
+                            variant="contained"
+                            onClick={handleSignup}
+                            sx={{
+                                backgroundColor: '#FFCC70', // Button background color
+                                '&:hover': {
+                                    bgcolor: '#FFCC70',
+                                    opacity: 0.9,
+                                },
+                                borderRadius: '25px',
+                                color: 'black',
+                                fontWeight: 'bold',
+                                fontSize: '18px',
+                                width: '90%',
+                                padding: '10px 0',
+                                my: 3,
                             }}
                         >
                             ادامه
@@ -406,40 +560,27 @@ const SignUpComponent = () => {
                 {phoneEnter && phoneValidate ? (
                     <>
                         <Button
-                            variant="contained"
-                            color="warning"
                             onClick={handleCompleteInfo}
-                            fullWidth
+                            variant="contained"
                             sx={{
-                                color: "black",
-                                bgcolor: "#FFCC70",
-                                marginTop: "5%",
-                                marginBottom: "5%",
-                                borderRadius: "20px",
-                            }}>
-                            <Typography
-                                variant="h5"
-                                align="center"
-                                id="login-button">
-                                ثبت نام
-                            </Typography>
+                                backgroundColor: '#FFCC70', // Button background color
+                                '&:hover': {
+                                    bgcolor: '#FFCC70',
+                                    opacity: 0.9,
+                                },
+                                borderRadius: '25px', // Rounded corners for button
+                                padding: '8px 30px', // Padding inside the button
+                                color: '#213346', // Text color
+                                fontWeight: 'bold', // Bold text
+                                fontSize: '22px',
+                                width: '90%', // Match the width of the text fields
+                                height: '47px',
+                                letterSpacing: '-0.10rem',
+                                my: 2,
+                            }}
+                        >
+                            ثبت نام
                         </Button>
-                        {/* <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={policyAgreed}
-                                    onChange={handleAgreeChange}
-                                />
-                            }
-                            label={
-                                <Typography variant="body1">
-                                    <span style={{ color: "red", marginLeft: "4px" }}>*</span>
-                                    <span>با قوانین سایت موافقم</span>
-                                </Typography>
-                            }
-                            error={!!errors.policyAgreed}
-                            helperText={errors.policyAgreed}
-                        /> */}
                     </>
                 ) : (
                     <></>

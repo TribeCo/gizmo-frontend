@@ -14,7 +14,8 @@ export default function BlogCard({ data, background_color, font_color }) {
 			lg={3}
 			xs={6}
 			display="flex"
-			justifyContent="center">
+			justifyContent="center"
+		>
 			<Box
 				bgcolor={background_color}
 				sx={{
@@ -40,14 +41,14 @@ export default function BlogCard({ data, background_color, font_color }) {
 						width: {
 							xs: "150px",
 							sm: "360px",
-							md: "423px",
+							md: "375px",
 							lg: "380px",
 							xl: "365px",
 						},
 						height: {
 							xs: "100px",
 							sm: "240px",
-							md: "272px",
+							md: "250px",
 							lg: "255px",
 							xl: "250px",
 						},
@@ -57,14 +58,14 @@ export default function BlogCard({ data, background_color, font_color }) {
 					<Typography
 						variant="h5"
 						color={font_color}
-						align="justify"
+						align="justify"	
 						sx={{
 							textAlign: "justify",
 							fontSize: { xs: 12, sm: 16, md: 18, lg: 20 },
 							width: {
 								xs: "115px",
 								sm: "330px",
-								md: "390px",
+								md: "255px",
 								lg: "350px",
 								xl: "330px",
 							},

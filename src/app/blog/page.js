@@ -1,32 +1,19 @@
 import React from "react";
 
-import { Box, Grid, Skeleton, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
-import BlogCard from "@/components/BlogCard";
 import LineSplitter from "@/components/LineSpliter";
 import BlogSlider from "@/components/blog/BlogSlider";
 import CardBlogSlider from "@/components/blog/CardBlogSlider";
-import { BannerImages, Popular } from "@/services/Blog";
+import { BannerImages, GetNews, Popular } from "@/services/Blog";
+import News from "@/components/blog/News";
 
-const cartSliderSample = [
-	<BlogCard
-		background_color="#F8F8F8"
-		font_color="black"
-	/>,
-	<BlogCard
-		background_color="#F8F8F8"
-		font_color="black"
-	/>,
-	<BlogCard
-		background_color="#F8F8F8"
-		font_color="black"
-	/>,
-];
 
 export default async function Blog() {
 	const bannerImages = await BannerImages();
 	const popular = await Popular();
-
+	const news = await GetNews();
+	
 	return (
 		<Grid>
 			<Grid
@@ -38,15 +25,16 @@ export default async function Blog() {
 					alignItems: "center",
 				}}>
 				<BlogSlider banners={bannerImages} />
-				{/* <CardBlogSlider
-					blogs={cartSliderSample}
+				<CardBlogSlider
+					blogs={news.data}
 					swapTime_millisecond={3000}
-				/> */}
+				/>
 			</Grid>
 
 			<Grid
 				display="flex"
 				sx={{
+					mb: 5,
 					mt: { xs: 2, sm: 4, md: 8 },
 					flexDirection: { xs: "column", md: "row" },
 				}}>
@@ -57,14 +45,16 @@ export default async function Blog() {
 						boxShadow: "none",
 					}}>
 					<LineSplitter
+						font_md={24}
 						text="پربازدید ترین اخبار"
 						margin={4}
 					/>
 					<Grid
 						display="flex"
 						alignItems="center"
-						justifyContent="center">
-						//TODO: list of blog cards
+						justifyContent="center"	
+					>	
+						<News data={popular.data}/>
 					</Grid>
 				</Grid>
 				<Grid
@@ -74,13 +64,15 @@ export default async function Blog() {
 						boxShadow: "none",
 					}}>
 					<LineSplitter
+						font_md={24}
 						text="درباره بخش اخبار"
 						margin={4}
 					/>
 					<Grid
 						display="flex"
 						alignItems="center"
-						justifyContent="center">
+						justifyContent="center"
+					>
 						<Typography
 							align="justify"
 							sx={{

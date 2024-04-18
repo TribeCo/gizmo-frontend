@@ -1,34 +1,19 @@
-/* eslint-disable @next/next/no-async-client-component */
-"use client";
+'use client'
+import React from "react";
 import LineSplitter from "@/components/LineSpliter";
-import { Box, Button, Grid, Paper, SvgIcon, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { Box, Button, Grid, SvgIcon, Typography } from "@mui/material";
 import _return from '@/components/siteIcons/return.png';
-
+import PaperIcon from "@/components/PaperIcon";
 import { Colors } from "@/utils";
 import FaqQuestion from "@/components/FaqQuestion";
-import { fetchIcons, fetchQuestions } from "../../services/Faq";
+import useFAQ from "@/services/Faq";
 
-export default async function FAQ() {
-    const [faqComponent, setfaqComponent] = useState(0);
-    const [photo, setPhoto] = useState();
-    const Icons = (await fetchIcons()).data;
-    let Questions = (await fetchQuestions(1)).data;
+export default function FAQ() {
 
-    const handleFaqChange = async (id) => {
-        try {
-            Questions = (await fetchQuestions(id)).data;
-            console.log(Questions);
-            setPhoto(Icons.find(icon => icon.id === id)?.icon || '');
-            // generateQuestionList(Questions);
-            setfaqComponent(1);
-        } catch (error) {
-            console.error("There was a problem fetching the questions:", error);
-        }
-    }
+    const { faqComponent, photo, questions, icons, handleFaqChange, resetFaqComponent } = useFAQ();
 
-    const boxList = Icons
-    .sort((a, b) => a.id - b.id) // Sort the icons array by ID in ascending order
+    const boxList = icons
+    .sort((a, b) => a.id - b.id)
     .map(icon => (
         <PaperIcon key={icon.id} logo={icon.icon} text={icon.title} />
     ));
@@ -129,14 +114,14 @@ export default async function FAQ() {
                                     fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
                                 }}
                             >
-                                {Questions.title}
+                                {questions.title}
                             </Typography>
                         </Grid>
                     </Grid>
 
                     <Grid>
                         <Button
-                            onClick={() => setfaqComponent(0)}
+                            onClick={() => resetFaqComponent()}
                             variant="contained"
                             sx={{
                                 bgcolor: Colors.orange,
@@ -177,7 +162,7 @@ export default async function FAQ() {
                     justifyContent='center'
                     alignItems='center'
                 >
-                    {Questions.faqs.map((faq, index) => (
+                    {questions.faqs.map((faq, index) => (
                         <FaqQuestion
                             key={index}
                             question={faq.question}
@@ -194,55 +179,5 @@ export default async function FAQ() {
             <LineSplitter text="سوالات متداول" />
             {page}
         </>
-    )
-}
-
-
-const PaperIcon = ({ logo, text }) => {
-    return (
-        <Paper
-            sx={{
-                width: { xs: '125px', sm: '175px', md: '200px' },
-                height: { xs: '125px', sm: '175px', md: '200px' },
-                borderRadius: '30px',
-                backgroundColor: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: '0.3s',
-                '&:hover': {
-                    scale: '1.05',
-                }
-            }}
-        >
-            <Grid
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Box
-                    sx={{
-                        width: { xs: '60px', sm: '80px', md: '100px' },
-                        height: { xs: '60px', sm: '80px', md: '100px' },
-                    }}
-                >
-                    <img src={logo}/>
-                </Box>
-                <Typography
-                    variant="h6"
-                    fontWeight='bold'
-                    textAlign='center'
-                    sx={{
-                        fontSize: { xs: 12, sm: 18, md: 20 },
-                        mt: 1,
-                    }}
-                >
-                    {text}
-                </Typography>
-            </Grid>
-        </Paper>
     )
 }

@@ -37,9 +37,14 @@ export default function DashBoardDubaiOrders() {
         }
     };
 
-    // const filteredOrders = orders.filter(order =>
-    //     order.tracking_code.includes(searchKey)
-    // );
+    const filteredOrders = (orders || []).filter(order => {
+        try {
+            return String(order.tracking_code || '').includes(String(searchKey));
+        } catch (error) {
+            console.error('Error filtering orders:', error);
+            return false;
+        }
+    });    
 
     return (
         <Paper
@@ -85,7 +90,7 @@ export default function DashBoardDubaiOrders() {
 
                 <section className='flex flex-col mt-4 gap-4 overflow-scroll'>
 
-                    {orders.map((product, index) => (
+                    {filteredOrders.map((product, index) => (
                         <div key={index} className="OrderCard flex gap-6 px-6 py-6 bg-[#F7F7F7] hover:bg-[#0000000e] transition-all rounded-lg lg:flex-col md:gap-4">
 
                             <div className="rightPart flex w-full flex-col items-end gap-4">

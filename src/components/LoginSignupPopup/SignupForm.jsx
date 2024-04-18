@@ -28,7 +28,6 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmation, setShowConfirmation] = useState(false);
 	const [policyAgreed, setPolicyAgreed] = useState(false);
-
 	const [phoneEnter, setPhoneEnter] = useState(false);
 	const [phoneValidate, setPhoneValidate] = useState(false);
 	const [informationComplition, setInformationComplition] = useState(false);

@@ -8,8 +8,8 @@ function Login() {
         height: '100vh',
         width: '100vw',
         backgroundImage: {
-          lg: `url("https://gizmoshop.liara.run/images/media/pictures/Log_in.png")`, // Apply background image for lg and up
-          md: `url("https://gizmoshop.liara.run/images/media/pictures/Log_in.png")`, // Apply background image for md and up
+          lg: `url("https://gn01.liara.run/images/media/pictures/photo_2024-02-26_06-58-26.jpg")`, // Apply background image for lg and up
+          md: `url("https://gn01.liara.run/images/media/pictures/photo_2024-02-26_06-58-26.jpg")`, // Apply background image for md and up
           sm: 'none', // Remove background image for sm and below
           xs: 'none', // Remove background image for xs
         },

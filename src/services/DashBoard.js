@@ -6,7 +6,7 @@ export const fetchDubaiOrders = async () => {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             },
             next: {
                 revalidate: 10,
@@ -27,7 +27,7 @@ export const fetchFactors = async () => {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             },
             next: {
                 revalidate: 10,
@@ -48,7 +48,7 @@ export const SeenMessages = async () => {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             },
         });
         if (!response.ok) {
@@ -64,7 +64,7 @@ export const fetchAddresses = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/addresses/user/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             }
         });
         if (!response.ok) {
@@ -80,7 +80,7 @@ export const fetchFavoriteProducts = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/favorites/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             }
         });
         if (!response.ok) {
@@ -98,7 +98,7 @@ export const MakeDefaultAddress = async (id) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             },
             body: JSON.stringify({ id: id })
         });
@@ -117,7 +117,7 @@ export const DeleteAddress = async (id) => {
             method: 'DELETE', // Use the DELETE method for the request
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             }
         });
         if (!response.ok) {
@@ -136,7 +136,7 @@ export const AddNewAddress = async (newAddress) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             },
             body: JSON.stringify(newAddress),
         });
@@ -153,7 +153,7 @@ export const fetchNotifications = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/messages/user/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             }
         });
         if (!response.ok) {
@@ -169,7 +169,7 @@ export const fetchOrders = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/orders/user/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             }
         });
         if (!response.ok) {
@@ -184,7 +184,7 @@ export const fetchActivties = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/orders/count/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             }
         });
         if (!response.ok) {
@@ -199,7 +199,7 @@ export const fetchInformation = async () => {
     try {
         const response = await fetch(`${baseUrl}/api/users/info/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzMTIzNjExLCJpYXQiOjE3MTMwMzcyMTEsImp0aSI6ImE2OTQxZTQ1OTcwMDQ0YWViZmEzMmVlMGFkMGZlODM4IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.98hDmHGHzx9jUSwpieTUvsme1KTvL2gHX8tsPNsJmNg`
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
             }
         });
         if (!response.ok) {

@@ -3,22 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { Card, Box, Typography, Divider, TextField, Button, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from '@/context/AuthContext';
+import { usePhoneNumber } from '@/utils/phoneNumber';
 const ForgetPassword = () => {
 
     const [confirmationCode, setConfirmationCode] = useState("");
-
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
-
     const [newPass, setNewPass] = useState("");
     const [passConf, setPassConf] = useState("");
-
     const [isPhoneSent, setIsPhoneSent] = useState(false);
-
+    const { phoneNumber, displayValue, handlePhoneNumberChange } = usePhoneNumber('');
     const { forgetPassword, changePassword } = useAuth();
 
-    const [phoneNumber, setphoneNumber] = useState('');
-    const [displayValue, setDisplayValue] = useState('');
 
 	const handleTogglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
@@ -27,25 +23,6 @@ const ForgetPassword = () => {
 	const handleToggleConfirmationVisibility = () => {
 		setShowConfirmation(!showConfirmation);
 	};
-
-    const toPersianDigits = (num) => {
-        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return num.replace(/\d/g, x => persianDigits[x]);
-    };
-
-    useEffect(() => {
-        setDisplayValue(toPersianDigits(phoneNumber));
-    }, [phoneNumber]);
-
-    // Handle phone number change, allow only digits
-    const handlePhoneNumberChange = (event) => {
-        const input = event.target.value;
-        const currentDisplayValue = toPersianDigits(phoneNumber);
-        if (input !== currentDisplayValue) {
-            const newValue = input.replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, '').replace(/[۰۱۲۳۴۵۶۷۸۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
-            setphoneNumber(newValue);
-        }
-    };
 
     const handleRecovery = async (event) => {
         event.preventDefault();

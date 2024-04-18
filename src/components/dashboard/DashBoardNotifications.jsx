@@ -29,12 +29,6 @@ export default function DashBoardNotifications() {
 
     ])
 
-    const markAllAsRead = () => {
-        const updatedData = notifs.map(notif => ({ ...notif, seen: false }))
-        setNotifs(updatedData)
-        console.log(notifs)
-    }
-
     return (
         <Paper
             variant="outlined"
@@ -72,7 +66,7 @@ export default function DashBoardNotifications() {
 
                 <section className='flex flex-col mt-4 gap-2 overflow-scroll h-full'>
 
-                    {notifs.map((notif) => (
+                    {notifications.map((notif) => (
                         <div className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
 
                             <div className="rightPart flex flex-col justify-between">

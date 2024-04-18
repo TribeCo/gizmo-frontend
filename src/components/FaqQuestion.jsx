@@ -6,7 +6,7 @@ import React from "react";
 import { useState } from "react";
 
 
-const FaqQuestion = ({ question, answear }) => {
+const FaqQuestion = ({ question, answer }) => {
     const [isOpened, setIsOpened] = useState(false);
 
     const handleClick = () => {
@@ -86,7 +86,7 @@ const FaqQuestion = ({ question, answear }) => {
                             pr: 4,
                         }}
                     >
-                        {answear}
+                        {answer}
                     </Typography>
                 </Paper>
             }

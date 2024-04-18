@@ -3,30 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { Card, Box, Typography, Divider, TextField, Button, IconButton, InputAdornment, FormControlLabel, Checkbox } from '@mui/material';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
+import { usePhoneNumber } from '@/utils/phoneNumber';
 import * as Yup from "yup";
 const SignUpComponent = () => {
 
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [displayValue, setDisplayValue] = useState('');
-    const toPersianDigits = (num) => {
-        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return num.replace(/\d/g, x => persianDigits[x]);
-    };
+    const { phoneNumber, displayValue, handlePhoneNumberChange } = usePhoneNumber('');
+    const { signUp, confirmPhoneSignUpCode, completeSignupInformation } = useAuth();
 
-    useEffect(() => {
-        setDisplayValue(toPersianDigits(phoneNumber));
-    }, [phoneNumber]);
-
-    // Handle phone number change, allow only digits
-    const handlePhoneNumberChange = (event) => {
-        const input = event.target.value;
-        const currentDisplayValue = toPersianDigits(phoneNumber);
-        if (input !== currentDisplayValue) {
-            const newValue = input.replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, '').replace(/[۰۱۲۳۴۵۶۷۸۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
-            setPhoneNumber(newValue);
-        }
-    };
     // form variables
+    
     const [fullName, setFullname] = useState("");
     const [confirmationCode, setConfirmationCode] = useState("");
     const [email, setEmail] = useState("");
@@ -39,9 +24,6 @@ const SignUpComponent = () => {
     const [phoneValidate, setPhoneValidate] = useState(false);
     const [informationCompletion, setInformationCompletion] = useState(false);
 
-    const { signUp, confirmPhoneSignUpCode, completeSignupInformation } = useAuth();
-
-    // validation error variables
     const [errors, setErrors] = useState({});
 
     const validationSchema = Yup.object().shape({
@@ -62,8 +44,6 @@ const SignUpComponent = () => {
                 (value) =>
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value),
             ),
-        sendcode: Yup.string()
-            .required("کد فرستاده الزامی میباشد"),
         confirmation: Yup.string()
             .oneOf(
                 [Yup.ref("password"), null],
@@ -74,6 +54,15 @@ const SignUpComponent = () => {
             [true],
             "شما باید با قوانین سایت موافقت کنید",
         ),
+    });
+
+    const phoneAndCodeSchema = Yup.object({
+        phoneNumber: Yup.string()
+            .min(11, "تلفن همراه ۱۱ رقم است")
+            .max(11, "تلفن همراه ۱۱ رقم است")
+            .required("تلفن همراه الزامی است"),
+        confirmationCode: Yup.string() // Define this based on your actual validation needs
+            .required("کد فرستاده الزامی میباشد"),
     });
 
     const handleTogglePasswordVisibility = () => {
@@ -90,31 +79,35 @@ const SignUpComponent = () => {
 
     const handleSignup = async (event) => {
         event.preventDefault();
-        console.log("validating phone number and confirmationcode");
-        try {
-            // await validationSchema.validate({
-            //     phoneNumber,
-            //     sendcode,
-            // }, { abortEarly: false });
-            // setErrors({});
+        console.log("Starting validation for phone number and confirmation code:", phoneNumber, confirmationCode);
 
+        try {
+            await phoneAndCodeSchema.validate({
+                phoneNumber,
+                confirmationCode,
+            }, { abortEarly: false });
+            setErrors({});
+    
             const confirmationCodeParsed = parseInt(confirmationCode, 10);
+            console.log("Parsed confirmation code:", confirmationCodeParsed);
+            
             if (!isNaN(confirmationCodeParsed)) {
-                // Replace this with actual validation logic
-                // const isValidated = await confirmPhoneSignUpCode(phoneNumber, confirmationCodeParsed);
-                const isValidated = 1;
+                console.log("Confirmation code is a valid number, validating...");
+                const isValidated = await confirmPhoneSignUpCode(phoneNumber, confirmationCodeParsed);
                 if (isValidated) {
                     console.log("Phone number validated successfully");
                     setPhoneValidate(true);
                     // Optionally navigate to another route or display success message
                 } else {
-                    console.log("Validation failed");
+                    console.log("Validation failed with valid number format");
                     setErrors({ confirmationCode: 'Invalid confirmation code' });
                 }
             } else {
+                console.log("Invalid format for confirmation code");
                 setErrors({ confirmationCode: 'Invalid format for confirmation code' });
             }
         } catch (validationErrors) {
+            console.log("Validation failed with errors", validationErrors);
             const newErrors = {};
             if (validationErrors.inner) {
                 validationErrors.inner.forEach(error => {
@@ -126,12 +119,11 @@ const SignUpComponent = () => {
             setErrors(newErrors);
         }
     };
-
+    
 
     const handleCompleteInfo = async (event) => {
         event.preventDefault();
         console.log("complete info");
-        // Clear previous errors if any
         setErrors({});
 
         try {
@@ -181,20 +173,24 @@ const SignUpComponent = () => {
 
     const handleSendCode = async (event) => {
         event.preventDefault();
+        console.log("Initiating phone number validation for:", phoneNumber);
         try {
-            // await validationSchema.validate({ phoneNumber }, { abortEarly: false });
-            // setErrors({});
-
-            console.log("Validation successful, signup running");
-            // const isSignedUp = await signUp(phoneNumber);  // Make sure this function exists and handles the signup process
-            const isSignedUp = 1;
-            if (isSignedUp === 1) {
+            await validationSchema.validateAt('phoneNumber', { phoneNumber }, { abortEarly: false });
+            setErrors({});
+    
+            console.log("Validation successful, attempting signup");
+            const isSignedUp = await signUp(phoneNumber);
+            console.log("Signup response received:", isSignedUp); // Logs the exact response from signUp
+    
+            if (isSignedUp === 1) {  // Make sure to confirm the expected response in signUp documentation or code
                 console.log("Signup successful");
-                setPhoneEnter(true);
+                setPhoneEnter(true);  // Assuming setPhoneEnter updates state to reflect successful signup
             } else {
-                console.log("Signup failed, handle accordingly");
+                console.log("Signup failed with response:", isSignedUp);  // Detailed log for different responses
+                // Optionally, handle different types of failures based on the isSignedUp value
             }
         } catch (validationErrors) {
+            console.log("Validation failed with errors", validationErrors);
             const newErrors = {};
             if (validationErrors.inner) {
                 validationErrors.inner.forEach(error => {
@@ -206,6 +202,7 @@ const SignUpComponent = () => {
             setErrors(newErrors);
         }
     };
+    
 
 
     return (

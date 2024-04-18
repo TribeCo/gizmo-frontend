@@ -4,33 +4,15 @@ import { Card, Box, Typography, Divider, TextField, Button, IconButton, InputAdo
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useAuth } from '@/context/AuthContext';
+import { usePhoneNumber } from '@/utils/phoneNumber';
 import * as Yup from "yup";
 
 const LoginComponent = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [phoneNumber, setphoneNumber] = useState('');
     const [password, setPassword] = useState('');
-    const [displayValue, setDisplayValue] = useState('');
     const [errors, setErrors] = useState({});
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
-    const toPersianDigits = (num) => {
-        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return num.replace(/\d/g, x => persianDigits[x]);
-    };
-
-    useEffect(() => {
-        setDisplayValue(toPersianDigits(phoneNumber));
-    }, [phoneNumber]);
-
-    // Handle phone number change, allow only digits
-    const handlePhoneNumberChange = (event) => {
-        const input = event.target.value;
-        const currentDisplayValue = toPersianDigits(phoneNumber);
-        if (input !== currentDisplayValue) {
-            const newValue = input.replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, '').replace(/[۰۱۲۳۴۵۶۷۸۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
-            setphoneNumber(newValue);
-        }
-    };
+    const { phoneNumber, displayValue, handlePhoneNumberChange } = usePhoneNumber('');
 
     const validationSchema = Yup.object().shape({
         phoneNumber: Yup.string()

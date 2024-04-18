@@ -73,79 +73,77 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 	}
 
 	return (
-		<>
-			<Grid
-				mt={5}				
+		<Grid
+			mt={5}				
+			display='flex'
+			width='100%'
+			justifyContent="space-between"
+			alignItems="center"
+			sx={{
+				px: {xs: 1, sm: 2, md: 3}
+			}}
+		>
+			<Box item>
+				<IconButton
+					variant="contained"
+					sx={{
+						bgcolor: Colors.blue,
+						width: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
+						height: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
+						"&:hover": {
+							backgroundColor: Colors.blue,
+						},
+					}}
+					onClick={handleNext}>
+					<ArrowForwardIosOutlinedIcon
+						sx={{
+							color: "white",
+							fontSize: { xs: 18, sm: 20, md: 24, lg: 28 }
+						}}
+					/>
+				</IconButton>
+			</Box>
+
+			<Box
 				display='flex'
-				width='100%'
+				flexDirection='row'
 				justifyContent="space-between"
-				alignItems="center"
-				sx={{
-					px: {xs: 1, sm: 2, md: 3}
-				}}
+				columnGap={2}
 			>
-				<Box item>
-					<IconButton
-						variant="contained"
-						sx={{
-							bgcolor: Colors.blue,
-							width: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
-							height: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
-							"&:hover": {
-								backgroundColor: Colors.blue,
-							},
-						}}
-						onClick={handleNext}>
-						<ArrowForwardIosOutlinedIcon
-							sx={{
-								color: "white",
-								fontSize: { xs: 18, sm: 20, md: 24, lg: 28 }
-							}}
-						/>
-					</IconButton>
-				</Box>
 
-				<Box
-					display='flex'
-					flexDirection='row'
-					justifyContent="space-between"
-					columnGap={2}
-				>
-
-					{slideItems.map((item, index) => (
+				{slideItems.map((item, index) => (
+					<Box
+						item
+						key={index}>
 						<Box
-							item
-							key={index}>
-							<Box
-								textAlign="center">
-								<BlogCard data={item} background_color="#F8F8F8" font_color="black" />
-							</Box>
+							textAlign="center">
+							<BlogCard data={item} background_color="#F8F8F8" font_color="black" />
 						</Box>
-					))}
-				</Box>
+					</Box>
+				))}
+			</Box>
 
-				<Box item>
-					<IconButton
-						variant="contained"
+			<Box item>
+				<IconButton
+					variant="contained"
+					sx={{
+						bgcolor: Colors.blue,
+						width: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
+						height: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
+						"&:hover": {
+							backgroundColor: Colors.blue,
+						},
+					}}
+					onClick={handlePrev}>
+					<ArrowBackIosOutlinedIcon
 						sx={{
-							bgcolor: Colors.blue,
-							width: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
-							height: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
-							"&:hover": {
-								backgroundColor: Colors.blue,
-							},
+							color: "white",
+							fontSize: { xs: 18, sm: 20, md: 24, lg: 28 }
 						}}
-						onClick={handlePrev}>
-						<ArrowBackIosOutlinedIcon
-							sx={{
-								color: "white",
-								fontSize: { xs: 18, sm: 20, md: 24, lg: 28 }
-							}}
-						/>
-					</IconButton>
-				</Box>
-			</Grid>
-		</>
+					/>
+				</IconButton>
+			</Box>
+		</Grid>
 	);
 };
 

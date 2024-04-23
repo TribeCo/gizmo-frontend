@@ -34,6 +34,8 @@ const ProductCard = ({ product }) => {
 		<CardActionArea
 			disableRipple
 			sx={{
+				width: { xs: 0.65 * 242, md: 1.0 * 242 },
+				height: { xs: 0.65 * 381, md: 1.0 * 381 },
 				mx: 1,
 				borderRadius: { xs: "30px", md: "40px" },
 			}}

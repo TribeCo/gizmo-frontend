@@ -14,17 +14,17 @@ const SimilarNews = ({ data }) => {
             }}
         >
             {data.map(item => (
-            <Link href='/'>
-                <Grid
-                    display='flex'
-                    sx={{
-                        columnGap: 2,
-                        px: {xs: 4, sm: 0}
-                    }}
-                >
+                <Link href={item.slug}>
+                    <Grid
+                        display='flex'
+                        sx={{
+                            columnGap: 2,
+                            px: { xs: 4, sm: 0 }
+                        }}
+                    >
                         <Paper
                             sx={{
-                                borderRadius: {xs: '6px', sm: '12px'},
+                                borderRadius: { xs: '6px', sm: '12px' },
                                 overflow: "hidden",
                                 boxShadow: 'none'
                             }}
@@ -34,8 +34,8 @@ const SimilarNews = ({ data }) => {
                                 image={item.cover}
                                 alt={item.title}
                                 sx={{
-                                    width: {xs: '130px', sm: '160px', md: '140px', lg: '130px'},
-                                    height: 'auto'  
+                                    width: { xs: '130px', sm: '160px', md: '140px', lg: '130px' },
+                                    height: 'auto'
                                 }}
                             />
                         </Paper>
@@ -77,8 +77,8 @@ const SimilarNews = ({ data }) => {
                                 </Typography>
                             </Grid>
                         </Grid>
-                </Grid>
-            </Link>
+                    </Grid>
+                </Link>
             ))}
         </Grid>
     );

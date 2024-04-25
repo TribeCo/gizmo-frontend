@@ -1,11 +1,14 @@
-"use client"
 import { Box } from "@mui/material";
 import React from "react";
 import Summary from "@/components/CartPage/Summary";
 import ProgressBar from "@/components/CartPage/ProgressBar";
 import DeliveryInfoMain from "../../components/CartPage/DeliveryInfoMain";
+import { fetchAddresses } from "@/services/DashBoard";
 
-const TempPage = () => {
+export default async function DeliveryInfo() {
+
+    const Addresses = await fetchAddresses();
+
     return (
         <Box sx={{
             display: 'flex',
@@ -28,10 +31,8 @@ const TempPage = () => {
             >
                 <ProgressBar activeStep={1} />
             </Box>
-            <DeliveryInfoMain />
+            <DeliveryInfoMain addresses={Addresses}/>
             <Summary />
         </Box>
     );
 };
-
-export default TempPage;

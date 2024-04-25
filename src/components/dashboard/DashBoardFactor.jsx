@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Divider, Grid, Typography, TextField, InputAdornment, IconButton, Button, Paper } from '@mui/material';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { fetchFactors } from '@/services/DashBoard';
-import { CleaningServices } from '@mui/icons-material';
+import { fetchFactors, formatFullAddress } from '@/services/DashBoard';
+import { useAuth } from '@/context/AuthContext';
+
 
 export default function DashBoardFactor() {
 
@@ -54,13 +55,7 @@ export default function DashBoardFactor() {
             "get_order_number": "46003"
         }    
     ];
-
-    function formatFullAddress(address) {
-        const { province, city, straight_address, postal_code, current } = address;
-        const fullAddress = `استان: ${province}, شهر: ${city}, آدرس: ${straight_address}, کد پستی: ${postal_code}`;
-        return fullAddress;
-        // return current ? `${fullAddress} (Current Address)` : fullAddress;
-    }
+    const { tokens } = useAuth();
 
     const handlePrint = (id) => {
         setActivePrintId(id);
@@ -68,7 +63,7 @@ export default function DashBoardFactor() {
     };
 
     const handleGetFactors = async () => {
-        setFactors((await fetchFactors()).data);
+        setFactors((await fetchFactors(tokens)).data);
     }
 
     useEffect(() => {
@@ -178,7 +173,7 @@ export default function DashBoardFactor() {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
-                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.email}</span>
+                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.user.email}</span>
                                         </Typography>
                                     </Grid>
                                 </Grid>

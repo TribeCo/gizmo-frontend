@@ -9,44 +9,24 @@ import {
     Box,
 } from '@mui/material';
 import { Colors } from "@/utils";
+import { useAuth } from '@/context/AuthContext';
 import { fetchActivties, fetchInformation } from "@/services/DashBoard";
-
-const convertToPersian = (number) => {
-    if (number === undefined || number === null) {
-        console.error('Invalid input: number is undefined or null');
-        return number; // Or return a default value or an error message depending on your use case
-    }
-    const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-    return number.toString().replace(/\d/g, (x) => persianNumbers[x]);
-};
-
-function getGenderDescription(genderCode) {
-    if (!genderCode) {
-        return 'خالی';
-    }
-    const genderMap = {
-        'm': 'مرد',
-        'f': 'زن',
-        'u': 'مایل به گفتن ندارم'
-    };
-    return genderMap[genderCode.toLowerCase()] || 'خالی';
-}
-
-
-function createFullName(firstName, lastName) {
-    return `${firstName} ${lastName}`;
-}
+import { createFullName, getGenderDescription, toPersianDigits } from "@/utils/convert";
 
 const UserInfoPage = () => {
     const [activities, setActivites] = useState([]);
     const [information, setInformation] = useState([]);
+    const { tokens } = useAuth();
+
     useEffect(() => {
         GetInformation();
     }, []);
 
     const GetInformation = async () => {
-        setActivites((await fetchActivties()));
-        setInformation((await fetchInformation()));
+        // setActivites((await fetchActivties(tokens)));
+        // setInformation((await fetchInformation(tokens)));
+        console.log((await fetchActivties(tokens)));
+        console.log((await fetchInformation(tokens)));
     }
 
     return (
@@ -116,9 +96,7 @@ const UserInfoPage = () => {
                         </Button>
                     </Grid>
                 </Box>
-
                 <Divider />
-
                 <Box
                     px={2}
                     container
@@ -265,7 +243,7 @@ const UserInfoPage = () => {
                                         color: '#44434C'
                                     }}
                                 >
-                                    {convertToPersian(information.phoneNumber)}
+                                    {toPersianDigits(information.phoneNumber)}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -356,7 +334,7 @@ const UserInfoPage = () => {
                                     mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                {convertToPersian(activities.orders_count)}
+                                {toPersianDigits(activities.orders_count)}
                             </Typography>
                         </Box>
                     </Box>
@@ -403,7 +381,7 @@ const UserInfoPage = () => {
                                     mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                {convertToPersian(activities.foreign_returns_count)}
+                                {toPersianDigits(activities.foreign_returns_count)}
                             </Typography>
                         </Box>
                     </Box>
@@ -450,7 +428,7 @@ const UserInfoPage = () => {
                                     mt: { xs: 0, sm: 1 }
                                 }}
                             >
-                                {convertToPersian(activities.returns_count)}
+                                {toPersianDigits(activities.returns_count)}
                             </Typography>
                         </Box>
                     </Box>
@@ -459,6 +437,4 @@ const UserInfoPage = () => {
         </Grid>
     );
 }
-
-
 export default UserInfoPage;

@@ -3,6 +3,7 @@ import { Colors } from "@/utils";
 import eye from '@/components/siteIcons/eye-slash.svg'
 import Image from 'next/image'
 import NumberFormat from 'react-number-format';
+import { useAuth } from '@/context/AuthContext';
 
 
 import {
@@ -20,12 +21,11 @@ export default function DashBoardEditProfile() {
 
     const [showPassword, setShowPassword] = React.useState(false);
     const [newPasswordIteration, setNewPasswordIteration] = React.useState('')
-
     const [firstField, setFirstField] = React.useState('password');
     const [secondField, setSecondField] = React.useState('password');
     const [thirdField, setThirdField] = React.useState('password');
     const [forthField, setForthField] = React.useState('password');
-
+    const { tokens } = useAuth();
     const [newProfileData, setNewProfileData] = useState({
         name: '',
         familyName: '',
@@ -61,9 +61,7 @@ export default function DashBoardEditProfile() {
             });
 
             if (response.ok) {
-                // Optionally, you can fetch updated data after adding the new address
                 fetchData();
-                // Reset the newAddressData state after successfully adding the address
                 setNewProfilePassword({
                     name: '',
                     familyName: '',
@@ -81,7 +79,7 @@ export default function DashBoardEditProfile() {
     const editNewProfilePassword = async () => {
         if (newProfilePassword.new_password !== newProfilePassword.new_password_confirm) {
             alert("Passwords do not match. Please make sure your new password and confirm password fields match.");
-            return; // Stop further execution
+            return;
         }
         console.log(newProfilePassword);
         try {
@@ -93,7 +91,6 @@ export default function DashBoardEditProfile() {
                 },
                 body: JSON.stringify(newProfilePassword),
             });
-    
             if (response.ok) {
                 fetchData();
                 setNewProfilePassword({

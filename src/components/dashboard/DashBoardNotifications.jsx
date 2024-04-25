@@ -5,21 +5,23 @@ import envelopIcon from '@/components/siteIcons/EnvelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 import { Paper } from '@mui/material'
 import { fetchNotifications, SeenMessages } from '@/services/DashBoard'
+import { useAuth } from '@/context/AuthContext';
 
 
 export default function DashBoardNotifications() {
 
     const [notifications, setNotifications] = useState([]);
+    const { tokens } = useAuth();
     useEffect(() => {
         GetNotifications();
     }, []);
 
     const GetNotifications = async () => {
-        setNotifications((await fetchNotifications()).data)
+        setNotifications((await fetchNotifications(tokens)).data)
     }
 
     const SeenAllMessages = async () => {
-        alert((await SeenMessages()).message)
+        alert((await SeenMessages(tokens)).message)
     }
 
     const [notifs, setNotifs] = React.useState([

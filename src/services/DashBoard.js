@@ -1,12 +1,12 @@
 import { baseUrl } from "./index";
 
-export const fetchDubaiOrders = async () => {
+export const fetchDubaiOrders = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/foreign/order/user/`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             },
             next: {
                 revalidate: 10,
@@ -21,16 +21,11 @@ export const fetchDubaiOrders = async () => {
     }
 };
 
-export const fetchFactors = async () => {
+export const fetchFactors = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/order/factor/1/`, {
-            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
-            },
-            next: {
-                revalidate: 10,
+                'Authorization': `Bearer ${tokens.access}`
             },
         });
         if (!response.ok) {
@@ -42,13 +37,13 @@ export const fetchFactors = async () => {
     }
 };
 
-export const SeenMessages = async () => {
+export const SeenMessages = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/messages/user/all/seen/`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             },
         });
         if (!response.ok) {
@@ -60,11 +55,11 @@ export const SeenMessages = async () => {
     }
 };
 
-export const fetchAddresses = async () => {
+export const fetchAddresses = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/addresses/user/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             }
         });
         if (!response.ok) {
@@ -76,11 +71,11 @@ export const fetchAddresses = async () => {
     }
 };
 
-export const fetchFavoriteProducts = async () => {
+export const fetchFavoriteProducts = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/favorites/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             }
         });
         if (!response.ok) {
@@ -92,13 +87,13 @@ export const fetchFavoriteProducts = async () => {
     }
 };
 
-export const MakeDefaultAddress = async (id) => {
+export const MakeDefaultAddress = async (id, tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/addresses/set/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             },
             body: JSON.stringify({ id: id })
         });
@@ -111,37 +106,38 @@ export const MakeDefaultAddress = async (id) => {
     }
 };
 
-export const DeleteAddress = async (id) => {
+export const DeleteAddress = async (id, tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/addresses/delete/${id}/`, {
-            method: 'DELETE', // Use the DELETE method for the request
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             }
         });
         if (!response.ok) {
             throw new Error('Failed to delete the address. Please try again.');
         }
-        return response.json();
         console.log("Address deleted successfully:", result);
+        return response.json();
     } catch (error) {
         console.error("Error deleting the address:", error);
     }
 };
 
-export const AddNewAddress = async (newAddress) => {
+export const AddNewAddress = async (newAddress, tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/addresses/create/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             },
             body: JSON.stringify(newAddress),
         });
+        console.log(newAddress);
         if (!response.ok) {
-            console.error('Error adding new address:', response.statusText);
+            console.error('Error adding new address:', response.json);
         }
         return response.json();
     } catch (error) {
@@ -149,11 +145,11 @@ export const AddNewAddress = async (newAddress) => {
     }
 };
 
-export const fetchNotifications = async () => {
+export const fetchNotifications = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/messages/user/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             }
         });
         if (!response.ok) {
@@ -165,11 +161,11 @@ export const fetchNotifications = async () => {
     }
 };
 
-export const fetchOrders = async () => {
+export const fetchOrders = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/orders/user/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             }
         });
         if (!response.ok) {
@@ -180,11 +176,12 @@ export const fetchOrders = async () => {
         console.error("There was a problem with the fetch operation:", error);
     }
 };
-export const fetchActivties = async () => {
+
+export const fetchActivties = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/orders/count/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             }
         });
         if (!response.ok) {
@@ -195,11 +192,12 @@ export const fetchActivties = async () => {
         console.error("There was a problem with the fetch operation:", error);
     }
 };
-export const fetchInformation = async () => {
+
+export const fetchInformation = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/users/info/`, {
             headers: {
-                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEzNDcwNTAzLCJpYXQiOjE3MTMzODQxMDMsImp0aSI6IjcyZDgyYzZlMmMxMDQ0ZDliZjQ0ZDk2NjkxMzBjYmI0IiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.DIbQv28JqlMxL1TSC9GfUqIIj5ogkLYMcDWnyqyotIA`
+                'Authorization': `Bearer ${tokens.access}`
             }
         });
         if (!response.ok) {
@@ -210,3 +208,28 @@ export const fetchInformation = async () => {
         console.error("There was a problem with the fetch operation:", error);
     }
 };
+
+export const SenderInformation = async (formData, tokens) => {
+    try {
+        const response = await fetch(`${baseUrl}/api/user/update/delivery/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokens.access}`
+            },
+            body: JSON.stringify(formData),
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};
+
+export const formatFullAddress = (address) => {
+    const { province, city, straight_address, postal_code, current } = address;
+    const fullAddress = `استان: ${province}, شهر: ${city}, آدرس: ${straight_address}, کد پستی: ${postal_code}`;
+    return fullAddress;
+}

@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
 import LevelofOrdering from './LevelofOrdering';
 import { fetchOrders } from '@/services/DashBoard';
+import { useAuth } from '@/context/AuthContext';
 
 export default function DashBoardOrders() {
 
@@ -23,8 +24,10 @@ export default function DashBoardOrders() {
     }
     
     const [inputValue, setInputValue] = useState('');
+    const { tokens } = useAuth();
     useEffect(() => {
         setSearchTerm(convertToPersian(inputValue));
+        GetOrders();
     }, [inputValue]);
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -52,21 +55,10 @@ export default function DashBoardOrders() {
         }));
     };
     const [orders, setOrders] = useState([]);
-    useEffect(() => {
-        GetOrders();
-    }, []);
 
     const GetOrders = async () => {
-        setOrders((await fetchOrders()).data)
+        setOrders((await fetchOrders(tokens)).data)
     }
-
-    const [realOrders, setRealOrders] = useState([
-        { orderCode: '0786453465', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
-        { orderCode: '4894545456', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
-        { orderCode: '4128546528', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
-        { orderCode: '4654894898', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
-        { orderCode: '0782586558', destinationAddress: 'شیراز، دانشگاه صنعتی شیراز', receiverName: 'سامان', date: '1402/5/6', discountPrice: '0', price: '398000', finalPrice: '398000', LevelofOrdering: 1 },
-    ])
 
     const filteredOrders = orders.filter((order) =>
         convertToPersian(order.ref_id).includes(searchTerm) || order.ref_id.includes(searchTerm)

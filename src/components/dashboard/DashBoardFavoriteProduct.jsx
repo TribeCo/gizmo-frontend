@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Divider, Grid, Typography, Paper } from '@mui/material';
 import ProductCard from '@/components/ProductCard';
 import { fetchFavoriteProducts } from '@/services/DashBoard';
-// import { products } from '@/utils/fakeProduct';
+import { useAuth } from '@/context/AuthContext';
 
 export default function DashBoardFavoriteProduct() {
 
@@ -11,9 +11,10 @@ export default function DashBoardFavoriteProduct() {
         GetFavoriteProducts();
         console.log(products);
     }, []);
+    const { tokens } = useAuth();
 
     const GetFavoriteProducts = async () => {
-        setProducts((await fetchFavoriteProducts()).data)
+        setProducts((await fetchFavoriteProducts(tokens)).data)
     }
 
     return (

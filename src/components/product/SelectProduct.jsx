@@ -24,6 +24,11 @@ const SelectProduct = ({ data }) => {
 		}
 	};
 
+	const incCount = () => {
+		if (count < data.product_color.at(selectedColor).quantity)
+			setCount(count + 1);
+	};
+
 	const handleFavorite = async () => {
 		let response;
 		if (!like) {
@@ -87,27 +92,28 @@ const SelectProduct = ({ data }) => {
 							color="#22668D"
 							fontWeight={400}
 							fontSize={20}>
-							{(data.colors.length > 0 && data.colors.at(selectedColor).name) ||
+							{(data.product_color.length > 0 &&
+								data.product_color.at(selectedColor).color.name) ||
 								"انتخاب نشده"}
 						</Typography>
 					</Box>
 					<Box
 						display="flex"
 						mt={2}>
-						{data.colors.length > 0 &&
-							data.colors.map((color, index) => {
+						{data.product_color.length > 0 &&
+							data.product_color.map((color, index) => {
 								return (
 									<IconButton
 										disabled={index === 2 ? true : false}
 										onClick={() => setSelectedColor(index)}
 										disableRipple>
 										<Box
-											bgcolor={color.code}
+											bgcolor={`#${color.color.code}`}
 											border="0.16em solid #D9DAE2"
 											borderRadius={2.5}
 											width={45}
 											height={45}>
-											{!color.is_available ? (
+											{color.quantity < 1 ? (
 												<svg
 													width="39"
 													height="39"
@@ -158,7 +164,7 @@ const SelectProduct = ({ data }) => {
 						color="#22668D"
 						fontWeight={900}
 						fontSize={20}>
-						{"تعداد: "}
+						{`تعداد: (موجودی ${data.product_color.at(selectedColor).quantity})`}
 					</Typography>
 					<Box
 						display="flex"
@@ -166,7 +172,11 @@ const SelectProduct = ({ data }) => {
 						alignItems="center"
 						width={120}
 						mt={2}>
-						<IconButton onClick={() => setCount(count + 1)}>
+						<IconButton
+							onClick={incCount}
+							disabled={
+								data.product_color.at(selectedColor).quantity === count
+							}>
 							<svg
 								width="35"
 								height="41"

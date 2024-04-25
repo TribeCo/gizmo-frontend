@@ -19,8 +19,14 @@ import {
 	InputBase,
 	Dialog,
 	Slide,
+	FormControl,
+	Divider,
+	Card,
+	Badge,
 } from "@mui/material";
 import { Colors } from "@/utils";
+
+import { useCart } from "@/context/CartContext";
 
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -31,6 +37,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { useMenuItemContext } from "../dashboard/DashBoardMenuSelector";
 import LoginSignupModal from "../LoginSignupPopup/LoginSignupPopup";
+import { getAllCategories, getAllProducts } from "@/services/Search";
 
 const AppBar = ({ isLanding }) => {
 	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
@@ -46,6 +53,8 @@ const AppBar = ({ isLanding }) => {
 		{ name: "لوازم ورزشی", slug: "sports-equipment" },
 		{ name: "لوازم برقی", slug: "electrical-appliances" },
 	];
+
+	const { length } = useCart();
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -83,7 +92,7 @@ const AppBar = ({ isLanding }) => {
 	return (
 		<>
 			<Box
-				displayPrint={'none'}
+				displayPrint={"none"}
 				bgcolor={Colors.yellow}
 				borderRadius={isLanding ? "50px 50px 0px 0px" : "50px"}
 				mt={2}
@@ -411,33 +420,45 @@ const AppBar = ({ isLanding }) => {
 								</Typography>
 							</MenuItem>
 						</Menu>
-
-						<IconButton
-							variant="contained"
+						<Badge
+							badgeContent={length}
 							sx={{
-								p: { xs: "11px", sm: "13px" },
-								scale: "0.8",
-								ml: { xs: "4px", sm: 1 },
-								mr: { xs: 0, sm: 1 },
-								bgcolor: Colors.blue,
-								color: "white",
-								"&:hover": {
-									backgroundColor: Colors.blue,
+								"& .MuiBadge-badge": {
+									right: 15,
+									top: 10,
+									padding: "17px 10px 13px 10px",
+									borderRadius: 10,
+									fontSize: 20,
 								},
-							}}>
-							<LocalMallOutlinedIcon
-								fontSize="medium"
+							}}
+							color="error">
+							<IconButton
+								variant="contained"
 								sx={{
-									display: { xs: "flex", sm: "none" },
-								}}
-							/>
-							<LocalMallOutlinedIcon
-								fontSize="large"
-								sx={{
-									display: { xs: "none", sm: "flex" },
-								}}
-							/>
-						</IconButton>
+									p: { xs: "11px", sm: "13px" },
+									scale: "0.8",
+									ml: { xs: "4px", sm: 1 },
+									mr: { xs: 0, sm: 1 },
+									bgcolor: Colors.blue,
+									color: "white",
+									"&:hover": {
+										backgroundColor: Colors.blue,
+									},
+								}}>
+								<LocalMallOutlinedIcon
+									fontSize="medium"
+									sx={{
+										display: { xs: "flex", sm: "none" },
+									}}
+								/>
+								<LocalMallOutlinedIcon
+									fontSize="large"
+									sx={{
+										display: { xs: "none", sm: "flex" },
+									}}
+								/>
+							</IconButton>
+						</Badge>
 					</Grid>
 				</Grid>
 			</Box>
@@ -484,9 +505,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const SearchField = () => {
 	const [searchQuery, setSearchQuery] = useState("");
+	const [producs, setProducts] = useState(null);
+	const [categories, setCategories] = useState(null);
 	const [open, setOpen] = useState(false);
 
-	const handleOpen = () => {
+	const handleOpen = async () => {
+		if (producs === null) {
+			const res1 = await getAllProducts();
+			setProducts(res1);
+			const res2 = await getAllCategories();
+			setCategories(res2);
+			console.log(res2);
+		}
+		console.log(producs);
 		setOpen(true);
 	};
 
@@ -495,8 +526,7 @@ const SearchField = () => {
 	};
 
 	const handleSearch = (event) => {
-		// fetching ...
-		console.log("fetching results for:", searchQuery);
+		console.log(searchQuery);
 	};
 
 	const handleChange = (event) => {
@@ -531,64 +561,129 @@ const SearchField = () => {
 					/>
 				</SvgIcon>
 			</IconButton>
-			<Modal
-				sx={{
-					mt: 10,
-					display: "flex",
-					alignItems: "flex-start",
-					justifyContent: "center",
-				}}
+			<Dialog
+				fullWidth={true}
+				maxWidth="md"
+				sx={
+					searchQuery.length > 0
+						? {
+								"& .MuiDialog-paper": {
+									borderRadius: 8,
+								},
+								"& .MuiDialog-container": {
+									pb: 7,
+								},
+						  }
+						: {
+								"& .MuiDialog-paper": {
+									borderRadius: 8,
+								},
+								"& .MuiDialog-container": {
+									pb: 70,
+								},
+						  }
+				}
 				open={open}
-				onClose={handleClose}
-				closeAfterTransition
-				BackdropComponent={Backdrop}
-				BackdropProps={{
-					timeout: 100,
-					style: {
-						backdropFilter: "blur(2px)",
-					},
-				}}>
-				<Paper
-					component="form"
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						borderRadius: "25px",
-						backgroundColor: "white",
-						backdropFilter: "blur(5px)",
-					}}>
-					<Grid
-						ml={2}
-						sx={{ scale: { xs: "0.7", sm: "1" } }}>
-						<SvgIcon
-							width="23"
-							height="23"
-							viewBox="0 0 23 23"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M22.6872 19.885L18.2082 15.4067C18.006 15.2046 17.732 15.0923 17.4444 15.0923H16.7122C17.9521 13.5067 18.6889 11.5124 18.6889 9.34284C18.6889 4.18182 14.5063 0 9.34443 0C4.18253 0 0 4.18182 0 9.34284C0 14.5039 4.18253 18.6857 9.34443 18.6857C11.5143 18.6857 13.509 17.949 15.0949 16.7093V17.4415C15.0949 17.7289 15.2072 18.0029 15.4093 18.2051L19.8884 22.6833C20.3107 23.1056 20.9935 23.1056 21.4113 22.6833L22.6827 21.4122C23.105 20.9899 23.105 20.3072 22.6872 19.885ZM9.34443 15.0923C6.16822 15.0923 3.59401 12.523 3.59401 9.34284C3.59401 6.16717 6.16373 3.5934 9.34443 3.5934C12.5206 3.5934 15.0949 6.16268 15.0949 9.34284C15.0949 12.5185 12.5251 15.0923 9.34443 15.0923Z"
-								fill="#22668D"
-							/>
-						</SvgIcon>
-					</Grid>
+				onClose={handleClose}>
+				<FormControl>
 					<InputBase
+						startAdornment={
+							<SvgIcon
+								width="23"
+								height="23"
+								viewBox="0 0 23 23"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M22.6872 19.885L18.2082 15.4067C18.006 15.2046 17.732 15.0923 17.4444 15.0923H16.7122C17.9521 13.5067 18.6889 11.5124 18.6889 9.34284C18.6889 4.18182 14.5063 0 9.34443 0C4.18253 0 0 4.18182 0 9.34284C0 14.5039 4.18253 18.6857 9.34443 18.6857C11.5143 18.6857 13.509 17.949 15.0949 16.7093V17.4415C15.0949 17.7289 15.2072 18.0029 15.4093 18.2051L19.8884 22.6833C20.3107 23.1056 20.9935 23.1056 21.4113 22.6833L22.6827 21.4122C23.105 20.9899 23.105 20.3072 22.6872 19.885ZM9.34443 15.0923C6.16822 15.0923 3.59401 12.523 3.59401 9.34284C3.59401 6.16717 6.16373 3.5934 9.34443 3.5934C12.5206 3.5934 15.0949 6.16268 15.0949 9.34284C15.0949 12.5185 12.5251 15.0923 9.34443 15.0923Z"
+									fill="#22668D"
+								/>
+							</SvgIcon>
+						}
 						sx={{
-							width: { xs: 250, sm: 450, md: 650 },
-							ml: 2,
-							flex: 1,
+							my: 2,
+							mx: 5,
+							gap: 2,
 							color: Colors.blue_dark,
-							fontSize: { xs: 14, sm: 16, md: 18 },
+							fontSize: { xs: 16, sm: 18, md: 20 },
+							fontWeight: 500,
 							boxShadow: "none",
-							padding: { xs: "5px", sm: 1 },
 						}}
 						placeholder="محصول مورد نظر را جستجو کنید."
-						inputProps={{ "aria-label": "search field" }}
 						value={searchQuery}
 						onChange={handleChange}
 					/>
-				</Paper>
-			</Modal>
+				</FormControl>
+				{searchQuery.length > 0 ? (
+					<>
+						<Divider />
+						<Box height={500}>
+							{categories
+								.filter((c) => {
+									return (
+										c.name
+											.toUpperCase()
+											.split(" ")
+											.join("")
+											.includes(
+												searchQuery.toUpperCase().split(" ").join(""),
+											) ||
+										c.tags
+											.join("*!*")
+											.includes(searchQuery.toUpperCase().split(" ").join(""))
+									);
+								})
+								.slice(0, 2)
+								.map((c) => {
+									return (
+										<Link href={`/categories/${c.slug}`}>
+											<Paper
+												elevation={2}
+												sx={{
+													minHeight: 50,
+													display: "flex",
+													alignItems: "center",
+													m: 3,
+													p: 2,
+												}}>
+												<Typography variant="h6">{c.name}</Typography>
+											</Paper>
+										</Link>
+									);
+								})}
+							<Divider />
+							{producs
+								.filter((p) => {
+									return p.name
+										.toUpperCase()
+										.split(" ")
+										.join("")
+										.includes(searchQuery.toUpperCase().split(" ").join(""));
+								})
+								.slice(0, 2)
+								.map((p) => {
+									return (
+										<Link href={`/products/${p.slug}`}>
+											<Paper
+												elevation={2}
+												sx={{
+													minHeight: 50,
+													display: "flex",
+													alignItems: "center",
+													m: 3,
+													p: 2,
+												}}>
+												<Typography variant="h6">{p.name}</Typography>
+											</Paper>
+										</Link>
+									);
+								})}
+						</Box>
+					</>
+				) : (
+					""
+				)}
+			</Dialog>
 		</>
 	);
 };

@@ -28,6 +28,8 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
+	const isLogin = async () => {};
+
 	const loginUser = async (phoneNumber, pwd, destination = null) => {
 		try {
 			const response = await fetch(`${baseUrl}/api/token/`, {

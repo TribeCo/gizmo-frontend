@@ -37,7 +37,7 @@ export default function Rules({ data, onClose }) {
                                     fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
                                 }}
                             >
-                                {data.title}
+                                قوانین سایت
                             </Typography>
                         </Grid>
                     </Grid>
@@ -84,11 +84,11 @@ export default function Rules({ data, onClose }) {
                     justifyContent='center'
                     alignItems='center'
                 >
-                    {data.questions.faqs.map((faq, index) => (
+                    {data.map((faq, index) => (
                         <FaqQuestion
                             key={index}
-                            question={faq.question}
-                            answer={faq.answer}
+                            question={faq.title}
+                            answer={faq.text}
                         />
                     ))}
                 </Grid>

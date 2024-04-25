@@ -178,7 +178,7 @@ export default function DashBoardFactor() {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Typography sx={{ textAlign: 'left', fontWeight: 700, fontSize: 14 }}>
-                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.email}</span>
+                                            ایمیل: <span style={{ fontWeight: 500 }}>{receipt.user.email}</span>
                                         </Typography>
                                     </Grid>
                                 </Grid>

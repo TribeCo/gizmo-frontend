@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import ProductsGrid from "@/components/ProductsGrid";
 import LineSplitter from "@/components/LineSpliter";
+import { baseUrl } from "@/services";
 // import { products } from '@/utils/fakeProduct';
 
 function ProductsPage({ categoryName }) {
@@ -13,7 +14,7 @@ function ProductsPage({ categoryName }) {
 		const fetchProducts = async () => {
 			try {
 				const response = await fetch(
-					`https://gizmoshop.liara.run/api/${categoryName}/products/`,
+					`${baseUrl}/api/${categoryName}/products/`,
 				);
 				if (!response.ok) {
 					throw new Error("Network response was not ok");

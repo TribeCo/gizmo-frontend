@@ -4,7 +4,7 @@ import Image from 'next/image'
 import envelopIcon from '@/components/siteIcons/EnvelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 import { Paper } from '@mui/material'
-import { fetchNotifications } from '@/services/DashBoard'
+import { fetchNotifications, SeenMessages } from '@/services/DashBoard'
 
 
 export default function DashBoardNotifications() {
@@ -18,18 +18,16 @@ export default function DashBoardNotifications() {
         setNotifications((await fetchNotifications()).data)
     }
 
+    const SeenAllMessages = async () => {
+        alert((await SeenMessages()).message)
+    }
+
     const [notifs, setNotifs] = React.useState([
         { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: false, shamsi_date: '1402 اسفند 7' },
         { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
         { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
 
     ])
-
-    const markAllAsRead = () => {
-        const updatedData = notifs.map(notif => ({ ...notif, seen: false }))
-        setNotifs(updatedData)
-        console.log(notifs)
-    }
 
     return (
         <Paper
@@ -62,13 +60,13 @@ export default function DashBoardNotifications() {
                             </defs>
                         </svg>
 
-                        <span onClick={markAllAsRead} className='text-palette-blue font-bold md:text-xs select-none'>تغییر پیام ها به خوانده شده</span>
+                        <span onClick={SeenAllMessages} className='text-palette-blue font-bold md:text-xs select-none'>تغییر پیام ها به خوانده شده</span>
                     </div>
                 </div>
 
                 <section className='flex flex-col mt-4 gap-2 overflow-scroll h-full'>
 
-                    {notifs.map((notif) => (
+                    {notifications.map((notif) => (
                         <div className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
 
                             <div className="rightPart flex flex-col justify-between">

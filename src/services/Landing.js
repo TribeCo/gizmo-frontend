@@ -56,18 +56,15 @@ export const newProducts = async () => {
 
 export const discountProducts = async () => {
 	try {
-		const response = await fetch(
-			`https://gizmoshop.liara.run/api/product/discounted/`,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				next: {
-					revalidate: 10,
-				},
+		const response = await fetch(`${baseUrl}/api/product/discounted/`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
 			},
-		);
+			next: {
+				revalidate: 10,
+			},
+		});
 		return response.json();
 	} catch (error) {
 		console.log(error);

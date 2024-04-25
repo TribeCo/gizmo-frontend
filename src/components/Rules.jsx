@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Grid, SvgIcon, Typography, Button} from "@mui/material"
 import FaqQuestion from "./FaqQuestion";
+import { Colors } from "@/utils";
 
 export default function Rules({ data, onClose }) {
 
@@ -26,7 +27,7 @@ export default function Rules({ data, onClose }) {
                                 height: { xs: '50px', sm: '60px', md: '80px' },
                             }}
                         >
-                            <img src={data.photo} />
+                            <img src={`https://gn01.liara.run/images/media/pictures/b3da1909580bd3fb86e1ea805a9d4885.png`} />
                         </Grid>
                         <Grid>
                             <Typography

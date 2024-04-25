@@ -27,13 +27,13 @@ const LoginComponent = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            await validationSchema.validate(
-                {
-                    phoneNumber,
-                    password,
-                },
-                { abortEarly: false },
-            );
+            // await validationSchema.validate(
+            //     {
+            //         phoneNumber,
+            //         password,
+            //     },
+            //     { abortEarly: false },
+            // );
             loginUser(phoneNumber, password);
         } catch (validationErrors) {
             const newErrors = {};

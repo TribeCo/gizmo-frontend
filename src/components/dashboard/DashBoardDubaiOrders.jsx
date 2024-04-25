@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Colors } from "@/utils";
+import { useAuth } from '@/context/AuthContext';
 import {
     Button,
     Divider,
@@ -15,13 +16,14 @@ import { fetchDubaiOrders } from '@/services/DashBoard';
 export default function DashBoardDubaiOrders() {
     const [orders, setOrders] = useState([]);
     const [searchKey, setSearchKey] = useState('');
+    const { tokens } = useAuth();
 
     useEffect(() => {
         handleGetOrders();
     }, []);
 
     const handleGetOrders = async () => {
-        setOrders((await fetchDubaiOrders()).data);
+        setOrders((await fetchDubaiOrders(tokens)).data);
     }
 
     const searchProductCode = (event) => {

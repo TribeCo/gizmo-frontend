@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { Colors } from "@/utils";
-
+import { useAuth } from '@/context/AuthContext';
 import {
     Button,
     Typography,
@@ -20,48 +20,17 @@ import { AddNewAddress, DeleteAddress, MakeDefaultAddress, fetchAddresses } from
 export default function DashBoardAddress(props) {
 
     const [addNewAddressStat, setAddNewAddressStat] = useState(false)
-    const [addresses, setAddresses] = useState([{
-        id: '1',
-        province: 'سیستان بلوچستان',
-        city: 'ایتالیا',
-        postal_code: 6542542578620,
-        straight_address: 'کوچه فرانسه، خونه اکبر پشت خونه حاجر تبنمی ستبسنمبیتب سنمتبیس نمبتیم نبتسیم نتبنم',
-        current: false
-    },
-    {
-        id: '2',
-        province: 'سیستان بلوچستان',
-        city: 'ایتالیا',
-        postal_code: 6542542578620,
-        straight_address: 'کوچه فرانسه، خونه اکبر پشت خونه حاجر تبنمی ستبسنمبیتب سنمتبیس نمبیم نتبنم',
-        current: true
-    }])
-    const [newAddressData, setNewAddressData] = useState({
-        province: '',
-        city: '',
-        postal_code: '',
-        straight_address: '',
-    });
-    const [newDefaultAddress, setNewDefaultAddress] = useState({
-        id: '',
-        province: '',
-        city: '',
-        postal_code: '',
-        straight_address: '',
-        current: false
-    })
-
     const [address, setAddress] = useState([]);
     const [selectedAddressId, setSelectedAddressId] = useState();
+    const { tokens } = useAuth();
 
     useEffect(() => {
         handleGetAddress();
     }, []);
 
     const handleGetAddress = async () => {
-        setAddress((await fetchAddresses()).data)
+        setAddress((await fetchAddresses(tokens)).data)
     }
-
 
     const handleRadioChange = (event) => {
         setSelectedAddressId(event.target.value);
@@ -72,7 +41,7 @@ export default function DashBoardAddress(props) {
             alert('Please select an address first');
             return;
         }
-        const response = (await MakeDefaultAddress(selectedAddressId)).message;
+        const response = (await MakeDefaultAddress(selectedAddressId, tokens)).message;
         alert(`${response}`);
     };
 
@@ -85,13 +54,13 @@ export default function DashBoardAddress(props) {
         if (!isConfirmed) {
             return; // Exit the function if the user cancels the operation
         }
-        const response = await DeleteAddress(selectedAddressId);
+        const response = await DeleteAddress(selectedAddressId, tokens);
         alert(`${response}`);
     };
 
     const addNewAddress = async () => {
         try {
-            const response = await AddNewAddress(newAddressData);
+            const response = await AddNewAddress(newAddressData, tokens);
             if (response.ok) {
                 (await handleGetAddress());
                 setNewAddressData({

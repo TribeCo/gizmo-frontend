@@ -11,6 +11,7 @@ import {
 	CardMedia,
 	Container,
 	Dialog,
+	FormControl,
 	TextField,
 	Typography,
 } from "@mui/material";
@@ -32,32 +33,45 @@ import {
 	newProducts,
 	recentlySeenProduct,
 } from "@/services/Landing";
-
-const logos = [
-	[anker, "https://www.anker.com/"],
-	[blulory, "https://www.blulory.com/"],
-	[mc, "https://mycandytech.com/"],
-	[noon, "https://www.noon.com/"],
-	[wacaco, "https://www.wacaco.com/"],
-	[greenLions, "https://www.greenlion.net/"],
-	[amazon, "https://www.amazon.com/"],
-];
+import { createOrder, createProduct } from "@/services/Dubai";
+import { TokenSharp } from "@mui/icons-material";
+import { useAuth } from "@/context/AuthContext";
 
 const image =
 	"https://delightgifts.co.ke/wp-content/uploads/2023/04/2023-04-20-23-21-09-906.jpg";
 const DubaiPage = () => {
 	const [showDialog, setShowDialog] = useState(false);
+	const [product, setProduct] = useState({
+		id: 0,
+		name: "",
+		discounted: false,
+		discount: 0,
+		image_link: "",
+		product_url: "",
+		site: "",
+		price: "",
+	});
 	const handleClose = () => {
 		setShowDialog(false);
 	};
 
+	const [url, setUrl] = useState("");
+
 	const [showProduct, setShowProduct] = useState(false);
+
+	const sendUrlBtn = async () => {
+		const response = await createProduct(url);
+		console.log(response.data);
+		setProduct(response.data);
+		setShowProduct(true);
+	};
 
 	const test = async () => {
 		try {
 			console.log(await discountProducts());
 		} catch (error) {}
 	};
+	const { tokens } = useAuth();
 	return (
 		<>
 			<Box>
@@ -73,12 +87,17 @@ const DubaiPage = () => {
 							alignItems: "center",
 						}}>
 						<TextField
+							dir="ltr"
+							onChange={(e) => setUrl(e.target.value)}
+							name="url"
+							id="url"
 							type="url"
-							label={"لینک محصول مورد نظر را بنداز اینجا ..."}
+							value={url}
+							label={" ... لینک محصول مورد نظر را بنداز اینجا"}
 							fullWidth
 						/>
 						<Button
-							onClick={() => setShowProduct(true)}
+							onClick={sendUrlBtn}
 							variant="contained"
 							sx={{
 								mt: 3,
@@ -114,7 +133,9 @@ const DubaiPage = () => {
 								justifyContent: { xs: "center", md: "start" },
 							}}>
 							<CardMedia
-								image={image}
+								src={
+									"https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/S200769426_1?1713516045?g=0"
+								}
 								sx={{
 									height: 400,
 									width: 400,
@@ -127,7 +148,7 @@ const DubaiPage = () => {
 								<Typography
 									variant="h4"
 									fontWeight={900}>
-									{"Cute travel mug with a beautiful Animal on it :)"}
+									{product.name}
 								</Typography>
 								<Box
 									mt={4}
@@ -147,7 +168,7 @@ const DubaiPage = () => {
 										}}
 										variant="h6"
 										color="#70CEE5">
-										{"https://trello.com/b/BO9cdG02/tribe"}
+										{product.product_url}
 									</Typography>
 								</Box>
 								<Box
@@ -160,7 +181,7 @@ const DubaiPage = () => {
 										fontWeight={900}>
 										{"Call site: "}
 									</Typography>
-									<Typography variant="h6">{"AMAZON"}</Typography>
+									<Typography variant="h6">{product.site}</Typography>
 								</Box>
 								<Box
 									mt={2}
@@ -172,7 +193,7 @@ const DubaiPage = () => {
 										fontWeight={900}>
 										{"Discount: "}
 									</Typography>
-									<Typography variant="h6">{""}</Typography>
+									<Typography variant="h6">{product.discount}</Typography>
 								</Box>
 								<Box
 									mt={2}
@@ -187,7 +208,7 @@ const DubaiPage = () => {
 									<Typography
 										variant="h6"
 										fontWeight={900}>
-										{"3000 AED"}
+										{`${product.price} AED`}
 									</Typography>
 								</Box>
 								<Box
@@ -196,7 +217,15 @@ const DubaiPage = () => {
 										justifyContent: { xs: "center", md: "start" },
 									}}>
 									<Button
-										onClick={() => setShowDialog(true)}
+										onClick={async () => {
+											console.log(product.id);
+											const response = await createOrder({
+												pid: product.id,
+												tokens: tokens,
+											});
+											console.log(response);
+											setShowDialog(true);
+										}}
 										variant="contained"
 										color="secondary"
 										sx={{

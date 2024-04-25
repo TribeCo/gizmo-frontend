@@ -7,16 +7,19 @@ import cache from "./cache";
 import theme from "../theme";
 
 import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 
 function themeProvider({ children }) {
 	return (
 		<AuthProvider>
-			<AppRouterCacheProvider options={cache}>
-				<ThemeProvider theme={theme}>
-					<CssBaseline />
-					{children}
-				</ThemeProvider>
-			</AppRouterCacheProvider>
+			<CartProvider>
+				<AppRouterCacheProvider options={cache}>
+					<ThemeProvider theme={theme}>
+						<CssBaseline />
+						{children}
+					</ThemeProvider>
+				</AppRouterCacheProvider>
+			</CartProvider>
 		</AuthProvider>
 	);
 }

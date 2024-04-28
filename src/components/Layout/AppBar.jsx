@@ -58,6 +58,7 @@ const AppBar = ({ isLanding }) => {
 		{ name: "لوازم برقی", slug: "electrical-appliances" },
 	];
 	const { tokens } = useAuth();
+
 	useEffect(() => {
 		const getData = async () => {
 			try {
@@ -76,7 +77,9 @@ const AppBar = ({ isLanding }) => {
 				console.log(error);
 			}
 		};
-		getData();
+		if (tokens) {
+			getData();
+		}
 	}, [tokens]);
 
 	const { length } = useCart();

@@ -9,8 +9,9 @@ import RecentlySeen from "@/components/RecentlySeen";
 
 const Products = async ({ params }) => {
 	const productInfo = await productData({ slug: params.slug });
+	console.log(productInfo);
 	const comments = await getComments({ pid: productInfo.id });
-	const similar = await getSimilar({ pid: productInfo.id });
+	const similar = await getSimilar({ pid: 32 });
 	return (
 		<Box
 			component="main"

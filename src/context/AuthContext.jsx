@@ -1,13 +1,15 @@
 "use client";
 
 import { baseUrl } from "@/services";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [tokens, setTokens] = useState(null);
+
+	const router = useRouter();
 
 	useEffect(() => {
 		const storedToken = localStorage.getItem("tokens");
@@ -46,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 				setTokens(data);
 				localStorageSetItem("tokens", JSON.stringify(data));
 				if (destination) {
-					redirect(destination);
+					router.replace(destination);
 				}
 			} else {
 				alert("شماره موبایل یا رمز عبور اشتباه است");

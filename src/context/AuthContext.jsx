@@ -11,10 +11,7 @@ export const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		const storedToken = localStorage.getItem("tokens");
-
-		if (storedToken) {
-			setTokens(JSON.parse(storedToken));
-		}
+		setTokens(JSON.parse(storedToken));
 	}, []);
 
 	const localStorageSetItem = (key, value) => {
@@ -251,7 +248,7 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const contextData = {
-		tokens: tokens,
+		tokens,
 		loginUser: loginUser,
 		logOut: logoutUser,
 		signUp: signUp,

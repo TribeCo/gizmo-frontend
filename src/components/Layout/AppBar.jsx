@@ -682,7 +682,8 @@ const SearchField = () => {
 						}
 						sx={{
 							my: 2,
-							mx: 5,
+							ml: 3,
+							mr: 2,
 							gap: 2,
 							color: Colors.blue_dark,
 							fontSize: { xs: 16, sm: 18, md: 20 },

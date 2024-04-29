@@ -9,11 +9,15 @@ import {
 	deleteFavorites,
 } from "@/services/ProductPage";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
+	const { addToCart } = useCart();
 
-	const [selectedColor, setSelectedColor] = useState(0);
+	const [selectedColor, setSelectedColor] = useState(
+		data.product_color[0].color.id,
+	);
 	const [like, setLike] = useState(false);
 	const [count, setCount] = useState(1);
 
@@ -25,8 +29,17 @@ const SelectProduct = ({ data }) => {
 	};
 
 	const incCount = () => {
-		if (count < data.product_color.at(selectedColor).quantity)
+		if (
+			count <
+			data.product_color.filter((color) => color.color.id === selectedColor)[0]
+				.quantity
+		)
 			setCount(count + 1);
+	};
+
+	const handleAddToCart = () => {
+		console.log({ color: selectedColor, product: data.id, quantity: count });
+		addToCart({ color: selectedColor, product: data.id, quantity: count });
 	};
 
 	const handleFavorite = async () => {
@@ -93,7 +106,9 @@ const SelectProduct = ({ data }) => {
 							fontWeight={400}
 							fontSize={20}>
 							{(data.product_color.length > 0 &&
-								data.product_color.at(selectedColor).color.name) ||
+								data.product_color.filter(
+									(color) => color.color.id === selectedColor,
+								)[0].color.name) ||
 								"انتخاب نشده"}
 						</Typography>
 					</Box>
@@ -104,8 +119,11 @@ const SelectProduct = ({ data }) => {
 							data.product_color.map((color, index) => {
 								return (
 									<IconButton
-										disabled={index === 2 ? true : false}
-										onClick={() => setSelectedColor(index)}
+										disabled={color.color.quantity < 1 ? true : false}
+										onClick={() => {
+											setCount(1);
+											setSelectedColor(color.color.id);
+										}}
 										disableRipple>
 										<Box
 											bgcolor={`#${color.color.code}`}
@@ -133,7 +151,7 @@ const SelectProduct = ({ data }) => {
 														stroke-linecap="round"
 													/>
 												</svg>
-											) : index === selectedColor ? (
+											) : color.color.id === selectedColor ? (
 												<Box mt={0.75}>
 													<svg
 														width="38"
@@ -164,7 +182,11 @@ const SelectProduct = ({ data }) => {
 						color="#22668D"
 						fontWeight={900}
 						fontSize={20}>
-						{`تعداد: (موجودی ${data.product_color.at(selectedColor).quantity})`}
+						{`تعداد: (موجودی ${
+							data.product_color.filter(
+								(color) => color.color.id === selectedColor,
+							)[0].quantity
+						})`}
 					</Typography>
 					<Box
 						display="flex"
@@ -175,7 +197,9 @@ const SelectProduct = ({ data }) => {
 						<IconButton
 							onClick={incCount}
 							disabled={
-								data.product_color.at(selectedColor).quantity === count
+								data.product_color.filter(
+									(color) => color.color.id === selectedColor,
+								)[0].quantity <= count
 							}>
 							<svg
 								width="35"
@@ -275,9 +299,7 @@ const SelectProduct = ({ data }) => {
 							align="center"
 							fontSize={20}
 							fontWeight={400}>
-							{convert(
-								Math.round(data.price - (data.discount * data.price) / 100),
-							) + " تومان"}
+							{convert(parseInt(data.discounted_price)) + " تومان"}
 						</Typography>
 					</Box>
 				)}
@@ -286,11 +308,7 @@ const SelectProduct = ({ data }) => {
 				display="flex"
 				mt={6}>
 				<Button
-					onClick={
-						!data.is_available
-							? () => console.log("goToCart")
-							: handleNotification
-					}
+					onClick={data.is_available ? handleAddToCart : handleNotification}
 					variant="contained"
 					sx={{
 						bgcolor: "#FFE0A9",

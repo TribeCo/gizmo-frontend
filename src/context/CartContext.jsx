@@ -36,7 +36,6 @@ export const CartProvider = ({ children }) => {
 					}),
 				});
 				const { data } = await response.json();
-				console.log(data);
 				if (response.ok) id = data.id;
 			} catch (error) {
 				return 0;

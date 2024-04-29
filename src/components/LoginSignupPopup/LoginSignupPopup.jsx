@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Box, Dialog } from "@mui/material";
+import { Box, Dialog } from "@mui/material";
 
 import LoginForm from "./LoginForm";
 import ForgetPasswordForm from "./ForgetPasswordForm";
@@ -7,7 +7,6 @@ import SignupForm from "./SignupForm";
 
 const LoginSignupModal = ({ open, onClose, popupState, setPopupState }) => {
 	const renderForm = () => {
-		console.log(popupState);
 		switch (popupState) {
 			case "login":
 				return (

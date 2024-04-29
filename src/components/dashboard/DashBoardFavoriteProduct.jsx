@@ -7,11 +7,13 @@ import { useAuth } from '@/context/AuthContext';
 export default function DashBoardFavoriteProduct() {
 
     const[products, setProducts] = useState([])
-    useEffect(() => {
-        GetFavoriteProducts();
-        console.log(products);
-    }, []);
     const { tokens } = useAuth();
+    
+    useEffect(() => {
+        if(tokens) {
+            GetFavoriteProducts();
+        }
+    }, [tokens]);
 
     const GetFavoriteProducts = async () => {
         setProducts((await fetchFavoriteProducts(tokens)).data)

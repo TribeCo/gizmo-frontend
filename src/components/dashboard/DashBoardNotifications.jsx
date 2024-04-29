@@ -13,8 +13,10 @@ export default function DashBoardNotifications() {
     const [notifications, setNotifications] = useState([]);
     const { tokens } = useAuth();
     useEffect(() => {
-        GetNotifications();
-    }, []);
+        if(tokens) {
+            GetNotifications();
+        }
+    }, [tokens]);
 
     const GetNotifications = async () => {
         setNotifications((await fetchNotifications(tokens)).data)
@@ -28,7 +30,6 @@ export default function DashBoardNotifications() {
         { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: false, shamsi_date: '1402 اسفند 7' },
         { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
         { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
-
     ])
 
     return (

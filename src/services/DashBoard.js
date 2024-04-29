@@ -24,14 +24,16 @@ export const fetchDubaiOrders = async (tokens) => {
 export const fetchFactors = async (tokens) => {
     try {
         const response = await fetch(`${baseUrl}/api/order/factor/1/`, {
+            method: "GET",
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${tokens.access}`
             },
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return (response.json());
+        return response.json();
     } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
     }

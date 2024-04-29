@@ -63,17 +63,31 @@ export default function DashBoardFactor() {
     };
 
     const handleGetFactors = async () => {
-        setFactors((await fetchFactors(tokens)).data);
+        try {
+            const response = await fetchFactors(tokens);
+            if (response.ok) { // Check if the status code is within the 200 range
+                setFactors(response.data);
+            } else if (response.status === 404) { // Specific check for 404 status code
+                alert(response.message);
+            } else {
+                throw new Error('Failed to fetch factors'); // Handle other errors
+            }
+        } catch (error) {
+            console.error('Error fetching factors:', error);
+            alert('An error occurred while fetching factors. Please try again later.');
+        }
     }
 
     useEffect(() => {
-        handleGetFactors();
+        if(tokens) {
+            handleGetFactors();
+        }
         const handleAfterPrint = () => setActivePrintId(null);
         window.addEventListener('afterprint', handleAfterPrint);
         return () => {
             window.removeEventListener('afterprint', handleAfterPrint);
         };
-    }, []);
+    }, [tokens]);
 
     return (
         <Paper
@@ -131,7 +145,7 @@ export default function DashBoardFactor() {
                         '-ms-overflow-style': 'none',
                         'scrollbar-width': 'none',
                     }}>
-                    {receipts.map((receipt) => (
+                    {factors.map((receipt) => (
                         <Box
                             key={receipt.id}
                             width={{ xs: 'auto', md: 840 }}

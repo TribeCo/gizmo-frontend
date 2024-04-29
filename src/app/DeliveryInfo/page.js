@@ -1,13 +1,18 @@
+'use client'
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Summary from "@/components/CartPage/Summary";
 import ProgressBar from "@/components/CartPage/ProgressBar";
 import DeliveryInfoMain from "../../components/CartPage/DeliveryInfoMain";
 import { fetchAddresses } from "@/services/DashBoard";
+import { useAuth } from "@/context/AuthContext";
 
-export default async function DeliveryInfo() {
+export default function DeliveryInfo() {
 
-    const Addresses = await fetchAddresses();
+    useEffect() {
+        const { tokens } = useAuth();
+        const Addresses = await fetchAddresses(tokens);
+    };
 
     return (
         <Box sx={{

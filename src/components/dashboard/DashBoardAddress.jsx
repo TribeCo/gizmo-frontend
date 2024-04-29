@@ -25,8 +25,10 @@ export default function DashBoardAddress(props) {
     const { tokens } = useAuth();
 
     useEffect(() => {
-        handleGetAddress();
-    }, []);
+        if(tokens){
+            handleGetAddress();
+        }
+    }, [tokens]);
 
     const handleGetAddress = async () => {
         setAddress((await fetchAddresses(tokens)).data)

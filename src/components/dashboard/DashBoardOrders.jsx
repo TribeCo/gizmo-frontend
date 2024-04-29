@@ -26,9 +26,11 @@ export default function DashBoardOrders() {
     const [inputValue, setInputValue] = useState('');
     const { tokens } = useAuth();
     useEffect(() => {
-        setSearchTerm(convertToPersian(inputValue));
+        if(tokens) {
+            setSearchTerm(convertToPersian(inputValue));
+        }
         GetOrders();
-    }, [inputValue]);
+    }, [inputValue, tokens]);
 
     const [searchTerm, setSearchTerm] = useState('');
     const handleSearchChange = (event) => {

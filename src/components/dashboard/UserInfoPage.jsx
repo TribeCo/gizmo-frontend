@@ -16,17 +16,16 @@ const UserInfoPage = () => {
 	const { tokens } = useAuth();
 
 	useEffect(() => {
-		const GetInformation = async () => {
-			setActivites(await fetchActivties(tokens));
-			setInformation(await fetchInformation(tokens));
-			// console.log(await fetchActivties(tokens));
-			// console.log(await fetchInformation(tokens));
-		};
-		if (tokens) {
-			GetInformation();
+        if (tokens) {
+            GetInformation();
 		}
 	}, [tokens]);
 
+    const GetInformation = async () => {
+        setActivites(await fetchActivties(tokens));
+        setInformation(await fetchInformation(tokens));
+    };
+    
 	return (
 		<Grid
 			item

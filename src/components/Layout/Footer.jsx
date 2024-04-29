@@ -11,7 +11,7 @@ import {
 	SvgIcon,
 	ListItem,
 } from "@mui/material";
-import { Colors } from "@/utils";
+import { Colors, convert } from "@/utils";
 
 import TelegramIcon from "@mui/icons-material/Telegram";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -23,14 +23,17 @@ import AmazonIcon from "@/components/comanyIcons/amazon.png";
 import NoonIcon from "@/components/comanyIcons/noon.png";
 import Logo from "@/components/siteIcons/logo.png";
 import eNAMAD from "@/components/siteIcons/eNAMAD.png";
+import { GetFooterLinks } from "@/services/Footer";
 
-const eNAMAD_Link = "/";
-const noon_Link = "https://www.noon.com/";
-const amazon_Link = "https://www.amazon.com/";
-const telegram_channel = "/";
-const instagram_channel = "/";
+export default async function Footer() {
+	const footerLinks = await GetFooterLinks();
 
-const Footer = () => {
+	const eNAMAD_Link = footerLinks.e_namad;
+	const noon_Link = "https://www.noon.com/";
+	const amazon_Link = "https://www.amazon.com/";
+	const telegram_channel = footerLinks.telegram;
+	const instagram_channel = footerLinks.insta;
+
 	return (
 		<>
 			<Box
@@ -250,7 +253,7 @@ const Footer = () => {
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
+										<Link href={"/blog"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>
@@ -260,7 +263,7 @@ const Footer = () => {
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
+										<Link href={"/contact"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>
@@ -270,7 +273,7 @@ const Footer = () => {
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
+										<Link href={"/rules"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>
@@ -280,7 +283,7 @@ const Footer = () => {
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
+										<Link href={"/faq"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>
@@ -340,7 +343,7 @@ const Footer = () => {
 								<List>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
+										<Link href={"/dashboard"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>
@@ -350,7 +353,7 @@ const Footer = () => {
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
+										<Link href={"/cart"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>
@@ -360,21 +363,30 @@ const Footer = () => {
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
-											<Typography
-												variant="h6"
-												color={Colors.blue_dark}>
-												پیگیری سفارش
-											</Typography>
-										</Link>
+										<Grid
+											sx={{
+												transition: '0.3s',
+												":hover": {
+													pl: 1,
+												}
+											}}
+										>
+											<Link href={"/dubai"}>
+												<Typography
+													variant="h6"
+													color={Colors.blue_dark}>
+													خرید از دبی
+												</Typography>
+											</Link>
+										</Grid>
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/"}>
+										<Link href={"/categories/تخفیف"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>
-												لیست علاقه مندی ها
+												تخفیف های امروز
 											</Typography>
 										</Link>
 									</ListItem>
@@ -498,7 +510,7 @@ const Footer = () => {
 										<Typography
 											variant="h6"
 											color={Colors.blue_dark}>
-											شماره تماس: ‌۰۹۹۷۷۵۵۳۵۶
+											شماره تماس: ۰{convert(parseInt(footerLinks.phone))}
 										</Typography>
 									</ListItem>
 								</List>
@@ -579,5 +591,3 @@ const Footer = () => {
 		</>
 	);
 };
-
-export default Footer;

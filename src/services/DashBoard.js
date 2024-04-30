@@ -202,7 +202,8 @@ export const fetchInformation = async (tokens) => {
 			},
 		});
 		if (!response.ok) {
-			return 0;
+			console.log("first");
+			return null;
 		}
 		return response.json();
 	} catch (error) {
@@ -230,21 +231,26 @@ export const SenderInformation = async (formData, tokens) => {
 };
 
 export const formatFullAddress = (address) => {
-    const { province, city, straight_address, postal_code, current } = address;
-    const fullAddress = `استان: ${province}, شهر: ${city}, آدرس: ${straight_address}, کد پستی: ${postal_code}`;
-    return fullAddress;
-}
+	const { province, city, straight_address, postal_code, current } = address;
+	const fullAddress = `استان: ${province}, شهر: ${city}, آدرس: ${straight_address}, کد پستی: ${postal_code}`;
+	return fullAddress;
+};
 
-export const calculateOrderLevel = (processed, packing, shipped, deliveried) => {
-    if (deliveried) {
-        return 4;
-    } else if (shipped) {
-        return 3;
-    } else if (packing) {
-        return 2;
-    } else if (processed) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
+export const calculateOrderLevel = (
+	processed,
+	packing,
+	shipped,
+	deliveried,
+) => {
+	if (deliveried) {
+		return 4;
+	} else if (shipped) {
+		return 3;
+	} else if (packing) {
+		return 2;
+	} else if (processed) {
+		return 1;
+	} else {
+		return 0;
+	}
+};

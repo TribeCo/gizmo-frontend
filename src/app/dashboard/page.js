@@ -26,12 +26,10 @@ import { useMenuItemContext } from "@/components/dashboard/DashBoardMenuSelector
 import DashBoardFactor from "@/components/dashboard/DashBoardFactor";
 
 export default function Profile() {
-    // const [selectedMenuItem, setSelectedMenuItem] = useState(0);
     const [logoutModalOpen, setLogoutModalOpen] = useState(false);
     const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 
     const handleMenuItemClick = (menuItem) => {
-        // setSelectedMenuItem(menuItem);
         setMenuItemValue(menuItem);
     };
 
@@ -56,14 +54,14 @@ export default function Profile() {
 
 
     const functionList = [
-        <UserInfoPage />, // حساب کاربری 0
-        <DashBoardEditProfile />, // ویرایش اطلاعات حساب 1
-        <DashBoardAddress />, // آدرس ها 2
-        <DashBoardNotifications />, // پیغام ها 3
-        <DashBoardOrders />, // سفارشات 4
-        <DashBoardDubaiOrders />, // استعلام قیمت 5
-        <DashBoardFactor />,
-        <DashBoardFavoriteProduct /> // علاقه مندی ها 6
+        <UserInfoPage key={0} />, // حساب کاربری 0
+        <DashBoardEditProfile key={1}/>, // ویرایش اطلاعات حساب 1
+        <DashBoardAddress key={2}/>, // آدرس ها 2
+        <DashBoardNotifications key={3}/>, // پیغام ها 3
+        <DashBoardOrders key={4}/>, // سفارشات 4
+        <DashBoardDubaiOrders key={5}/>, // استعلام قیمت 5
+        <DashBoardFactor key={6}/>,
+        <DashBoardFavoriteProduct key={7} /> // علاقه مندی ها 6
     ]
 
     return (

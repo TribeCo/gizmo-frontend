@@ -1,12 +1,12 @@
 import React from "react";
-import {Box, Grid, SvgIcon, Typography, Button} from "@mui/material"
-import FaqQuestion from "./Faq/FaqQuestion";
 import { Colors } from "@/utils";
+import FaqQuestion from "./FaqQuestion";
+import { Grid, Typography, Button, SvgIcon } from "@mui/material";
 
-export default function Rules({ data, onClose }) {
+export default function Questions({ questions, reset, photo }) {
 
     return (
-        <Box>
+        <>
             <Grid mb={30}>
                 <Grid
                     display='flex'
@@ -27,7 +27,7 @@ export default function Rules({ data, onClose }) {
                                 height: { xs: '50px', sm: '60px', md: '80px' },
                             }}
                         >
-                            <img src={`https://gn01.liara.run/images/media/pictures/b3da1909580bd3fb86e1ea805a9d4885.png`} />
+                            <img src={photo} />
                         </Grid>
                         <Grid>
                             <Typography
@@ -38,14 +38,14 @@ export default function Rules({ data, onClose }) {
                                     fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
                                 }}
                             >
-                                قوانین سایت
+                                {questions.title}
                             </Typography>
                         </Grid>
                     </Grid>
 
                     <Grid>
                         <Button
-                            onClick={onClose}
+                            onClick={() => reset(0)}
                             variant="contained"
                             sx={{
                                 bgcolor: Colors.orange,
@@ -85,15 +85,15 @@ export default function Rules({ data, onClose }) {
                     justifyContent='center'
                     alignItems='center'
                 >
-                    {data.map((faq, index) => (
+                    {questions.faqs.map((faq, index) => (
                         <FaqQuestion
                             key={index}
-                            question={faq.title}
-                            answer={faq.text}
+                            question={faq.question}
+                            answer={faq.answer}
                         />
                     ))}
                 </Grid>
             </Grid>
-        </Box>
+        </>
     );
 }

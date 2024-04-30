@@ -23,10 +23,8 @@ const UserInfoPage = () => {
     }, []);
 
     const GetInformation = async () => {
-        // setActivites((await fetchActivties(tokens)));
-        // setInformation((await fetchInformation(tokens)));
-        console.log((await fetchActivties(tokens)));
-        console.log((await fetchInformation(tokens)));
+        setActivites((await fetchActivties(tokens)));
+        setInformation((await fetchInformation(tokens)));
     }
 
     return (

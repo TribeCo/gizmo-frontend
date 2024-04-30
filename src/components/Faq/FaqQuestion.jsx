@@ -1,5 +1,4 @@
 "use client";
-
 import { Grid, Paper, SvgIcon, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";

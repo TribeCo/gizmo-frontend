@@ -8,7 +8,15 @@ import { fetchAddresses } from "@/services/DashBoard";
 export default async function DeliveryInfo() {
 
     const Addresses = await fetchAddresses();
-
+    const MakeCurrent = async (selectedAddressId) => {
+        if (!selectedAddressId) {
+            alert('Please select an address first');
+            return;
+        }
+        const response = (await MakeDefaultAddress(selectedAddressId, tokens)).message;
+        alert(`${response}`);
+        Addresses = await fetchAddresses();
+    };
     return (
         <Box sx={{
             display: 'flex',
@@ -31,7 +39,7 @@ export default async function DeliveryInfo() {
             >
                 <ProgressBar activeStep={1} />
             </Box>
-            <DeliveryInfoMain addresses={Addresses}/>
+            <DeliveryInfoMain addresses={Addresses} MakeDefault={MakeCurrent}/>
             <Summary />
         </Box>
     );

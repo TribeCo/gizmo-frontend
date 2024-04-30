@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Colors, convert } from "@/utils";
@@ -8,11 +9,15 @@ import {
 	deleteFavorites,
 } from "@/services/ProductPage";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
+	const { addToCart } = useCart();
 
-	const [selectedColor, setSelectedColor] = useState(0);
+	const [selectedColor, setSelectedColor] = useState(
+		data.product_color[0].color.id,
+	);
 	const [like, setLike] = useState(false);
 	const [count, setCount] = useState(1);
 
@@ -21,6 +26,20 @@ const SelectProduct = ({ data }) => {
 		} else {
 			setCount(count - 1);
 		}
+	};
+
+	const incCount = () => {
+		if (
+			count <
+			data.product_color.filter((color) => color.color.id === selectedColor)[0]
+				.quantity
+		)
+			setCount(count + 1);
+	};
+
+	const handleAddToCart = () => {
+		console.log({ color: selectedColor, product: data.id, quantity: count });
+		addToCart({ color: selectedColor, product: data.id, quantity: count });
 	};
 
 	const handleFavorite = async () => {
@@ -86,27 +105,33 @@ const SelectProduct = ({ data }) => {
 							color="#22668D"
 							fontWeight={400}
 							fontSize={20}>
-							{(data.colors.length > 0 && data.colors.at(selectedColor).name) ||
+							{(data.product_color.length > 0 &&
+								data.product_color.filter(
+									(color) => color.color.id === selectedColor,
+								)[0].color.name) ||
 								"انتخاب نشده"}
 						</Typography>
 					</Box>
 					<Box
 						display="flex"
 						mt={2}>
-						{data.colors.length > 0 &&
-							data.colors.map((color, index) => {
+						{data.product_color.length > 0 &&
+							data.product_color.map((color, index) => {
 								return (
 									<IconButton
-										disabled={index === 2 ? true : false}
-										onClick={() => setSelectedColor(index)}
+										disabled={color.color.quantity < 1 ? true : false}
+										onClick={() => {
+											setCount(1);
+											setSelectedColor(color.color.id);
+										}}
 										disableRipple>
 										<Box
-											bgcolor={color.code}
+											bgcolor={`#${color.color.code}`}
 											border="0.16em solid #D9DAE2"
 											borderRadius={2.5}
 											width={45}
 											height={45}>
-											{!color.available ? (
+											{color.quantity < 1 ? (
 												<svg
 													width="39"
 													height="39"
@@ -126,7 +151,7 @@ const SelectProduct = ({ data }) => {
 														stroke-linecap="round"
 													/>
 												</svg>
-											) : index === selectedColor ? (
+											) : color.color.id === selectedColor ? (
 												<Box mt={0.75}>
 													<svg
 														width="38"
@@ -157,7 +182,11 @@ const SelectProduct = ({ data }) => {
 						color="#22668D"
 						fontWeight={900}
 						fontSize={20}>
-						{"تعداد: "}
+						{`تعداد: (موجودی ${
+							data.product_color.filter(
+								(color) => color.color.id === selectedColor,
+							)[0].quantity
+						})`}
 					</Typography>
 					<Box
 						display="flex"
@@ -165,7 +194,13 @@ const SelectProduct = ({ data }) => {
 						alignItems="center"
 						width={120}
 						mt={2}>
-						<IconButton onClick={() => setCount(count + 1)}>
+						<IconButton
+							onClick={incCount}
+							disabled={
+								data.product_color.filter(
+									(color) => color.color.id === selectedColor,
+								)[0].quantity <= count
+							}>
 							<svg
 								width="35"
 								height="41"
@@ -217,7 +252,7 @@ const SelectProduct = ({ data }) => {
 				justifyContent="space-between">
 				<Typography
 					noWrap
-					color={!data.available ? "#D2D2D2" : "#22668D"}
+					color={!data.is_available ? "#D2D2D2" : "#22668D"}
 					fontWeight={900}
 					fontSize={20}>
 					{"قیمت: "}
@@ -245,7 +280,7 @@ const SelectProduct = ({ data }) => {
 				) : (
 					""
 				)}
-				{!data.available ? (
+				{!data.is_available ? (
 					<Box>
 						<Typography
 							noWrap
@@ -264,9 +299,7 @@ const SelectProduct = ({ data }) => {
 							align="center"
 							fontSize={20}
 							fontWeight={400}>
-							{convert(
-								Math.round(data.price - (data.discount * data.price) / 100),
-							) + " تومان"}
+							{convert(parseInt(data.discounted_price)) + " تومان"}
 						</Typography>
 					</Box>
 				)}
@@ -275,9 +308,7 @@ const SelectProduct = ({ data }) => {
 				display="flex"
 				mt={6}>
 				<Button
-					onClick={
-						!data.available ? () => console.log("goToCart") : handleNotification
-					}
+					onClick={data.is_available ? handleAddToCart : handleNotification}
 					variant="contained"
 					sx={{
 						bgcolor: "#FFE0A9",
@@ -295,7 +326,7 @@ const SelectProduct = ({ data }) => {
 						sx={{
 							fontSize: { xs: 16, md: 24 },
 						}}>
-						{data.available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
+						{data.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 					</Typography>
 				</Button>
 				<IconButton

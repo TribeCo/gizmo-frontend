@@ -35,14 +35,14 @@ export default async function Home() {
 				<TopSlider data={topSliderList} />
 				<LineSplitter text={"تخفیف های امروز"} />
 				<CardProductSlider
-					btn={true}
+					btn={"تخفیف"}
 					products={discountProductsList.data}
 					swapTime_millisecond={3000}
 				/>
 				<Banner data={bannersList} />
 				<LineSplitter text={"محصولات جدید گیزمو"} />
 				<CardProductSlider
-					btn={true}
+					btn={"جدید"}
 					products={newProductsList.data}
 					swapTime_millisecond={3000}
 				/>

@@ -1,17 +1,13 @@
 import React from "react";
-import { Modal, Box, Dialog } from "@mui/material";
+import { Box, Dialog } from "@mui/material";
 
 import LoginForm from "./LoginForm";
 import ForgetPasswordForm from "./ForgetPasswordForm";
 import SignupForm from "./SignupForm";
-import PhoneLoginForm from "./PhoneLogin";
 
 const LoginSignupModal = ({ open, onClose, popupState, setPopupState }) => {
 	const renderForm = () => {
-		console.log(popupState);
 		switch (popupState) {
-			case "phone-login":
-				return <PhoneLoginForm setPopupState={setPopupState} />;
 			case "login":
 				return (
 					<LoginForm
@@ -20,7 +16,12 @@ const LoginSignupModal = ({ open, onClose, popupState, setPopupState }) => {
 					/>
 				);
 			case "signup":
-				return <SignupForm onClose={onClose} />;
+				return (
+					<SignupForm
+						onClose={onClose}
+						setPopupState={setPopupState}
+					/>
+				);
 			case "forget-password":
 				return <ForgetPasswordForm onClose={onClose} />;
 			default:

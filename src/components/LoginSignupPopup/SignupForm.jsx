@@ -1,20 +1,22 @@
 import React, { useState, useContext } from "react";
+import Link from "next/link";
 import {
 	TextField,
 	Button,
-	Link,
-	Box,
 	Typography,
 	IconButton,
 	FormControlLabel,
 	Checkbox,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import AuthContext from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 import * as Yup from "yup";
+import { Colors } from "@/utils";
 
 const SignupForm = ({ open, onClose, setPopupState }) => {
+	const { signUp, confirmPhoneSignUpCode, completeSignupInformation } =
+		useAuth();
 	// form variables
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -93,54 +95,32 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 	};
 
 	const handleCompleteInfo = async (event) => {
-		event.preventDefault();
+		if (policyAgreed) {
+			event.preventDefault();
+			const isCompleted = await completeSignupInformation(
+				phoneNumber,
+				firstName,
+				lastName,
+				email,
+				password,
+			);
 
-		console.log("complete info");
-
-		const isCompleted = await completeSignupInformation(
-			phoneNumber,
-			firstName,
-			lastName,
-			email,
-			password,
-		);
-
-		if (isCompleted === 1) {
-			setInformationComplition(true);
-			onClose();
+			if (isCompleted === 1) {
+				setInformationComplition(true);
+				onClose();
+			}
+		} else {
+			alert("برای ثبت نام باید حتما با قوانین سایت موافقت کنید.");
 		}
 	};
 
 	const handleSendCode = async (event) => {
 		event.preventDefault();
-		// try {
-		//     await validationSchema.validate({
-		//         fullName,
-		//         phoneNumber,
-		//         email,
-		//         password,
-		//         confirmation,
-		//         policyAgreed,
-		//     }, { abortEarly: false });
-		// Handle form submission if validation succeeds
-
-		console.log("signup running");
-
 		const isSignedUp = await signUp(phoneNumber);
 
 		if (isSignedUp === 1) {
-			console.log("here here");
 			setPhoneEnter(true);
 		}
-
-		// } catch (validationErrors) {
-		//   // Update the errors state with the validation errors
-		//   const newErrors = {};
-		//   validationErrors.inner.forEach(error => {
-		//     newErrors[error.path] = error.message;
-		//   });
-		//   setErrors(newErrors);
-		// }
 	};
 
 	return (
@@ -372,6 +352,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"
@@ -380,6 +363,14 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							ارسال کد
 						</Typography>
 					</Button>
+					<Link
+						href="#"
+						variant="body2"
+						underline="false"
+						color="black"
+						onClick={() => setPopupState("login")}>
+						{"ورود"}
+					</Link>
 				</>
 			) : (
 				<></>
@@ -397,6 +388,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"
@@ -422,6 +416,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginTop: "5%",
 							marginBottom: "5%",
 							borderRadius: "20px",
+							"&:hover": {
+								bgcolor: Colors.orange,
+							},
 						}}>
 						<Typography
 							variant="h5"

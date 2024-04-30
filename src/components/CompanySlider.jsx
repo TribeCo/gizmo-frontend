@@ -95,6 +95,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							}}
 							textAlign="center">
 							<Link
+								target="_blank"
 								href={item.website}
 								passHref>
 								<Image

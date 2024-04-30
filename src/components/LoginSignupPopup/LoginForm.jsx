@@ -3,6 +3,7 @@ import { TextField, Button, Link, Typography, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
 import * as Yup from "yup";
+import { Colors } from "@/utils";
 
 const LoginForm = ({ open, onClose, setPopupState }) => {
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -136,6 +137,9 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 					marginTop: "5%",
 					marginBottom: "5%",
 					borderRadius: "20px",
+					"&:hover": {
+						bgcolor: Colors.orange,
+					},
 				}}>
 				<Typography
 					variant="h5"

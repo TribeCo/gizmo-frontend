@@ -4,7 +4,7 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: "https",
-				hostname: "gn01.liara.run",
+				hostname: "gn02.liara.run",
 				port: "",
 			},
 		],

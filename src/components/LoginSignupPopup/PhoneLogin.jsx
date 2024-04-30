@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
+import { Colors } from "@/utils";
 
 const PhoneLoginForm = ({ onClose, setPopupState }) => {
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -121,6 +122,9 @@ const PhoneLoginForm = ({ onClose, setPopupState }) => {
 					marginTop: "5%",
 					marginBottom: "5%",
 					borderRadius: "20px",
+					"&:hover": {
+						bgcolor: Colors.orange,
+					},
 				}}>
 				<Typography
 					variant="h5"

@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
 	Box,
 	Button,
+	Container,
 	Grid,
 	IconButton,
 	Typography,
@@ -51,12 +53,12 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 
 	return (
 		<>
-			<Box>
+			<Box mx="auto">
 				<Box
 					mt={2}
 					position="absolute"
 					display="flex"
-					width="100vw"
+					width="98vw"
 					alignItems="center"
 					justifyContent="space-around">
 					<IconButton
@@ -112,38 +114,41 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 			</Box>
 			{btn && (
 				<Box
+					maxWidth="100vw"
 					sx={{
 						mt: { xs: 0, sm: 0, md: 3 },
 					}}>
-					<Button
-						variant="contained"
-						sx={{
-							transform: {
-								xs: "scale(0.7)",
-								sm: "scale(0.8)",
-								md: "scale(1)",
-							},
-							display: "block",
-							mx: "auto",
-							border: `3px solid ${Colors.orange}`,
-							color: "#000000",
-							bgcolor: "#FFFFFF",
-							borderRadius: "30px",
-							width: "300px",
-							height: "60px",
-							"&:hover": {
-								bgcolor: Colors.orange,
-							},
-						}}>
-						<Typography
-							variant="h5"
+					<Link href={`/categories/${btn}`}>
+						<Button
+							variant="contained"
 							sx={{
-								fontWeight: "700",
-								fontSize: "20px",
+								transform: {
+									xs: "scale(0.7)",
+									sm: "scale(0.8)",
+									md: "scale(1)",
+								},
+								display: "block",
+								mx: "auto",
+								border: `3px solid ${Colors.orange}`,
+								color: "#000000",
+								bgcolor: "#FFFFFF",
+								borderRadius: "30px",
+								width: "300px",
+								height: "60px",
+								"&:hover": {
+									bgcolor: Colors.orange,
+								},
 							}}>
-							{"مشاهده محصولات بیشتر"}
-						</Typography>
-					</Button>
+							<Typography
+								variant="h5"
+								sx={{
+									fontWeight: "700",
+									fontSize: "20px",
+								}}>
+								{"مشاهده محصولات بیشتر"}
+							</Typography>
+						</Button>
+					</Link>
 				</Box>
 			)}
 		</>

@@ -16,8 +16,7 @@ import {
 } from "@mui/material";
 import { AddNewAddress, DeleteAddress, MakeDefaultAddress, fetchAddresses } from '@/services/DashBoard';
 
-
-export default function DashBoardAddress(props) {
+export default function DashBoardAddress() {
 
     const [addNewAddressStat, setAddNewAddressStat] = useState(false)
     const [address, setAddress] = useState([]);
@@ -36,7 +35,7 @@ export default function DashBoardAddress(props) {
         setSelectedAddressId(event.target.value);
     };
 
-    const addToDefault = async () => {
+    const MakeCurrent = async () => {
         if (!selectedAddressId) {
             alert('Please select an address first');
             return;
@@ -45,7 +44,7 @@ export default function DashBoardAddress(props) {
         alert(`${response}`);
     };
 
-    const deleteAddress = async (selectedAddressId) => {
+    const RemoveAddress = async (selectedAddressId) => {
         if (!selectedAddressId) {
             alert('Please select an address first');
             return;
@@ -58,7 +57,7 @@ export default function DashBoardAddress(props) {
         alert(`${response}`);
     };
 
-    const addNewAddress = async () => {
+    const AddAddress = async () => {
         try {
             const response = await AddNewAddress(newAddressData, tokens);
             if (response.ok) {
@@ -168,7 +167,7 @@ export default function DashBoardAddress(props) {
                             <Button
                                 className='setDefaultBtn'
                                 variant="contained"
-                                onClick={addToDefault}
+                                onClick={MakeCurrent}
                                 sx={{
                                     width: 200,
                                     bgcolor: Colors.orange,
@@ -185,7 +184,7 @@ export default function DashBoardAddress(props) {
                             <Button
                                 className='setDefaultBtn'
                                 variant="contained"
-                                onClick={deleteAddress}
+                                onClick={RemoveAddress}
                                 sx={{
                                     width: 200,
                                     bgcolor: '#f59595',
@@ -226,7 +225,7 @@ export default function DashBoardAddress(props) {
                                 <div className='mt-4 flex justify-end lg:justify-center'>
                                     <Button className=''
                                         variant="contained"
-                                        onClick={addNewAddress}
+                                        onClick={AddAddress}
                                         sx={{
                                             bgcolor: Colors.orange,
                                             color: "black",

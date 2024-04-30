@@ -59,7 +59,7 @@ export default function Profile() {
 			router.replace("/login");
 		}
 	}, [tokens]);
-
+  
 	const handleLogout = async () => {
 		logOut();
 		setLogoutModalOpen(false);

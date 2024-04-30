@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Grid, SvgIcon, Typography, Button } from "@mui/material";
-import FaqQuestion from "./FaqQuestion";
+import {Box, Grid, SvgIcon, Typography, Button} from "@mui/material"
+import FaqQuestion from "./Faq/FaqQuestion";
 import { Colors } from "@/utils";
 import { baseUrl } from "@/services";
 

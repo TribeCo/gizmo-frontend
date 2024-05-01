@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Paper,
 	Grid,
@@ -25,26 +25,51 @@ import LogoutDialog from "@/components/dashboard/LogoutDialog";
 import { useMenuItemContext } from "@/components/dashboard/DashBoardMenuSelector";
 import DashBoardFactor from "@/components/dashboard/DashBoardFactor";
 import { useAuth } from "@/context/AuthContext";
+import { fetchActivties, fetchInformation } from "@/services/DashBoard";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
 	// const [selectedMenuItem, setSelectedMenuItem] = useState(0);
 	const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
+	const [activities, setActivites] = useState([]);
+	const [information, setInformation] = useState([]);
+	const { tokens, logOut } = useAuth();
 
 	const handleMenuItemClick = (menuItem) => {
-		// setSelectedMenuItem(menuItem);
 		setMenuItemValue(menuItem);
 	};
 
-	const { tokens, logOut } = useAuth();
+	const router = useRouter();
 
+	useEffect(() => {
+		const GetInformation = async () => {
+			try {
+				const data = await fetchInformation(tokens);
+				if (data === 0) {
+					router.replace("/login");
+				}
+				setInformation(data);
+				setActivites(await fetchActivties(tokens));
+			} catch (error) {}
+		};
+		if (tokens) {
+			GetInformation();
+		} else {
+			router.replace("/login");
+		}
+	}, [tokens]);
+  
 	const handleLogout = async () => {
 		logOut();
 		setLogoutModalOpen(false);
 	};
 
 	const functionList = [
-		<UserInfoPage />, // حساب کاربری 0
+		<UserInfoPage
+			activities={activities}
+			information={information}
+		/>, // حساب کاربری 0
 		<DashBoardEditProfile />, // ویرایش اطلاعات حساب 1
 		<DashBoardAddress />, // آدرس ها 2
 		<DashBoardNotifications />, // پیغام ها 3

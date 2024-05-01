@@ -12,10 +12,10 @@ import BlogComment from "@/components/blog/BlogComment";
 const articleId = 1;
 
 
-export default async function BlogDetail() {
+export default async function BlogDetail({ params }) {
 	const similar_article = await GetSimilarArticles({ id: articleId });
-	const article = await GetArticle({ id: articleId });
-
+	const article = await GetArticle({ slug: params.slug});
+	console.log(article);
 	return (
 		<Grid
 			display="flex"
@@ -194,7 +194,7 @@ export default async function BlogDetail() {
 					justifyContent='center'
 					alignItems='center'
 				>
-					<BlogComment comments={article.comments} pid={article.id}/>
+					<BlogComment comments={article.comments} aid={article.id}/>
 				</Grid>
 			</Grid>
 			<Grid

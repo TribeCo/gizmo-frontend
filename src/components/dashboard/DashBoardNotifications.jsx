@@ -26,12 +26,6 @@ export default function DashBoardNotifications() {
         alert((await SeenMessages(tokens)).message)
     }
 
-    const [notifs, setNotifs] = React.useState([
-        { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: false, shamsi_date: '1402 اسفند 7' },
-        { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
-        { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
-    ])
-
     return (
         <Paper
             variant="outlined"
@@ -69,8 +63,8 @@ export default function DashBoardNotifications() {
 
                 <section className='flex flex-col mt-4 gap-2 overflow-scroll h-full'>
 
-                    {notifications.map((notif) => (
-                        <div className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
+                    {notifications.map((notif, index) => (
+                        <div key={index + 1} className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
 
                             <div className="rightPart flex flex-col justify-between">
 

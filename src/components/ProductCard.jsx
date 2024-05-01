@@ -14,21 +14,25 @@ import { useState } from "react";
 
 import { convert } from "@/utils";
 import { useRouter } from "next/navigation";
-
-const handleAddToCart = () => {
-	//TODO
-	console.log("Add to cart");
-};
+import { useCart } from "@/context/CartContext";
 
 const ProductCard = ({ product }) => {
 	const router = useRouter();
 
+	const { addToCart } = useCart({
+		color: 1,
+		product: product.id,
+		quantity: 1,
+	});
+
+	const handleAddToCart = () => {
+		addToCart();
+	};
 	const handleGoToProduct = () => {
 		console.log(product);
 		const url = "/products/" + product.slug;
 		router.push(url);
 	};
-	const [like, setLike] = useState(false);
 	const [show, setShow] = useState(false);
 	return (
 		<CardActionArea
@@ -46,6 +50,7 @@ const ProductCard = ({ product }) => {
 	);
 
 	function second() {
+		console.log(product);
 		return (
 			<Card
 				sx={{
@@ -160,7 +165,7 @@ const ProductCard = ({ product }) => {
 							}}
 							fontWeight="400"
 							lineHeight="20px">
-							{convert((product.discount / 100) * product.price) + " تومان"}
+							{convert(product.discounted_price) + " تومان"}
 						</Typography>
 					)}
 				</IconButton>

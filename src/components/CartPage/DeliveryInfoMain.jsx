@@ -3,19 +3,15 @@ import React, { useState } from 'react';
 import { Box, FormControlLabel, Checkbox, Typography, Grid, TextField, Radio, RadioGroup, Button } from '@mui/material';
 import DeliveryInfoCard from './DeliveryInfoCard';
 import DeliveryInfoHeader from './DeliveryInfoHeader';
-import { SenderInformation, formatFullAddress } from '@/services/DashBoard';
+import { SenderInformation, fetchAddresses, formatFullAddress } from '@/services/DashBoard';
 
-function DeliveryInfoMain({ addresses }) {
+function DeliveryInfoMain({ addresses, MakeDefault }) {
 
     const [name_delivery, setName_Delivery] = useState('');
     const [phone_delivery, setPhone_Delivery] = useState('');
     const [description, setDescription] = useState('');
     const [delivery_method, setDelivery_Method] = useState('');
     const [checkedAddresses, setCheckedAddresses] = useState({});
-
-    const handleAddressChange = (event) => {
-        setCheckedAddresses({ ...checkedAddresses, [event.target.name]: event.target.checked });
-    };
 
     const handleShippingChange = (event) => {
         setDelivery_Method(event.target.value);
@@ -63,7 +59,7 @@ function DeliveryInfoMain({ addresses }) {
                         control={
                             <Checkbox
                                 checked={checkedAddresses[`checkbox${index}`] || false}
-                                onChange={handleAddressChange}
+                                onChange={MakeDefault(address.id)}
                                 name={`checkbox${index}`}
                             />
                         }

@@ -27,8 +27,6 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
-	const isLogin = async () => {};
-
 	const loginUser = async (phoneNumber, pwd, destination = null) => {
 		try {
 			const response = await fetch(`${baseUrl}/api/token/`, {
@@ -62,7 +60,7 @@ export const AuthProvider = ({ children }) => {
 	const logoutUser = () => {
 		setTokens(null);
 		localStorageRemoveItem("tokens");
-		alert("خروج با موفقیت انجام شد.");
+		router.replace("/");
 	};
 
 	const signUp = async (phoneNumber) => {

@@ -13,6 +13,15 @@ export default function DeliveryInfo() {
         const { tokens } = useAuth();
         const Addresses = await fetchAddresses(tokens);
     };
+    const MakeCurrent = async (selectedAddressId) => {
+        if (!selectedAddressId) {
+            alert('Please select an address first');
+            return;
+        }
+        const response = (await MakeDefaultAddress(selectedAddressId, tokens)).message;
+        alert(`${response}`);
+        Addresses = await fetchAddresses();
+    };
 
     return (
         <Box sx={{
@@ -36,7 +45,7 @@ export default function DeliveryInfo() {
             >
                 <ProgressBar activeStep={1} />
             </Box>
-            <DeliveryInfoMain addresses={Addresses}/>
+            <DeliveryInfoMain addresses={Addresses} MakeDefault={MakeCurrent}/>
             <Summary />
         </Box>
     );

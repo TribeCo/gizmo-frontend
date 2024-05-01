@@ -4,68 +4,48 @@ import { Box, Divider, Grid, Typography, TextField, InputAdornment, IconButton, 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
 import LevelofOrdering from './LevelofOrdering';
-import { fetchOrders } from '@/services/DashBoard';
+import { calculateOrderLevel, fetchOrders } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
+import { toPersianDigits } from '@/utils/convert';
 
 export default function DashBoardOrders() {
 
-    function calculateOrderLevel(processed, packing, shipped, deliveried) {
-        if (deliveried) {
-            return 4;
-        } else if (shipped) {
-            return 3;
-        } else if (packing) {
-            return 2;
-        } else if (processed) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-    
+    const [searchTerm, setSearchTerm] = useState('');
     const [inputValue, setInputValue] = useState('');
+    const [expanded, setExpanded] = useState({});
+    const [orders, setOrders] = useState([]);
     const { tokens } = useAuth();
+
     useEffect(() => {
         if(tokens) {
-            setSearchTerm(convertToPersian(inputValue));
+            GetOrders();
         }
-        GetOrders();
+        setSearchTerm(toPersianDigits(inputValue));
     }, [inputValue, tokens]);
 
-    const [searchTerm, setSearchTerm] = useState('');
     const handleSearchChange = (event) => {
         const input = event.target.value;
-        const currentDisplayValue = convertToPersian(inputValue);
+        const currentDisplayValue = toPersianDigits(inputValue);
         if (input !== currentDisplayValue) {
             const newValue = input.replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, '').replace(/[۰۱۲۳۴۵۶۷۸۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
             setInputValue(newValue);
         }
     };
 
-    const convertToPersian = (num) => {
-        const numStr = num.toString();
-        const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-        const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-        return numStr.replace(/\d/g, (x) => persianNumbers[englishNumbers.indexOf(x)]);
-    };
-
-    const [expanded, setExpanded] = useState({});
     const handleExpandClick = (index) => {
         setExpanded((prevExpanded) => ({
             ...prevExpanded,
             [index]: !prevExpanded[index],
         }));
     };
-    const [orders, setOrders] = useState([]);
 
     const GetOrders = async () => {
         setOrders((await fetchOrders(tokens)).data)
     }
 
     const filteredOrders = orders.filter((order) =>
-        convertToPersian(order.ref_id).includes(searchTerm) || order.ref_id.includes(searchTerm)
+        toPersianDigits(order.ref_id).includes(searchTerm) || order.ref_id.includes(searchTerm)
     );
-
 
     return (
         <Paper
@@ -191,7 +171,7 @@ export default function DashBoardOrders() {
                             <Grid container spacing={2} sx={{ width: '100%' }}>
                                 <Grid item xs={12} md={6}>
                                     <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        کد پیگیری: {convertToPersian(order.ref_id)}<span style={{ marginLeft: '20px', visibility: 'hidden' }}>A</span>
+                                        کد پیگیری: {toPersianDigits(order.ref_id)}<span style={{ marginLeft: '20px', visibility: 'hidden' }}>A</span>
                                     </Typography>
                                     <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
                                         آدرس ارسال: <span style={{ marginRight: '20px' }}></span>{`استان: ${order.address.province}, شهر: ${order.address.city}, آدرس: ${order.address.straight_address}, کد پستی: ${order.address.postal_code}`}
@@ -200,7 +180,7 @@ export default function DashBoardOrders() {
                                         نام گیرنده: <span style={{ marginRight: '30px' }}></span>{order.user.full_name}
                                     </Typography>
                                     <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        تاریخ سفارش: {convertToPersian(order.shamsi_date)}<span style={{ marginLeft: '2px', visibility: 'hidden' }}>A</span>
+                                        تاریخ سفارش: {toPersianDigits(order.shamsi_date)}<span style={{ marginLeft: '2px', visibility: 'hidden' }}>A</span>
                                     </Typography>
                                 </Grid>
 
@@ -213,16 +193,16 @@ export default function DashBoardOrders() {
 
                                 {/* Second Column */}
                                 <Grid item xs={12} sx={{ display: { xs: 'block', md: 'none' } }}>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش: {convertToPersian(order.total_price)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف: {convertToPersian(order.discount_amount)}<span style={{ marginRight: '45px', visibility: 'hidden' }}>A</span> تومان</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت: {convertToPersian(order.pay_amount)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش: {toPersianDigits(order.total_price)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف: {toPersianDigits(order.discount_amount)}<span style={{ marginRight: '45px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت: {toPersianDigits(order.pay_amount)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
                                 </Grid>
 
                                 {/* Third Column */}
                                 <Grid item sm={12} md={3} sx={{ position: 'relative', bottom: { xs: '100px', sm: '165px', md: '0px' }, pr: { xs: '30px', sm: '20px', md: '0px' }, display: { xs: 'none', md: 'block' } }}>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.total_price)} تومان</Typography>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{convertToPersian(order.discount_amount)} تومان</Typography>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '700' }} align="right">{convertToPersian(order.pay_amount)} تومان</Typography>
+                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{toPersianDigits(order.total_price)} تومان</Typography>
+                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{toPersianDigits(order.discount_amount)} تومان</Typography>
+                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '700' }} align="right">{toPersianDigits(order.pay_amount)} تومان</Typography>
                                 </Grid>
                             </Grid>
                             {/* Dropdown arrow and text */}

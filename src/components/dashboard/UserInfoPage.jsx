@@ -1,31 +1,13 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import { Paper, Button, Grid, Typography, Divider, Box } from "@mui/material";
 import { Colors } from "@/utils";
-import { useAuth } from "@/context/AuthContext";
-import { fetchActivties, fetchInformation } from "@/services/DashBoard";
 import {
 	createFullName,
 	getGenderDescription,
 	toPersianDigits,
 } from "@/utils/convert";
 
-const UserInfoPage = () => {
-	const [activities, setActivites] = useState([]);
-	const [information, setInformation] = useState([]);
-	const { tokens } = useAuth();
-
-	useEffect(() => {
-        if (tokens) {
-            GetInformation();
-		}
-	}, [tokens]);
-
-    const GetInformation = async () => {
-        setActivites(await fetchActivties(tokens));
-        setInformation(await fetchInformation(tokens));
-    };
-    
+const UserInfoPage = ({ activities, information }) => {
 	return (
 		<Grid
 			item

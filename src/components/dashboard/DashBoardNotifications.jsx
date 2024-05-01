@@ -13,8 +13,10 @@ export default function DashBoardNotifications() {
     const [notifications, setNotifications] = useState([]);
     const { tokens } = useAuth();
     useEffect(() => {
-        GetNotifications();
-    }, []);
+        if(tokens) {
+            GetNotifications();
+        }
+    }, [tokens]);
 
     const GetNotifications = async () => {
         setNotifications((await fetchNotifications(tokens)).data)

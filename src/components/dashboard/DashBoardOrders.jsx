@@ -17,9 +17,11 @@ export default function DashBoardOrders() {
     const { tokens } = useAuth();
 
     useEffect(() => {
+        if(tokens) {
+            GetOrders();
+        }
         setSearchTerm(toPersianDigits(inputValue));
-        GetOrders();
-    }, [inputValue]);
+    }, [inputValue, tokens]);
 
     const handleSearchChange = (event) => {
         const input = event.target.value;

@@ -27,6 +27,7 @@ import DashBoardFactor from "@/components/dashboard/DashBoardFactor";
 import { useAuth } from "@/context/AuthContext";
 import { fetchActivties, fetchInformation } from "@/services/DashBoard";
 import { useRouter } from "next/navigation";
+import { toPersianDigits } from "@/utils/convert";
 
 export default function Profile() {
 	// const [selectedMenuItem, setSelectedMenuItem] = useState(0);
@@ -47,7 +48,7 @@ export default function Profile() {
 			try {
 				const data = await fetchInformation(tokens);
 				if (data === 0) {
-					router.replace("/login");
+					// router.replace("/login");
 				}
 				setInformation(data);
 				setActivites(await fetchActivties(tokens));
@@ -55,9 +56,10 @@ export default function Profile() {
 		};
 		if (tokens) {
 			GetInformation();
-		} else {
-			router.replace("/login");
-		}
+		} 
+		// else {
+		// 	router.replace("/login");
+		// }
 	}, [tokens]);
   
 	const handleLogout = async () => {
@@ -134,7 +136,7 @@ export default function Profile() {
 									fontWeight="bold"
 									fontSize={20}
 									sx={{ color: "#213346" }}>
-									۰۹۱۷۰۵۳۲۷۴۸
+									{toPersianDigits(information.phoneNumber)}
 								</Typography>
 							</Grid>
 						</Box>

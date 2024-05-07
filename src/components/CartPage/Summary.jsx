@@ -9,10 +9,14 @@ import {
     Divider
 } from "@mui/material";
 import { Colors } from "@/utils";
+import { useSenderInfo } from "./DeliveryInfoContext";
 
 
 
 const Summary = () => {
+
+    const { handleSubmit } = useSenderInfo();
+
     return (
         <Box
             display='flex'
@@ -263,6 +267,7 @@ const Summary = () => {
                     <Button
                         variant="contained"
                         color="warning"
+                        onClick={handleSubmit}
                         sx={{
                             bgcolor: Colors.orange, 
                             boxShadow: 'none',

@@ -24,7 +24,7 @@ export default function DashBoardAddress() {
     const { tokens } = useAuth();
 
     useEffect(() => {
-        if(tokens){
+        if (tokens) {
             handleGetAddress();
         }
     }, [tokens]);
@@ -37,46 +37,73 @@ export default function DashBoardAddress() {
         setSelectedAddressId(event.target.value);
     };
 
-    const MakeCurrent = async () => {
-        if (!selectedAddressId) {
-            alert('Please select an address first');
-            return;
-        }
-        const response = (await MakeDefaultAddress(selectedAddressId, tokens)).message;
-        alert(`${response}`);
+    const [Address, SetAddress] = useState({
+        province: '',
+        city: '',
+        straight_address: '',
+        postal_code: ''
+    });
+
+    const handleChange = (prop) => (event) => {
+        SetAddress({
+            ...Address,
+            [prop]: event.target.value,
+        });
     };
 
-    const RemoveAddress = async (selectedAddressId) => {
-        if (!selectedAddressId) {
-            alert('Please select an address first');
-            return;
-        }
-        const isConfirmed = window.confirm('Are you sure you want to delete this address?');
-        if (!isConfirmed) {
-            return; // Exit the function if the user cancels the operation
-        }
-        const response = await DeleteAddress(selectedAddressId, tokens);
-        alert(`${response}`);
+    const MakeCurrent = async () => {
+        try {
+            if (!selectedAddressId) {
+                alert('Please select an address first');
+                return;
+            }
+            const response = ((await MakeDefaultAddress(selectedAddressId, tokens)).messages);
+            setAddress((await fetchAddresses(tokens)).data);
+            alert(`${response}`);
+        } catch (error) {
+            console.error('Error setting default address:', error);
+            alert(error.message);
+        };
+    }
+
+    const RemoveAddress = async () => {
+        try {
+            if (!selectedAddressId) {
+                alert('Please select an address first');
+                return;
+            }
+            const isConfirmed = window.confirm('Are you sure you want to delete this address?');
+            if (!isConfirmed) {
+                return;
+            }
+            const response = await DeleteAddress(selectedAddressId, tokens);
+            setAddress((await fetchAddresses(tokens)).data);
+            alert(`${response}`);
+        } catch (error) {
+            console.error('Error deleting address:', error);
+            alert(error.message);
+        };
     };
 
     const AddAddress = async () => {
         try {
-            const response = await AddNewAddress(newAddressData, tokens);
-            if (response.ok) {
-                (await handleGetAddress());
-                setNewAddressData({
+            const response = await AddNewAddress(Address, tokens);
+            if (response) { // Since the response will be the data or an error, checking if it exists suffices
+                alert(response.messages || "Address added successfully.");
+                setAddress((await fetchAddresses(tokens)).data);
+                SetAddress({
                     province: '',
                     city: '',
                     straight_address: '',
                     postal_code: '',
                 });
-            } else {
-                console.error('Error adding new address:', response.statusText);
             }
         } catch (error) {
             console.error('Error sending data to the API:', error);
+            alert(error.message || "Failed to add new address."); // Alert the user with the error message
         }
     };
+    
 
     return (
         <Paper
@@ -120,19 +147,16 @@ export default function DashBoardAddress() {
                             آدرس پیش فرض
                         </Typography>
                         <Stack spacing={1} className="defaultAddresses-bullets px-5 max-sm:text-sm">
-                            <FormControl>
-                                <FormLabel id="demo-radio-buttons-group-label" style={{ overflow: 'hidden' }}></FormLabel>
-                                <RadioGroup
-                                    aria-labelledby="demo-radio-buttons-group-label"
-                                    name="radio-buttons-group"
-                                >
-                                    {address.map((address) => {
-                                        if (address.current) {
-                                            return <FormControlLabel label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
-                                        } else null
-                                    })}
-                                </RadioGroup>
-                            </FormControl>
+                            {address.map((addr) => {
+                                if (addr.current) {
+                                    return (
+                                        <Typography key={addr.id} style={{ overflow: 'hidden' }}>
+                                            {`${addr.province}, ${addr.city}, ${addr.straight_address}, کد پستی: ${addr.postal_code}`}
+                                        </Typography>
+                                    );
+                                }
+                                return null;
+                            })}
                         </Stack>
                     </Stack>
                     <Stack spacing={2} className='otherAddresses'>
@@ -211,19 +235,19 @@ export default function DashBoardAddress() {
                         <Grid container spacing={2} className='my-8 w-full'>
                             <Grid item xs={12} md={6}>
                                 <label htmlFor="province" className='w-full block text-xs mr-2'>استان:</label>
-                                <input type="text" id='province' onChange={(e) => setNewAddressData({ ...newAddressData, province: e.target.value })} className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
+                                <input type="text" id='province' onChange={handleChange("province")} className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <label htmlFor="city" className='w-full block text-xs mr-2'>شهر / شهرستان:</label>
-                                <input type="text" onChange={(e) => setNewAddressData({ ...newAddressData, city: e.target.value })} id='city' className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
+                                <input type="text" onChange={handleChange("city")} id='city' className='bg-[#EEEE] w-[90%] rounded-lg h-8 mt-2 outline-none px-2' />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <label htmlFor="ExactAddress" className='w-full block text-xs mr-2'>آدرس دقیق:</label>
-                                <textarea id='ExactAddress' onChange={(e) => setNewAddressData({ ...newAddressData, straight_address: e.target.value })} className='resize-none bg-[#EEEE] w-[90%] h-20 rounded-lg mt-2 outline-none px-2' />
+                                <textarea id='ExactAddress' onChange={handleChange("straight_address")} className='resize-none bg-[#EEEE] w-[90%] h-20 rounded-lg mt-2 outline-none px-2' />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <label htmlFor="postalCode" className='w-full block text-xs mr-2'>کد پستی:</label>
-                                <input type="number" onChange={(e) => setNewAddressData({ ...newAddressData, postal_code: parseInt(e.target.value, 10) || 0 })} onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')} style={{ appearance: 'textfield' }} id='postalCode' min={0} className='resize-none px-2 bg-[#EEEE] w-[90%] h-8 rounded-lg mt-2 outline-none' />
+                                <input type="number" onChange={handleChange("postal_code")} onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')} style={{ appearance: 'textfield' }} id='postalCode' min={0} className='resize-none px-2 bg-[#EEEE] w-[90%] h-8 rounded-lg mt-2 outline-none' />
                                 <div className='mt-4 flex justify-end lg:justify-center'>
                                     <Button className=''
                                         variant="contained"

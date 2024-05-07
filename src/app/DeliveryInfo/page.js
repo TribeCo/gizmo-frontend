@@ -1,27 +1,11 @@
 'use client'
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Summary from "@/components/CartPage/Summary";
 import ProgressBar from "@/components/CartPage/ProgressBar";
 import DeliveryInfoMain from "../../components/CartPage/DeliveryInfoMain";
-import { fetchAddresses } from "@/services/DashBoard";
-import { useAuth } from "@/context/AuthContext";
 
 export default function DeliveryInfo() {
-
-    useEffect() {
-        const { tokens } = useAuth();
-        const Addresses = await fetchAddresses(tokens);
-    };
-    const MakeCurrent = async (selectedAddressId) => {
-        if (!selectedAddressId) {
-            alert('Please select an address first');
-            return;
-        }
-        const response = (await MakeDefaultAddress(selectedAddressId, tokens)).message;
-        alert(`${response}`);
-        Addresses = await fetchAddresses();
-    };
 
     return (
         <Box sx={{
@@ -45,7 +29,7 @@ export default function DeliveryInfo() {
             >
                 <ProgressBar activeStep={1} />
             </Box>
-            <DeliveryInfoMain addresses={Addresses} MakeDefault={MakeCurrent}/>
+            <DeliveryInfoMain />
             <Summary />
         </Box>
     );

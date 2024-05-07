@@ -10,51 +10,6 @@ export default function DashBoardFactor() {
 
     const [activePrintId, setActivePrintId] = useState(null);
     const [factors, setFactors] = useState([]);
-    const receipts = [
-        {
-            "user": {
-                "phoneNumber": "2",
-                "full_name": "رضا کریمی",
-                "email": "RezaK9000@gmail.com"
-            },
-            "address": {
-                "province": "تهران",
-                "city": "تهران",
-                "straight_address": "خیابان ولیعصر",
-                "postal_code": "1133557799",
-                "current": true
-            },
-            "items": [
-                {
-                    "product": {
-                        "name": "دستگاه قهوه ساز Delonghi Magnifica S",
-                        "price": 4500000,
-                        "id": 3,
-                        "discount": 15,
-                        "discounted": true,
-                        "discount_price": "3,825,000"
-                    },
-                    "price": 4500000,
-                    "quantity": 2,
-                    "get_cost_from_product": "9,000,000"
-                }
-            ],
-            "shamsi_date": "۱۵ شهریور ۱۴۰۲",
-            "paid": true,
-            "discount": 15,
-            "ref_id": "78ujnmki9",
-            "authority": "789ijhgt5",
-            "processed": true,
-            "packing": true,
-            "shipped": false,
-            "deliveried": false,
-            "total_price": 9000000.0,
-            "discount_string": "15 درصد تخفیف اعمال شده است",
-            "discount_amount": 1350000.0,
-            "pay_amount": 7650000.0,
-            "get_order_number": "46003"
-        }    
-    ];
     const { tokens } = useAuth();
 
     const handlePrint = (id) => {
@@ -64,17 +19,11 @@ export default function DashBoardFactor() {
 
     const handleGetFactors = async () => {
         try {
-            const response = await fetchFactors(tokens);
-            if (response.ok) { // Check if the status code is within the 200 range
-                setFactors(response.data);
-            } else if (response.status === 404) { // Specific check for 404 status code
-                alert(response.message);
-            } else {
-                throw new Error('Failed to fetch factors'); // Handle other errors
-            }
+            const factors = await fetchFactors(tokens);
+            setFactors(factors);
         } catch (error) {
             console.error('Error fetching factors:', error);
-            alert('An error occurred while fetching factors. Please try again later.');
+            alert(error.message);
         }
     }
 

@@ -7,7 +7,7 @@ import {
 	toPersianDigits,
 } from "@/utils/convert";
 
-const UserInfoPage = ({ activities, information }) => {
+const UserInfoPage = ({ activities, information, handleClick }) => {
 	return (
 		<Grid
 			item
@@ -41,6 +41,7 @@ const UserInfoPage = ({ activities, information }) => {
 
 					<Grid>
 						<Button
+							onClick={() => handleClick(1)}
 							variant="contained"
 							sx={{
 								boxShadow: "none",

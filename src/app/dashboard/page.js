@@ -48,7 +48,7 @@ export default function Profile() {
 			try {
 				const data = await fetchInformation(tokens);
 				if (data === 0) {
-					// router.replace("/login");
+					router.replace("/login");
 				}
 				setInformation(data);
 				setActivites(await fetchActivties(tokens));
@@ -57,9 +57,6 @@ export default function Profile() {
 		if (tokens) {
 			GetInformation();
 		} 
-		// else {
-		// 	router.replace("/login");
-		// }
 	}, [tokens]);
   
 	const handleLogout = async () => {
@@ -71,14 +68,16 @@ export default function Profile() {
 		<UserInfoPage
 			activities={activities}
 			information={information}
+			handleClick={handleMenuItemClick}
+			key={0}
 		/>, // حساب کاربری 0
-		<DashBoardEditProfile />, // ویرایش اطلاعات حساب 1
-		<DashBoardAddress />, // آدرس ها 2
-		<DashBoardNotifications />, // پیغام ها 3
-		<DashBoardOrders />, // سفارشات 4
-		<DashBoardDubaiOrders />, // استعلام قیمت 5
-		<DashBoardFactor />,
-		<DashBoardFavoriteProduct />, // علاقه مندی ها 6
+		<DashBoardEditProfile key={1}/>, // ویرایش اطلاعات حساب 1
+		<DashBoardAddress key={2}/>, // آدرس ها 2
+		<DashBoardNotifications key={3}/>, // پیغام ها 3
+		<DashBoardOrders key={4}/>, // سفارشات 4
+		<DashBoardDubaiOrders key={5}/>, // استعلام قیمت 5
+		<DashBoardFactor key={6}/>, // فاکتور 6
+		<DashBoardFavoriteProduct key={7}/>, // علاقه مندی ها 7
 	];
 
 	return (

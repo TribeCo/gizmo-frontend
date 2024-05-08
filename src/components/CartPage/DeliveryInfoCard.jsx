@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Grid, TextField, Typography, Button } from '@mui/material';
-import { AddNewAddress } from '@/services/DashBoard';
+import { AddNewAddress, fetchAddresses } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
 
 export default function DeliveryInfoCard({ setAddress }) {

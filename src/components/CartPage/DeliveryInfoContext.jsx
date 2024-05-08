@@ -15,11 +15,11 @@ export const SenderInfoProvider = ({ children }) => {
         delivery_method: '',
     });
 
-    const handleSenderChange = (prop) => (event) => {
-        setSenderInfo({
-            ...SenderInfo,
-            [prop]: event.target.value,
-        });
+    const handleSenderChange = (fieldName) => (event) => {
+        setSenderInfo(prev => ({
+            ...prev,
+            [fieldName]: event.target.value
+        }));
     };
 
     const handleSubmit = async () => {

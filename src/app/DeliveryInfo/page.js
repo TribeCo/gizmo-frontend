@@ -7,6 +7,21 @@ import DeliveryInfoMain from "../../components/CartPage/DeliveryInfoMain";
 
 export default function DeliveryInfo() {
 
+
+    const [SenderInfo, SetSenderInfo] = useState({
+        name_delivery: '',
+        phone_delivery: '',
+        description: '',
+        delivery_method: '',
+    });
+
+    const handleChange = (fieldName) => (event) => {
+        SetSenderInfo(prev => ({
+            ...prev,
+            [fieldName]: event.target.value
+        }));
+    };
+
     return (
         <Box sx={{
             display: 'flex',
@@ -29,8 +44,8 @@ export default function DeliveryInfo() {
             >
                 <ProgressBar activeStep={1} />
             </Box>
-            <DeliveryInfoMain />
-            <Summary />
+            <DeliveryInfoMain handleSenderChange={handleChange}/>
+            <Summary Information={SenderInfo}/>
         </Box>
     );
 };

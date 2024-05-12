@@ -4,11 +4,16 @@ import { Box, Divider, Grid, Typography, TextField, InputAdornment, IconButton, 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { fetchFactors, formatFullAddress } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
+import { toPersianDigits } from '@/utils/convert';
 
 
 export default function DashBoardFactor({ id }) {
 
-    const [factors, setFactors] = useState();
+    const [factors, setFactors] = useState({
+        user: {}, // Initialize user as an empty object
+        items: [],
+        address: {},
+    });
     const { tokens } = useAuth();
     const handlePrint = (id) => {
         setActivePrintId(id);
@@ -17,12 +22,16 @@ export default function DashBoardFactor({ id }) {
 
     const handleGetFactors = async () => {
         try {
-            setFactors((await fetchFactors(id, tokens)).data);
+            const response = await fetchFactors(id, tokens);
+            console.log('Received data:', response.data); // Check what you're actually receiving
+            if (response.data) {
+                setFactors(response.data);
+            }
         } catch (error) {
             console.error('Error fetching factors:', error);
             alert(error.message);
         }
-    }
+    };
 
     useEffect(() => {
         if (tokens) {
@@ -175,7 +184,7 @@ export default function DashBoardFactor({ id }) {
                             <TableContainer
                                 component={Paper}
                                 sx={{
-                                    borderRadius: '8px 8px 0px 0px',
+                                    borderRadius: {xs: '8px 8px 0px 0px', md: '8px 8px 0px 8px'},
                                     overflow: 'hidden',
                                     border: '1px solid #363636',
                                 }}
@@ -183,21 +192,21 @@ export default function DashBoardFactor({ id }) {
                                 <Table>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell sx={{ width: { xs: "15%", sm: 70 }, borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>شماره</TableCell>
-                                            <TableCell align="left" sx={{ width: { xs: "40%", sm: 150 }, borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>جزئیات سفارش</TableCell>
-                                            <TableCell align="left" sx={{ width: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>تعداد</TableCell>
-                                            <TableCell align="left" sx={{ width: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>قیمت</TableCell>
-                                            <TableCell align="left" sx={{ width: { xs: "15%", sm: 70 }, verticalAlign: 'top', borderBottom: '1px solid #363636', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>مجموع</TableCell>
+                                            <TableCell sx={{ maxWidth: { xs: "15%", sm: 70 }, borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>شماره</TableCell>
+                                            <TableCell align="left" sx={{ maxWidth: { xs: "40%", sm: 150 }, borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>جزئیات سفارش</TableCell>
+                                            <TableCell align="left" sx={{ maxWidth: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>تعداد</TableCell>
+                                            <TableCell align="left" sx={{ maxWidth: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', borderBottom: '1px solid #363636', verticalAlign: 'top', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>قیمت</TableCell>
+                                            <TableCell align="left" sx={{ maxWidth: { xs: "15%", sm: 70 }, verticalAlign: 'top', borderBottom: '1px solid #363636', fontSize: { xs: 11, sm: 14 }, fontWeight: 500 }}>مجموع</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {factors.items.map((item, index) => (
                                             <TableRow key={item.product.id}>
-                                                <TableCell component="th" scope="row" sx={{ width: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{index + 1}</TableCell>
-                                                <TableCell align="left" sx={{ width: { xs: "40%", sm: 150 }, borderRight: '1px solid #363636', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.product.name}</TableCell>
-                                                <TableCell align="left" sx={{ width: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.quantity}</TableCell>
-                                                <TableCell align="left" sx={{ width: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.product.discount_price}</TableCell>
-                                                <TableCell align="left" sx={{ width: { xs: "15%", sm: 70 }, verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.get_cost_from_product}</TableCell>
+                                                <TableCell component="th" scope="row" sx={{ maxWidth: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{index + 1}</TableCell>
+                                                <TableCell align="left" sx={{ maxWidth: { xs: "40%", sm: 150 }, borderRight: '1px solid #363636', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.product.name}</TableCell>
+                                                <TableCell align="left" sx={{ maxWidth: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.quantity}</TableCell>
+                                                <TableCell align="left" sx={{ maxWidth: { xs: "15%", sm: 70 }, borderRight: '1px solid #363636', verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.product.discount_price}</TableCell>
+                                                <TableCell align="left" sx={{ maxWidth: { xs: "15%", sm: 70 }, verticalAlign: 'top', height: 100, fontSize: { xs: 9, sm: 14 }, fontWeight: 400 }}>{item.get_cost_from_product}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -207,9 +216,10 @@ export default function DashBoardFactor({ id }) {
                         <Box
                             display={'flex'}
                             justifyContent={'flex-end'}
+                            displayPrint={'none'}
                         >
                             <Box
-                                width={{ xs: "100%", sm: "49.2%" }}
+                                width={{ xs: "100%", sm: 366 }}
                                 height={50}
                                 borderRadius={'0 0px 10px 10px'}
                                 display={'flex'}
@@ -227,6 +237,49 @@ export default function DashBoardFactor({ id }) {
                             </Box>
                         </Box>
                         <Box
+                            sx={{
+                                display: 'none',  // Hide by default in normal screen view
+                                '@media print': {
+                                    display: 'flex', // Show only when printing
+                                    justifyContent: 'flex-end',
+                                }
+                            }}
+                        >
+                            <Box
+                                width={'100%'}
+                                height={100}
+                                borderRadius={'0 0px 10px 10px'}
+                                display={'flex'}
+                                alignItems={'center'}
+                                justifyContent={'space-between'}
+                                border={'1px solid #363636'}
+                                px={4}
+                            >
+                                <Box display={'flex'} flexDirection={'column'} gap={1}>
+                                    <Typography fontSize={14} fontWeight={400} alignItems={'flex-start'}>
+                                        جمع فاکتور
+                                    </Typography>
+                                    <Typography fontSize={14} fontWeight={400} sx={{ color: 'red' }}>
+                                        {factors.discount_string}
+                                    </Typography>
+                                    <Typography fontSize={14} fontWeight={700}>
+                                        مبلغ پرداخت
+                                    </Typography>
+                                </Box>
+                                <Box display={'flex'} flexDirection={'column'} alignItems={'flex-end'} gap={1}>
+                                    <Typography fontSize={14} fontWeight={400}>
+                                        {toPersianDigits(factors.total_price)} تومان
+                                    </Typography>
+                                    <Typography fontSize={14} fontWeight={400}>
+                                        تخفیف: {toPersianDigits(factors.discount_amount)} تومان
+                                    </Typography>
+                                    <Typography fontSize={14} fontWeight={700}>
+                                        {toPersianDigits(factors.pay_amount)} تومان
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box
                             displayPrint={'none'}
                             display={'flex'}
                             justifyContent={'flex-end'}
@@ -238,7 +291,7 @@ export default function DashBoardFactor({ id }) {
                             >
                                 <Button
                                     variant="contained"
-                                    onClick={() => handlePrint(factors.id)}
+                                    onClick={() => window.print()}
                                     sx={{
                                         backgroundColor: '#FFCC70',
                                         '&:hover': {

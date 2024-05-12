@@ -28,7 +28,7 @@ const ProgressBar = ({ activeStep }) => {
 			<Box
 				component="svg"
 				sx={{
-					width: { xs: "107px", sm: "172px", md: "228px", lg: "249px" },
+					width: { xs: "107px", sm: "180px", md: "245px", lg: "280px" },
 					height: { xs: "50px", sm: "60px", md: "70px", lg: "79px" },
 				}}
 				viewBox="0 0 249 79"
@@ -69,7 +69,7 @@ const ProgressBar = ({ activeStep }) => {
 			<Box
 				component="svg"
 				sx={{
-					width: { xs: "115px", sm: "228px", md: "285px" },
+					width: { xs: "122px", sm: "200px", md: "245px", lg: "280px" },
 					height: { xs: "50px", sm: "60px", md: "79px" },
 				}}
 				viewBox="0 0 285 79"
@@ -111,7 +111,7 @@ const ProgressBar = ({ activeStep }) => {
 			<Box
 				component="svg"
 				sx={{
-					width: { xs: "115px", sm: "228px", md: "284px" },
+					width: { xs: "122px", sm: "200px", md: "245px", lg: "280px" },
 					height: { xs: "50px", sm: "60px", md: "79px" },
 				}}
 				viewBox="0 0 284 79"

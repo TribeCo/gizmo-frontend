@@ -5,12 +5,10 @@ import DeliveryInfoCard from './DeliveryInfoCard';
 import DeliveryInfoHeader from './DeliveryInfoHeader';
 import { MakeDefaultAddress, fetchAddresses, formatFullAddress } from '@/services/DashBoard';
 import { useAuth } from "@/context/AuthContext";
-import { useSenderInfo } from './DeliveryInfoContext';
 
-function DeliveryInfoMain() {
+function DeliveryInfoMain({ handleSenderChange }) {
 
     const [checkedAddresses, setCheckedAddresses] = useState({});
-    const { SenderInfo, handleSenderChange } = useSenderInfo();
     const [addresses, setAddresses] = useState([]);
     const { tokens } = useAuth();
 
@@ -52,20 +50,6 @@ function DeliveryInfoMain() {
     
     const currentAddress = addresses.find(address => address.current);
     const otherAddress = addresses.filter(address => (!address.current));
-
-    // const [SenderInfo, SetSenderInfo] = useState({
-    //     name_delivery: '',
-    //     phone_delivery: '',
-    //     description: '',
-    //     delivery_method: '',
-    // });
-
-    // const handleSenderChange = (prop) => (event) => {
-    //     SetSenderInfo({
-    //         ...SenderInfo,
-    //         [prop]: event.target.value,
-    //     });
-    // };
 
     return (
         <Box>
@@ -120,7 +104,7 @@ function DeliveryInfoMain() {
                         <TextField
                             fullWidth
                             variant="outlined"
-                            value={SenderInfo.name_delivery}
+                            // value={SenderInfo.name_delivery}
                             onChange={handleSenderChange("name_delivery")}
                             sx={{
                                 borderRadius: '20px',
@@ -137,7 +121,7 @@ function DeliveryInfoMain() {
                         <TextField
                             fullWidth
                             variant="outlined"
-                            value={SenderInfo.phone_delivery}
+                            // value={SenderInfo.phone_delivery}
                             onChange={handleSenderChange("phone_delivery")}
                             sx={{
                                 borderRadius: '20px',
@@ -156,7 +140,7 @@ function DeliveryInfoMain() {
                             multiline
                             rows={4}
                             variant="outlined"
-                            value={SenderInfo.description}
+                            // value={SenderInfo.description}
                             onChange={handleSenderChange("description")}
                             sx={{
                                 borderRadius: '20px',
@@ -181,7 +165,7 @@ function DeliveryInfoMain() {
                     gap: { xs: 3, lg: 5 },
                     width: { xs: 'auto', xl: '1282px' },
                 }}
-                value={SenderInfo.delivery_method}
+                // value={SenderInfo.delivery_method}
                 onChange={handleSenderChange('delivery_method')}
             >
                 <FormControlLabel

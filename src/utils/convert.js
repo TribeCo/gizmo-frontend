@@ -8,7 +8,7 @@ export default convert;
 
 export const toPersianDigits = (number) => {
     if (number === undefined || number === null) {
-        console.error('Invalid input: number is undefined or null');
+        // console.error('Invalid input: number is undefined or null');
         return number;
     }
     const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];

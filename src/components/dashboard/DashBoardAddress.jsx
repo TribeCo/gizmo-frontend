@@ -77,13 +77,19 @@ export default function DashBoardAddress() {
                 return;
             }
             const response = await DeleteAddress(selectedAddressId, tokens);
-            setAddress((await fetchAddresses(tokens)).data);
-            alert(`${response}`);
+            if (response.status === 204) {
+                setAddress((await fetchAddresses(tokens)).data);
+                alert(response.message);
+            } else {
+                const responseData = await response.json();
+                alert(responseData.message || 'Address deleted successfully.');
+            }
         } catch (error) {
             console.error('Error deleting address:', error);
-            alert(error.message);
-        };
+            alert(error.message || 'Failed to delete the address.');
+        }
     };
+    
 
     const AddAddress = async () => {
         try {

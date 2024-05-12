@@ -237,7 +237,7 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                                         variant="contained"
                                         onClick={() => {
                                             handleClick(6);
-                                            setId(order.id);
+                                            setId(2);
                                         }}                                        
                                         sx={{
                                             backgroundColor: '#FFCC70', // Button background color
@@ -253,7 +253,7 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                                             marginBottom: '15px',
                                         }}
                                     >
-                                        چاپ فاکتور
+                                        پیگیری فاکتور
                                     </Button>
                                 </Box>
                             )}

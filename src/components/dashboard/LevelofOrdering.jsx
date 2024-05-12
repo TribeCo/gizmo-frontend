@@ -141,28 +141,28 @@ const LevelofOrdering = ({ level }) => {
 							stroke="#747678"
 						/>
 						<image
-							href={`${baseUrl}/images/media/pictures/FirstLevel.png"`}
+							href={`${baseUrl}/images/media/pictures/FirstLevel.png`}
 							x="580"
 							y="-80"
 							width="70"
 							height="70"
 						/>
 						<image
-							href={`${baseUrl}/images/media/pictures/SecondLevel.png"`}
+							href={`${baseUrl}/images/media/pictures/SecondLevel.png`}
 							x="380"
 							y="-80"
 							width="70"
 							height="70"
 						/>
 						<image
-							href={`${baseUrl}/images/media/pictures/ThirdLevel.png"`}
+							href={`${baseUrl}/images/media/pictures/ThirdLevel.png`}
 							x="180"
 							y="-80"
 							width="70"
 							height="70"
 						/>
 						<image
-							href={`${baseUrl}/images/media/pictures/FourthLevel.png"`}
+							href={`${baseUrl}/images/media/pictures/FourthLevel.png`}
 							x="-20"
 							y="-80"
 							width="70"

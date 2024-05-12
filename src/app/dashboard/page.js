@@ -35,6 +35,7 @@ export default function Profile() {
 	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 	const [activities, setActivites] = useState([]);
 	const [information, setInformation] = useState([]);
+	const [factorId, SetFactorId] = useState();
 	const { tokens, logOut } = useAuth();
 
 	const handleMenuItemClick = (menuItem) => {
@@ -74,9 +75,9 @@ export default function Profile() {
 		<DashBoardEditProfile key={1}/>, // ویرایش اطلاعات حساب 1
 		<DashBoardAddress key={2}/>, // آدرس ها 2
 		<DashBoardNotifications key={3}/>, // پیغام ها 3
-		<DashBoardOrders handleClick={handleMenuItemClick} key={4}/>, // سفارشات 4
+		<DashBoardOrders setId={SetFactorId} handleClick={handleMenuItemClick} key={4}/>, // سفارشات 4
 		<DashBoardDubaiOrders key={5}/>, // استعلام قیمت 5
-		<DashBoardFactor key={6}/>, // فاکتور 6
+		<DashBoardFactor id={factorId} key={6}/>, // فاکتور 6
 		<DashBoardFavoriteProduct key={7}/>, // علاقه مندی ها 7
 	];
 
@@ -333,7 +334,7 @@ export default function Profile() {
 									استعلام قیمت
 								</Typography>
 							</ListItemButton>
-							<ListItemButton
+							{/* <ListItemButton
 								onClick={() => handleMenuItemClick(6)}
 								sx={{
 									borderRadius: "24px",
@@ -371,7 +372,7 @@ export default function Profile() {
 									sx={{ color: "#213346" }}>
 									پیگیری سفارش
 								</Typography>
-							</ListItemButton>
+							</ListItemButton> */}
 							<ListItemButton
 								onClick={() => handleMenuItemClick(7)}
 								sx={{

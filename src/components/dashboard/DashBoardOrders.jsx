@@ -8,7 +8,7 @@ import { calculateOrderLevel, fetchOrders } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
 import { toPersianDigits } from '@/utils/convert';
 
-export default function DashBoardOrders({handleClick}) {
+export default function DashBoardOrders({ setId ,handleClick }) {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [inputValue, setInputValue] = useState('');
@@ -235,7 +235,10 @@ export default function DashBoardOrders({handleClick}) {
                                     </Box>
                                     <Button
                                         variant="contained"
-                                        onClick={() => handleClick(6)}
+                                        onClick={() => {
+                                            handleClick(6);
+                                            setId(order.id);
+                                        }}                                        
                                         sx={{
                                             backgroundColor: '#FFCC70', // Button background color
                                             '&:hover': {

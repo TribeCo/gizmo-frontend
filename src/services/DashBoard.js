@@ -21,9 +21,9 @@ export const fetchDubaiOrders = async (tokens) => {
 	}
 };
 
-export const fetchFactors = async (tokens) => {
+export const fetchFactors = async (id, tokens) => {
     try {
-        const response = await fetch(`${baseUrl}/api/order/factor/1/`, {
+        const response = await fetch(`${baseUrl}/api/order/factor/${id}/`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',

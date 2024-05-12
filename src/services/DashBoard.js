@@ -254,6 +254,46 @@ export const SenderInformation = async (formData, tokens) => {
 	}
 };
 
+export const EditProfile = async (formData, tokens) => {
+	try {
+		const response = await fetch(`${baseUrl}/api/users/update/1/`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${tokens.access}`,
+			},
+			body: JSON.stringify(formData),
+		});
+		if (!response.ok) {
+			throw new Error("Network response was not ok");
+		}
+		return response.json();
+	} catch (error) {
+		console.error("There was a problem with the fetch operation:", error);
+	}
+};
+
+export const EditPassword = async (passwordData, tokens) => {
+    try {
+        const response = await fetch(`${baseUrl}/api/users/password/update/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokens.access}`,
+            },
+            body: JSON.stringify(passwordData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        return response.json();
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+};
+
 export const formatFullAddress = (address) => {
     if (!address) {
         return '';  // Return an empty string if address is null or undefined

@@ -74,7 +74,7 @@ export default function Profile() {
 		<DashBoardEditProfile key={1}/>, // ویرایش اطلاعات حساب 1
 		<DashBoardAddress key={2}/>, // آدرس ها 2
 		<DashBoardNotifications key={3}/>, // پیغام ها 3
-		<DashBoardOrders key={4}/>, // سفارشات 4
+		<DashBoardOrders handleClick={handleMenuItemClick} key={4}/>, // سفارشات 4
 		<DashBoardDubaiOrders key={5}/>, // استعلام قیمت 5
 		<DashBoardFactor key={6}/>, // فاکتور 6
 		<DashBoardFavoriteProduct key={7}/>, // علاقه مندی ها 7

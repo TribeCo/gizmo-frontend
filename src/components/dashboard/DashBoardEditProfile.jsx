@@ -6,8 +6,9 @@ import NumberFormat from "react-number-format";
 import { useAuth } from "@/context/AuthContext";
 import { Button, Typography, Card, Stack, Paper } from "@mui/material";
 import { EditPassword, EditProfile } from "@/services/DashBoard";
+import { InfoSharp } from "@mui/icons-material";
 
-export default function DashBoardEditProfile() {
+export default function DashBoardEditProfile({ information }) {
 	const [showPassword, setShowPassword] = React.useState(false);
 	const [newPasswordIteration, setNewPasswordIteration] = React.useState("");
 	const [firstField, setFirstField] = React.useState("password");
@@ -76,44 +77,6 @@ export default function DashBoardEditProfile() {
 			alert(error.message || "Failed to update password."); // Alert the user with the error message
 		}
 	};
-	
-	// const editNewProfilePassword = async () => {
-	// 	if (
-	// 		newProfilePassword.new_password !==
-	// 		newProfilePassword.new_password_confirm
-	// 	) {
-	// 		alert(
-	// 			"Passwords do not match. Please make sure your new password and confirm password fields match.",
-	// 		);
-	// 		return;
-	// 	}
-	// 	console.log(newProfilePassword);
-	// 	try {
-	// 		const response = await fetch(
-	// 			`${baseUrl}/api/users/password/old/change/`,
-	// 			{
-	// 				method: "POST",
-	// 				headers: {
-	// 					"Content-Type": "application/json",
-	// 					Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTc3MDMzLCJpYXQiOjE3MTE0OTA2MzMsImp0aSI6ImE4NjYxZTY2MDc3NTRlODlhODFlNTMyNDBkMzIzYjUxIiwidXNlcl9pZCI6MSwicGhvbmVOdW1iZXIiOiIxIiwiZW1haWwiOiJUYWhhTTgwMDBAZ21haWwuY29tIiwiaXNfYWRtaW4iOnRydWUsImlzX2FjdGl2ZSI6dHJ1ZX0.TnAmTpVafP_kWA6YmBGDCRpPa_6v9VRpAwYypmwSBA8`,
-	// 				},
-	// 				body: JSON.stringify(newProfilePassword),
-	// 			},
-	// 		);
-	// 		if (response.ok) {
-	// 			fetchData();
-	// 			setNewProfilePassword({
-	// 				new_password_confirm: "",
-	// 				password: "",
-	// 				new_password: "",
-	// 			});
-	// 		} else {
-	// 			console.error("Error adding new address:", response.statusText);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Error sending data to the API:", error);
-	// 	}
-	// };
 
 	return (
 		<Paper
@@ -144,6 +107,7 @@ export default function DashBoardEditProfile() {
 								</label>
 								<input
 									type="text"
+									value={information.first_name}
 									onChange={(e) =>
 										setNewProfileData({
 											...newProfileData,
@@ -163,6 +127,7 @@ export default function DashBoardEditProfile() {
 								</label>
 								<input
 									type="text"
+									value={information.last_name}
 									onChange={(e) =>
 										setNewProfileData({
 											...newProfileData,
@@ -181,7 +146,9 @@ export default function DashBoardEditProfile() {
 									شماره تلفن
 								</label>
 								<input
+									disabled
 									type="tel"
+									value={information.phoneNumber}
 									onInput={handleInputChange}
 									onChange={(e) =>
 										setNewProfileData({
@@ -193,26 +160,6 @@ export default function DashBoardEditProfile() {
 									className="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2"
 								/>
 							</div>
-
-							{/* <div className="flex justify-between items-center">
-								<label
-									htmlFor="birthDate"
-									className="w-fit block text-sm mr-2 text-[#99999A]  whitespace-nowrap sm:text-xs">
-									تاریخ تولد
-								</label>
-
-								<input
-									type="date"
-									onChange={(e) =>
-										setNewProfileData({
-											...newProfileData,
-											birthDay: e.target.value,
-										})
-									}
-									id="birthDay"
-									className="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2 w-full max-w-[13.5rem]"
-								/>
-							</div> */}
 						</div>
 
 						<div
@@ -226,6 +173,7 @@ export default function DashBoardEditProfile() {
 								</label>
 								<select
 									type="select"
+									value={information.gender}
 									onChange={(e) =>
 										setNewProfileData({
 											...newProfileData,
@@ -249,19 +197,20 @@ export default function DashBoardEditProfile() {
 								</label>
 								<input
 									type="email"
-									value={newProfileData.email}
+									disabled
+									value={information.email}
 									id="email"
 									className="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2"
 								/>
 							</div>
 
-							<div className="flex justify-between items-center">
+							{/* <div className="flex justify-between items-center">
 								<label
 									htmlFor="password"
 									className="w-full block text-sm mr-2 text-[#99999A]  whitespace-nowrap sm:text-xs">
 									رمز عبور
 								</label>
-								{/* <div className="relative">
+								<div className="relative">
 									<input
 										id="hs-toggle-password"
 										onChange={(e) =>
@@ -282,8 +231,8 @@ export default function DashBoardEditProfile() {
 										}}>
 										<Image src={eye}></Image>
 									</button>
-								</div> */}
-							</div>
+								</div>
+							</div> */}
 
 							<div className="justify-self-start flex justify-between flex-row-reverse lg:mx-12 md:mt-6 pr-20 lg:pr-0">
 								<Button

@@ -30,7 +30,6 @@ import { useRouter } from "next/navigation";
 import { toPersianDigits } from "@/utils/convert";
 
 export default function Profile() {
-	// const [selectedMenuItem, setSelectedMenuItem] = useState(0);
 	const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 	const [activities, setActivites] = useState([]);
@@ -72,7 +71,7 @@ export default function Profile() {
 			handleClick={handleMenuItemClick}
 			key={0}
 		/>, // حساب کاربری 0
-		<DashBoardEditProfile key={1}/>, // ویرایش اطلاعات حساب 1
+		<DashBoardEditProfile information={information} key={1}/>, // ویرایش اطلاعات حساب 1
 		<DashBoardAddress key={2}/>, // آدرس ها 2
 		<DashBoardNotifications key={3}/>, // پیغام ها 3
 		<DashBoardOrders setId={SetFactorId} handleClick={handleMenuItemClick} key={4}/>, // سفارشات 4

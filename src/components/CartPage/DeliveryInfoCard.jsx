@@ -23,7 +23,7 @@ export default function DeliveryInfoCard({ setAddress }) {
         try {
             console.log(Address);
             const response = await AddNewAddress(Address, tokens);
-            if (response) { // Since the response will be the data or an error, checking if it exists suffices
+            if (response) {
                 alert(response.messages || "Address added successfully.");
                 setAddress((await fetchAddresses(tokens)).data);
                 SetAddress({
@@ -35,7 +35,7 @@ export default function DeliveryInfoCard({ setAddress }) {
             }
         } catch (error) {
             console.error('Error sending data to the API:', error);
-            alert(error.message || "Failed to add new address."); // Alert the user with the error message
+            alert(error.message || "Failed to add new address.")
         }
     };
 

@@ -175,9 +175,9 @@ export default function DashBoardAddress() {
                                     aria-labelledby="demo-radio-buttons-group-label"
                                     name="radio-buttons-group"
                                 >
-                                    {address.map((address) => {
+                                    {address.map((address, index) => {
                                         if (!address.current) {
-                                            return <FormControlLabel label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
+                                            return <FormControlLabel key={index + 1} label={`${address.province}, ${address.city}, ${address.straight_address}, کد پستی: ${address.postal_code}`} control={<Radio />} value={address.id} />
                                         } else null
                                     })}
                                 </RadioGroup>

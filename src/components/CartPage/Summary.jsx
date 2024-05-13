@@ -14,16 +14,13 @@ import { Colors } from "@/utils";
 
 export default function Summary({ Information }) {
 
-    // const handleSubmit = async () => {
-    //     try {
-    //         const response = await SenderInformation(Information);
-    //         console.log('Success:', response);
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //     }
-    // };
     const handleSubmit = async () => {
-        console.log(Information);
+        try {
+            const response = await SenderInformation(Information);
+            console.log('Success:', response);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (

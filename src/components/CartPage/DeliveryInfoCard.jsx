@@ -19,8 +19,9 @@ export default function DeliveryInfoCard({ setAddress }) {
         });
     };
 
-    const handleSubmit = async (Address) => {
+    const handleSubmit = async () => {
         try {
+            console.log(Address);
             const response = await AddNewAddress(Address, tokens);
             if (response) { // Since the response will be the data or an error, checking if it exists suffices
                 alert(response.messages || "Address added successfully.");

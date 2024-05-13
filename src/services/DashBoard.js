@@ -128,9 +128,14 @@ export const DeleteAddress = async (id, tokens) => {
             },
         });
         if (response.ok) {
-            const result = await response.json();
-            console.log("Address deleted successfully:", result);
-            return result;
+            if (response.status === 204) {
+                console.log("Address deleted successfully.");
+                return { status: 204, message: "Address deleted successfully." };
+            } else {
+                const result = await response.json();
+                console.log("Address deleted successfully:", result);
+                return result;
+            }
         } else if (response.status === 404) {
             const errorText = await response.text(); // Extract the text from the 404 response
             throw new Error(errorText || 'Address not found'); // Use custom message or a default one
@@ -142,7 +147,6 @@ export const DeleteAddress = async (id, tokens) => {
         throw error; // Re-throw the error to be handled or displayed elsewhere
     }
 };
-
 
 export const AddNewAddress = async (newAddress, tokens) => {
     try {

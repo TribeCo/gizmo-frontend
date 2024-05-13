@@ -81,15 +81,13 @@ export default function DashBoardAddress() {
                 setAddress((await fetchAddresses(tokens)).data);
                 alert(response.message);
             } else {
-                const responseData = await response.json();
-                alert(responseData.message || 'Address deleted successfully.');
+                alert(response.message || 'Address deleted successfully.');
             }
         } catch (error) {
             console.error('Error deleting address:', error);
             alert(error.message || 'Failed to delete the address.');
         }
-    };
-    
+    };    
 
     const AddAddress = async () => {
         try {

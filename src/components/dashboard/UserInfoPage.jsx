@@ -156,7 +156,7 @@ const UserInfoPage = ({ activities, information, handleClick }) => {
 									{information.email}
 								</Typography>
 							</Grid>
-							<Grid
+							{/* <Grid
 								item
 								mb={1}
 								mt={6}
@@ -179,7 +179,7 @@ const UserInfoPage = ({ activities, information, handleClick }) => {
 									}}>
 									{information.birth_day}
 								</Typography>
-							</Grid>
+							</Grid> */}
 						</Grid>
 						<Grid>
 							<Grid

@@ -47,7 +47,7 @@ export default function Profile() {
 		const GetInformation = async () => {
 			try {
 				const data = await fetchInformation(tokens);
-				if (data === 0) {
+				if (!data) {
 					router.replace("/login");
 				}
 				setInformation(data);
@@ -58,7 +58,7 @@ export default function Profile() {
 			GetInformation();
 		} 
 	}, [tokens]);
-  
+
 	const handleLogout = async () => {
 		logOut();
 		setLogoutModalOpen(false);
@@ -127,7 +127,7 @@ export default function Profile() {
 									fontWeight="bold"
 									fontSize={20}
 									sx={{ color: "#213346" }}>
-									نام و نام خانوادگی
+									{`${information.first_name} ${information.last_name}`}
 								</Typography>
 								<Typography
 									pt={2}

@@ -231,7 +231,8 @@ export const fetchInformation = async (tokens) => {
 			},
 		});
 		if (!response.ok) {
-			return 0;
+			console.log("first");
+			return null;
 		}
 		return response.json();
 	} catch (error) {
@@ -307,7 +308,6 @@ export const formatFullAddress = (address) => {
     return fullAddress;
 }
 
-
 export const calculateOrderLevel = (processed, packing, shipped, deliveried) => {
     if (deliveried) {
         return 4;
@@ -321,3 +321,4 @@ export const calculateOrderLevel = (processed, packing, shipped, deliveried) => 
         return 0;
     }
 }
+

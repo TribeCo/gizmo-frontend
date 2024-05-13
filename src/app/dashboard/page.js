@@ -30,11 +30,11 @@ import { useRouter } from "next/navigation";
 import { toPersianDigits } from "@/utils/convert";
 
 export default function Profile() {
-	// const [selectedMenuItem, setSelectedMenuItem] = useState(0);
 	const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 	const [activities, setActivites] = useState([]);
 	const [information, setInformation] = useState([]);
+	const [factorId, SetFactorId] = useState();
 	const { tokens, logOut } = useAuth();
 
 	const handleMenuItemClick = (menuItem) => {
@@ -56,7 +56,7 @@ export default function Profile() {
 		};
 		if (tokens) {
 			GetInformation();
-		}
+		} 
 	}, [tokens]);
 
 	const handleLogout = async () => {
@@ -68,14 +68,16 @@ export default function Profile() {
 		<UserInfoPage
 			activities={activities}
 			information={information}
+			handleClick={handleMenuItemClick}
+			key={0}
 		/>, // حساب کاربری 0
-		<DashBoardEditProfile />, // ویرایش اطلاعات حساب 1
-		<DashBoardAddress />, // آدرس ها 2
-		<DashBoardNotifications />, // پیغام ها 3
-		<DashBoardOrders />, // سفارشات 4
-		<DashBoardDubaiOrders />, // استعلام قیمت 5
-		<DashBoardFactor />,
-		<DashBoardFavoriteProduct />, // علاقه مندی ها 6
+		<DashBoardEditProfile information={information} key={1}/>, // ویرایش اطلاعات حساب 1
+		<DashBoardAddress key={2}/>, // آدرس ها 2
+		<DashBoardNotifications key={3}/>, // پیغام ها 3
+		<DashBoardOrders setId={SetFactorId} handleClick={handleMenuItemClick} key={4}/>, // سفارشات 4
+		<DashBoardDubaiOrders key={5}/>, // استعلام قیمت 5
+		<DashBoardFactor id={factorId} key={6}/>, // فاکتور 6
+		<DashBoardFavoriteProduct key={7}/>, // علاقه مندی ها 7
 	];
 
 	return (
@@ -331,7 +333,7 @@ export default function Profile() {
 									استعلام قیمت
 								</Typography>
 							</ListItemButton>
-							<ListItemButton
+							{/* <ListItemButton
 								onClick={() => handleMenuItemClick(6)}
 								sx={{
 									borderRadius: "24px",
@@ -369,7 +371,7 @@ export default function Profile() {
 									sx={{ color: "#213346" }}>
 									پیگیری سفارش
 								</Typography>
-							</ListItemButton>
+							</ListItemButton> */}
 							<ListItemButton
 								onClick={() => handleMenuItemClick(7)}
 								sx={{

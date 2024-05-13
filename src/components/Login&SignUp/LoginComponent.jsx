@@ -14,7 +14,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useAuth } from "@/context/AuthContext";
-import { usePhoneNumber } from "@/utils/phoneNumber";
+import { usePhoneNumber } from "@/utils/PhoneNumber";
 import * as Yup from "yup";
 
 const LoginComponent = () => {

@@ -8,7 +8,7 @@ import { calculateOrderLevel, fetchOrders } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
 import { toPersianDigits } from '@/utils/convert';
 
-export default function DashBoardOrders() {
+export default function DashBoardOrders({ setId ,handleClick }) {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [inputValue, setInputValue] = useState('');
@@ -17,9 +17,11 @@ export default function DashBoardOrders() {
     const { tokens } = useAuth();
 
     useEffect(() => {
+        if(tokens) {
+            GetOrders();
+        }
         setSearchTerm(toPersianDigits(inputValue));
-        GetOrders();
-    }, [inputValue]);
+    }, [inputValue, tokens]);
 
     const handleSearchChange = (event) => {
         const input = event.target.value;
@@ -233,6 +235,10 @@ export default function DashBoardOrders() {
                                     </Box>
                                     <Button
                                         variant="contained"
+                                        onClick={() => {
+                                            handleClick(6);
+                                            setId(2);
+                                        }}                                        
                                         sx={{
                                             backgroundColor: '#FFCC70', // Button background color
                                             '&:hover': {
@@ -244,12 +250,10 @@ export default function DashBoardOrders() {
                                             color: '#213346', // Text color
                                             fontWeight: 'bold', // Bold text
                                             fontSize: '14px',
-                                            // width: { lg: '131px' }, // Match the width of the text fields
                                             marginBottom: '15px',
-                                            // height: { lg: '31px' }, // Added space for the link below the button
                                         }}
                                     >
-                                        چاپ فاکتور
+                                        پیگیری فاکتور
                                     </Button>
                                 </Box>
                             )}

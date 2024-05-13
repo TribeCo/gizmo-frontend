@@ -10,8 +10,10 @@ export default function DashBoardFavoriteProduct() {
     const { tokens } = useAuth();
     
     useEffect(() => {
-        GetFavoriteProducts();
-    }, []);
+        if(tokens) {
+            GetFavoriteProducts();
+        }
+    }, [tokens]);
 
     const GetFavoriteProducts = async () => {
         setProducts((await fetchFavoriteProducts(tokens)).data)

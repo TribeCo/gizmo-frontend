@@ -1,22 +1,27 @@
+'use client'
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Summary from "@/components/CartPage/Summary";
 import ProgressBar from "@/components/CartPage/ProgressBar";
 import DeliveryInfoMain from "../../components/CartPage/DeliveryInfoMain";
-import { fetchAddresses } from "@/services/DashBoard";
 
-export default async function DeliveryInfo() {
+export default function DeliveryInfo() {
 
-    const Addresses = await fetchAddresses();
-    const MakeCurrent = async (selectedAddressId) => {
-        if (!selectedAddressId) {
-            alert('Please select an address first');
-            return;
-        }
-        const response = (await MakeDefaultAddress(selectedAddressId, tokens)).message;
-        alert(`${response}`);
-        Addresses = await fetchAddresses();
+
+    const [SenderInfo, SetSenderInfo] = useState({
+        name_delivery: '',
+        phone_delivery: '',
+        description: '',
+        delivery_method: '',
+    });
+
+    const handleChange = (fieldName) => (event) => {
+        SetSenderInfo(prev => ({
+            ...prev,
+            [fieldName]: event.target.value
+        }));
     };
+
     return (
         <Box sx={{
             display: 'flex',
@@ -39,8 +44,8 @@ export default async function DeliveryInfo() {
             >
                 <ProgressBar activeStep={1} />
             </Box>
-            <DeliveryInfoMain addresses={Addresses} MakeDefault={MakeCurrent}/>
-            <Summary />
+            <DeliveryInfoMain handleSenderChange={handleChange}/>
+            <Summary Information={SenderInfo}/>
         </Box>
     );
 };

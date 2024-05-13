@@ -1,32 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Grid, TextField, Typography, Button } from '@mui/material';
-import { AddNewAddress } from '@/services/DashBoard';
+import { AddNewAddress, fetchAddresses } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
 
-export default function DeliveryInfoCard() {
-
-    const [province, setProvince] = useState('');
-    const [city, setCity] = useState('');
-    const [straight_address, setStraight_Address] = useState('');
-    const [postal_code, setPostal_Code] = useState('');
+export default function DeliveryInfoCard({ setAddress }) {
     const { tokens } = useAuth();
+    const [Address, SetAddress] = useState({
+        province: '',
+        city: '',
+        straight_address: '',
+        postal_code: ''
+    });
+
+    const handleChange = (prop) => (event) => {
+        SetAddress({
+            ...Address,
+            [prop]: event.target.value,
+        });
+    };
 
     const handleSubmit = async () => {
-        const formData = {
-            straight_address,
-            province,
-            postal_code,
-            city,
-        };
         try {
-            const response = await AddNewAddress(formData, tokens);
-            if (response.ok) {
-                console.log('Success:', result);
-            } else {
-                throw new Error('Failed to submit address');
+            console.log(Address);
+            const response = await AddNewAddress(Address, tokens);
+            if (response) {
+                alert(response.messages || "Address added successfully.");
+                setAddress((await fetchAddresses(tokens)).data);
+                SetAddress({
+                    province: '',
+                    city: '',
+                    straight_address: '',
+                    postal_code: '',
+                });
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error sending data to the API:', error);
+            alert(error.message || "Failed to add new address.")
         }
     };
 
@@ -45,8 +54,8 @@ export default function DeliveryInfoCard() {
                     <TextField
                         fullWidth
                         variant="outlined"
-                        value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        value={Address.province}
+                        onChange={handleChange("province")}
                         sx={{
                             borderRadius: '20px',
                             '& .MuiOutlinedInput-root': {
@@ -62,8 +71,8 @@ export default function DeliveryInfoCard() {
                     <TextField
                         fullWidth
                         variant="outlined"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
+                        value={Address.city}
+                        onChange={handleChange("city")}
                         sx={{
                             borderRadius: '20px',
                             '& .MuiOutlinedInput-root': {
@@ -81,8 +90,8 @@ export default function DeliveryInfoCard() {
                         multiline
                         rows={4}
                         variant="outlined"
-                        value={straight_address}
-                        onChange={(e) => setStraight_Address(e.target.value)}
+                        value={Address.straight_address}
+                        onChange={handleChange("straight_address")}
                         sx={{
                             borderRadius: '20px',
                             '& .MuiOutlinedInput-root': {
@@ -99,8 +108,8 @@ export default function DeliveryInfoCard() {
                     <TextField
                         fullWidth
                         variant="outlined"
-                        value={postal_code}
-                        onChange={(e) => setPostal_Code(e.target.value)}
+                        value={Address.postal_code}
+                        onChange={handleChange("postal_code")}
                         sx={{
                             borderRadius: '20px',
                             '& .MuiOutlinedInput-root': {

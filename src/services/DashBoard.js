@@ -292,12 +292,33 @@ export const EditPassword = async (passwordData, tokens) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
-
         return response.json();
     } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
     }
 };
+
+export const ApplyCoupon = async (couponCode, tokens) => {
+    try {
+        const response = await fetch(`${baseUrl}/api/coupon/apply/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokens.access}`
+            },
+            body: JSON.stringify({ code: couponCode })
+        });
+        if (!response.ok) {
+            const errorText = await response.text(); 
+            throw new Error(errorText || 'ناتوان در اعمال کوپن. لطفا دوباره تلاش کنید.');
+        }
+        const data = await response.json();
+        return data.message || 'کوپن با موفقیت اعمال شد.';
+    } catch (error) {
+        console.error('خطا در اعمال کوپن:', error);
+        return error.message || 'خطا در اعمال کوپن. لطفا بعدا تلاش کنید.';
+    }
+}
 
 export const formatFullAddress = (address) => {
     if (!address) {

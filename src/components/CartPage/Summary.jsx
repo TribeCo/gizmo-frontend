@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Grid,
@@ -9,11 +9,15 @@ import {
     Divider
 } from "@mui/material";
 import { Colors } from "@/utils";
+import { ApplyCoupon, SenderInformation } from "@/services/DashBoard";
+import { useAuth } from "@/context/AuthContext";
 
 
 
 export default function Summary({ Information }) {
 
+    const [code, SetCode] = useState("");
+    const { tokens } = useAuth();
     const handleSubmit = async () => {
         try {
             const response = await SenderInformation(Information);
@@ -22,6 +26,20 @@ export default function Summary({ Information }) {
             console.error('Error:', error);
         }
     };
+
+    const handleApplyCoupon = async () => {
+        if (!code) {
+            alert('لطفا یک کد تخفیف وارد کنید');
+            return;
+        }
+        try {
+            const message = await ApplyCoupon(code, tokens);
+            alert(message);
+        } catch (error) {
+            console.error('Error applying coupon:', error);
+            alert('خطا در اعمال کد تخفیف. لطفا دوباره تلاش کنید.');
+        }
+    }
 
     return (
         <Box
@@ -95,6 +113,8 @@ export default function Summary({ Information }) {
                             <Grid>
                                 <TextField
                                     variant="standard"
+                                    value={code}
+                                    onChange={(e) => SetCode(e.target.value)}
                                     placeholder="کد تخفیف خود را وارد کنید:"
                                     InputProps={{
                                         disableUnderline: true,
@@ -114,6 +134,7 @@ export default function Summary({ Information }) {
                             </Grid>
                             <Grid>
                                 <Button
+                                    onClick={handleApplyCoupon}
                                     variant="contained"
                                     color="warning"
                                     sx={{

@@ -56,6 +56,7 @@ export default function Profile() {
 		};
 		if (tokens) {
 			GetInformation();
+			console.log(tokens.access);
 		} 
 	}, [tokens]);
 

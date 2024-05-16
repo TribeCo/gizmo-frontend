@@ -8,12 +8,14 @@ import ProgressBar from "@/components/CartPage/ProgressBar";
 
 import { Box } from "@mui/material";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 
 const TempPage = () => {
+	const { tokens } = useAuth();
 	const { getCart } = useCart();
 	useEffect(() => {
 		const getData = async () => {
-			const data = await getCart();
+			const data = await getCart({ tokens });
 			console.log(data);
 		};
 		getData();

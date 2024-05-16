@@ -104,7 +104,7 @@ export const CartProvider = ({ children }) => {
 		}
 	};
 
-	const getCart = async () => {
+	const getCart = async ({ tokens }) => {
 		if (tokens.access) {
 			try {
 				const response = await fetch(`${baseUrl}/api/cart/`, {

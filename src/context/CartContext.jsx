@@ -52,10 +52,10 @@ export const CartProvider = ({ children }) => {
 		}
 	};
 
-	//!
+	//?
 	const updateCartList = async (localCartList) => {
 		try {
-			const response = await fetch(`${baseUrl}/api/...`, {
+			const response = await fetch(`${baseUrl}/api/cart/item/add/list/`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -68,8 +68,7 @@ export const CartProvider = ({ children }) => {
 					data: localCartList,
 				}),
 			});
-
-			return response;
+			console.log(await response.json());
 		} catch (error) {
 			console.log(error);
 		}

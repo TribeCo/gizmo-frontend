@@ -2,6 +2,7 @@
 
 import { baseUrl } from "@/services";
 import { useRouter } from "next/navigation";
+import { SnackbarProvider } from "notistack";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
@@ -259,7 +260,9 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={contextData}>
+			<SnackbarProvider>{children}</SnackbarProvider>
+		</AuthContext.Provider>
 	);
 };
 

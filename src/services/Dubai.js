@@ -14,10 +14,9 @@ export const createProduct = async (url) => {
 				url: url,
 			}),
 		});
-
 		return response.json();
 	} catch (error) {
-		return 0;
+		throw new Error("خطایی رخ داد!");
 	}
 };
 

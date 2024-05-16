@@ -50,14 +50,14 @@ export default function Profile() {
 				if (!data) {
 					router.replace("/login");
 				}
+				console.log(data);
 				setInformation(data);
 				setActivites(await fetchActivties(tokens));
 			} catch (error) {}
 		};
 		if (tokens) {
 			GetInformation();
-			console.log(tokens.access);
-		} 
+		}
 	}, [tokens]);
 
 	const handleLogout = async () => {
@@ -72,13 +72,23 @@ export default function Profile() {
 			handleClick={handleMenuItemClick}
 			key={0}
 		/>, // حساب کاربری 0
-		<DashBoardEditProfile information={information} key={1}/>, // ویرایش اطلاعات حساب 1
-		<DashBoardAddress key={2}/>, // آدرس ها 2
-		<DashBoardNotifications key={3}/>, // پیغام ها 3
-		<DashBoardOrders setId={SetFactorId} handleClick={handleMenuItemClick} key={4}/>, // سفارشات 4
-		<DashBoardDubaiOrders key={5}/>, // استعلام قیمت 5
-		<DashBoardFactor id={factorId} key={6}/>, // فاکتور 6
-		<DashBoardFavoriteProduct key={7}/>, // علاقه مندی ها 7
+		<DashBoardEditProfile
+			information={information}
+			key={1}
+		/>, // ویرایش اطلاعات حساب 1
+		<DashBoardAddress key={2} />, // آدرس ها 2
+		<DashBoardNotifications key={3} />, // پیغام ها 3
+		<DashBoardOrders
+			setId={SetFactorId}
+			handleClick={handleMenuItemClick}
+			key={4}
+		/>, // سفارشات 4
+		<DashBoardDubaiOrders key={5} />, // استعلام قیمت 5
+		<DashBoardFactor
+			id={factorId}
+			key={6}
+		/>, // فاکتور 6
+		<DashBoardFavoriteProduct key={7} />, // علاقه مندی ها 7
 	];
 
 	return (

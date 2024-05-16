@@ -41,8 +41,10 @@ import LoginSignupModal from "../LoginSignupPopup/LoginSignupPopup";
 import { getAllCategories, getAllProducts } from "@/services/Search";
 import { useAuth } from "@/context/AuthContext";
 import { baseUrl } from "@/services";
+import LogoutDialog from "../dashboard/LogoutDialog";
 
 const AppBar = ({ isLanding }) => {
+	const [LogOutModalOpen, setLogOutModalOpen] = useState();
 	const { menuItemValue, setMenuItemValue } = useMenuItemContext();
 	const [user, setUser] = useState(false);
 	const [open, setOpen] = useState(false);
@@ -117,6 +119,22 @@ const AppBar = ({ isLanding }) => {
 		setPopupState("login");
 	};
 
+	const handleLogOut = () => {
+		setLogOutModalOpen(false)
+		// TODO: Log out Api
+		handleProfileClose();
+	}
+
+	const handleOrderTracking = () => {
+		setMenuItemValue(4)
+		handleProfileClose();
+	}
+
+	const handleDashBoardMainPage = () => {
+		setMenuItemValue(0)
+		handleProfileClose();
+	}
+
 	return (
 		<>
 			<Box
@@ -146,7 +164,7 @@ const AppBar = ({ isLanding }) => {
 								sx={{
 									pr: 2,
 									scale: { xs: "1", sm: "1.3" },
-									display: { md: "felx", lg: "none" },
+									display: { md: "flex", lg: "none" },
 								}}
 								onClick={handleOpen}>
 								<SvgIcon
@@ -425,12 +443,12 @@ const AppBar = ({ isLanding }) => {
 								<Typography
 									fontWeight={600}
 									sx={{ color: "white", mb: 1, fontSize: { xs: 16, sm: 18 } }}>
-									پوریا کرمی
+									{user.first_name + " " + user.last_name}
 								</Typography>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={handleProfileClose}>
+								onClick={() => handleDashBoardMainPage()}>
 								<Link href={"/dashboard"}>
 									<Typography
 										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
@@ -440,23 +458,28 @@ const AppBar = ({ isLanding }) => {
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={handleProfileClose}>
-								<Typography
-									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
-									سبد خرید
-								</Typography>
-							</MenuItem>
-							<MenuItem
-								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={handleProfileClose}>
+								onClick={() => handleOrderTracking()}
+								>
+								<Link href={"/dashboard"}>
 								<Typography
 									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
 									پیگیری سفارش
 								</Typography>
+								</Link>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
 								onClick={handleProfileClose}>
+								<Link href={"/faq"}>
+								<Typography
+									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
+									سوالات متداول
+								</Typography>
+								</Link>
+							</MenuItem>
+							<MenuItem
+								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
+								onClick={() => setLogOutModalOpen(true)}>
 								<Grid sx={{ scale: { xs: "0.9", sm: "1" } }}>
 									<SvgIcon
 										width="15"
@@ -548,6 +571,11 @@ const AppBar = ({ isLanding }) => {
 					<MenuList handleClose={handleClose} />
 				</Grid>
 			</Dialog>
+			<LogoutDialog
+				logoutModalOpen={LogOutModalOpen}
+				setLogoutModalOpen={setLogOutModalOpen}
+				handleLogout={handleLogOut}
+			/>
 		</>
 	);
 };

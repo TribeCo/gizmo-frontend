@@ -12,10 +12,10 @@ import BlogComment from "@/components/blog/BlogComment";
 const articleId = 1;
 
 
-export default async function BlogDetail() {
+export default async function BlogDetail({ params }) {
 	const similar_article = await GetSimilarArticles({ id: articleId });
-	const article = await GetArticle({ id: articleId });
-
+	const article = await GetArticle({ slug: params.slug });
+	console.log(article);
 	return (
 		<Grid
 			display="flex"
@@ -154,21 +154,30 @@ export default async function BlogDetail() {
 					</Grid>
 				</Grid>
 
-				<CardMedia
+				<Grid
+					container
+					direction='row'
+					alignItems="stretch"
 					sx={{
-						pb: { xs: 1, lg: 2 },
-						borderRadius: { xs: '12px', md: '18px', lg: '22px' }
+						width: {xs: '100%', lg: '740px'}
 					}}
-					component={'img'}
-					image={article.cover}
-					width='100%'
-					height='auto'
-				/>
-				<div dangerouslySetInnerHTML=
-					{{
-						__html: article.content
-					}}
-				/>
+				>
+					<CardMedia
+						sx={{
+							pb: { xs: 1, lg: 2 },
+							borderRadius: { xs: '12px', md: '18px', lg: '22px' },
+						}}
+						component={'img'}
+						image={article.cover}
+					/>
+					<Grid
+						item
+						dangerouslySetInnerHTML={{
+							__html: article.content,
+						}}
+					/>
+				</Grid>
+
 				<Box
 					mt={1}
 					display='flex'
@@ -194,7 +203,7 @@ export default async function BlogDetail() {
 					justifyContent='center'
 					alignItems='center'
 				>
-					<BlogComment comments={article.comments} pid={article.id}/>
+					<BlogComment comments={article.comments} aid={article.id} />
 				</Grid>
 			</Grid>
 			<Grid
@@ -219,18 +228,18 @@ export default async function BlogDetail() {
 					}}
 				>
 					<LineSplitter text={"محصولات مرتبط"} font_lg={24} font_md={22} font_sm={24} font_xs={16} />
-					<Grid 
+					<Grid
 						display='flex'
-						flexDirection='column' 
+						flexDirection='column'
 						alignItems='center'
 						sx={{
-							rowGap: {xs: 0.8, sm: 1, md: 1.5, lg: 2},
+							rowGap: { xs: 0.8, sm: 1, md: 1.5, lg: 2 },
 						}}
 					>
-					{article.products.map((item) => (
-						// eslint-disable-next-line react/jsx-key
-						<ProductCard product={item}/>
-					))}
+						{article.products.map((item) => (
+							// eslint-disable-next-line react/jsx-key
+							<ProductCard product={item} />
+						))}
 					</Grid>
 				</Grid>
 			</Grid>

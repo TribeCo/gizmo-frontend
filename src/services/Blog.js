@@ -73,9 +73,9 @@ export const GetSimilarArticles = async ({ id }) => {
 }
 
 
-export const GetArticle = async ({ id }) => {
+export const GetArticle = async ({ slug }) => {
 	try {
-		const response = await fetch(`${baseUrl}/api/gizmolog/article/${id}`, {
+		const response = await fetch(`${baseUrl}/api/gizmolog/article/${slug}/`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -84,9 +84,34 @@ export const GetArticle = async ({ id }) => {
 				revalidate: 1,
 			},
 		});
-		const data = response.json();
+		const { data } = await response.json();
 		return data;
 	} catch (error) {
+		return 0;
+	}
+}
+
+export const createComment = async ({ aid, access, data }) => {
+	try {
+		const response = await fetch(`${baseUrl}/api/articles/comments/`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${access}`,
+			},
+			next: {
+				revalidate: 1,
+			},
+
+			body: JSON.stringify({
+				article: aid,
+				text: data.text,
+				anonymous: data.anonymous,
+			}),
+		});
+		return response.json();
+	} catch (error) {
+		console.log(error);
 		return 0;
 	}
 }

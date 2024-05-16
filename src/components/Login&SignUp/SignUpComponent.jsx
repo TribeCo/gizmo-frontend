@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Box, Typography, Divider, TextField, Button, IconButton, InputAdornment, FormControlLabel, Checkbox } from '@mui/material';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
-import { usePhoneNumber } from '@/utils/phoneNumber';
+import { usePhoneNumber } from '@/utils/PhoneNumber';
 import * as Yup from "yup";
 const SignUpComponent = () => {
 
@@ -80,7 +80,6 @@ const SignUpComponent = () => {
     const handleSignup = async (event) => {
         event.preventDefault();
         console.log("Starting validation for phone number and confirmation code:", phoneNumber, confirmationCode);
-
         try {
             await phoneAndCodeSchema.validate({
                 phoneNumber,

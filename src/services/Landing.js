@@ -125,3 +125,21 @@ export const gizmologCards = async () => {
 		return 0;
 	}
 };
+
+export const fetchRules = async () => {
+	try {
+		const response = await fetch(`${baseUrl}/api/rules/`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			next: {
+				revalidate: 10,
+			},
+		});
+		return response.json();
+	} catch (error) {
+		console.log(error);
+		return 0;
+	}
+};

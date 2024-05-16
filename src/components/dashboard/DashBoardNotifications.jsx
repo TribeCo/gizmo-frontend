@@ -5,29 +5,26 @@ import envelopIcon from '@/components/siteIcons/EnvelopIcon.svg'
 import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 import { Paper } from '@mui/material'
 import { fetchNotifications, SeenMessages } from '@/services/DashBoard'
+import { useAuth } from '@/context/AuthContext';
 
 
 export default function DashBoardNotifications() {
 
     const [notifications, setNotifications] = useState([]);
+    const { tokens } = useAuth();
     useEffect(() => {
-        GetNotifications();
-    }, []);
+        if(tokens) {
+            GetNotifications();
+        }
+    }, [tokens]);
 
     const GetNotifications = async () => {
-        setNotifications((await fetchNotifications()).data)
+        setNotifications((await fetchNotifications(tokens)).data)
     }
 
     const SeenAllMessages = async () => {
-        alert((await SeenMessages()).message)
+        alert((await SeenMessages(tokens)).message)
     }
-
-    const [notifs, setNotifs] = React.useState([
-        { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: false, shamsi_date: '1402 اسفند 7' },
-        { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
-        { title: 'محصولات محبوب شما موجود شد...', text: 'تا تموم نشده سفارش خودتو ثبت کن.', seen: true, shamsi_date: '1402 اسفند 7' },
-
-    ])
 
     return (
         <Paper
@@ -66,8 +63,8 @@ export default function DashBoardNotifications() {
 
                 <section className='flex flex-col mt-4 gap-2 overflow-scroll h-full'>
 
-                    {notifications.map((notif) => (
-                        <div className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
+                    {notifications.map((notif, index) => (
+                        <div key={index + 1} className='notificationCard p-2 rounded-lg px-6 flex border-b-2 hover:bg-[#00000012] transition-all border-[#EDEDED] h-40 hover:h-44 justify-between'>
 
                             <div className="rightPart flex flex-col justify-between">
 

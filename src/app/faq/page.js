@@ -1,183 +1,54 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LineSplitter from "@/components/LineSpliter";
-import { Box, Button, Grid, SvgIcon, Typography } from "@mui/material";
 import _return from '@/components/siteIcons/return.png';
-import PaperIcon from "@/components/PaperIcon";
-import { Colors } from "@/utils";
-import FaqQuestion from "@/components/FaqQuestion";
-import useFAQ from "@/services/Faq";
+import { fetchIcons, fetchQuestions } from "@/services/Faq";
+import Questions from "@/components/Faq/Questions";
+import MainIcons from "@/components/Faq/MainIcons";
+import { useMenuItemContext } from "@/components/dashboard/DashBoardMenuSelector";
 
 export default function FAQ() {
 
-    const { faqComponent, photo, questions, icons, handleFaqChange, resetFaqComponent } = useFAQ();
+    const [icons, SetIcons] = useState([]);
+    const [questions, SetQuestions] = useState([]);
+    const [photo, SetPhoto] = useState('');
+    const { menuItemValue, setMenuItemValue } = useMenuItemContext();
+    const handleMenuItemClick = (menuItem) => {
+        console.log(menuItem);
+        setMenuItemValue(menuItem);
+    };
+    useEffect(() => {
+        handleInit();
+        if(icons || questions) {
+            handleInit();
+        }
+    }, []);
 
-    const boxList = icons
-    .sort((a, b) => a.id - b.id)
-    .map(icon => (
-        <PaperIcon key={icon.id} logo={icon.icon} text={icon.title} />
-    ));
-
-    let page;
-    if (faqComponent === 0) {
-        page = (
-            <>
-                <Grid
-                    mb={30}
-                    px={3}
-                    sx={{
-                        gap: { xs: 3, sm: 4, md: 5 },
-                        display: { xs: 'none', lg: 'flex' },
-                        flexWrap: 'wrap',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Grid
-                        sx={{
-                            gap: { xs: 3, sm: 4, md: 5 },
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Box onClick={async () => await handleFaqChange(1)}>{boxList[0]}</Box>
-                        <Box onClick={() => handleFaqChange(2)}>{boxList[1]}</Box>
-                        <Box onClick={() => handleFaqChange(3)}>{boxList[2]}</Box>
-                        <Box onClick={() => handleFaqChange(4)}>{boxList[3]}</Box>
-                    </Grid>
-                    <Grid
-                        sx={{
-                            gap: { xs: 3, sm: 4, md: 5 },
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Box onClick={() => handleFaqChange(5)}>{boxList[4]}</Box>
-                        <Box onClick={() => handleFaqChange(6)}>{boxList[5]}</Box>
-                    </Grid>
-                </Grid>
-                <Grid
-                    mb={30}
-                    px={3}
-                    sx={{
-                        gap: { xs: 3, sm: 4, md: 5 },
-                        display: { xs: 'flex', lg: 'none' },
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Box onClick={async () => await handleFaqChange(1)}>{boxList[0]}</Box>
-                    <Box onClick={() => handleFaqChange(2)}>{boxList[1]}</Box>
-                    <Box onClick={() => handleFaqChange(3)}>{boxList[2]}</Box>
-                    <Box onClick={() => handleFaqChange(4)}>{boxList[3]}</Box>
-                    <Box onClick={() => handleFaqChange(5)}>{boxList[4]}</Box>
-                    <Box onClick={() => handleFaqChange(6)}>{boxList[5]}</Box>
-                </Grid>
-            </>
-        );
-    } else if (faqComponent === 1) {
-        page = (
-            <Grid mb={30}>
-                <Grid
-                    display='flex'
-                    flexDirection='row'
-                    alignItems='center'
-                    justifyContent='space-around'
-                    px={1}
-                >
-                    <Grid
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Grid
-                            sx={{
-                                width: { xs: '50px', sm: '60px', md: '80px' },
-                                height: { xs: '50px', sm: '60px', md: '80px' },
-                            }}
-                        >
-                            <img src={photo} />
-                        </Grid>
-                        <Grid>
-                            <Typography
-                                pl={2}
-                                variant="h6"
-                                sx={{
-                                    fontWeight: 'bold',
-                                    fontSize: { xs: 14, sm: 18, md: 20, lg: 24 }
-                                }}
-                            >
-                                {questions.title}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-
-                    <Grid>
-                        <Button
-                            onClick={() => resetFaqComponent()}
-                            variant="contained"
-                            sx={{
-                                bgcolor: Colors.orange,
-                                color: "black",
-                                borderRadius: "20px",
-                                boxShadow: "none",
-                                "&:hover": {
-                                    bgcolor: Colors.orange,
-                                },
-                            }}>
-                            <Typography
-                                variant="h6"
-                                color="#213346"
-                                sx={{
-                                    display: { xs: 'none', sm: 'flex' },
-                                    pr: { xs: 0, sm: 1, md: 2 },
-                                    fontSize: { xs: 13, sm: 14, md: 18, lg: 20 },
-                                }}
-                            >
-                                بازگشت به صفحه موضوعات
-                            </Typography>
-                            <Grid
-                                sx={{
-                                    scale: { xs: '0.8', md: '0.9', lg: '1' },
-                                }}
-                            >
-                                <SvgIcon width="24" height="19" viewBox="0 0 24 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.99992 7.50094L1.11617 8.38469L0.232422 7.50094L1.11617 6.61719L1.99992 7.50094ZM23.2499 17.5009C23.2499 17.8325 23.1182 18.1504 22.8838 18.3848C22.6494 18.6192 22.3314 18.7509 21.9999 18.7509C21.6684 18.7509 21.3505 18.6192 21.116 18.3848C20.8816 18.1504 20.7499 17.8325 20.7499 17.5009H23.2499ZM7.36617 14.6347L1.11617 8.38469L2.88367 6.61719L9.13367 12.8672L7.36617 14.6347ZM1.11617 6.61719L7.36617 0.367188L9.13367 2.13469L2.88367 8.38469L1.11617 6.61719ZM1.99992 6.25094H14.4999V8.75094H1.99992V6.25094ZM23.2499 15.0009V17.5009H20.7499V15.0009H23.2499ZM14.4999 6.25094C16.8206 6.25094 19.0462 7.17281 20.6871 8.81375C22.328 10.4547 23.2499 12.6803 23.2499 15.0009H20.7499C20.7499 13.3433 20.0914 11.7536 18.9193 10.5815C17.7472 9.40942 16.1575 8.75094 14.4999 8.75094V6.25094Z" fill="#213346" />
-                                </SvgIcon>
-                            </Grid>
-                        </Button>
-                    </Grid>
-                </Grid>
-
-                <Grid
-                    display='flex'
-                    flexDirection='column'
-                    justifyContent='center'
-                    alignItems='center'
-                >
-                    {questions.faqs.map((faq, index) => (
-                        <FaqQuestion
-                            key={index}
-                            question={faq.question}
-                            answer={faq.answer}
-                        />
-                    ))}
-                </Grid>
-            </Grid>
-        );
+    const handleInit = async () => {
+        SetIcons((await fetchIcons()).data);
+        SetQuestions((await fetchQuestions(1)).data);
+        SetPhoto(icons.find(icon => icon.id === 1)?.icon || '');
     }
+
+    const handleQuestions = async (id) => {
+        try {
+            SetQuestions((await fetchQuestions(id)).data);
+            SetPhoto(icons.find(icon => icon.id === id)?.icon || '');
+            setMenuItemValue(1);
+        } catch (error) {
+            console.error("There was a problem fetching the questions:", error);
+        }
+    };
+
+    const Pages = [
+        <MainIcons key={0} Icons={icons} handleFaqChange={handleQuestions}/>,
+        <Questions key={1} reset={handleMenuItemClick} photo={photo} questions={questions}/>,
+    ];
 
     return (
         <>
             <LineSplitter text="سوالات متداول" />
-            {page}
+            {Pages[menuItemValue]}
         </>
     )
 }

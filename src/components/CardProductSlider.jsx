@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
 	Box,
 	Button,
+	Container,
 	Grid,
 	IconButton,
 	Typography,
@@ -52,12 +53,12 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 
 	return (
 		<>
-			<Box>
+			<Box mx="auto">
 				<Box
 					mt={2}
 					position="absolute"
 					display="flex"
-					width="100vw"
+					width="98vw"
 					alignItems="center"
 					justifyContent="space-around">
 					<IconButton
@@ -113,6 +114,7 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 			</Box>
 			{btn && (
 				<Box
+					maxWidth="100vw"
 					sx={{
 						mt: { xs: 0, sm: 0, md: 3 },
 					}}>

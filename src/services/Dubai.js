@@ -14,10 +14,9 @@ export const createProduct = async (url) => {
 				url: url,
 			}),
 		});
-
 		return response.json();
 	} catch (error) {
-		return 0;
+		throw new Error("خطایی رخ داد!");
 	}
 };
 
@@ -35,6 +34,23 @@ export const createOrder = async ({ pid, tokens }) => {
 			body: JSON.stringify({
 				id: pid,
 			}),
+		});
+		return response.json();
+	} catch (error) {
+		return 0;
+	}
+};
+
+export const getSites = async () => {
+	try {
+		const response = await fetch(`${baseUrl}/api/other/sites/all/`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			next: {
+				revalidate: 1,
+			},
 		});
 		return response.json();
 	} catch (error) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Colors } from "@/utils";
+import { useAuth } from '@/context/AuthContext';
 import {
     Button,
     Divider,
@@ -15,13 +16,16 @@ import { fetchDubaiOrders } from '@/services/DashBoard';
 export default function DashBoardDubaiOrders() {
     const [orders, setOrders] = useState([]);
     const [searchKey, setSearchKey] = useState('');
+    const { tokens } = useAuth();
 
     useEffect(() => {
-        handleGetOrders();
-    }, []);
+        if (tokens) {
+            handleGetOrders();
+        }
+    }, [tokens]);
 
     const handleGetOrders = async () => {
-        setOrders((await fetchDubaiOrders()).data);
+        setOrders((await fetchDubaiOrders(tokens)).data);
     }
 
     const searchProductCode = (event) => {
@@ -44,7 +48,7 @@ export default function DashBoardDubaiOrders() {
             console.error('Error filtering orders:', error);
             return false;
         }
-    });    
+    });
 
     return (
         <Paper
@@ -111,12 +115,14 @@ export default function DashBoardDubaiOrders() {
                                 </div>
 
                                 <div className="infoRow flex justify-between w-full gap-[10%]">
-                                    <span className='font-extrabold lg:text-sm whitespace-nowrap'>لینک محصول: </span>
+                                    <Typography > لینک محصول: </Typography>
                                     <div
                                         onClick={() => handleCopyLink(product.link)}
                                         title="Click to copy link"
                                     >
-                                        {product.link}
+                                        <Typography noWrap sx={{ maxWidth: '200px', direction: 'rtl' }}>
+                                            {product.link}
+                                        </Typography>
                                     </div>
                                 </div>
                             </div>

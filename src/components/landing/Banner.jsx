@@ -7,6 +7,7 @@ import {
 	Card,
 	CardActionArea,
 	CardMedia,
+	Container,
 	Typography,
 } from "@mui/material";
 
@@ -14,11 +15,11 @@ function Banner({ data }) {
 	return (
 		<Box
 			sx={{
+				width: "100%",
 				display: "flex",
 				justifyContent: { xs: "", md: "space-around" },
 				alignItems: "center",
 				my: { xs: 2, md: 6 },
-				px: { xs: 0, md: 5 },
 				flexDirection: {
 					xs: "column",
 					sm: "column",

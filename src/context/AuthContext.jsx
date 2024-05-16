@@ -1,7 +1,8 @@
 "use client";
 
 import { baseUrl } from "@/services";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { SnackbarProvider } from "notistack";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
@@ -9,12 +10,11 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 	const [tokens, setTokens] = useState(null);
 
+	const router = useRouter();
+
 	useEffect(() => {
 		const storedToken = localStorage.getItem("tokens");
-
-		if (storedToken) {
-			setTokens(JSON.parse(storedToken));
-		}
+		setTokens(JSON.parse(storedToken));
 	}, []);
 
 	const localStorageSetItem = (key, value) => {
@@ -27,8 +27,6 @@ export const AuthProvider = ({ children }) => {
 			localStorage.removeItem(item);
 		}
 	};
-
-	const isLogin = async () => {};
 
 	const loginUser = async (phoneNumber, pwd, destination = null) => {
 		try {
@@ -49,7 +47,7 @@ export const AuthProvider = ({ children }) => {
 				setTokens(data);
 				localStorageSetItem("tokens", JSON.stringify(data));
 				if (destination) {
-					redirect(destination);
+					router.replace(destination);
 				}
 			} else {
 				alert("شماره موبایل یا رمز عبور اشتباه است");
@@ -63,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 	const logoutUser = () => {
 		setTokens(null);
 		localStorageRemoveItem("tokens");
-		alert("خروج با موفقیت انجام شد.");
+		router.replace("/");
 	};
 
 	const signUp = async (phoneNumber) => {
@@ -251,7 +249,7 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const contextData = {
-		tokens: tokens,
+		tokens,
 		loginUser: loginUser,
 		logOut: logoutUser,
 		signUp: signUp,
@@ -262,7 +260,9 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={contextData}>
+			<SnackbarProvider>{children}</SnackbarProvider>
+		</AuthContext.Provider>
 	);
 };
 

@@ -13,7 +13,7 @@ export const CartProvider = ({ children }) => {
 	useEffect(() => {
 		const storedItems = JSON.parse(localStorage.getItem("cartList") || "[]");
 		setCartList(storedItems);
-	}, []);
+	}, [tokens]);
 
 	//*
 	const addToCart = async ({ color, product, quantity }) => {
@@ -36,7 +36,6 @@ export const CartProvider = ({ children }) => {
 					}),
 				});
 				const { data } = await response.json();
-				console.log(data);
 				if (response.ok) id = data.id;
 			} catch (error) {
 				return 0;
@@ -53,10 +52,10 @@ export const CartProvider = ({ children }) => {
 		}
 	};
 
-	//!
+	//?
 	const updateCartList = async (localCartList) => {
 		try {
-			const response = await fetch(`${baseUrl}/api/...`, {
+			const response = await fetch(`${baseUrl}/api/cart/item/add/list/`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -69,8 +68,7 @@ export const CartProvider = ({ children }) => {
 					data: localCartList,
 				}),
 			});
-
-			return response;
+			console.log(await response.json());
 		} catch (error) {
 			console.log(error);
 		}
@@ -107,24 +105,28 @@ export const CartProvider = ({ children }) => {
 	};
 
 	const getCart = async () => {
-		try {
-			const response = await fetch(`${baseUrl}/api/cart/`, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${tokens.access}`,
-				},
-				next: {
-					revalidate: 0,
-				},
-			});
-			const { cart } = await response.json();
-			console.log(cart);
-			if (response.ok) {
-				setCartList(cart);
+		if (tokens.access) {
+			try {
+				const response = await fetch(`${baseUrl}/api/cart/`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${tokens.access}`,
+					},
+					next: {
+						revalidate: 0,
+					},
+				});
+				const { cart } = await response.json();
+				console.log(cart);
+				if (response.ok) {
+					setCartList(cart);
+					return cart;
+				}
+			} catch (error) {
+				console.log(error);
+				return 0;
 			}
-		} catch (error) {
-			return 0;
 		}
 	};
 

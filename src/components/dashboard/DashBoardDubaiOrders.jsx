@@ -12,6 +12,7 @@ import {
 
 import searchIcon from '@/components/siteIcons/SearchIcon.svg';
 import { fetchDubaiOrders } from '@/services/DashBoard';
+import { enqueueSnackbar } from "notistack";
 
 export default function DashBoardDubaiOrders() {
     const [orders, setOrders] = useState([]);
@@ -25,8 +26,16 @@ export default function DashBoardDubaiOrders() {
     }, [tokens]);
 
     const handleGetOrders = async () => {
-        setOrders((await fetchDubaiOrders(tokens)).data);
-    }
+        try {
+            const response = await fetchDubaiOrders(tokens);
+            if (response) {
+                setOrders(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            enqueueSnackbar({ message: error.message || "خطا در دریافت سفارش‌ها.", variant: "error" });
+        }
+    };
 
     const searchProductCode = (event) => {
         setSearchKey(event.target.value);

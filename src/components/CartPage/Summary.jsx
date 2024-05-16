@@ -11,35 +11,37 @@ import {
 import { Colors } from "@/utils";
 import { ApplyCoupon, SenderInformation } from "@/services/DashBoard";
 import { useAuth } from "@/context/AuthContext";
-
+import { enqueueSnackbar } from "notistack";
 
 
 export default function Summary({ Information }) {
 
     const [code, SetCode] = useState("");
     const { tokens } = useAuth();
-    const handleSubmit = async () => {
+    const handleSubmitSenderInformation = async () => {
         try {
             const response = await SenderInformation(Information);
             console.log('Success:', response);
+            enqueueSnackbar({ message: 'اطلاعات با موفقیت ارسال شد.', variant: "success" });
         } catch (error) {
             console.error('Error:', error);
+            enqueueSnackbar({ message: error.message || "خطا در ارسال اطلاعات.", variant: "error" });
         }
     };
 
     const handleApplyCoupon = async () => {
         if (!code) {
-            alert('لطفا یک کد تخفیف وارد کنید');
+            enqueueSnackbar({ message: 'لطفا یک کد تخفیف وارد کنید', variant: "info" });
             return;
         }
         try {
             const message = await ApplyCoupon(code, tokens);
-            alert(message);
+            enqueueSnackbar({ message: message, variant: "success" });
         } catch (error) {
             console.error('Error applying coupon:', error);
-            alert('خطا در اعمال کد تخفیف. لطفا دوباره تلاش کنید.');
+            enqueueSnackbar({ message: 'خطا در اعمال کد تخفیف. لطفا دوباره تلاش کنید.', variant: "error" });
         }
-    }
+    };
 
     return (
         <Box
@@ -294,7 +296,7 @@ export default function Summary({ Information }) {
                     <Button
                         variant="contained"
                         color="warning"
-                        onClick={handleSubmit}
+                        onClick={handleSubmitSenderInformation}
                         sx={{
                             bgcolor: Colors.orange,
                             boxShadow: 'none',

@@ -96,7 +96,6 @@ const SignUpComponent = () => {
                 if (isValidated) {
                     console.log("Phone number validated successfully");
                     setPhoneValidate(true);
-                    // Optionally navigate to another route or display success message
                 } else {
                     console.log("Validation failed with valid number format");
                     setErrors({ confirmationCode: 'Invalid confirmation code' });
@@ -118,7 +117,6 @@ const SignUpComponent = () => {
             setErrors(newErrors);
         }
     };
-    
 
     const handleCompleteInfo = async (event) => {
         event.preventDefault();
@@ -135,7 +133,6 @@ const SignUpComponent = () => {
                 policyAgreed,
             }, { abortEarly: false });
 
-            // Assuming firstName and lastName are derived from fullName or similar
             const [firstName, lastName] = fullName.split(' ');
 
             const isCompleted = await completeSignupInformation(
@@ -152,7 +149,6 @@ const SignUpComponent = () => {
                 onClose(); // Assuming onClose is provided correctly to close modal or form
             } else {
                 console.log("Information completion failed, handle accordingly");
-                // Optionally set an error message if completion fails
                 setErrors({ form: 'Unable to complete information. Please try again.' });
             }
         } catch (validationErrors) {
@@ -339,9 +335,9 @@ const SignUpComponent = () => {
                                 backgroundColor: '#FFFFFF',
                             }}
                         />
-                        {errors.sendcode && (
+                        {errors.confirmationCode && (
                             <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
-                                {errors.sendcode}
+                                {errors.confirmationCode}
                             </Typography>
                         )}
                     </>

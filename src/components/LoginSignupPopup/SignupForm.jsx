@@ -161,10 +161,12 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginBottom: "5%",
 							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
 						}}
-						error={errors.firstName}
-						helperText={errors.firstName}
 					/>
-
+					{errors.firstName && (
+						<Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+							{errors.firstName}
+						</Typography>
+					)}
 					<Typography
 						variant="body1"
 						mb={1}>
@@ -186,6 +188,11 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 						error={errors.lastName}
 						helperText={errors.lastName}
 					/>
+					{errors.lastName && (
+						<Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+							{errors.lastName}
+						</Typography>
+					)}
 				</>
 			) : (
 				<></>
@@ -212,9 +219,12 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginBottom: "5%",
 							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
 						}}
-						error={errors.phoneNumber}
-						helperText={errors.phoneNumber}
 					/>
+					{errors.phoneNumber && (
+						<Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+							{errors.phoneNumber}
+						</Typography>
+					)}
 				</>
 			) : (
 				<></>
@@ -244,6 +254,11 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 						error={errors.phoneNumber}
 						helperText={errors.phoneNumber}
 					/>
+                    {errors.confirmationCode && (
+						<Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+							{errors.confirmationCode}
+						</Typography>
+                    )}
 				</>
 			) : (
 				<></>
@@ -270,9 +285,12 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							marginBottom: "5%",
 							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
 						}}
-						error={errors.email}
-						helperText={errors.email}
 					/>
+					    {errors.email && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.email}
+                            </Typography>
+                        )}
 
 					<Typography
 						variant="body1"
@@ -301,9 +319,12 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							borderRadius: "20px",
 							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
 						}}
-						error={errors.password}
-						helperText={errors.password}
 					/>
+					    {errors.password && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.password}
+                            </Typography>
+                        )}
 
 					<Typography
 						variant="body1"
@@ -335,6 +356,11 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 						error={errors.confirmation}
 						helperText={errors.confirmation}
 					/>
+					    {errors.confirmation && (
+                            <Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+                                {errors.confirmation}
+                            </Typography>
+                        )}
 				</>
 			) : (
 				<></>

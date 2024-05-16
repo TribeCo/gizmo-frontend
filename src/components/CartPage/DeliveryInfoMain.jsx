@@ -5,7 +5,7 @@ import DeliveryInfoCard from './DeliveryInfoCard';
 import DeliveryInfoHeader from './DeliveryInfoHeader';
 import { MakeDefaultAddress, fetchAddresses, formatFullAddress } from '@/services/DashBoard';
 import { useAuth } from "@/context/AuthContext";
-
+import { enqueueSnackbar } from "notistack";
 function DeliveryInfoMain({ handleSenderChange }) {
 
     const [checkedAddresses, setCheckedAddresses] = useState({});
@@ -19,8 +19,16 @@ function DeliveryInfoMain({ handleSenderChange }) {
     }, [tokens]);
 
     const handleGetAddress = async () => {
-        setAddresses((await fetchAddresses(tokens)).data)
-    }
+        try {
+            const response = await fetchAddresses(tokens);
+            if (response) {
+                setAddresses(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching addresses:', error);
+            enqueueSnackbar({ message: error.message || "خطا در دریافت آدرس‌ها.", variant: "error" });
+        }
+    };
 
     const handleChange = (event, id) => {
         const newCheckedState = Object.keys(checkedAddresses).reduce(
@@ -36,17 +44,19 @@ function DeliveryInfoMain({ handleSenderChange }) {
     const MakeCurrent = async () => {
         try {
             if (!selectedAddressId) {
-                alert('Please select an address first');
+                enqueueSnackbar({ message: 'لطفاً ابتدا یک آدرس را انتخاب کنید', variant: "info" });
                 return;
             }
-            const response = ((await MakeDefaultAddress(selectedAddressId, tokens)).messages);
-            setAddresses((await fetchAddresses(tokens)).data);
-            alert(`${response}`);
+            const response = await MakeDefaultAddress(selectedAddressId, tokens);
+            if (response && response.messages) {
+                setAddresses((await fetchAddresses(tokens)).data);
+                enqueueSnackbar({ message: response.messages, variant: "success" });
+            }
         } catch (error) {
             console.error('Error setting default address:', error);
-            alert(error.message);
-        };
-    }
+            enqueueSnackbar({ message: error.message || "خطا در تنظیم آدرس پیش‌فرض.", variant: "error" });
+        }
+    };
     
     const currentAddress = addresses.find(address => address.current);
     const otherAddress = addresses.filter(address => (!address.current));

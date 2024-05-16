@@ -6,7 +6,7 @@ import ArrowLeft from '@/components/siteIcons/ArrowLeft.svg'
 import { Paper } from '@mui/material'
 import { fetchNotifications, SeenMessages } from '@/services/DashBoard'
 import { useAuth } from '@/context/AuthContext';
-
+import { enqueueSnackbar } from "notistack"; // Import enqueueSnackbar from your Snackbar context
 
 export default function DashBoardNotifications() {
 
@@ -19,12 +19,28 @@ export default function DashBoardNotifications() {
     }, [tokens]);
 
     const GetNotifications = async () => {
-        setNotifications((await fetchNotifications(tokens)).data)
-    }
+        try {
+            const response = await fetchNotifications(tokens);
+            if (response) {
+                setNotifications(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+            enqueueSnackbar({ message: error.message || "خطا در دریافت اعلان‌ها.", variant: "error" });
+        }
+    };
 
     const SeenAllMessages = async () => {
-        alert((await SeenMessages(tokens)).message)
-    }
+        try {
+            const response = await SeenMessages(tokens);
+            if (response) {
+                enqueueSnackbar({ message: response.message || "تمامی پیام‌ها دیده شدند.", variant: "success" });
+            }
+        } catch (error) {
+            console.error('خطا در دیدن تمامی پیام‌ها:', error);
+            enqueueSnackbar({ message: error.message || "خطا در دیدن تمامی پیام‌ها.", variant: "error" });
+        }
+    };
 
     return (
         <Paper

@@ -54,40 +54,40 @@ export default function DashBoardAddress() {
     const MakeCurrent = async () => {
         try {
             if (!selectedAddressId) {
-                alert('Please select an address first');
+                alert('لطفا ابتدا یک آدرس انتخاب کنید'); // Persian: Please select an address first
                 return;
             }
             const response = ((await MakeDefaultAddress(selectedAddressId, tokens)).messages);
             setAddress((await fetchAddresses(tokens)).data);
-            alert(`${response}`);
+            alert(`${response}`); // Assuming response is already appropriately formatted or translated elsewhere
         } catch (error) {
-            console.error('Error setting default address:', error);
-            alert(error.message);
-        };
-    }
+            console.error('خطا در تنظیم آدرس پیش‌فرض:', error); // Persian: Error setting default address
+            alert(error.message || 'خطا در تنظیم به عنوان آدرس پیش‌فرض.'); // Persian: Failed to set as default address
+        }
+    };
 
     const RemoveAddress = async () => {
         try {
             if (!selectedAddressId) {
-                alert('Please select an address first');
+                alert('لطفا ابتدا یک آدرس انتخاب کنید'); // Persian: Please select an address first
                 return;
             }
-            const isConfirmed = window.confirm('Are you sure you want to delete this address?');
+            const isConfirmed = window.confirm('آیا از حذف این آدرس اطمینان دارید؟'); // Persian: Are you sure you want to delete this address?
             if (!isConfirmed) {
                 return;
             }
             const response = await DeleteAddress(selectedAddressId, tokens);
             if (response.status === 204) {
                 setAddress((await fetchAddresses(tokens)).data);
-                alert(response.message);
+                alert(response.message || 'آدرس با موفقیت حذف شد.'); // Persian: Address deleted successfully
             } else {
-                alert(response.message || 'Address deleted successfully.');
+                alert(response.message || 'آدرس با موفقیت حذف شد.'); // Persian: Address deleted successfully
             }
         } catch (error) {
-            console.error('Error deleting address:', error);
-            alert(error.message || 'Failed to delete the address.');
+            console.error('خطا در حذف آدرس:', error); // Persian: Error deleting address
+            alert(error.message || 'ناتوان در حذف آدرس.'); // Persian: Failed to delete the address
         }
-    };    
+    };       
 
     const AddAddress = async () => {
         try {

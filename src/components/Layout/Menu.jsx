@@ -304,7 +304,7 @@ const Categories = ({ handleClose }) => {
 
 const DashBoardItems = ({ handleClose }) => {
     const { menuItemValue, setMenuItemValue } = useMenuItemContext();
-    const [isOpened, setisOpened] = useState(false);
+    const [isOpened, setIsOpened] = useState(false);
     const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
     const handleLogout = () => {
@@ -318,7 +318,7 @@ const DashBoardItems = ({ handleClose }) => {
     </SvgIcon>
 
     const handleClick = () => {
-        setisOpened(!isOpened);
+        setIsOpened(!isOpened);
     };
 
     let DashBoardItemStatus;
@@ -412,7 +412,7 @@ const DashBoardItems = ({ handleClose }) => {
                         isSubItem
                         handleClose={handleClose}
                         onClick={() => setMenuItemValue(4)}
-                        link="/dashboard"
+                        link="/dashboard"       
                         label="سفارشات"
                         icon={
                             <SvgIcon width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">

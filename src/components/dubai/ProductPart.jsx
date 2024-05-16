@@ -7,6 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
 	Box,
 	Button,
+	Card,
 	CardContent,
 	CardMedia,
 	Container,
@@ -14,6 +15,16 @@ import {
 	Typography,
 } from "@mui/material";
 import SuccessDialog from "./SuccessDialog";
+import { enqueueSnackbar } from "notistack";
+
+import * as yup from "yup";
+
+const schema = yup.object({
+	url: yup
+		.string()
+		.required("لطفا لینک محصول را وارد نمایید")
+		.url("لطفا یک لینک معتبر وارد کنید"),
+});
 
 const ProductPart = () => {
 	const [showDialog, setShowDialog] = useState(false);
@@ -36,9 +47,20 @@ const ProductPart = () => {
 	const [showProduct, setShowProduct] = useState(false);
 
 	const sendUrlBtn = async () => {
-		const response = await createProduct(url);
-		setProduct(response.data);
-		setShowProduct(true);
+		try {
+			await schema.validate({ url });
+			try {
+				enqueueSnackbar({ message: "در حال جستجو...", variant: "info" });
+				const { data } = await createProduct(url);
+				enqueueSnackbar({ message: "محصول یافت شد!", variant: "success" });
+				setProduct(data);
+				setShowProduct(true);
+			} catch (error) {
+				enqueueSnackbar({ message: "خطایی رخ داد!", variant: "error" });
+			}
+		} catch (error) {
+			enqueueSnackbar({ message: error.message, variant: "error" });
+		}
 	};
 
 	const { tokens } = useAuth();
@@ -100,19 +122,19 @@ const ProductPart = () => {
 							flexDirection: { xs: "column", md: "row" },
 							justifyContent: { xs: "center", md: "start" },
 						}}>
-						<CardMedia
-							src={
-								"https://pimcdn.sharafdg.com/cdn-cgi/image/width=600,height=600,fit=pad/images/S200769426_1?1713516045?g=0"
-							}
-							sx={{
-								height: 400,
-								width: 400,
-								borderRadius: 10,
-								ml: { xs: 0, md: 7 },
-								mb: 3,
-							}}
-						/>
-						<CardContent>
+						<Box>
+							<CardMedia
+								image={product.image_link}
+								sx={{
+									height: 400,
+									width: 400,
+									borderRadius: 10,
+									ml: { xs: 0, md: 7 },
+									mb: 3,
+								}}
+							/>
+						</Box>
+						<Box>
 							<Typography
 								variant="h4"
 								fontWeight={900}>
@@ -209,7 +231,7 @@ const ProductPart = () => {
 									</Typography>
 								</Button>
 							</Box>
-						</CardContent>
+						</Box>
 					</Box>
 				) : (
 					""

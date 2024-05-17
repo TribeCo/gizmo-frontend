@@ -321,6 +321,27 @@ export const ApplyCoupon = async (couponCode, tokens) => {
     }
 }
 
+export const RevokeCoupon = async (couponCode, tokens) => {
+    try {
+        const response = await fetch(`${baseUrl}/api/coupon/revoke/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokens.access}`
+            },
+        });
+        if (!response.ok) {
+            const errorText = await response.text(); 
+            throw new Error(errorText || 'ناتوان در لغو کوپن. لطفا دوباره تلاش کنید.');
+        }
+        const data = await response.json();
+        return data.message || 'کوپن با موفقیت لغو شد.';
+    } catch (error) {
+        console.error('خطا در لغو کوپن:', error);
+        return error.message || 'خطا در لغو کوپن. لطفا بعدا تلاش کنید.';
+    }
+}
+
 export const formatFullAddress = (address) => {
 	if (!address) {
 		return ""; // Return an empty string if address is null or undefined

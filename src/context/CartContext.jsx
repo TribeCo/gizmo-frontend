@@ -41,7 +41,9 @@ export const CartProvider = ({ children }) => {
 				return 0;
 			}
 		}
-		const newCartList = cartList;
+		const newCartList = cartList.map((a) => {
+			return { ...a };
+		});
 		if (!id) {
 			id = cartList.length > 0 ? cartList[cartList.length - 1].cid + 1 : 1;
 		}
@@ -53,7 +55,7 @@ export const CartProvider = ({ children }) => {
 	};
 
 	//?
-	const updateCartList = async (localCartList) => {
+	const updateCartList = async ({ tokens }) => {
 		try {
 			const response = await fetch(`${baseUrl}/api/cart/item/add/list/`, {
 				method: "POST",
@@ -64,11 +66,13 @@ export const CartProvider = ({ children }) => {
 				next: {
 					revalidate: 1,
 				},
-				body: JSON.stringify({
-					data: localCartList,
-				}),
+				body: JSON.stringify(cartList),
 			});
-			console.log(await response.json());
+			const res = await response.json();
+			console.log(res);
+			if (typeof window !== "undefined") {
+				localStorage.setItem("cartList", JSON.stringify(res.data.items));
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -104,36 +108,14 @@ export const CartProvider = ({ children }) => {
 		}
 	};
 
-	const getCart = async ({ tokens }) => {
-		if (tokens.access) {
-			try {
-				const response = await fetch(`${baseUrl}/api/cart/`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${tokens.access}`,
-					},
-					next: {
-						revalidate: 0,
-					},
-				});
-				const { cart } = await response.json();
-				console.log(cart);
-				if (response.ok) {
-					setCartList(cart);
-					return cart;
-				}
-			} catch (error) {
-				console.log(error);
-				return 0;
-			}
-		}
+	const getCart = () => {
+		return JSON.parse(localStorage.getItem("cartList") || "[]");
 	};
 
 	const deleteList = async () => {
 		setCartList([]);
 		if (typeof window !== "undefined") {
-			localStorage.setItem("cartList", JSON.stringify(cartStorageFilter));
+			localStorage.setItem("cartList", JSON.stringify([]));
 		}
 	};
 

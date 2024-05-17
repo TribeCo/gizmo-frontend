@@ -4,6 +4,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
 import * as Yup from "yup";
 import { Colors } from "@/utils";
+import { useCart } from "@/context/CartContext";
 
 const LoginForm = ({ open, onClose, setPopupState }) => {
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -22,6 +23,7 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 	});
 
 	const { loginUser } = useAuth();
+	const { updateCartList } = useCart();
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
@@ -33,7 +35,8 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 				},
 				{ abortEarly: false },
 			);
-			loginUser(phoneNumber, password);
+			const tokens = await loginUser(phoneNumber, password);
+			updateCartList({ tokens });
 			onClose();
 		} catch (validationErrors) {
 			const newErrors = {};

@@ -31,7 +31,7 @@ export default function Summary({ Information }) {
         }
     };
 
-    const initialCouponState = JSON.parse(localStorage.getItem('isCouponApplied')) || true;
+    const initialCouponState = JSON.parse(localStorage.getItem('isCouponApplied')) || false;
 
     const [isCouponApplied, setIsCouponApplied] = useState(initialCouponState);
     const [buttonState, setButtonState] = useState({
@@ -52,10 +52,6 @@ export default function Summary({ Information }) {
     }, [isCouponApplied]);
 
     const handleApplyCoupon = async () => {
-        if (!code) {
-            enqueueSnackbar({ message: 'لطفا یک کد تخفیف وارد کنید', variant: "error" });
-            return;
-        }
         if (isCouponApplied) {
             try {
                 const message = await RevokeCoupon(code, tokens);
@@ -66,10 +62,15 @@ export default function Summary({ Information }) {
                 enqueueSnackbar({ message: error.message || 'خطا در لغو کوپن. لطفا دوباره تلاش کنید.', variant: "error" });
             }
         } else {
+            if (!code) {
+                enqueueSnackbar({ message: 'لطفا یک کد تخفیف وارد کنید', variant: "error" });
+                return;
+            }
             try {
                 const message = await ApplyCoupon(code, tokens);
                 enqueueSnackbar({ message: message, variant: "success" });
                 setIsCouponApplied(true);
+                SetCode("");
             } catch (error) {
                 console.error('Error applying coupon:', error);
                 enqueueSnackbar({ message: error.message || 'خطا در اعمال کد تخفیف. لطفا دوباره تلاش کنید.', variant: "error" });
@@ -157,7 +158,7 @@ export default function Summary({ Information }) {
                                         height: "45px",
                                         objectFit: "cover",
                                         marginTop: { xs: 2, lg: 3 },
-                                        display: isCouponApplied ? 'block' : 'none', // Conditionally show or hide the CardMedia
+                                        display: isCouponApplied ? 'block' : 'none',
                                     }}
                                 />
                                 <TextField
@@ -167,13 +168,12 @@ export default function Summary({ Information }) {
                                     placeholder={isCouponApplied ? 'کد تخفیف شما اعمال شد.' : 'کد تخفیف خود را وارد کنید:'}
                                     InputProps={{
                                         disableUnderline: true,
-                                        color: isCouponApplied ? '#213346' : '',
                                     }}
                                     disabled={isCouponApplied}
                                     sx={{
                                         bgcolor: isCouponApplied ? '#23CE6B99' : '#E9E9E9',
                                         marginTop: { xs: 2, lg: 3 },
-                                        width: isCouponApplied ? { xs: '200px', sm: '250px' } : { xs: '250px', sm: '300px' }, // Conditionally set the width
+                                        width: isCouponApplied ? { xs: '200px', sm: '250px' } : { xs: '250px', sm: '300px' },
                                         height: "45px",
                                         borderRadius: "10px",
                                         '& .MuiInputBase-root': {
@@ -181,8 +181,9 @@ export default function Summary({ Information }) {
                                             marginLeft: "10px",
                                         },
                                         '& .Mui-disabled': {
-                                            opacity: 0.5,
-                                            cursor: 'not-allowed'
+                                            opacity: 10,
+                                            cursor: 'not-allowed',
+                                            WebkitTextFillColor: isCouponApplied ? '#213346 !Important' : '',
                                         }
                                     }}
                                 />

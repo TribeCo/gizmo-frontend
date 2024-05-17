@@ -105,16 +105,16 @@ export const MakeDefaultAddress = async (id, tokens) => {
 			body: JSON.stringify({ id: id }),
 		});
 		if (response.ok) {
-			return response.json(); // If the response is OK, return the JSON data
+			return response.json();
 		} else if (response.status === 404) {
-			const errorText = await response.text(); // Extract the text from the 404 response
-			throw new Error(errorText || "Address not found"); // Use custom message or a default one
+			const errorText = await response.text();
+			throw new Error(errorText || "Address not found");
 		} else {
-			throw new Error("Failed to set the address as default"); // General error for other cases
+			throw new Error("Failed to set the address as default");
 		}
 	} catch (error) {
 		console.error("Error setting address as default:", error);
-		throw error; // Re-throw the error to be handled or displayed elsewhere
+		throw error;
 	}
 };
 
@@ -137,14 +137,14 @@ export const DeleteAddress = async (id, tokens) => {
 				return result;
 			}
 		} else if (response.status === 404) {
-			const errorText = await response.text(); // Extract the text from the 404 response
-			throw new Error(errorText || "Address not found"); // Use custom message or a default one
+			const errorText = await response.text();
+			throw new Error(errorText || "Address not found");
 		} else {
 			throw new Error("Failed to delete the address. Please try again.");
 		}
 	} catch (error) {
 		console.error("Error deleting the address:", error);
-		throw error; // Re-throw the error to be handled or displayed elsewhere
+		throw error;
 	}
 };
 

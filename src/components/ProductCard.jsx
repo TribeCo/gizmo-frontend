@@ -18,6 +18,7 @@ import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
 import { baseUrl } from "@/services";
 import { useAuth } from "@/context/AuthContext";
+import { availableNotification } from "@/services/ProductPage";
 
 const ProductCard = ({ product }) => {
 	//? Router init

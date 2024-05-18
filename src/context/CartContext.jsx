@@ -111,6 +111,7 @@ export const CartProvider = ({ children }) => {
 	};
 
 	const getCart = async () => {
+		console.log(cartList);
 		try {
 			const response = await fetch(`${baseUrl}/api/cart/unknown/`, {
 				method: "POST",
@@ -122,7 +123,6 @@ export const CartProvider = ({ children }) => {
 				},
 				body: JSON.stringify(cartList),
 			});
-			console.log(response);
 			return response.json();
 		} catch (error) {
 			console.log(error);

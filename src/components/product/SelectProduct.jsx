@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Colors, convert } from "@/utils";
 import {
@@ -11,6 +11,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
+import { baseUrl } from "@/services";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
@@ -123,6 +124,28 @@ const SelectProduct = ({ data }) => {
 			}
 		}
 	};
+
+	const fetchData = async () => {
+		const favResponse = await fetch(
+			`${baseUrl}/api/product/${data.slug}/fav/`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${tokens.access}`,
+				},
+			},
+		);
+		const { is_fav } = await favResponse.json();
+		setLike(is_fav);
+	};
+
+	useEffect(() => {
+		if (tokens) {
+			fetchData();
+		}
+	}, [tokens, data.slug]);
+
 	return (
 		<>
 			<Box

@@ -107,19 +107,28 @@ const CartPage = () => {
 		}
 		try {
 			const res = await ApplyCoupon(code, tokens);
-			// const response = await getCart();
-			// console.log(res.data);
-			// setData(res.data.temp_items);
-			// setTotals({
-			// 	total_price_method: res.data.total_price_method,
-			// 	total_discounted_price_method: res.data.total_discounted_price_method,
-			// 	delta_discounted_method: res.data.delta_discounted_method,
-			// 	coupon: 0,
-			// });
-			enqueueSnackbar({
-				message: res.message,
-				variant: "success",
+			const response = await getCart();
+			setData(response.data.temp_items);
+			setTotals({
+				total_price_method: response.data.total_price_method,
+				total_discounted_price_method:
+					response.data.total_discounted_price_method,
+				delta_discounted_method: response.data.delta_discounted_method,
+				coupon: 0,
 			});
+			console.log(response);
+			console.log(res);
+			if (res.message === "کد تخفیف با موفقیت اعمال شد.") {
+				enqueueSnackbar({
+					message: res.message,
+					variant: "success",
+				});
+			} else {
+				enqueueSnackbar({
+					message: "کد قبلا اعمال شده است.",
+					variant: "success",
+				});
+			}
 		} catch (error) {
 			enqueueSnackbar({
 				message: "خطا در اعمال کد تخفیف. لطفا دوباره تلاش کنید.",
@@ -132,19 +141,21 @@ const CartPage = () => {
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${tokens.access}`,
-					},
-					next: {
-						revalidate: 1000,
-					},
-				});
-				console.log(userResponse);
-				if (userResponse.ok) {
-					setUser(await userResponse.json());
+				if (tokens.access) {
+					const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${tokens.access}`,
+						},
+						next: {
+							revalidate: 1000,
+						},
+					});
+					console.log(userResponse);
+					if (userResponse.ok) {
+						setUser(await userResponse.json());
+					}
 				}
 				const res = await getCart();
 				console.log(res.data.temp_items);
@@ -154,9 +165,7 @@ const CartPage = () => {
 					total_discounted_price_method: res.data.total_discounted_price_method,
 					delta_discounted_method: res.data.delta_discounted_method,
 				});
-			} catch (error) {
-				console.log(error);
-			}
+			} catch (error) {}
 		};
 		getData();
 	}, [tokens]);

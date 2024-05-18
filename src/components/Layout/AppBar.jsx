@@ -120,20 +120,20 @@ const AppBar = ({ isLanding }) => {
 	};
 
 	const handleLogOut = () => {
-		setLogOutModalOpen(false)
+		setLogOutModalOpen(false);
 		// TODO: Log out Api
 		handleProfileClose();
-	}
+	};
 
 	const handleOrderTracking = () => {
-		setMenuItemValue(4)
+		setMenuItemValue(4);
 		handleProfileClose();
-	}
+	};
 
 	const handleDashBoardMainPage = () => {
-		setMenuItemValue(0)
+		setMenuItemValue(0);
 		handleProfileClose();
-	}
+	};
 
 	return (
 		<>
@@ -458,23 +458,22 @@ const AppBar = ({ isLanding }) => {
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={() => handleOrderTracking()}
-								>
+								onClick={() => handleOrderTracking()}>
 								<Link href={"/dashboard"}>
-								<Typography
-									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
-									پیگیری سفارش
-								</Typography>
+									<Typography
+										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
+										پیگیری سفارش
+									</Typography>
 								</Link>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
 								onClick={handleProfileClose}>
 								<Link href={"/faq"}>
-								<Typography
-									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
-									سوالات متداول
-								</Typography>
+									<Typography
+										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
+										سوالات متداول
+									</Typography>
 								</Link>
 							</MenuItem>
 							<MenuItem

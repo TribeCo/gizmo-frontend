@@ -3,6 +3,7 @@
 import { baseUrl } from "@/services";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
+import { Alumni_Sans_Collegiate_One } from "next/font/google";
 
 const CartContext = createContext();
 
@@ -108,8 +109,23 @@ export const CartProvider = ({ children }) => {
 		}
 	};
 
-	const getCart = () => {
-		return JSON.parse(localStorage.getItem("cartList") || "[]");
+	const getCart = async () => {
+		try {
+			const response = await fetch(`${baseUrl}/api/cart/unknown/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify(cartList),
+			});
+			console.log(response);
+			return response.json();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const deleteList = async () => {

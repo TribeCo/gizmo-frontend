@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import ProductsPage from '@/components/ProductsPage';
 
 export default function CategoryPage({ params }) {
-  console.log(params)
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
   const encodedSlug = pathSegments[pathSegments.length - 1]; // Gets the last segment of the URL

@@ -3,7 +3,7 @@ import { Box, Divider, Grid, Typography, Paper } from '@mui/material';
 import ProductCard from '@/components/ProductCard';
 import { fetchFavoriteProducts } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
-
+import { enqueueSnackbar } from "notistack";
 export default function DashBoardFavoriteProduct() {
 
     const[products, setProducts] = useState([])
@@ -16,8 +16,16 @@ export default function DashBoardFavoriteProduct() {
     }, [tokens]);
 
     const GetFavoriteProducts = async () => {
-        setProducts((await fetchFavoriteProducts(tokens)).data)
-    }
+        try {
+            const response = await fetchFavoriteProducts(tokens);
+            if (response) {
+                setProducts(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching favorite products:', error);
+            enqueueSnackbar({ message: error.message || "خطا در دریافت محصولات مورد علاقه.", variant: "error" });
+        }
+    };
 
     return (
         <Paper

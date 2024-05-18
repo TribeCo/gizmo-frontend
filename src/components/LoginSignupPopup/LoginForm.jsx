@@ -95,10 +95,14 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 					marginBottom: "5%",
 					"& .MuiOutlinedInput-root": { borderRadius: "20px" },
 				}}
-				error={errors.phoneNumber}
-				helperText={errors.phoneNumber}
-			/>
-
+				/>
+				{errors.phoneNumber && (
+					<Typography
+						color="error"
+						sx={{ fontSize: "0.80rem", paddingLeft: "15px" }}>
+						{errors.phoneNumber}
+					</Typography>
+				)}
 			<Typography
 				variant="body1"
 				mb={1}>
@@ -126,9 +130,14 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 					borderRadius: "20px",
 					"& .MuiOutlinedInput-root": { borderRadius: "20px" },
 				}}
-				error={errors.password}
-				helperText={errors.password}
-			/>
+				/>
+				{errors.password && (
+					<Typography
+						color="error"
+						sx={{ fontSize: "0.80rem", paddingLeft: "15px" }}>
+						{errors.password}
+					</Typography>
+				)}
 			<Button
 				variant="contained"
 				color="warning"

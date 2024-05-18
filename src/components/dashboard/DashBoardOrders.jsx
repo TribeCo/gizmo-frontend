@@ -7,6 +7,7 @@ import LevelofOrdering from './LevelofOrdering';
 import { calculateOrderLevel, fetchOrders } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
 import { toPersianDigits } from '@/utils/convert';
+import { enqueueSnackbar } from "notistack";
 
 export default function DashBoardOrders({ setId ,handleClick }) {
 
@@ -40,8 +41,16 @@ export default function DashBoardOrders({ setId ,handleClick }) {
     };
 
     const GetOrders = async () => {
-        setOrders((await fetchOrders(tokens)).data)
-    }
+        try {
+            const response = await fetchOrders(tokens);
+            if (response) {
+                setOrders(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            enqueueSnackbar({ message: error.message || "خطا در دریافت سفارش‌ها.", variant: "error" });
+        }
+    };
 
     const filteredOrders = orders.filter((order) =>
         toPersianDigits(order.ref_id).includes(searchTerm) || order.ref_id.includes(searchTerm)

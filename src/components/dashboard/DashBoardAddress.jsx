@@ -70,8 +70,8 @@ export default function DashBoardAddress() {
             setAddress((await fetchAddresses(tokens)).data);
             enqueueSnackbar({ message: `${response}`, variant: "success" });
         } catch (error) {
-            console.error('خطا در تنظیم آدرس پیش‌فرض:', error); // Persian: Error setting default address
-            alert(); // Persian: Failed to set as default address
+            console.error('خطا در تنظیم آدرس پیش‌فرض:', error);
+            alert();
             enqueueSnackbar({ message: `${error.message}` || 'خطا در تنظیم به عنوان آدرس پیش‌فرض.', variant: "error" });
         }
     };
@@ -82,7 +82,7 @@ export default function DashBoardAddress() {
                 enqueueSnackbar({ message: 'لطفا ابتدا یک آدرس انتخاب کنید', variant: "info" });
                 return;
             }
-            const isConfirmed = window.confirm('آیا از حذف این آدرس اطمینان دارید؟'); // Persian: Are you sure you want to delete this address?
+            const isConfirmed = window.confirm('آیا از حذف این آدرس اطمینان دارید؟');
             if (!isConfirmed) {
                 return;
             }
@@ -94,7 +94,7 @@ export default function DashBoardAddress() {
                 enqueueSnackbar({ message: response.message || 'آدرس با موفقیت حذف نشد.', variant: "error" });
             }
         } catch (error) {
-            console.error('خطا در حذف آدرس:', error); // Persian: Error deleting address
+            console.error('خطا در حذف آدرس:', error);
             enqueueSnackbar({ message: error.message || 'خطا در حذف آدرس:', variant: "error" });
         }
     };       

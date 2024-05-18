@@ -13,7 +13,7 @@ import { Colors } from "@/utils";
 import { ApplyCoupon, RevokeCoupon, SenderInformation } from "@/services/DashBoard";
 import { useAuth } from "@/context/AuthContext";
 import { enqueueSnackbar } from "notistack";
-import { Done } from "@/components/siteIcons/Done.png"
+import { baseUrl } from "@/services";
 
 export default function Summary({ Information }) {
 
@@ -152,7 +152,7 @@ export default function Summary({ Information }) {
                                 justifyContent={'center'}
                             >
                                 <CardMedia
-                                    image={Done}
+                                    image={`${baseUrl}/images/media/pictures/photo_2024-05-18_00-17-37.jpg`}
                                     sx={{
                                         width: "45px",
                                         height: "45px",
@@ -187,7 +187,6 @@ export default function Summary({ Information }) {
                                         }
                                     }}
                                 />
-
                             </Grid>
                             <Grid>
                                 <Button

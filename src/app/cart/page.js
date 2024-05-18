@@ -14,9 +14,12 @@ import { ApplyCoupon } from "@/services/DashBoard";
 import First from "@/components/CartPage/Pages/first";
 import Second from "@/components/CartPage/Pages/second";
 import Third from "@/components/CartPage/Pages/Third";
+import { baseUrl } from "@/services";
 
 const CartPage = () => {
 	const [state, setState] = useState(0);
+	const [user, setUser] = useState(null);
+
 	const { tokens } = useAuth();
 	const { getCart } = useCart();
 	const [data, setData] = useState([]);
@@ -26,12 +29,33 @@ const CartPage = () => {
 		delta_discounted_method: 0,
 		coupon: 0,
 	});
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (state === 0) {
-			setState(1);
+			if (user) {
+				setState(1);
+			} else {
+				const response = await fetch(`${baseUrl}/api/users/info/`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${tokens.access}`,
+					},
+				});
+				console.log(response);
+				if (response.ok) {
+					setUser(await response.json());
+					setState(1);
+				} else {
+					enqueueSnackbar({
+						message: "لطفا برای ادامه دادن وارد شوید",
+						variant: "error",
+					});
+				}
+			}
 		} else if (state === 1) {
 			setState(2);
 		} else if (state === 2) {
+			//Todo send data
 		} else {
 			enqueueSnackbar({
 				message: "خطای ناشناخته",
@@ -74,6 +98,20 @@ const CartPage = () => {
 	useEffect(() => {
 		const getData = async () => {
 			try {
+				const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${tokens.access}`,
+					},
+					next: {
+						revalidate: 1000,
+					},
+				});
+				console.log(userResponse);
+				if (userResponse.ok) {
+					setUser(await userResponse.json());
+				}
 				const res = await getCart();
 				console.log(res.data.temp_items);
 				setData(res.data.temp_items);
@@ -113,6 +151,7 @@ const CartPage = () => {
 					<>
 						<Second />
 						<Summary
+							user={user}
 							data={totals}
 							handleApplyCoupon={handleApplyCoupon}
 							handleSubmit={handleSubmit}
@@ -122,6 +161,7 @@ const CartPage = () => {
 					<>
 						<First data={data} />
 						<Summary
+							user={user}
 							data={totals}
 							handleApplyCoupon={handleApplyCoupon}
 							handleSubmit={handleSubmit}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
 	Box,
 	Grid,
@@ -9,44 +9,14 @@ import {
 	Divider,
 } from "@mui/material";
 import { Colors, convert } from "@/utils";
-import { ApplyCoupon } from "@/services/DashBoard";
-import { useAuth } from "@/context/AuthContext";
-import { enqueueSnackbar } from "notistack";
-import { baseUrl } from "@/services";
 
 export default function Summary({
 	handleSubmit,
-	Information,
-	isCouponActive,
 	handleApplyCoupon,
+	user,
 	data,
 }) {
 	const [code, SetCode] = useState("");
-	const [user, setUser] = useState(null);
-	const { tokens } = useAuth();
-
-	useEffect(() => {
-		const getData = async () => {
-			try {
-				const response = await fetch(`${baseUrl}/api/users/info/`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${tokens.access}`,
-					},
-				});
-				console.log(response);
-				if (response.ok) {
-					setUser(await response.json());
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		if (tokens) {
-			getData();
-		}
-	}, [tokens]);
 
 	return (
 		<Box

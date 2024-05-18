@@ -42,7 +42,6 @@ const SelectProduct = ({ data }) => {
 		console.log({ color: selectedColor, product: data.id, quantity: count });
 		try {
 			addToCart({ color: selectedColor, product: data.id, quantity: count });
-
 			enqueueSnackbar({
 				message: "محصول با موفقیت به سبد خرید اضافه شد",
 				variant: "success",
@@ -57,26 +56,47 @@ const SelectProduct = ({ data }) => {
 
 	const handleFavorite = async () => {
 		let response;
-		if (!like) {
-			response = await addToFavorites({
-				pid: data.id,
-				access: tokens.access,
-			});
-		} else {
-			response = await deleteFavorites({
-				pid: data.id,
-				access: tokens.access,
-			});
-		}
-		if (response.message) {
-			alert(response.message);
-			setLike(!like);
-		} else {
-			if (response.status === 401) {
-				alert("برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید");
+		try {
+			if (!like) {
+				response = await addToFavorites({
+					pid: data.id,
+					access: tokens.access,
+				});
 			} else {
-				alert("مشکلی رخ داد");
-				console.log(response.status);
+				response = await deleteFavorites({
+					pid: data.id,
+					access: tokens.access,
+				});
+			}
+			if (response.message) {
+				enqueueSnackbar({ message: response.message, variant: "success" });
+				setLike(!like);
+			} else {
+				if (response.status === 401) {
+					enqueueSnackbar({
+						message: "برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید",
+						variant: "error",
+					});
+				} else {
+					enqueueSnackbar({
+						message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+						variant: "error",
+					});
+					console.log(response.status);
+				}
+			}
+		} catch (error) {
+			console.log(error);
+			if (error.status === 401) {
+				enqueueSnackbar({
+					message: "برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید",
+					variant: "error",
+				});
+			} else {
+				enqueueSnackbar({
+					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+					variant: "error",
+				});
 			}
 		}
 	};
@@ -87,12 +107,18 @@ const SelectProduct = ({ data }) => {
 		});
 		console.log(response);
 		if (response.message) {
-			alert(response.message);
+			enqueueSnackbar({ message: response.message, variant: "success" });
 		} else {
 			if (response.status === 401) {
-				alert("برای فعال کردن این گذینه ابتدا باید وارد شوید");
+				enqueueSnackbar({
+					message: "برای فعال کردن این گذینه ابتدا باید وارد شوید",
+					variant: "error",
+				});
 			} else {
-				alert("مشکلی پیش آمد لطقا دوباره تلاش کنید.");
+				enqueueSnackbar({
+					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+					variant: "error",
+				});
 				console.log(response.status);
 			}
 		}

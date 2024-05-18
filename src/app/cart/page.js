@@ -1,16 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ProductCard from "@/components/CartPage/ProductCard";
-import Summary from "@/components/CartPage/Summary";
-import CartHeader from "@/components/CartPage/CartHeader";
-import ProgressBar from "@/components/CartPage/ProgressBar";
 
+import Summary from "@/components/CartPage/Summary";
+import ProgressBar from "@/components/CartPage/ProgressBar";
 import { Box } from "@mui/material";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { enqueueSnackbar } from "notistack";
-import { ApplyCoupon } from "@/services/DashBoard";
+import { ApplyCoupon, SenderInformation } from "@/services/DashBoard";
 import First from "@/components/CartPage/Pages/first";
 import Second from "@/components/CartPage/Pages/second";
 import Third from "@/components/CartPage/Pages/Third";
@@ -29,6 +27,20 @@ const CartPage = () => {
 		delta_discounted_method: 0,
 		coupon: 0,
 	});
+	const [SenderInfo, SetSenderInfo] = react.useState({
+		name_delivery: "",
+		phone_delivery: "",
+		description: "",
+		delivery_method: "",
+	});
+
+	const handleChangeSecondPage = (fieldName) => (event) => {
+		SetSenderInfo((prev) => ({
+			...prev,
+			[fieldName]: event.target.value,
+		}));
+	};
+
 	const handleSubmit = async () => {
 		if (state === 0) {
 			if (user) {
@@ -53,6 +65,15 @@ const CartPage = () => {
 				}
 			}
 		} else if (state === 1) {
+			try {
+				const response = await SenderInformation(SenderInfo);
+				console.log("Success:", response);
+			} catch (error) {
+				enqueueSnackbar({
+					message: "خطایی رخ داد.",
+					variant: "error",
+				});
+			}
 			setState(2);
 		} else if (state === 2) {
 			//Todo send data
@@ -149,7 +170,7 @@ const CartPage = () => {
 					<Third />
 				) : state === 1 ? (
 					<>
-						<Second />
+						<Second handleChange={handleChangeSecondPage} />
 						<Summary
 							user={user}
 							data={totals}

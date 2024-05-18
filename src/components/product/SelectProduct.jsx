@@ -10,6 +10,7 @@ import {
 } from "@/services/ProductPage";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
+import { enqueueSnackbar } from "notistack";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
@@ -39,7 +40,19 @@ const SelectProduct = ({ data }) => {
 
 	const handleAddToCart = () => {
 		console.log({ color: selectedColor, product: data.id, quantity: count });
-		addToCart({ color: selectedColor, product: data.id, quantity: count });
+		try {
+			addToCart({ color: selectedColor, product: data.id, quantity: count });
+
+			enqueueSnackbar({
+				message: "محصول با موفقیت به سبد خرید اضافه شد",
+				variant: "success",
+			});
+		} catch (error) {
+			enqueueSnackbar({
+				message: error.message,
+				variant: "error",
+			});
+		}
 	};
 
 	const handleFavorite = async () => {

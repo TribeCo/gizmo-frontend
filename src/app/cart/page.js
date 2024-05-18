@@ -4,23 +4,33 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 
+//? Components
 import Summary from "@/components/CartPage/Summary";
 import ProgressBar from "@/components/CartPage/ProgressBar";
+
+//? Contexts
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
-import { ApplyCoupon, SenderInformation } from "@/services/DashBoard";
+
+//? Pages
 import First from "@/components/CartPage/Pages/first";
 import Second from "@/components/CartPage/Pages/second";
 import Third from "@/components/CartPage/Pages/Third";
 
+//? services
 import { baseUrl } from "@/services";
+import { ApplyCoupon, SenderInformation } from "@/services/DashBoard";
 
 const CartPage = () => {
-	const [state, setState] = useState(0);
-	const [user, setUser] = useState(null);
-
+	//? Contexts
 	const { tokens } = useAuth();
 	const { getCart } = useCart();
+
+	//? Page number
+	const [state, setState] = useState(0);
+
+	//? Data
+	const [user, setUser] = useState(null);
 	const [data, setData] = useState([]);
 	const [totals, setTotals] = useState({
 		total_price_method: 0,
@@ -35,6 +45,7 @@ const CartPage = () => {
 		delivery_method: "",
 	});
 
+	//? Handlers
 	const handleChangeSecondPage = (fieldName) => (event) => {
 		SetSenderInfo((prev) => ({
 			...prev,
@@ -117,6 +128,7 @@ const CartPage = () => {
 		}
 	};
 
+	//? Component Life Cycle
 	useEffect(() => {
 		const getData = async () => {
 			try {
@@ -149,6 +161,7 @@ const CartPage = () => {
 		getData();
 	}, [tokens]);
 
+	//? Render
 	return (
 		<>
 			<Box

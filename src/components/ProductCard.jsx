@@ -15,25 +15,45 @@ import { useState } from "react";
 import { convert } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { enqueueSnackbar } from "notistack";
 
 const ProductCard = ({ product }) => {
+	//? Router init
 	const router = useRouter();
 
-	const { addToCart } = useCart({
-		color: 1,
-		product: product.id,
-		quantity: 1,
-	});
+	//? get addToCart function from cart context
+	const { addToCart } = useCart();
+
+	//? show hover state => (second)
+	const [show, setShow] = useState(false);
 
 	const handleAddToCart = () => {
-		addToCart();
+		console.log({ color: 0, product: data.id, quantity: 1 });
+		try {
+			addToCart({ color: 0, product: data.id, quantity: 1 });
+			enqueueSnackbar({
+				message: "محصول با موفقیت به سبد خرید اضافه شد",
+				variant: "success",
+			});
+		} catch (error) {
+			enqueueSnackbar({
+				message: error.message,
+				variant: "error",
+			});
+		}
 	};
 	const handleGoToProduct = () => {
 		console.log(product);
 		const url = "/products/" + product.slug;
 		router.push(url);
 	};
-	const [show, setShow] = useState(false);
+
+	const handleNotification = () => {
+		console.log({
+			product: data.id,
+		});
+	};
+
 	return (
 		<CardActionArea
 			disableRipple
@@ -170,7 +190,17 @@ const ProductCard = ({ product }) => {
 					)}
 				</IconButton>
 				<Button
-					onClick={handleAddToCart}
+					onClick={
+						product.is_available
+							? handleAddToCart
+							: () => {
+									//TODO add notification
+									enqueueSnackbar({
+										message: "در صورت مجود شدن محصول به شما اطلاع داده میشود.",
+										variant: "success",
+									});
+							  }
+					}
 					fullWidth
 					variant="contained"
 					sx={{

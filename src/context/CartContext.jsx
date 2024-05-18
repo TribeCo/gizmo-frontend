@@ -11,12 +11,13 @@ export const CartProvider = ({ children }) => {
 	const { tokens } = useAuth();
 	const [cartList, setCartList] = useState([]);
 
+	//? Use Effect for get cart items from local storage
 	useEffect(() => {
 		const storedItems = JSON.parse(localStorage.getItem("cartList") || "[]");
 		setCartList(storedItems);
 	}, [tokens]);
 
-	//*
+	//? use this function to add item to cart list (user or unknown)
 	const addToCart = async ({ color, product, quantity }) => {
 		let id;
 		if (tokens.access) {
@@ -39,7 +40,7 @@ export const CartProvider = ({ children }) => {
 				const { data } = await response.json();
 				if (response.ok) id = data.id;
 			} catch (error) {
-				return 0;
+				throw new Error("خطایی رخ داد.");
 			}
 		}
 		const newCartList = cartList.map((a) => {

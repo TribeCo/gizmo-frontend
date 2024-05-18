@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Grid, TextField, Typography, Button } from '@mui/material';
 import { AddNewAddress, fetchAddresses } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
-
+import { enqueueSnackbar } from "notistack";
 export default function DeliveryInfoCard({ setAddress }) {
     const { tokens } = useAuth();
     const [Address, SetAddress] = useState({
@@ -19,12 +19,12 @@ export default function DeliveryInfoCard({ setAddress }) {
         });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmitAddAddress = async () => {
         try {
             console.log(Address);
             const response = await AddNewAddress(Address, tokens);
             if (response) {
-                alert(response.messages || "Address added successfully.");
+                enqueueSnackbar({ message: response.messages || "آدرس با موفقیت اضافه شد.", variant: "success" });
                 setAddress((await fetchAddresses(tokens)).data);
                 SetAddress({
                     province: '',
@@ -35,7 +35,7 @@ export default function DeliveryInfoCard({ setAddress }) {
             }
         } catch (error) {
             console.error('Error sending data to the API:', error);
-            alert(error.message || "Failed to add new address.")
+            enqueueSnackbar({ message: error.message || "خطا در ارسال اطلاعات به سرور.", variant: "error" });
         }
     };
 
@@ -122,7 +122,7 @@ export default function DeliveryInfoCard({ setAddress }) {
                 </Grid>
                 <Button
                     variant="contained"
-                    onClick={handleSubmit}
+                    onClick={handleSubmitAddAddress}
                     sx={{
                         backgroundColor: '#FFCC70', // Button background color
                         '&:hover': {

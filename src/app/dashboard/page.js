@@ -28,6 +28,7 @@ import { useAuth } from "@/context/AuthContext";
 import { fetchActivties, fetchInformation } from "@/services/DashBoard";
 import { useRouter } from "next/navigation";
 import { toPersianDigits } from "@/utils/convert";
+import { enqueueSnackbar } from "notistack";
 
 export default function Profile() {
 	const [logoutModalOpen, setLogoutModalOpen] = useState(false);
@@ -53,7 +54,10 @@ export default function Profile() {
 				console.log(data);
 				setInformation(data);
 				setActivites(await fetchActivties(tokens));
-			} catch (error) {}
+			} catch (error) {
+				console.error('Error fetching information:', error);
+				enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+			}
 		};
 		if (tokens) {
 			GetInformation();

@@ -105,16 +105,16 @@ export const MakeDefaultAddress = async (id, tokens) => {
 			body: JSON.stringify({ id: id }),
 		});
 		if (response.ok) {
-			return response.json(); // If the response is OK, return the JSON data
+			return response.json();
 		} else if (response.status === 404) {
-			const errorText = await response.text(); // Extract the text from the 404 response
-			throw new Error(errorText || "Address not found"); // Use custom message or a default one
+			const errorText = await response.text();
+			throw new Error(errorText || "Address not found");
 		} else {
-			throw new Error("Failed to set the address as default"); // General error for other cases
+			throw new Error("Failed to set the address as default");
 		}
 	} catch (error) {
 		console.error("Error setting address as default:", error);
-		throw error; // Re-throw the error to be handled or displayed elsewhere
+		throw error;
 	}
 };
 
@@ -137,14 +137,14 @@ export const DeleteAddress = async (id, tokens) => {
 				return result;
 			}
 		} else if (response.status === 404) {
-			const errorText = await response.text(); // Extract the text from the 404 response
-			throw new Error(errorText || "Address not found"); // Use custom message or a default one
+			const errorText = await response.text();
+			throw new Error(errorText || "Address not found");
 		} else {
 			throw new Error("Failed to delete the address. Please try again.");
 		}
 	} catch (error) {
 		console.error("Error deleting the address:", error);
-		throw error; // Re-throw the error to be handled or displayed elsewhere
+		throw error;
 	}
 };
 
@@ -290,16 +290,57 @@ export const EditPassword = async (passwordData, tokens) => {
 			},
 			body: JSON.stringify(passwordData),
 		});
-
-		if (!response.ok) {
-			throw new Error("Network response was not ok");
-		}
-
-		return response.json();
-	} catch (error) {
-		console.error("There was a problem with the fetch operation:", error);
-	}
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
 };
+
+export const ApplyCoupon = async (couponCode, tokens) => {
+    try {
+        const response = await fetch(`${baseUrl}/api/coupon/apply/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokens.access}`
+            },
+            body: JSON.stringify({ code: couponCode })
+        });
+        if (!response.ok) {
+            const errorText = await response.text(); 
+            throw new Error(errorText || 'ناتوان در اعمال کوپن. لطفا دوباره تلاش کنید.');
+        }
+        const data = await response.json();
+        return data.message || 'کوپن با موفقیت اعمال شد.';
+    } catch (error) {
+        console.error('خطا در اعمال کوپن:', error);
+        return error.message || 'خطا در اعمال کوپن. لطفا بعدا تلاش کنید.';
+    }
+}
+
+export const RevokeCoupon = async (couponCode, tokens) => {
+    try {
+        const response = await fetch(`${baseUrl}/api/coupon/revoke/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokens.access}`
+            },
+        });
+        if (!response.ok) {
+            const errorText = await response.text(); 
+            throw new Error(errorText || 'ناتوان در لغو کوپن. لطفا دوباره تلاش کنید.');
+        }
+        const data = await response.json();
+        return data.message || 'کوپن با موفقیت لغو شد.';
+    } catch (error) {
+        console.error('خطا در لغو کوپن:', error);
+        return error.message || 'خطا در لغو کوپن. لطفا بعدا تلاش کنید.';
+    }
+}
 
 export const formatFullAddress = (address) => {
 	if (!address) {

@@ -9,26 +9,27 @@ import LocationOnIcon from "@mui/icons-material/LocationOn"; // Location icon
 import EmailIcon from "@mui/icons-material/Email"; // Gmail icon
 import LineSplitter from "@/components/LineSpliter";
 import { baseUrl } from "@/services";
+import { fetchGizmoInfo } from "@/services/Faq";
+import { enqueueSnackbar } from "notistack";
 
 function ContactUs() {
 	const [gizmoinfo, setGizmoInfo] = useState([]);
 	useEffect(() => {
-		const fetchGizmo = async () => {
-			try {
-				const response = await fetch(`${baseUrl}/api/config/aboutus/`, {});
-				if (!response.ok) {
-					throw new Error("Network response was not ok");
-				}
-				const data = await response.json();
-				setGizmoInfo(data.data);
-			} catch (error) {
-				console.error("There was a problem with the fetch operation:", error);
-			}
-		};
-		fetchGizmo();
+		handleFetchGizmoInfo();
 	}, []);
 
-	// URLs for the images
+	const handleFetchGizmoInfo = async () => {
+		try {
+			const response = await fetchGizmoInfo();
+			if (response) {
+				setGizmoInfo(response.data);
+			}
+		} catch (error) {
+			console.error('خطا در دریافت اطلاعات:', error);
+			enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+		}
+	};
+
 	const imageUrls = [
 		`${baseUrl}/images/media/pictures/handContactus.png`,
 		`${baseUrl}/images/media/pictures/Contactus24.png`,
@@ -41,7 +42,6 @@ function ContactUs() {
 		"محصولات با کیفیت و گسترده",
 	];
 
-	// Explanatory texts for each image
 	const imageExplanations = [
 		"با طراحی کارپسندانه و ساده٬ شما به راحتی می‌توانید محصولات مورد نظر خود را جستجو کنید و با چند کلیک ساده آنها را به سبد خرید خود اضافه کنید.",
 		"هر ساعتی از شبانه‌روز از طریق ایمیل٬ تلگرام٬ اینیستاگرام و سایت در کنار شما هستیم.",

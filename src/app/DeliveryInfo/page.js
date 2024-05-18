@@ -7,7 +7,6 @@ import DeliveryInfoMain from "../../components/CartPage/DeliveryInfoMain";
 
 export default function DeliveryInfo() {
 
-
     const [SenderInfo, SetSenderInfo] = useState({
         name_delivery: '',
         phone_delivery: '',

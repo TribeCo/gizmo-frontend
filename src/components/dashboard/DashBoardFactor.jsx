@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { fetchFactors, formatFullAddress } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
 import { toPersianDigits } from '@/utils/convert';
-
+import { enqueueSnackbar } from "notistack";
 
 export default function DashBoardFactor({ id }) {
 
@@ -29,7 +29,7 @@ export default function DashBoardFactor({ id }) {
             }
         } catch (error) {
             console.error('Error fetching factors:', error);
-            alert(error.message);
+            enqueueSnackbar({ message: error.message || "خطا در دریافت فاکتورها.", variant: "error" });
         }
     };
 

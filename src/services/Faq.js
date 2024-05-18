@@ -11,11 +11,11 @@ export const fetchQuestions = async (id) => {
 			},
         });
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('خطا در دریافت اطلاعات. لطفا دوباره تلاش کنید.');
         }
-        return (response.json());
+        return response.json();
     } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
+        console.error("خطا در عملیات دریافت:", error);
     }
 };
 
@@ -31,11 +31,31 @@ export const fetchIcons = async () => {
 			},
         });
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('خطا در دریافت اطلاعات. لطفا دوباره تلاش کنید.');
         }
-        return (response.json());
+        return response.json();
     } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
+        console.error("خطا در عملیات دریافت:", error);
+    }
+};
+
+export const fetchGizmoInfo = async () => {
+    try {
+        const response = await fetch(`${baseUrl}/api/config/aboutus/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            next: {
+                revalidate: 10,
+            },
+        });
+        if (!response.ok) {
+            throw new Error('خطا در دریافت اطلاعات. لطفا دوباره تلاش کنید.');
+        }
+        return response.json();
+    } catch (error) {
+        console.error("خطا در عملیات دریافت:", error);
     }
 };
 

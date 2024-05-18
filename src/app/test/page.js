@@ -1,8 +1,9 @@
 "use client";
 
 const image =
-	"https://gn02.liara.run/images/media/pictures/payment_success_vector_uCxkE4T.png";
+	`${baseUrl}/images/media/pictures/payment_success_vector_uCxkE4T.png`;
 
+import { baseUrl } from "@/services";
 import {
 	Box,
 	Button,

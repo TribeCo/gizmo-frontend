@@ -2,16 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Colors } from "@/utils";
 import eye from "@/components/siteIcons/eye-slash.svg";
 import Image from "next/image";
-import NumberFormat from "react-number-format";
 import { useAuth } from "@/context/AuthContext";
-import { Button, Typography, Card, Stack, Paper } from "@mui/material";
+import { Button, Typography, Stack, Paper } from "@mui/material";
 import { EditPassword, EditProfile } from "@/services/DashBoard";
-import { InfoSharp } from "@mui/icons-material";
+import { enqueueSnackbar } from "notistack";
 
 export default function DashBoardEditProfile({ information }) {
-	const [showPassword, setShowPassword] = React.useState(false);
-	const [newPasswordIteration, setNewPasswordIteration] = React.useState("");
-	const [firstField, setFirstField] = React.useState("password");
 	const [secondField, setSecondField] = React.useState("password");
 	const [thirdField, setThirdField] = React.useState("password");
 	const [forthField, setForthField] = React.useState("password");
@@ -42,7 +38,7 @@ export default function DashBoardEditProfile({ information }) {
 		try {
 			const response = await EditProfile(newProfileData, tokens);
 			if (response) {
-				alert(response.messages || "Profile updated successfully.");
+				enqueueSnackbar({ message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.", variant: "success" });
 				setNewProfileData({
 					first_name: "",
 					last_name: "",
@@ -52,20 +48,20 @@ export default function DashBoardEditProfile({ information }) {
 				});
 			}
 		} catch (error) {
-			console.error('Error sending data to the API:', error);
-			alert(error.message || "Failed to update profile."); // Alert the user with the error message
+			console.error('خطا در ارسال داده به API:', error);
+			enqueueSnackbar({ message: error.message || "به‌روزرسانی پروفایل ناموفق بود.", variant: "error" });
 		}
 	};
-
+	
 	const editNewProfilePassword = async () => {
 		if (newProfilePassword.new_password !== newProfilePassword.new_password_confirm) {
-			alert("Passwords do not match. Please make sure your new password and confirm password fields match.");
+			enqueueSnackbar({ message: "رمزهای عبور مطابقت ندارند. لطفاً مطمئن شوید که رمز عبور جدید و تأیید رمز عبور شما مطابقت دارند.", variant: "error" });
 			return;
 		}
 		try {
-			const response = await EditPassword(newProfilePassword, tokens); // Assuming EditPassword is a similar function that handles password updating
+			const response = await EditPassword(newProfilePassword, tokens);
 			if (response) {
-				alert(response.messages || "Password updated successfully.");
+				enqueueSnackbar({ message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.", variant: "success" });
 				setNewProfilePassword({
 					new_password_confirm: "",
 					password: "",
@@ -73,8 +69,8 @@ export default function DashBoardEditProfile({ information }) {
 				});
 			}
 		} catch (error) {
-			console.error('Error sending data to the API:', error);
-			alert(error.message || "Failed to update password."); // Alert the user with the error message
+			console.error('خطا در ارسال داده به API:', error);
+			enqueueSnackbar({ message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.", variant: "error" });
 		}
 	};
 

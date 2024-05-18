@@ -15,6 +15,7 @@ import {
     Paper,
 } from "@mui/material";
 import { AddNewAddress, DeleteAddress, MakeDefaultAddress, fetchAddresses } from '@/services/DashBoard';
+import { enqueueSnackbar } from "notistack";
 
 export default function DashBoardAddress() {
 
@@ -30,8 +31,16 @@ export default function DashBoardAddress() {
     }, [tokens]);
 
     const handleGetAddress = async () => {
-        setAddress((await fetchAddresses(tokens)).data)
-    }
+        try {
+            const response = await fetchAddresses(tokens);
+            if (response) {
+                setAddress(response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching addresses:', error);
+            enqueueSnackbar({ message: error.message || "خطا در دریافت آدرس‌ها.", variant: "error" });
+        }
+    };
 
     const handleRadioChange = (event) => {
         setSelectedAddressId(event.target.value);
@@ -54,46 +63,47 @@ export default function DashBoardAddress() {
     const MakeCurrent = async () => {
         try {
             if (!selectedAddressId) {
-                alert('Please select an address first');
+                enqueueSnackbar({ message: 'لطفا ابتدا یک آدرس انتخاب کنید', variant: "info" });
                 return;
             }
             const response = ((await MakeDefaultAddress(selectedAddressId, tokens)).messages);
             setAddress((await fetchAddresses(tokens)).data);
-            alert(`${response}`);
+            enqueueSnackbar({ message: `${response}`, variant: "success" });
         } catch (error) {
-            console.error('Error setting default address:', error);
-            alert(error.message);
-        };
-    }
+            console.error('خطا در تنظیم آدرس پیش‌فرض:', error);
+            alert();
+            enqueueSnackbar({ message: `${error.message}` || 'خطا در تنظیم به عنوان آدرس پیش‌فرض.', variant: "error" });
+        }
+    };
 
     const RemoveAddress = async () => {
         try {
             if (!selectedAddressId) {
-                alert('Please select an address first');
+                enqueueSnackbar({ message: 'لطفا ابتدا یک آدرس انتخاب کنید', variant: "info" });
                 return;
             }
-            const isConfirmed = window.confirm('Are you sure you want to delete this address?');
+            const isConfirmed = window.confirm('آیا از حذف این آدرس اطمینان دارید؟');
             if (!isConfirmed) {
                 return;
             }
             const response = await DeleteAddress(selectedAddressId, tokens);
             if (response.status === 204) {
                 setAddress((await fetchAddresses(tokens)).data);
-                alert(response.message);
+                enqueueSnackbar({ message: response.message || 'آدرس با موفقیت حذف شد.', variant: "success" });
             } else {
-                alert(response.message || 'Address deleted successfully.');
+                enqueueSnackbar({ message: response.message || 'آدرس با موفقیت حذف نشد.', variant: "error" });
             }
         } catch (error) {
-            console.error('Error deleting address:', error);
-            alert(error.message || 'Failed to delete the address.');
+            console.error('خطا در حذف آدرس:', error);
+            enqueueSnackbar({ message: error.message || 'خطا در حذف آدرس:', variant: "error" });
         }
-    };    
+    };       
 
     const AddAddress = async () => {
         try {
             const response = await AddNewAddress(Address, tokens);
-            if (response) { // Since the response will be the data or an error, checking if it exists suffices
-                alert(response.messages || "Address added successfully.");
+            if (response) {
+                enqueueSnackbar({ message: response.messages || "آدرس با موفقیت اضافه شد.", variant: "success" });
                 setAddress((await fetchAddresses(tokens)).data);
                 SetAddress({
                     province: '',
@@ -103,11 +113,10 @@ export default function DashBoardAddress() {
                 });
             }
         } catch (error) {
-            console.error('Error sending data to the API:', error);
-            alert(error.message || "Failed to add new address."); // Alert the user with the error message
+            console.error('خطا در ارسال داده به API:', error);
+            enqueueSnackbar({ message: error.message || "افزودن آدرس جدید ناموفق بود.", variant: "error" });
         }
-    };
-    
+    };    
 
     return (
         <Paper

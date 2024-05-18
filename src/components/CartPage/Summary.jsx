@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Grid,
@@ -6,20 +6,75 @@ import {
     Button,
     TextField,
     SvgIcon,
-    Divider
+    Divider,
+    CardMedia
 } from "@mui/material";
 import { Colors } from "@/utils";
-
-
+import { ApplyCoupon, RevokeCoupon, SenderInformation } from "@/services/DashBoard";
+import { useAuth } from "@/context/AuthContext";
+import { enqueueSnackbar } from "notistack";
+import { baseUrl } from "@/services";
 
 export default function Summary({ Information }) {
 
-    const handleSubmit = async () => {
+    const [code, SetCode] = useState("");
+    const { tokens } = useAuth();
+
+    const handleSubmitSenderInformation = async () => {
         try {
             const response = await SenderInformation(Information);
             console.log('Success:', response);
+            enqueueSnackbar({ message: 'اطلاعات با موفقیت ارسال شد.', variant: "success" });
         } catch (error) {
             console.error('Error:', error);
+            enqueueSnackbar({ message: error.message || "خطا در ارسال اطلاعات.", variant: "error" });
+        }
+    };
+
+    const initialCouponState = JSON.parse(localStorage.getItem('isCouponApplied')) || false;
+
+    const [isCouponApplied, setIsCouponApplied] = useState(initialCouponState);
+    const [buttonState, setButtonState] = useState({
+        text: initialCouponState ? 'انصراف' : 'اعمال',
+        color: initialCouponState ? 'error' : 'warning',
+        bgcolor: initialCouponState ? '#f59595' : Colors.orange,
+        fontColor: initialCouponState ? '#213346' : '#213346'
+    });
+
+    useEffect(() => {
+        localStorage.setItem('isCouponApplied', JSON.stringify(isCouponApplied));
+        setButtonState({
+            text: isCouponApplied ? 'انصراف' : 'اعمال',
+            color: isCouponApplied ? 'error' : 'warning',
+            bgcolor: isCouponApplied ? '#f59595' : Colors.orange,
+            fontColor: isCouponApplied ? '#213346' : '#213346'
+        });
+    }, [isCouponApplied]);
+
+    const handleApplyCoupon = async () => {
+        if (isCouponApplied) {
+            try {
+                const message = await RevokeCoupon(code, tokens);
+                enqueueSnackbar({ message: message, variant: "success" });
+                setIsCouponApplied(false);
+            } catch (error) {
+                console.error('Error revoking coupon:', error);
+                enqueueSnackbar({ message: error.message || 'خطا در لغو کوپن. لطفا دوباره تلاش کنید.', variant: "error" });
+            }
+        } else {
+            if (!code) {
+                enqueueSnackbar({ message: 'لطفا یک کد تخفیف وارد کنید', variant: "error" });
+                return;
+            }
+            try {
+                const message = await ApplyCoupon(code, tokens);
+                enqueueSnackbar({ message: message, variant: "success" });
+                setIsCouponApplied(true);
+                SetCode("");
+            } catch (error) {
+                console.error('Error applying coupon:', error);
+                enqueueSnackbar({ message: error.message || 'خطا در اعمال کد تخفیف. لطفا دوباره تلاش کنید.', variant: "error" });
+            }
         }
     };
 
@@ -76,7 +131,6 @@ export default function Summary({ Information }) {
                                 کد تخفیف
                             </Typography>
                         </Grid>
-
                         <Divider
                             sx={{
                                 mb: 2,
@@ -92,32 +146,55 @@ export default function Summary({ Information }) {
                                 flexDirection: { xs: 'column', sm: 'row', lg: 'column' },
                             }}
                         >
-                            <Grid>
+                            <Grid
+                                display={'flex'}
+                                flexDirection={'row'}
+                                justifyContent={'center'}
+                            >
+                                <CardMedia
+                                    image={`${baseUrl}/images/media/pictures/photo_2024-05-18_00-17-37.jpg`}
+                                    sx={{
+                                        width: "45px",
+                                        height: "45px",
+                                        objectFit: "cover",
+                                        marginTop: { xs: 2, lg: 3 },
+                                        display: isCouponApplied ? 'block' : 'none',
+                                    }}
+                                />
                                 <TextField
                                     variant="standard"
-                                    placeholder="کد تخفیف خود را وارد کنید:"
+                                    value={code}
+                                    onChange={(e) => SetCode(e.target.value)}
+                                    placeholder={isCouponApplied ? 'کد تخفیف شما اعمال شد.' : 'کد تخفیف خود را وارد کنید:'}
                                     InputProps={{
                                         disableUnderline: true,
                                     }}
+                                    disabled={isCouponApplied}
                                     sx={{
-                                        marginTop: { xs: 2, lg: 4 },
-                                        width: { xs: '250px', sm: '300px' },
+                                        bgcolor: isCouponApplied ? '#23CE6B99' : '#E9E9E9',
+                                        marginTop: { xs: 2, lg: 3 },
+                                        width: isCouponApplied ? { xs: '200px', sm: '250px' } : { xs: '250px', sm: '300px' },
                                         height: "45px",
                                         borderRadius: "10px",
-                                        background: "#E9E9E9",
                                         '& .MuiInputBase-root': {
                                             marginTop: "7px",
                                             marginLeft: "10px",
                                         },
+                                        '& .Mui-disabled': {
+                                            opacity: 10,
+                                            cursor: 'not-allowed',
+                                            WebkitTextFillColor: isCouponApplied ? '#213346 !Important' : '',
+                                        }
                                     }}
                                 />
                             </Grid>
                             <Grid>
                                 <Button
+                                    onClick={handleApplyCoupon}
                                     variant="contained"
-                                    color="warning"
+                                    color={buttonState.color}
                                     sx={{
-                                        bgcolor: Colors.orange,
+                                        bgcolor: buttonState.bgcolor,
                                         boxShadow: 'none',
                                         marginTop: { xs: 2, lg: 2 },
                                         width: { xs: '150px', sm: '110px', lg: "185px" },
@@ -126,13 +203,13 @@ export default function Summary({ Information }) {
                                         borderRadius: "20px",
                                         opacity: "0.8px",
                                         "&:hover": {
-                                            bgcolor: Colors.orange,
+                                            bgcolor: buttonState.bgcolor,
                                         },
                                     }}
                                 >
                                     <Typography
                                         variant="h6"
-                                        color="#213346"
+                                        color={buttonState.fontColor}
                                         fontWeight={"bold"}
                                         align="center"
                                         id="login-button"
@@ -140,12 +217,11 @@ export default function Summary({ Information }) {
                                             fontSize: { xs: 18, sm: 20 },
                                         }}
                                     >
-                                        اعمال
+                                        {buttonState.text}
                                     </Typography>
                                 </Button>
                             </Grid>
                         </Grid>
-
                     </Box>
                 </Grid>
                 <Grid>
@@ -164,13 +240,10 @@ export default function Summary({ Information }) {
                             sx={{
                                 pb: { xs: 2, sm: 4 },
                                 fontSize: { xs: 22, sm: 26 }
-
                             }}
                         >
                             فاکتور خرید شما
                         </Typography>
-
-
                         <Divider
                             sx={{
                                 mb: 2,
@@ -178,7 +251,6 @@ export default function Summary({ Information }) {
                                 width: { xs: '100%', lg: '330px', border: '1px solid #B4B4B4' }
                             }}
                         />
-
                         <Box
                             display='flex'
                             flexDirection='row'
@@ -273,7 +345,7 @@ export default function Summary({ Information }) {
                     <Button
                         variant="contained"
                         color="warning"
-                        onClick={handleSubmit}
+                        onClick={handleSubmitSenderInformation}
                         sx={{
                             bgcolor: Colors.orange,
                             boxShadow: 'none',
@@ -302,6 +374,3 @@ export default function Summary({ Information }) {
         </Box>
     );
 };
-
-
-

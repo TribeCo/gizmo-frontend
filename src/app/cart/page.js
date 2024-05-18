@@ -64,6 +64,9 @@ const CartPage = () => {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${tokens.access}`,
 					},
+					next: {
+						revalidate: 1,
+					},
 				});
 				console.log(userResponse);
 				if (userResponse.ok) {
@@ -116,6 +119,7 @@ const CartPage = () => {
 				delta_discounted_method: response.data.delta_discounted_method,
 				coupon: 0,
 			});
+
 			console.log(response);
 			console.log(res);
 			if (res.message === "کد تخفیف با موفقیت اعمال شد.") {

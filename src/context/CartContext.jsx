@@ -129,6 +129,27 @@ export const CartProvider = ({ children }) => {
 		}
 	};
 
+	const readCart = async () => {
+		console.log(cartList);
+		if (tokens.access) {
+			try {
+				const response = await fetch(`${baseUrl}/api/cart/local/`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${tokens.access}`,
+					},
+					next: {
+						revalidate: 1,
+					},
+				});
+				return response.json();
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
+
 	const deleteList = async () => {
 		setCartList([]);
 		if (typeof window !== "undefined") {
@@ -138,6 +159,7 @@ export const CartProvider = ({ children }) => {
 
 	const contextData = {
 		cartList,
+		readCart,
 		addToCart,
 		removeFromCart,
 		deleteList,

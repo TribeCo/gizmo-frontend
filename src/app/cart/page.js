@@ -24,7 +24,7 @@ import { ApplyCoupon, SenderInformation } from "@/services/DashBoard";
 const CartPage = () => {
 	//? Contexts
 	const { tokens } = useAuth();
-	const { getCart } = useCart();
+	const { getCart, readCart } = useCart();
 
 	//? Page number
 	const [state, setState] = useState(0);
@@ -110,17 +110,16 @@ const CartPage = () => {
 		}
 		try {
 			const res = await ApplyCoupon(code, tokens);
-			const response = await getCart();
-			setData(response.data.temp_items);
+			const response = await readCart();
+			console.log(response);
+			setData(response.cart.items);
 			setTotals({
-				total_price_method: response.data.total_price_method,
+				total_price_method: response.cart.total_price_method,
 				total_discounted_price_method:
-					response.data.total_discounted_price_method,
-				delta_discounted_method: response.data.delta_discounted_method,
+					response.cart.total_discounted_price_method,
+				delta_discounted_method: response.cart.delta_discounted_method,
 				coupon: 0,
 			});
-
-			console.log(response);
 			console.log(res);
 			if (res.message === "کد تخفیف با موفقیت اعمال شد.") {
 				enqueueSnackbar({
@@ -140,6 +139,34 @@ const CartPage = () => {
 			});
 		}
 	};
+	// useEffect(() => {
+	// 	const getData = async () => {
+	// 		try {
+	// 			if (tokens.access) {
+	// 				const response = await readCart();
+	// 				setData(response.cart.items);
+	// 				setTotals({
+	// 					total_price_method: response.cart.total_price_method,
+	// 					total_discounted_price_method:
+	// 						response.cart.total_discounted_price_method,
+	// 					delta_discounted_method: response.cart.delta_discounted_method,
+	// 					coupon: 0,
+	// 				});
+	// 			} else {
+	// 				const res = await getCart();
+	// 				setData(res.data.temp_items);
+	// 				setTotals({
+	// 					total_price_method: res.data.total_price_method,
+	// 					total_discounted_price_method:
+	// 						res.data.total_discounted_price_method,
+	// 					delta_discounted_method: res.data.delta_discounted_method,
+	// 					coupon: 0,
+	// 				});
+	// 			}
+	// 		} catch (error) {}
+	// 	};
+	// 	getData();
+	// }, [tokens]);
 
 	//? Component Life Cycle
 	useEffect(() => {
@@ -159,6 +186,16 @@ const CartPage = () => {
 					console.log(userResponse);
 					if (userResponse.ok) {
 						setUser(await userResponse.json());
+						const response = await readCart();
+						setData(response.cart.items);
+						setTotals({
+							total_price_method: response.cart.total_price_method,
+							total_discounted_price_method:
+								response.cart.total_discounted_price_method,
+							delta_discounted_method: response.cart.delta_discounted_method,
+							coupon: 0,
+						});
+						return;
 					}
 				}
 				const res = await getCart();

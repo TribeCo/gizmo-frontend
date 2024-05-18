@@ -22,23 +22,27 @@ import { Box, Typography, Divider, Avatar } from "@mui/material";
 import { createComment } from "@/services/ProductPage";
 import { useAuth } from "@/context/AuthContext";
 import SendComment from "./product/SendComment";
+import { enqueueSnackbar } from "notistack";
 
 const Comment = ({ pid, comments }) => {
 	const { tokens } = useAuth();
 
 	const handleSendComment = async (values) => {
-		console.log(values);
-		const response = await createComment({
-			pid,
-			access: tokens.access,
-			data: {
-				text: values.text,
-				anonymous: values.anonymous,
-				rate: values.rate,
-				satisfaction: values.seleted,
-			},
-		});
-		console.log(response);
+		try {
+			const response = await createComment({
+				pid,
+				access: tokens.access,
+				data: {
+					text: values.text,
+					anonymous: values.anonymous,
+					rate: values.rate,
+					satisfaction: values.seleted,
+				},
+			});
+			enqueueSnackbar({ message: "کامنت با موفقیت ثبت شد.", variant: "success" });
+		} catch (error) {
+			enqueueSnackbar({ message: error.message, variant: "error" });
+		}
 	};
 	return (
 		<Box

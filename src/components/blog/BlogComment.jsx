@@ -4,21 +4,26 @@ import { Box, Typography, Divider, Avatar, Grid } from "@mui/material";
 import { createComment } from "@/services/Blog";
 import { useAuth } from "@/context/AuthContext";
 import BlogSendComment from "./BlogSendComment";
+import { enqueueSnackbar } from "notistack";
 
 const BlogComment = ({ aid, comments }) => {
 	const { tokens } = useAuth();
 
 	const handleSendComment = async (values) => {
-		console.log(values);
-		const response = await createComment({
-			aid,
-			access: tokens.access,
-			data: {
-				text: values.text,
-				anonymous: values.anonymous,
-			},
-		});
-		console.log(response);
+		try {
+			enqueueSnackbar
+			const response = await createComment({
+				aid,
+				access: tokens.access,
+				data: {
+					text: values.text,
+					anonymous: values.anonymous,
+				},
+			});
+			enqueueSnackbar({ message: "کامنت با موفقیت ثبت شد.", variant: "success" });
+		} catch (error) {
+			enqueueSnackbar({ message: error.message, variant: "error" });
+		}
 	};
 	return (
 		<Box 

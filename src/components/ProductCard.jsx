@@ -15,25 +15,92 @@ import { useState } from "react";
 import { convert } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { enqueueSnackbar } from "notistack";
+import { baseUrl } from "@/services";
+import { useAuth } from "@/context/AuthContext";
+import { availableNotification } from "@/services/ProductPage";
 
 const ProductCard = ({ product }) => {
+	//? Router init
 	const router = useRouter();
 
-	const { addToCart } = useCart({
-		color: 1,
-		product: product.id,
-		quantity: 1,
-	});
+	//? get addToCart function from cart context
+	const { addToCart } = useCart();
+
+	const { tokens } = useAuth();
+
+	//? show hover state => (second)
+	const [show, setShow] = useState(false);
 
 	const handleAddToCart = () => {
-		addToCart();
+		console.log({ color: 0, product: data.id, quantity: 1 });
+		try {
+			addToCart({ color: 0, product: data.id, quantity: 1 });
+			enqueueSnackbar({
+				message: "محصول با موفقیت به سبد خرید اضافه شد",
+				variant: "success",
+			});
+		} catch (error) {
+			enqueueSnackbar({
+				message: error.message,
+				variant: "error",
+			});
+		}
 	};
 	const handleGoToProduct = () => {
 		console.log(product);
 		const url = "/products/" + product.slug;
 		router.push(url);
 	};
-	const [show, setShow] = useState(false);
+
+	const handleNotification = async () => {
+		// const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
+		// 	method: "GET",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 		Authorization: `Bearer ${tokens.access}`,
+		// 	},
+		// });
+		// if (userResponse.ok) {
+		// 	setUser(await userResponse.json());
+		// 	//TODO add notification api
+		// 	enqueueSnackbar({
+		// 		message: "در صورت مجود شدن محصول به شما اطلاع داده میشود.",
+		// 		variant: "success",
+		// 	});
+		// } else {
+		// 	enqueueSnackbar({
+		// 		message: "برای فعال کردن این گذینه ابتدا وارد شوید",
+		// 		variant: "error",
+		// 	});
+		// }
+		// console.log({
+		// 	product: data.id,
+		// });
+
+		const response = await availableNotification({
+			pid: data.id,
+			access: tokens.access,
+		});
+		console.log(response);
+		if (response.message) {
+			enqueueSnackbar({ message: response.message, variant: "success" });
+		} else {
+			if (response.status === 401) {
+				enqueueSnackbar({
+					message: "برای فعال کردن این گذینه ابتدا باید وارد شوید",
+					variant: "error",
+				});
+			} else {
+				enqueueSnackbar({
+					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+					variant: "error",
+				});
+				console.log(response.status);
+			}
+		}
+	};
+
 	return (
 		<CardActionArea
 			disableRipple
@@ -170,7 +237,7 @@ const ProductCard = ({ product }) => {
 					)}
 				</IconButton>
 				<Button
-					onClick={handleAddToCart}
+					onClick={product.is_available ? handleAddToCart : handleNotification}
 					fullWidth
 					variant="contained"
 					sx={{

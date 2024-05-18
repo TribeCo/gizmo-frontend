@@ -28,6 +28,7 @@ import { useAuth } from "@/context/AuthContext";
 import { fetchActivties, fetchInformation } from "@/services/DashBoard";
 import { useRouter } from "next/navigation";
 import { toPersianDigits } from "@/utils/convert";
+import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
 
 export default function Profile() {
@@ -37,6 +38,7 @@ export default function Profile() {
 	const [information, setInformation] = useState([]);
 	const [factorId, SetFactorId] = useState();
 	const { tokens, logOut } = useAuth();
+	const { deleteList } = useCart();
 
 	const handleMenuItemClick = (menuItem) => {
 		setMenuItemValue(menuItem);
@@ -65,6 +67,7 @@ export default function Profile() {
 	}, [tokens]);
 
 	const handleLogout = async () => {
+		deleteList();
 		logOut();
 		setLogoutModalOpen(false);
 	};

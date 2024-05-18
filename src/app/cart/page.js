@@ -1,17 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
 
 import Summary from "@/components/CartPage/Summary";
 import ProgressBar from "@/components/CartPage/ProgressBar";
-import { Box } from "@mui/material";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
-import { enqueueSnackbar } from "notistack";
 import { ApplyCoupon, SenderInformation } from "@/services/DashBoard";
 import First from "@/components/CartPage/Pages/first";
 import Second from "@/components/CartPage/Pages/second";
 import Third from "@/components/CartPage/Pages/Third";
+
 import { baseUrl } from "@/services";
 
 const CartPage = () => {
@@ -27,7 +28,7 @@ const CartPage = () => {
 		delta_discounted_method: 0,
 		coupon: 0,
 	});
-	const [SenderInfo, SetSenderInfo] = react.useState({
+	const [SenderInfo, SetSenderInfo] = useState({
 		name_delivery: "",
 		phone_delivery: "",
 		description: "",
@@ -46,16 +47,16 @@ const CartPage = () => {
 			if (user) {
 				setState(1);
 			} else {
-				const response = await fetch(`${baseUrl}/api/users/info/`, {
+				const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${tokens.access}`,
 					},
 				});
-				console.log(response);
-				if (response.ok) {
-					setUser(await response.json());
+				console.log(userResponse);
+				if (userResponse.ok) {
+					setUser(await userResponse.json());
 					setState(1);
 				} else {
 					enqueueSnackbar({

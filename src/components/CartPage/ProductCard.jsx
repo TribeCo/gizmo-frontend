@@ -33,11 +33,12 @@ const ProductCard = ({ data }) => {
 		<Grid>
 			<Grid
 				display="flex"
-				justifyContent="space-between"
 				alignItems="center"
+				justifyContent='space-between'
 				sx={{
-					columnGap: { xs: "5px", sm: 4, md: 8, lg: 10 },
-				}}>
+					width: {xs: '21.4rem', sm: '36.5rem', md: '54rem', lg: '73rem'}
+				}}
+				>
 				<Grid
 					display="flex"
 					flexDirection="row"
@@ -58,17 +59,20 @@ const ProductCard = ({ data }) => {
 						flexDirection="column"
 						alignItems="start"
 						sx={{
-							rowGap: { xs: "5px", sm: 1, md: 3, lg: 5 },
+							rowGap: { xs: "5px", sm: '5px', md: 3, lg: 4 },
 						}}>
 						<Grid
 							display="flex"
 							justifyContent="center"
 							alignItems="center"
-							columnGap={1}>
+							sx={{
+								columnGap: {xs: 0.2, md: 1}
+							}}>
 							<Typography
-								variant="h5"
 								sx={{
-									fontSize: { xs: 10, sm: 16, md: 24, lg: 28 },
+									textWrap: 'wrap',
+									width: {xs: '45px', sm: '110px', md: '160px', lg: '200px'},
+									fontSize: { xs: 6, sm: 12, md: 18, lg: 24},
 								}}>
 								{data.product.name}
 							</Typography>
@@ -80,10 +84,9 @@ const ProductCard = ({ data }) => {
 								bgcolor="rgba(255, 0, 0, 1)"
 								borderRadius="30px">
 								<Typography
-									variant="h5"
 									sx={{
 										color: "white",
-										fontSize: { xs: 7, sm: 10, md: 16, lg: 18 },
+										fontSize: { xs: 5, sm: 10, md: 16, lg: 18 },
 										py: { xs: "1px", sm: "2px", md: "3px", lg: "4px" },
 										px: { xs: "5px", sm: "8px", md: "12px", lg: "15px" },
 									}}>
@@ -95,18 +98,20 @@ const ProductCard = ({ data }) => {
 							display="flex"
 							justifyContent="center"
 							alignItems="center"
-							columnGap={1}>
+							sx={{
+								columnGap: {xs: 0.2, md: 1}
+							}}>
 							<Typography
 								variant="h6"
 								sx={{
-									fontSize: { xs: 9, sm: 15, md: 20, lg: 22 },
+									fontSize: { xs: 6, sm: 12, md: 16, lg: 20 },
 								}}>
 								رنگ:
 							</Typography>
 							<Typography
 								variant="body1"
 								sx={{
-									fontSize: { xs: 8, sm: 14, md: 16, lg: 18 },
+									fontSize: { xs: 5, sm: 11, md: 15, lg: 18 },
 								}}>
 								{data.color.name}
 							</Typography>
@@ -115,18 +120,20 @@ const ProductCard = ({ data }) => {
 							display="flex"
 							justifyContent="center"
 							alignItems="center"
-							columnGap={1}>
+							sx={{
+								columnGap: {xs: 0.2, md: 1}
+							}}>
 							<Typography
 								variant="body1"
 								sx={{
-									fontSize: { xs: 9, sm: 14, md: 16, lg: 18 },
+									fontSize: { xs: 6, sm: 12, md: 15, lg: 18 },
 								}}>
 								کد محصول:
 							</Typography>
 							<Typography
 								variant="body1"
 								sx={{
-									fontSize: { xs: 8, sm: 13, md: 15, lg: 17 },
+									fontSize: { xs: 5, sm: 11, md: 15, lg: 17 },
 								}}>
 								{convert(data.product.id)}
 							</Typography>
@@ -137,9 +144,9 @@ const ProductCard = ({ data }) => {
 				<Grid
 					display="flex"
 					flexDirection="row"
-					alignItems="center"
-					justifyContent="center"
+					alignItems="center"	
 					sx={{
+						mr: {xs: 1, sm: 1, md: 0, lg: 4},
 						columnGap: { xs: 0, sm: 3, md: 7, lg: 14 },
 					}}>
 					<Grid>
@@ -155,7 +162,7 @@ const ProductCard = ({ data }) => {
 								variant="h6 "
 								fontWeight="bold"
 								sx={{
-									fontSize: { xs: 7, sm: 12, md: 18, lg: 20 },
+									fontSize: { xs: 7, sm: 12, md: 16, lg: 18 },
 									color: "#B4B4B4",
 								}}>
 								<span style={{ textDecoration: "line-through" }}>
@@ -166,7 +173,7 @@ const ProductCard = ({ data }) => {
 								variant="h6"
 								fontWeight="bold"
 								sx={{
-									fontSize: { xs: 8, sm: 14, md: 20, lg: 24 },
+									fontSize: { xs: 8, sm: 14, md: 20, lg: 22 },
 								}}>
 								{convert(data.product.discount_price)} تومان
 							</Typography>
@@ -231,7 +238,7 @@ const ProductCard = ({ data }) => {
 								variant="h6"
 								fontWeight="bold"
 								sx={{
-									fontSize: { xs: 8, sm: 14, md: 20, lg: 24 },
+									fontSize: { xs: 8, sm: 14, md: 20, lg: 22 },
 								}}>
 								{convert(count * data.product.discount_price)} تومان
 							</Typography>

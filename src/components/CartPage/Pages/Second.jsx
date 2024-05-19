@@ -2,10 +2,10 @@
 
 import DeliveryInfoMain from "../DeliveryInfoMain";
 
-const Second = ({ handleChange }) => {
+const Second = ({ handleChange, SetCurrAddress }) => {
 	return (
 		<>
-			<DeliveryInfoMain handleSenderChange={handleChange} />
+			<DeliveryInfoMain handleSenderChange={handleChange} setCurrentAddress={SetCurrAddress} />
 		</>
 	);
 };

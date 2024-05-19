@@ -7,16 +7,52 @@ import {
 	TextField,
 	SvgIcon,
 	Divider,
+	CardMedia,
 } from "@mui/material";
 import { Colors, convert } from "@/utils";
-
+import { baseUrl } from "@/services";
 export default function Summary({
 	handleSubmit,
 	handleApplyCoupon,
 	user,
 	data,
 }) {
-	const [code, SetCode] = useState("");
+
+	const [isCouponApplied, setIsCouponApplied] = useState(false);
+	const [code, SetCode] = useState(''); // Assuming this state is managed for the coupon code
+	const [buttonState, setButtonState] = useState({
+		text: 'اعمال',
+		bgcolor: Colors.orange,
+		fontColor: '#213346'
+	});
+
+	useEffect(() => {
+		checkCouponStatus();
+		console.log(data)
+	}, [data]);
+
+	const checkCouponStatus = async () => {
+		try {
+			if (data.coupon > 0) {
+				setIsCouponApplied(true);
+				setButtonState({
+					text: 'انصراف',
+					bgcolor: '#f59595',
+					fontColor: '#213346'
+				});
+			} else {
+				setIsCouponApplied(false);
+				setButtonState({
+					text: 'اعمال',
+					bgcolor: Colors.orange,
+					fontColor: '#213346'
+				});
+			}
+		} catch (error) {
+			console.error('Error fetching totals:', error);
+			enqueueSnackbar({ message: 'خطا در دریافت اطلاعات. لطفا دوباره تلاش کنید.', variant: "error" });
+		}
+	};
 
 	return (
 		<Box
@@ -96,25 +132,45 @@ export default function Summary({
 										alignItems: { xs: "center", lg: "start" },
 										flexDirection: { xs: "column", sm: "row", lg: "column" },
 									}}>
-									<Grid>
+									<Grid
+										display={'flex'}
+										flexDirection={'row'}
+										justifyContent={'center'}
+									>
+										<CardMedia
+											image={`${baseUrl}/images/media/pictures/photo_2024-05-18_00-17-37.jpg`}
+											sx={{
+												width: "45px",
+												height: "45px",
+												objectFit: "cover",
+												marginTop: { xs: 2, lg: 3 },
+												display: isCouponApplied ? 'block' : 'none',
+											}}
+										/>
 										<TextField
 											variant="standard"
 											value={code}
 											onChange={(e) => SetCode(e.target.value)}
-											placeholder="کد تخفیف خود را وارد کنید:"
+											placeholder={isCouponApplied ? 'کد تخفیف شما اعمال شد.' : 'کد تخفیف خود را وارد کنید:'}
 											InputProps={{
 												disableUnderline: true,
 											}}
+											disabled={isCouponApplied}
 											sx={{
-												marginTop: { xs: 2, lg: 2 },
-												width: { xs: "250px", sm: "300px" },
+												bgcolor: isCouponApplied ? '#23CE6B99' : '#E9E9E9',
+												marginTop: { xs: 2, lg: 3 },
+												width: isCouponApplied ? { xs: '190px', sm: '240px' } : { xs: '240px', sm: '290px' },
 												height: "45px",
 												borderRadius: "10px",
-												background: "#E9E9E9",
-												"& .MuiInputBase-root": {
+												'& .MuiInputBase-root': {
 													marginTop: "7px",
 													marginLeft: "10px",
 												},
+												'& .Mui-disabled': {
+													opacity: 10,
+													cursor: 'not-allowed',
+													WebkitTextFillColor: isCouponApplied ? '#213346 !Important' : '',
+												}
 											}}
 										/>
 									</Grid>
@@ -122,9 +178,8 @@ export default function Summary({
 										<Button
 											onClick={() => handleApplyCoupon(code)}
 											variant="contained"
-											color="warning"
 											sx={{
-												bgcolor: Colors.orange,
+												bgcolor: buttonState.bgcolor,
 												boxShadow: "none",
 												marginTop: { xs: 2, lg: 2 },
 												width: { xs: "150px", sm: "110px", lg: "185px" },
@@ -133,7 +188,7 @@ export default function Summary({
 												borderRadius: "20px",
 												opacity: "0.8px",
 												"&:hover": {
-													bgcolor: Colors.orange,
+													bgcolor: buttonState.bgcolor,
 												},
 											}}>
 											<Typography
@@ -145,7 +200,7 @@ export default function Summary({
 												sx={{
 													fontSize: { xs: 18, sm: 20 },
 												}}>
-												اعمال
+												{buttonState.text}
 											</Typography>
 										</Button>
 									</Grid>

@@ -63,7 +63,7 @@ export default function DashBoardAddress() {
     const MakeCurrent = async () => {
         try {
             if (!selectedAddressId) {
-                enqueueSnackbar({ message: 'لطفا ابتدا یک آدرس انتخاب کنید', variant: "info" });
+                enqueueSnackbar({ message: 'لطفا ابتدا یک آدرس انتخاب کنید', variant: "warning" });
                 return;
             }
             const response = ((await MakeDefaultAddress(selectedAddressId, tokens)).messages);
@@ -79,7 +79,7 @@ export default function DashBoardAddress() {
     const RemoveAddress = async () => {
         try {
             if (!selectedAddressId) {
-                enqueueSnackbar({ message: 'لطفا ابتدا یک آدرس انتخاب کنید', variant: "info" });
+                enqueueSnackbar({ message: 'لطفا ابتدا یک آدرس انتخاب کنید', variant: "warning" });
                 return;
             }
             const isConfirmed = window.confirm('آیا از حذف این آدرس اطمینان دارید؟');

@@ -6,7 +6,7 @@ import DeliveryInfoHeader from './DeliveryInfoHeader';
 import { MakeDefaultAddress, fetchAddresses, formatFullAddress } from '@/services/DashBoard';
 import { useAuth } from "@/context/AuthContext";
 import { enqueueSnackbar } from "notistack";
-function DeliveryInfoMain({ handleSenderChange }) {
+function DeliveryInfoMain({ handleSenderChange, setCurrentAddress }) {
 
     const [checkedAddresses, setCheckedAddresses] = useState({});
     const [addresses, setAddresses] = useState([]);
@@ -16,13 +16,14 @@ function DeliveryInfoMain({ handleSenderChange }) {
         if (tokens) {
             handleGetAddress();
         }
-    }, [tokens]);
+    }, [tokens, addresses]);
 
     const handleGetAddress = async () => {
         try {
             const response = await fetchAddresses(tokens);
             if (response) {
                 setAddresses(response.data);
+                () => setCurrentAddress(currentAddress);
             }
         } catch (error) {
             console.error('Error fetching addresses:', error);
@@ -30,26 +31,28 @@ function DeliveryInfoMain({ handleSenderChange }) {
         }
     };
 
-    const handleChange = (event, id) => {
+    const handleChange = async (event, id) => {
         const newCheckedState = Object.keys(checkedAddresses).reduce(
             (state, key) => ({ ...state, [key]: false }),
             { [event.target.name]: event.target.checked }
         );
         setCheckedAddresses(newCheckedState);
         if (event.target.checked) {
-            MakeCurrent(id);
+            await MakeCurrent(id);
+            const resetCheckedState = Object.keys(checkedAddresses).reduce(
+                (state, key) => ({ ...state, [key]: false }),
+                {}
+            );
+            setCheckedAddresses(resetCheckedState);
         }
     };
 
-    const MakeCurrent = async () => {
+    const MakeCurrent = async (id) => {
         try {
-            if (!selectedAddressId) {
-                enqueueSnackbar({ message: 'لطفاً ابتدا یک آدرس را انتخاب کنید', variant: "info" });
-                return;
-            }
-            const response = await MakeDefaultAddress(selectedAddressId, tokens);
+            const response = await MakeDefaultAddress(id, tokens);
             if (response && response.messages) {
                 setAddresses((await fetchAddresses(tokens)).data);
+                () => setCurrentAddress(currentAddress);
                 enqueueSnackbar({ message: response.messages, variant: "success" });
             }
         } catch (error) {
@@ -114,7 +117,6 @@ function DeliveryInfoMain({ handleSenderChange }) {
                         <TextField
                             fullWidth
                             variant="outlined"
-                            // value={SenderInfo.name_delivery}
                             onChange={handleSenderChange("name_delivery")}
                             sx={{
                                 borderRadius: '20px',
@@ -131,7 +133,6 @@ function DeliveryInfoMain({ handleSenderChange }) {
                         <TextField
                             fullWidth
                             variant="outlined"
-                            // value={SenderInfo.phone_delivery}
                             onChange={handleSenderChange("phone_delivery")}
                             sx={{
                                 borderRadius: '20px',
@@ -150,7 +151,6 @@ function DeliveryInfoMain({ handleSenderChange }) {
                             multiline
                             rows={4}
                             variant="outlined"
-                            // value={SenderInfo.description}
                             onChange={handleSenderChange("description")}
                             sx={{
                                 borderRadius: '20px',
@@ -175,7 +175,6 @@ function DeliveryInfoMain({ handleSenderChange }) {
                     gap: { xs: 3, lg: 5 },
                     width: { xs: 'auto', xl: '1282px' },
                 }}
-                // value={SenderInfo.delivery_method}
                 onChange={handleSenderChange('delivery_method')}
             >
                 <FormControlLabel

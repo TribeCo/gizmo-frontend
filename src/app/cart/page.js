@@ -30,6 +30,7 @@ const CartPage = () => {
 	const [state, setState] = useState(0);
 
 	//? Data
+	const [Address, setAddress] = useState('');
 	const [user, setUser] = useState(null);
 	const [data, setData] = useState([]);
 	const [totals, setTotals] = useState({
@@ -75,14 +76,34 @@ const CartPage = () => {
 				} else {
 					enqueueSnackbar({
 						message: "لطفا برای ادامه دادن وارد شوید",
-						variant: "error",
+						variant: "warning",
 					});
 				}
 			}
 		} else if (state === 1) {
 			try {
+				if (Address.length === 0) {
+					enqueueSnackbar({
+						message: "لطفاً یک آدرس انتخاب کنید.",
+						variant: "warning",
+					});
+					return;
+				}
+				if (
+					!SenderInfo.name_delivery ||
+					!SenderInfo.phone_delivery ||
+					!SenderInfo.description ||
+					!SenderInfo.delivery_method
+				) {
+					enqueueSnackbar({
+						message: "لطفاً تمامی فیلدهای اطلاعات ارسال را پر کنید.",
+						variant: "warning",
+					});
+					return;
+				}
 				const response = await SenderInformation(SenderInfo);
 				console.log("Success:", response);
+				setState(2);
 			} catch (error) {
 				enqueueSnackbar({
 					message: "خطایی رخ داد.",
@@ -129,7 +150,7 @@ const CartPage = () => {
 			} else {
 				enqueueSnackbar({
 					message: "کد قبلا اعمال شده است.",
-					variant: "success",
+					variant: "error",
 				});
 			}
 		} catch (error) {
@@ -234,7 +255,7 @@ const CartPage = () => {
 					<Third />
 				) : state === 1 ? (
 					<>
-						<Second handleChange={handleChangeSecondPage} />
+						<Second handleChange={handleChangeSecondPage} SetCurrAddress={setAddress}/>
 						<Summary
 							user={user}
 							data={totals}

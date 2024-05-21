@@ -14,43 +14,45 @@ import { baseUrl } from "@/services";
 export default function Summary({
 	handleSubmit,
 	handleApplyCoupon,
+	handleRevokeCoupon,
 	user,
 	data,
 }) {
-
 	const [isCouponApplied, setIsCouponApplied] = useState(false);
-	const [code, SetCode] = useState(''); // Assuming this state is managed for the coupon code
-	const [buttonState, setButtonState] = useState({
-		text: 'اعمال',
-		bgcolor: Colors.orange,
-		fontColor: '#213346'
-	});
+	const [code, SetCode] = useState(""); // Assuming this state is managed for the coupon code
+	const [buttonState, setButtonState] = useState(0);
+
+	// {
+	// 				text: 'انصراف',
+	// 				bgcolor: '#f59595',
+	// 				fontColor: '#213346'
+	// 			}
+	// {
+	// 				text: 'اعمال',
+	// 				bgcolor: Colors.orange,
+	// 				fontColor: '#213346'
+	// 			}
 
 	useEffect(() => {
 		checkCouponStatus();
-		console.log(data)
+		console.log(data);
 	}, [data]);
 
 	const checkCouponStatus = async () => {
 		try {
 			if (data.coupon > 0) {
 				setIsCouponApplied(true);
-				setButtonState({
-					text: 'انصراف',
-					bgcolor: '#f59595',
-					fontColor: '#213346'
-				});
+				setButtonState(1);
 			} else {
 				setIsCouponApplied(false);
-				setButtonState({
-					text: 'اعمال',
-					bgcolor: Colors.orange,
-					fontColor: '#213346'
-				});
+				setButtonState(0);
 			}
 		} catch (error) {
-			console.error('Error fetching totals:', error);
-			enqueueSnackbar({ message: 'خطا در دریافت اطلاعات. لطفا دوباره تلاش کنید.', variant: "error" });
+			console.error("Error fetching totals:", error);
+			enqueueSnackbar({
+				message: "خطا در دریافت اطلاعات. لطفا دوباره تلاش کنید.",
+				variant: "error",
+			});
 		}
 	};
 
@@ -133,10 +135,9 @@ export default function Summary({
 										flexDirection: { xs: "column", sm: "row", lg: "column" },
 									}}>
 									<Grid
-										display={'flex'}
-										flexDirection={'row'}
-										justifyContent={'center'}
-									>
+										display={"flex"}
+										flexDirection={"row"}
+										justifyContent={"center"}>
 										<CardMedia
 											image={`${baseUrl}/images/media/pictures/photo_2024-05-18_00-17-37.jpg`}
 											sx={{
@@ -144,42 +145,54 @@ export default function Summary({
 												height: "45px",
 												objectFit: "cover",
 												marginTop: { xs: 2, lg: 3 },
-												display: isCouponApplied ? 'block' : 'none',
+												display: isCouponApplied ? "block" : "none",
 											}}
 										/>
 										<TextField
 											variant="standard"
 											value={code}
 											onChange={(e) => SetCode(e.target.value)}
-											placeholder={isCouponApplied ? 'کد تخفیف شما اعمال شد.' : 'کد تخفیف خود را وارد کنید:'}
+											placeholder={
+												isCouponApplied
+													? "کد تخفیف شما اعمال شد."
+													: "کد تخفیف خود را وارد کنید:"
+											}
 											InputProps={{
 												disableUnderline: true,
 											}}
 											disabled={isCouponApplied}
 											sx={{
-												bgcolor: isCouponApplied ? '#23CE6B99' : '#E9E9E9',
+												bgcolor: isCouponApplied ? "#23CE6B99" : "#E9E9E9",
 												marginTop: { xs: 2, lg: 3 },
-												width: isCouponApplied ? { xs: '190px', sm: '240px' } : { xs: '240px', sm: '290px' },
+												width: isCouponApplied
+													? { xs: "190px", sm: "240px" }
+													: { xs: "240px", sm: "290px" },
 												height: "45px",
 												borderRadius: "10px",
-												'& .MuiInputBase-root': {
+												"& .MuiInputBase-root": {
 													marginTop: "7px",
 													marginLeft: "10px",
 												},
-												'& .Mui-disabled': {
+												"& .Mui-disabled": {
 													opacity: 10,
-													cursor: 'not-allowed',
-													WebkitTextFillColor: isCouponApplied ? '#213346 !Important' : '',
-												}
+													cursor: "not-allowed",
+													WebkitTextFillColor: isCouponApplied
+														? "#213346 !Important"
+														: "",
+												},
 											}}
 										/>
 									</Grid>
 									<Grid>
 										<Button
-											onClick={() => handleApplyCoupon(code)}
+											onClick={
+												buttonState === 0
+													? () => handleApplyCoupon(code)
+													: () => handleRevokeCoupon()
+											}
 											variant="contained"
 											sx={{
-												bgcolor: buttonState.bgcolor,
+												bgcolor: buttonState === 0 ? Colors.orange : "#f59595",
 												boxShadow: "none",
 												marginTop: { xs: 2, lg: 2 },
 												width: { xs: "150px", sm: "110px", lg: "185px" },
@@ -188,7 +201,8 @@ export default function Summary({
 												borderRadius: "20px",
 												opacity: "0.8px",
 												"&:hover": {
-													bgcolor: buttonState.bgcolor,
+													bgcolor:
+														buttonState === 0 ? Colors.orange : "#f59595",
 												},
 											}}>
 											<Typography
@@ -200,7 +214,7 @@ export default function Summary({
 												sx={{
 													fontSize: { xs: 18, sm: 20 },
 												}}>
-												{buttonState.text}
+												{buttonState === 0 ? "اعمال" : "انصراف"}
 											</Typography>
 										</Button>
 									</Grid>

@@ -3,7 +3,6 @@
 import { baseUrl } from "@/services";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
-import { Alumni_Sans_Collegiate_One } from "next/font/google";
 
 const CartContext = createContext();
 
@@ -35,6 +34,7 @@ export const CartProvider = ({ children }) => {
 						color,
 						product,
 						quantity,
+						//TODO check is_sync
 					}),
 				});
 				const { data } = await response.json();
@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
 		if (!id) {
 			id = cartList.length > 0 ? cartList[cartList.length - 1].cid + 1 : 1;
 		}
-		newCartList.push({ cid: id, color, product, quantity });
+		newCartList.push({ cid: id, color, product, quantity, is_sync: false });
 		setCartList(newCartList);
 		if (typeof window !== "undefined") {
 			localStorage.setItem("cartList", JSON.stringify(newCartList));

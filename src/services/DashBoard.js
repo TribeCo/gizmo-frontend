@@ -242,7 +242,7 @@ export const fetchInformation = async (tokens) => {
 	}
 };
 
-export const SenderInformation = async (formData, tokens) => {
+export const SenderInformation = async (data, tokens) => {
 	try {
 		const response = await fetch(`${baseUrl}/api/user/update/delivery/`, {
 			method: "POST",
@@ -250,7 +250,7 @@ export const SenderInformation = async (formData, tokens) => {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${tokens.access}`,
 			},
-			body: JSON.stringify(formData),
+			body: JSON.stringify(data),
 		});
 		if (!response.ok) {
 			throw new Error("Network response was not ok");
@@ -327,26 +327,28 @@ export const ApplyCoupon = async (couponCode, tokens) => {
 	}
 };
 
-export const RevokeCoupon = async (couponCode, tokens) => {
-    try {
-        const response = await fetch(`${baseUrl}/api/coupon/revoke/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${tokens.access}`
-            },
-        });
-        if (!response.ok) {
-            const errorText = await response.text(); 
-            throw new Error(errorText || 'ناتوان در لغو کوپن. لطفا دوباره تلاش کنید.');
-        }
-        const data = await response.json();
-        return data.message || 'کوپن با موفقیت لغو شد.';
-    } catch (error) {
-        console.error('خطا در لغو کوپن:', error);
-        return error.message || 'خطا در لغو کوپن. لطفا بعدا تلاش کنید.';
-    }
-}
+export const RevokeCoupon = async (tokens) => {
+	try {
+		const response = await fetch(`${baseUrl}/api/coupon/revoke/`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${tokens.access}`,
+			},
+		});
+		if (!response.ok) {
+			const errorText = await response.text();
+			throw new Error(
+				errorText || "ناتوان در لغو کوپن. لطفا دوباره تلاش کنید.",
+			);
+		}
+		const data = await response.json();
+		return data.message || "کوپن با موفقیت لغو شد.";
+	} catch (error) {
+		console.error("خطا در لغو کوپن:", error);
+		return error.message || "خطا در لغو کوپن. لطفا بعدا تلاش کنید.";
+	}
+};
 
 export const formatFullAddress = (address) => {
 	if (!address) {

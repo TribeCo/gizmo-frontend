@@ -78,10 +78,10 @@ export const AuthProvider = ({ children }) => {
 			});
 
 			if (response.ok) {
-				console.log(response.json());
+				console.log(await response.json());
 				return 1;
 			} else {
-				console.log(response.json());
+				console.log(await response.json());
 				return 0;
 			}
 		} catch (error) {

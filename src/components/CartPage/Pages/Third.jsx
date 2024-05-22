@@ -1,109 +1,49 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React from "react";
-import ProgressBar from "../ProgressBar";
 import PaymentHeader from "../PaymentHeader";
 import PaymentProductCard from "../PaymentProductCard";
 import ReceiptCard from "../ReceiptCard";
-import convert from "@/utils/convert";
 
-const Third = () => {
-	const productItems = [
-		{ id: 1, title: "Product 1" },
-		{ id: 2, title: "Product 2" },
-		{ id: 1, title: "Product 1" },
-		{ id: 2, title: "Product 2" },
-		{ id: 1, title: "Product 1" },
-		{ id: 2, title: "Product 2" },
-		// Add more product items as needed
-	];
-
+const Third = ({ data }) => {
 	return (
 		<>
 			<Box sx={{ margin: { xs: 2, md: 6 } }}>
 				<PaymentHeader />
 			</Box>
-			{/* Main Content Wrapper */}
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: { xs: "column", md: "row" }, // Changes the flex direction based on screen size
-					justifyContent: "space-between",
-					alignItems: { xs: "center", md: "flex-start" }, // Centers items in small screens
-					marginTop: "20px",
-					gap: { xs: "10px", sm: "20px", md: "0px", lg: "20px" }, // Adds gap between items in small screens
-				}}>
-				{/* Product Cards List */}
-				<Box
+			<Grid
+				container
+				maxWidth="lg"
+				gap={3}>
+				<Grid
+					item
+					lg={7}
+					md={12}
 					sx={{
-						display: "flex",
-						flexDirection: "column", // Stack items vertically
-						alignItems: "center",
-						width: "100%",
-						paddingLeft: { xs: "20px", md: "30px", lg: "0px" },
-						paddingRight: { xs: "20px", md: "0px", lg: "0px" },
+						marginX: {
+							xs: "auto",
+							sm: "auto",
+							md: "auto",
+							lg: 0,
+							xl: 0,
+						},
 					}}>
-					{productItems.map((item, index) => (
-						<Box
-							sx={{
-								display: "flex",
-								alignItems: "center",
-								gap: "10px",
-								width: "100%",
-							}}
-							key={item.id}>
-							<Typography
-								sx={{
-									bgcolor: "#22668D",
-									borderRadius: "25px",
-									textAlign: "center",
-									width: { xs: "20px", sm: "30px", md: "40px", lg: "50px" },
-									height: {
-										xs: "20px",
-										sm: "30px",
-										md: "40px",
-										lg: "50px",
-									},
-									color: "#FFFFFF",
-									paddingTop: {
-										xs: "2px",
-										sm: "4px",
-										md: "6px",
-										lg: "8px",
-									},
-									fontSize: {
-										xs: "12px",
-										sm: "16px",
-										md: "20px",
-										lg: "24px",
-									},
-								}}
-								fontWeight={900}>
-								{convert(index + 1)}
-							</Typography>
-							<Box sx={{ width: "90%" }}>
-								<PaymentProductCard />
-								<hr
-									style={{
-										border: "1px solid #EEEEEE",
-										marginBottom: "3%",
-									}}
-								/>
-							</Box>
-						</Box>
-					))}
-				</Box>
-				{/* Receipt Card */}
-				<Box
-					sx={{
-						width: { xs: "80%" },
-						marginTop: { sm: "20px", md: "0px" },
-						display: "flex",
-						flexDirection: "column", // Stack items vertically
-						alignItems: "center",
-					}}>
+					<Box>
+						{data.map((item, index) => (
+							<PaymentProductCard
+								data={item}
+								index={index}
+								key={index}
+							/>
+						))}
+					</Box>
+				</Grid>
+				<Grid
+					item
+					lg={4}
+					md={12}>
 					<ReceiptCard />
-				</Box>
-			</Box>
+				</Grid>
+			</Grid>
 		</>
 	);
 };

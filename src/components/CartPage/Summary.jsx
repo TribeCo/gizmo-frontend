@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Colors, convert } from "@/utils";
 import { baseUrl } from "@/services";
+
 export default function Summary({
 	handleSubmit,
 	handleApplyCoupon,
@@ -19,19 +20,8 @@ export default function Summary({
 	data,
 }) {
 	const [isCouponApplied, setIsCouponApplied] = useState(false);
-	const [code, SetCode] = useState(""); // Assuming this state is managed for the coupon code
+	const [code, SetCode] = useState("");
 	const [buttonState, setButtonState] = useState(0);
-
-	// {
-	// 				text: 'انصراف',
-	// 				bgcolor: '#f59595',
-	// 				fontColor: '#213346'
-	// 			}
-	// {
-	// 				text: 'اعمال',
-	// 				bgcolor: Colors.orange,
-	// 				fontColor: '#213346'
-	// 			}
 
 	useEffect(() => {
 		checkCouponStatus();

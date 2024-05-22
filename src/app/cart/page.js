@@ -195,7 +195,6 @@ const CartPage = () => {
 						const response = await readCart();
 						console.log(response.cart);
 						setData(response.cart.items);
-
 						setTotals({
 							total_price_method: response.cart.total_price_method,
 							total_discounted_price_method:
@@ -215,7 +214,9 @@ const CartPage = () => {
 					delta_discounted_method: res.data.delta_discounted_method,
 					coupon: 0,
 				});
-			} catch (error) {}
+			} catch (error) {
+				enqueueSnackbar({ message: "خطایی رخ داد", variant: "error" });
+			}
 		};
 		getData();
 	}, [tokens]);
@@ -240,7 +241,7 @@ const CartPage = () => {
 					<ProgressBar activeStep={state} />
 				</Box>
 				{state === 2 ? (
-					<Third />
+					<Third data={data} />
 				) : state === 1 ? (
 					<>
 						<Second

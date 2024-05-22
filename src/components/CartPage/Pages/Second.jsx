@@ -24,9 +24,9 @@ import DeliveryInfoCard from "../DeliveryInfoCard";
 import DeliveryInfoHeader from "../DeliveryInfoHeader";
 
 const Second = ({ formik, setCurrentAddress }) => {
+	const { tokens } = useAuth();
 	const [checkedAddresses, setCheckedAddresses] = useState({});
 	const [addresses, setAddresses] = useState([]);
-	const { tokens } = useAuth();
 
 	useEffect(() => {
 		if (tokens) {
@@ -39,12 +39,13 @@ const Second = ({ formik, setCurrentAddress }) => {
 			const response = await fetchAddresses(tokens);
 			if (response) {
 				setAddresses(response.data);
-				setCurrentAddress(currentAddress);
+				const ca = response.data.find((address) => address.current);
+				setCurrentAddress(ca);
 			}
 		} catch (error) {
 			console.error("Error fetching addresses:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در دریافت آدرس‌ها.",
+				message: "خطا در دریافت آدرس‌ها.",
 				variant: "error",
 			});
 		}
@@ -105,8 +106,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						color: "#213346",
 						mb: 2,
 					}}>
-					{" "}
-					آدرس انتخاب شده برای ارسال :{" "}
+					{"آدرس انتخاب شده برای ارسال :"}
 				</Typography>
 				<Typography
 					sx={{
@@ -114,7 +114,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						fontWeight: "400",
 						mb: { xs: 3, md: 10 },
 					}}>
-					{formatFullAddress(currentAddress)}
+					{formatFullAddress(addresses.find((address) => address.current))}
 				</Typography>
 				<Typography
 					sx={{
@@ -123,8 +123,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						color: "#213346",
 						mb: 0.5,
 					}}>
-					{" "}
-					آدرس‌های ذخیره شده :{" "}
+					{"آدرس‌های ذخیره شده :"}
 				</Typography>
 				{otherAddress.map((address, index) => (
 					<FormControlLabel
@@ -156,8 +155,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						mt: { xs: 4, md: 7 },
 						mb: 3,
 					}}>
-					{" "}
-					اضافه کردن آدرس جدید :{" "}
+					{"اضافه کردن آدرس جدید :"}
 				</Typography>
 				<DeliveryInfoCard setAddress={setAddresses} />
 			</Box>
@@ -178,8 +176,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						color: "#213346",
 						mb: 2,
 					}}>
-					{" "}
-					اطلاعات گیرنده :{" "}
+					{"اطلاعات گیرنده :"}
 				</Typography>
 				<Grid
 					container
@@ -192,8 +189,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						<Typography
 							variant="body1"
 							sx={{ padding: "5px", paddingLeft: "15px" }}>
-							{" "}
-							نام و نام خانوادگی :{" "}
+							{"نام و نام خانوادگی :"}
 						</Typography>
 						<TextField
 							fullWidth
@@ -218,8 +214,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						<Typography
 							variant="body1"
 							sx={{ padding: "5px", paddingLeft: "15px" }}>
-							{" "}
-							شماره تماس :{" "}
+							{"شماره تماس :"}
 						</Typography>
 						<TextField
 							fullWidth
@@ -243,8 +238,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 						<Typography
 							variant="body1"
 							sx={{ padding: "5px", paddingLeft: "15px" }}>
-							{" "}
-							توضیحات بیشتر:{" "}
+							{"توضیحات بیشتر:"}
 						</Typography>
 						<TextField
 							fullWidth
@@ -290,7 +284,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 								fontWeight: "700",
 								color: "#747678",
 							}}>
-							درون شهری : هزینه ثابت
+							{"درون شهری : هزینه ثابت"}
 						</Typography>
 					}
 				/>
@@ -304,7 +298,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 								fontWeight: "700",
 								color: "#747678",
 							}}>
-							ارسال با اتوبوس : هزینه متغیر
+							{"ارسال با اتوبوس : هزینه متغیر"}
 						</Typography>
 					}
 				/>
@@ -318,7 +312,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 								fontWeight: "700",
 								color: "#747678",
 							}}>
-							پست معمولی : هزینه اقتصادی
+							{"پست معمولی : هزینه اقتصادی"}
 						</Typography>
 					}
 				/>
@@ -332,7 +326,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 								fontWeight: "700",
 								color: "#747678",
 							}}>
-							تیپاکس (پس کرایه) : سریع و گران
+							{"تیپاکس (پس کرایه) : سریع و گران"}
 						</Typography>
 					}
 				/>

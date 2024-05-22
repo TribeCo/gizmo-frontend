@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Colors, convert } from "@/utils";
 
-const ReceiptCard = ({ data, sendInfo }) => {
+const ReceiptCard = ({ data, sendInfo, handleSubmit }) => {
 	return (
 		<Container
 			sx={{
@@ -56,7 +56,7 @@ const ReceiptCard = ({ data, sendInfo }) => {
 						color: "#44434C",
 						letterSpacing: "-0.05rem",
 					}}>
-					{"پست پیشتاز"}
+					{sendInfo.sending_method}
 				</Typography>
 			</Box>
 			<Box
@@ -83,7 +83,7 @@ const ReceiptCard = ({ data, sendInfo }) => {
 						fontWeight: "500",
 						color: "#44434C",
 					}}>
-					{"شیراز، دانشگاه صنعتی شیراز"}
+					{`${sendInfo.address.province} ${sendInfo.address.city} ${sendInfo.address.straight_address} `}
 				</Typography>
 			</Box>
 			<Divider
@@ -202,6 +202,7 @@ const ReceiptCard = ({ data, sendInfo }) => {
 				justifyContent="center"
 				my={3}>
 				<Button
+					onClick={handleSubmit}
 					variant="contained"
 					sx={{
 						backgroundColor: Colors.orange,

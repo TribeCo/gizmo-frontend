@@ -25,17 +25,33 @@ import {
 	SenderInformation,
 } from "@/services/DashBoard";
 import { useFormik } from "formik";
+import * as yup from "yup";
+import { useRouter } from "next/navigation";
+
+const validationSchema = yup.object().shape({
+	name_delivery: yup.string().required("لطفا نام و نام خانوادگی را وارد کنید"),
+	description: yup.string(),
+	phone_delivery: yup
+		.string()
+		.required("لطفا شماره تلفن دریافت کننده را وارد کنید.")
+		.matches(
+			/^(0{1}9|\+{1}9{1}8{1}9{1})[0-9]{9}$/,
+			"شماره تلفن وارد شده صحیح نمیباشد",
+		),
+	delivery_method: yup.string().required("لطفا نحوه ارسال را مشخص نمایید"),
+});
 
 const CartPage = () => {
 	//? Contexts
 	const { tokens } = useAuth();
+	const router = useRouter();
 	const { getCart, readCart } = useCart();
 
 	//? Page number
 	const [state, setState] = useState(0);
 
 	//? Data
-	const [Address, setAddress] = useState("");
+	const [address, setAddress] = useState(null);
 	const [user, setUser] = useState(null);
 	const [data, setData] = useState([]);
 	const [totals, setTotals] = useState({
@@ -45,6 +61,30 @@ const CartPage = () => {
 		coupon: 0,
 		coupon_code: null,
 	});
+	const [sendInfo, setSendInfo] = useState({ address: "", sending_method: "" });
+
+	const handleSendInfo = ({ address, sending_method_code }) => {
+		console.log(address);
+		console.log(sending_method_code);
+		let sending_method;
+		switch (sending_method_code) {
+			case "c":
+				sending_method = "درون شهری";
+				break;
+			case "b":
+				sending_method = "ارسال با اتوبوس";
+				break;
+			case "p":
+				sending_method = "پست معمولی";
+				break;
+			case "t":
+				sending_method = "تیپاکس (پس کرایه)";
+				break;
+			default:
+				break;
+		}
+		setSendInfo({ address, sending_method });
+	};
 
 	const formik = useFormik({
 		initialValues: {
@@ -53,10 +93,22 @@ const CartPage = () => {
 			phone_delivery: "",
 			delivery_method: "",
 		},
+		validationSchema: validationSchema,
 		onSubmit: async (values) => {
 			try {
-				await SenderInformation(values, tokens);
-				setState(2);
+				if (address) {
+					await SenderInformation(values, tokens);
+					handleSendInfo({
+						address: address,
+						sending_method_code: values.delivery_method,
+					});
+					setState(2);
+				} else {
+					enqueueSnackbar({
+						message: "لطفا آدرس را وارد کنید",
+						variant: "warning",
+					});
+				}
 			} catch (error) {
 				enqueueSnackbar({
 					message: "خطایی رخ داد.",
@@ -93,17 +145,21 @@ const CartPage = () => {
 				}
 			}
 		} else if (state === 1) {
-			// if (Address.length === 0) {
-			// 	enqueueSnackbar({
-			// 		message: "لطفاً یک آدرس انتخاب کنید.",
-			// 		variant: "warning",
-			// 	});
-			// 	return;
-			// } else {
 			formik.handleSubmit();
-			// }
 		} else if (state === 2) {
-			//Todo send data
+			const response = await fetch(`${baseUrl}/api/payment/`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${tokens.access}`,
+				},
+				next: {
+					revalidate: 1,
+				},
+			});
+			const data = await response.json();
+
+			router.replace(data.redirect_url);
 		} else {
 			enqueueSnackbar({
 				message: "خطای ناشناخته",
@@ -123,6 +179,7 @@ const CartPage = () => {
 					response.cart.total_discounted_price_method,
 				delta_discounted_method: response.cart.delta_discounted_method,
 				coupon: response.cart.coupon_discount,
+				coupon_code: response.cart.coupon.code,
 			});
 			enqueueSnackbar({
 				message: "کد تخفیف با موفقیت حذف گردید",
@@ -203,7 +260,7 @@ const CartPage = () => {
 								response.cart.total_discounted_price_method,
 							delta_discounted_method: response.cart.delta_discounted_method,
 							coupon: response.cart.coupon_discount,
-							coupon_code: "",
+							coupon_code: response.cart.coupon.code,
 						});
 						return;
 					}
@@ -217,9 +274,7 @@ const CartPage = () => {
 					delta_discounted_method: res.data.delta_discounted_method,
 					coupon: 0,
 				});
-			} catch (error) {
-				enqueueSnackbar({ message: "خطایی رخ داد", variant: "error" });
-			}
+			} catch (error) {}
 		};
 		getData();
 	}, [tokens]);
@@ -245,6 +300,8 @@ const CartPage = () => {
 				</Box>
 				{state === 2 ? (
 					<Third
+						handleSubmit={handleSubmit}
+						sendInfo={sendInfo}
 						data={data}
 						totals={totals}
 					/>

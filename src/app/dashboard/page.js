@@ -57,8 +57,11 @@ export default function Profile() {
 				setInformation(data);
 				setActivites(await fetchActivties(tokens));
 			} catch (error) {
-				console.error('Error fetching information:', error);
-				enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+				console.error("Error fetching information:", error);
+				enqueueSnackbar({
+					message: error.message || "خطا در دریافت اطلاعات.",
+					variant: "error",
+				});
 			}
 		};
 		if (tokens) {

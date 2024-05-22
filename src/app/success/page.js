@@ -3,41 +3,46 @@
 const image = `${baseUrl}/images/media/pictures/payment_success_vector_uCxkE4T.png`;
 
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 import { baseUrl } from "@/services";
 import { Box, Button, CardMedia, Grow, Typography } from "@mui/material";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const payment = () => {
-	const searchParams = useSearchParams();
+const Payment = ({ searchParams }) => {
+	console.log(searchParams);
 
 	const { tokens } = useAuth();
-	const authority = searchParams.get("Authority");
-	const status = searchParams.get("Status");
+	const { deleteList } = useCart();
 
 	useEffect(() => {
 		const val = async () => {
-			const response = await fetch(`${baseUrl}/api/verify/`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${tokens.access}`,
-				},
-				next: {
-					revalidate: 1,
-				},
-				body: JSON.stringify({
-					authority,
-					status,
-				}),
-			});
-			console.log(await response.json());
+			try {
+				const response = await fetch(`${baseUrl}/api/verify/`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${tokens.access}`,
+					},
+					next: {
+						revalidate: 1,
+					},
+					body: JSON.stringify({
+						authority: searchParams.Authority,
+						status: searchParams.Status,
+					}),
+				});
+				const data = await response.json();
+				console.log(data);
+				deleteList();
+			} catch (error) {
+				console.log(error);
+			}
 		};
 		if (tokens) {
 			val();
 		}
-	}, [authority, status, tokens]);
+	}, [tokens]);
 
 	const [go, setGo] = useState(0);
 	const handle = () => {
@@ -45,6 +50,7 @@ const payment = () => {
 	};
 	const [checked, setChecked] = useState(false);
 	setInterval(() => setChecked(!checked), 10000);
+
 	return (
 		<Box
 			sx={{
@@ -87,4 +93,4 @@ const payment = () => {
 	);
 };
 
-export default payment;
+export default Payment;

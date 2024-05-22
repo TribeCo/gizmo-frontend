@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { baseUrl } from "@/services";
+import Image from "next/image";
 
 const PaymentHeader = () => {
 	return (

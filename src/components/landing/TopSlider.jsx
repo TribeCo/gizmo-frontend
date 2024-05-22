@@ -85,6 +85,7 @@ const TopSlider = ({ data }) => {
 								{data.map((data, index) => {
 									return (
 										<Slide
+											key={index}
 											direction="right"
 											in={active === index}
 											timeout={1000}>
@@ -206,6 +207,7 @@ const TopSlider = ({ data }) => {
 							{data.map((item, index) => {
 								return (
 									<Fade
+										key={index}
 										in={nextActive() === index}
 										timeout={1000}>
 										<Box display={nextActive() === index ? "" : "none"}>
@@ -235,6 +237,7 @@ const TopSlider = ({ data }) => {
 						{data.map((item, index) => {
 							return (
 								<Fade
+									key={index}
 									in={active === index}
 									timeout={1000}>
 									<Box display={active === index ? "" : "none"}>

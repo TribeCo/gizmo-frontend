@@ -25,7 +25,7 @@ import Logo from "@/components/siteIcons/logo.png";
 import eNAMAD from "@/components/siteIcons/eNAMAD.png";
 import { GetFooterLinks } from "@/services/Footer";
 
-export default async function Footer() {
+export default async function Footer({ hasSecondPart = true }) {
 	const footerLinks = await GetFooterLinks();
 
 	const eNAMAD_Link = footerLinks.e_namad;
@@ -36,113 +36,115 @@ export default async function Footer() {
 
 	return (
 		<>
-			<Box
-				displayPrint={'none'}
-				component="footer"
-				bgcolor="rgba(142, 205, 221, 0.3)"
-				color="black"
-				py={3}
-				display="flex"
-				alignItems="center"
-				justifyContent="space-between"
-				sx={{
-					flexDirection: { xs: "column", lg: "row" },
-				}}>
-				<Grid
+			{hasSecondPart && (
+				<Box
+					displayPrint={"none"}
+					component="footer"
+					bgcolor="rgba(142, 205, 221, 0.3)"
+					color="black"
+					py={3}
+					display="flex"
+					alignItems="center"
+					justifyContent="space-between"
 					sx={{
-						mr: { lg: 8 },
+						flexDirection: { xs: "column", lg: "row" },
 					}}>
 					<Grid
 						sx={{
-							pl: { xs: 0, lg: 6 },
+							mr: { lg: 8 },
 						}}>
-						<Grid container>
-							<Box pr={2}>
-								<Image
-									src={ShopIcon}
-									width="auto"
-									height={70}
-								/>
-							</Box>
-							<Box>
-								<Typography
-									variant="h5"
-									fontWeight="bold">
-									خرید مستقیم از دبی
-								</Typography>
+						<Grid
+							sx={{
+								pl: { xs: 0, lg: 6 },
+							}}>
+							<Grid container>
+								<Box pr={2}>
+									<Image
+										src={ShopIcon}
+										width="auto"
+										height={70}
+									/>
+								</Box>
+								<Box>
+									<Typography
+										variant="h5"
+										fontWeight="bold">
+										خرید مستقیم از دبی
+									</Typography>
 
-								<Typography
-									variant="body1"
-									color="GrayText"
-									sx={{
-										maxWidth: "200px",
-										overflowWrap: "break-word",
-									}}
-									mt={1}>
-									فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
-								</Typography>
-							</Box>
+									<Typography
+										variant="body1"
+										color="GrayText"
+										sx={{
+											maxWidth: "200px",
+											overflowWrap: "break-word",
+										}}
+										mt={1}>
+										فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
+									</Typography>
+								</Box>
+							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
-
-				<Grid
-					display="flex"
-					sx={{
-						mt: { xs: 8, lg: 0 },
-						mx: { xs: 1, lg: 0 },
-					}}>
-					<Grid
-						sx={{
-							pr: { xs: 4, lg: 8 },
-						}}>
-						<Link href={noon_Link}>
-							<Image
-								src={NoonIcon}
-								width="auto"
-								height={60}
-							/>
-						</Link>
-					</Grid>
 
 					<Grid
+						display="flex"
 						sx={{
-							mt: { lg: 2 },
-							pr: { lg: 12 },
-							pl: { xs: 4, lg: 5 },
-						}}>
-						<Link href={amazon_Link}>
-							<Image
-								src={AmazonIcon}
-								width="auto"
-								height={45}
-							/>
-						</Link>
-					</Grid>
-				</Grid>
-				<Link href="/dubai">
-					<Button
-						variant="contained"
-						sx={{
-							bgcolor: Colors.orange,
-							color: "black",
-							borderRadius: "50px",
-							boxShadow: "none",
-							mr: { lg: 12 },
 							mt: { xs: 8, lg: 0 },
-							mb: { xs: 2, lg: 0 },
-							"&:hover": {
-								bgcolor: Colors.orange,
-							},
+							mx: { xs: 1, lg: 0 },
 						}}>
-						<Typography
-							variant="h6"
-							fontSize={18}>
-							ارسال لینک
-						</Typography>
-					</Button>
-				</Link>
-			</Box>
+						<Grid
+							sx={{
+								pr: { xs: 4, lg: 8 },
+							}}>
+							<Link href={noon_Link}>
+								<Image
+									src={NoonIcon}
+									width="auto"
+									height={60}
+								/>
+							</Link>
+						</Grid>
+
+						<Grid
+							sx={{
+								mt: { lg: 2 },
+								pr: { lg: 12 },
+								pl: { xs: 4, lg: 5 },
+							}}>
+							<Link href={amazon_Link}>
+								<Image
+									src={AmazonIcon}
+									width="auto"
+									height={45}
+								/>
+							</Link>
+						</Grid>
+					</Grid>
+					<Link href="/dubai">
+						<Button
+							variant="contained"
+							sx={{
+								bgcolor: Colors.orange,
+								color: "black",
+								borderRadius: "50px",
+								boxShadow: "none",
+								mr: { lg: 12 },
+								mt: { xs: 8, lg: 0 },
+								mb: { xs: 2, lg: 0 },
+								"&:hover": {
+									bgcolor: Colors.orange,
+								},
+							}}>
+							<Typography
+								variant="h6"
+								fontSize={18}>
+								ارسال لینک
+							</Typography>
+						</Button>
+					</Link>
+				</Box>
+			)}
 
 			<Grid
 				bgcolor={Colors.yellow}
@@ -188,7 +190,7 @@ export default async function Footer() {
 				</Grid>
 
 				<Grid
-					displayPrint={'none'}
+					displayPrint={"none"}
 					container
 					direction="row"
 					justifyContent="space-around"
@@ -365,12 +367,11 @@ export default async function Footer() {
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
 										<Grid
 											sx={{
-												transition: '0.3s',
+												transition: "0.3s",
 												":hover": {
 													pl: 1,
-												}
-											}}
-										>
+												},
+											}}>
 											<Link href={"/dubai"}>
 												<Typography
 													variant="h6"
@@ -590,4 +591,4 @@ export default async function Footer() {
 			</Grid>
 		</>
 	);
-};
+}

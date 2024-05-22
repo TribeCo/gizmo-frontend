@@ -2,12 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
-import {
-	Box,
-	Grid,
-	IconButton,
-	useMediaQuery,
-} from "@mui/material";
+import { Box, Grid, IconButton, useMediaQuery } from "@mui/material";
 import { Colors } from "@/utils";
 
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
@@ -74,22 +69,21 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 
 	return (
 		<Grid
-			mt={5}				
-			display='flex'
-			width='100%'
+			mt={5}
+			display="flex"
+			width="100%"
 			justifyContent="space-between"
 			alignItems="center"
 			sx={{
-				px: {xs: 1, sm: 2, md: 3}
-			}}
-		>
+				px: { xs: 1, sm: 2, md: 3 },
+			}}>
 			<Box item>
 				<IconButton
 					variant="contained"
 					sx={{
 						bgcolor: Colors.blue,
-						width: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
-						height: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
+						width: { xs: "30px", sm: "32px", md: "35px", lg: "40px" },
+						height: { xs: "30px", sm: "32px", md: "35px", lg: "40px" },
 						"&:hover": {
 							backgroundColor: Colors.blue,
 						},
@@ -98,26 +92,27 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 					<ArrowForwardIosOutlinedIcon
 						sx={{
 							color: "white",
-							fontSize: { xs: 18, sm: 20, md: 24, lg: 28 }
+							fontSize: { xs: 18, sm: 20, md: 24, lg: 28 },
 						}}
 					/>
 				</IconButton>
 			</Box>
 
 			<Box
-				display='flex'
-				flexDirection='row'
+				display="flex"
+				flexDirection="row"
 				justifyContent="space-between"
-				columnGap={2}
-			>
-
+				columnGap={2}>
 				{slideItems.map((item, index) => (
 					<Box
 						item
 						key={index}>
-						<Box
-							textAlign="center">
-							<BlogCard data={item} background_color="#F8F8F8" font_color="black" />
+						<Box textAlign="center">
+							<BlogCard
+								data={item}
+								background_color="#F8F8F8"
+								font_color="black"
+							/>
 						</Box>
 					</Box>
 				))}
@@ -128,8 +123,8 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 					variant="contained"
 					sx={{
 						bgcolor: Colors.blue,
-						width: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
-						height: { xs: '30px', sm: '32px', md: '35px', lg: '40px' },
+						width: { xs: "30px", sm: "32px", md: "35px", lg: "40px" },
+						height: { xs: "30px", sm: "32px", md: "35px", lg: "40px" },
 						"&:hover": {
 							backgroundColor: Colors.blue,
 						},
@@ -138,7 +133,7 @@ const CardBlogSlider = ({ blogs, swapTime_millisecond }) => {
 					<ArrowBackIosOutlinedIcon
 						sx={{
 							color: "white",
-							fontSize: { xs: 18, sm: 20, md: 24, lg: 28 }
+							fontSize: { xs: 18, sm: 20, md: 24, lg: 28 },
 						}}
 					/>
 				</IconButton>

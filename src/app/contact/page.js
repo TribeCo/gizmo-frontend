@@ -11,7 +11,10 @@ import LineSplitter from "@/components/LineSpliter";
 import { baseUrl } from "@/services";
 import { fetchGizmoInfo } from "@/services/Faq";
 import { enqueueSnackbar } from "notistack";
+import * as yup from "yup";
 import Image from "next/image";
+
+const validationSchema = yup.object().shape({});
 
 function ContactUs() {
 	const [gizmoinfo, setGizmoInfo] = useState([]);
@@ -126,22 +129,20 @@ function ContactUs() {
 						md={6}
 						display="flex"
 						alignItems="center">
-						<Link>
-							<Box
-								component="span"
-								sx={{
-									display: "inline-flex",
-									alignItems: "center",
-									justifyContent: "center",
-									width: { xs: 40, sm: 45, md: 45, lg: 50 },
-									height: { xs: 40, sm: 45, md: 45, lg: 50 },
-									borderRadius: { xs: "20%", md: "50%" },
-									bgcolor: "#22668D",
-									mr: 2,
-								}}>
-								<LocalPhoneIcon sx={{ color: "white", fontSize: "2rem" }} />
-							</Box>
-						</Link>
+						<Box
+							component="span"
+							sx={{
+								display: "inline-flex",
+								alignItems: "center",
+								justifyContent: "center",
+								width: { xs: 40, sm: 45, md: 45, lg: 50 },
+								height: { xs: 40, sm: 45, md: 45, lg: 50 },
+								borderRadius: { xs: "20%", md: "50%" },
+								bgcolor: "#22668D",
+								mr: 2,
+							}}>
+							<LocalPhoneIcon sx={{ color: "white", fontSize: "2rem" }} />
+						</Box>
 						<Typography
 							sx={{
 								color: "#213346",

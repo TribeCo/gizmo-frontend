@@ -13,9 +13,6 @@ import {
 import { Add, Remove } from "@mui/icons-material";
 import { convert } from "@/utils";
 
-const testImg =
-	"https://s3-alpha-sig.figma.com/img/4050/86fb/624274b23cab9a4bbe014728fb02db1a?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jsXE0Xy9Sz1y43uvI03e-VnS8W5Vh7zGJxi1UjEa5KrVPe4x8JBJ6Vsr3x6HvgR3HzVXp-WqqqWdljRHN1gP4G3w81R1qMfKP8uigsRmQ2ExFGSS9nhfbi1kOQUr9jlATIUHz3ctCrMvZ10mOHLSWsdNBW2LT~6Qz188~zr3P7byaI1k-4AQcG1JXit5mNWhj79YiVjdQ5hcjgfHlF-n3w0~xNdk9OESTpTGnIthzMxFVCebpwjlKTp6Zg9g5drNn-tyo442E3q8mCw~FP~rT8ywgC~qkL3Wzn8Eu6oECYwz8Re3Oo7rm2kMQcDkLMhrJLd5Xh499jRM5tHT7meEXA__";
-
 const ProductCard = ({ data }) => {
 	const [count, setCount] = useState(data.quantity);
 
@@ -34,11 +31,10 @@ const ProductCard = ({ data }) => {
 			<Grid
 				display="flex"
 				alignItems="center"
-				justifyContent='space-between'
+				justifyContent="space-between"
 				sx={{
-					width: {xs: '21.4rem', sm: '36.5rem', md: '54rem', lg: '73rem'}
-				}}
-				>
+					width: { xs: "21.4rem", sm: "36.5rem", md: "54rem", lg: "73rem" },
+				}}>
 				<Grid
 					display="flex"
 					flexDirection="row"
@@ -59,20 +55,20 @@ const ProductCard = ({ data }) => {
 						flexDirection="column"
 						alignItems="start"
 						sx={{
-							rowGap: { xs: "5px", sm: '5px', md: 3, lg: 4 },
+							rowGap: { xs: "5px", sm: "5px", md: 3, lg: 4 },
 						}}>
 						<Grid
 							display="flex"
 							justifyContent="center"
 							alignItems="center"
 							sx={{
-								columnGap: {xs: 0.2, md: 1}
+								columnGap: { xs: 0.2, md: 1 },
 							}}>
 							<Typography
 								sx={{
-									textWrap: 'wrap',
-									width: {xs: '45px', sm: '110px', md: '160px', lg: '200px'},
-									fontSize: { xs: 6, sm: 12, md: 18, lg: 24},
+									textWrap: "wrap",
+									width: { xs: "45px", sm: "110px", md: "160px", lg: "200px" },
+									fontSize: { xs: 6, sm: 12, md: 18, lg: 24 },
 								}}>
 								{data.product.name}
 							</Typography>
@@ -99,7 +95,7 @@ const ProductCard = ({ data }) => {
 							justifyContent="center"
 							alignItems="center"
 							sx={{
-								columnGap: {xs: 0.2, md: 1}
+								columnGap: { xs: 0.2, md: 1 },
 							}}>
 							<Typography
 								variant="h6"
@@ -121,7 +117,7 @@ const ProductCard = ({ data }) => {
 							justifyContent="center"
 							alignItems="center"
 							sx={{
-								columnGap: {xs: 0.2, md: 1}
+								columnGap: { xs: 0.2, md: 1 },
 							}}>
 							<Typography
 								variant="body1"
@@ -144,9 +140,9 @@ const ProductCard = ({ data }) => {
 				<Grid
 					display="flex"
 					flexDirection="row"
-					alignItems="center"	
+					alignItems="center"
 					sx={{
-						mr: {xs: 1, sm: 1, md: 0, lg: 4},
+						mr: { xs: 1, sm: 1, md: 0, lg: 4 },
 						columnGap: { xs: 0, sm: 3, md: 7, lg: 14 },
 					}}>
 					<Grid>

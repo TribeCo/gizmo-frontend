@@ -1,22 +1,44 @@
 "use client";
 
-const image =
-	`${baseUrl}/images/media/pictures/payment_success_vector_uCxkE4T.png`;
+const image = `${baseUrl}/images/media/pictures/payment_success_vector_uCxkE4T.png`;
 
+import { useAuth } from "@/context/AuthContext";
 import { baseUrl } from "@/services";
-import {
-	Box,
-	Button,
-	CardContent,
-	CardMedia,
-	Container,
-	Grow,
-	Typography,
-} from "@mui/material";
+import { Box, Button, CardMedia, Grow, Typography } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const payment = () => {
+	const searchParams = useSearchParams();
+
+	const { tokens } = useAuth();
+	const authority = searchParams.get("Authority");
+	const status = searchParams.get("Status");
+
+	useEffect(() => {
+		const val = async () => {
+			const response = await fetch(`${baseUrl}/api/verify/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${tokens.access}`,
+				},
+				next: {
+					revalidate: 1,
+				},
+				body: JSON.stringify({
+					authority,
+					status,
+				}),
+			});
+			console.log(await response.json());
+		};
+		if (tokens) {
+			val();
+		}
+	}, [authority, status, tokens]);
+
 	const [go, setGo] = useState(0);
 	const handle = () => {
 		setGo(go === 0 ? 30 : 0);

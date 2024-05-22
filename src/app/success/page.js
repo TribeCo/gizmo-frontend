@@ -7,16 +7,13 @@ import { useCart } from "@/context/CartContext";
 import { baseUrl } from "@/services";
 import { Box, Button, CardMedia, Grow, Typography } from "@mui/material";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const Payment = () => {
-	const searchParams = useSearchParams();
+const Payment = ({ searchParams }) => {
+	console.log(searchParams);
 
 	const { tokens } = useAuth();
 	const { deleteList } = useCart();
-	const authority = searchParams.get("Authority");
-	const status = searchParams.get("Status");
 
 	useEffect(() => {
 		const val = async () => {
@@ -31,8 +28,8 @@ const Payment = () => {
 						revalidate: 1,
 					},
 					body: JSON.stringify({
-						authority,
-						status,
+						authority: searchParams.Authority,
+						status: searchParams.Status,
 					}),
 				});
 				const data = await response.json();
@@ -45,7 +42,7 @@ const Payment = () => {
 		if (tokens) {
 			val();
 		}
-	}, [authority, status, tokens]);
+	}, [tokens]);
 
 	const [go, setGo] = useState(0);
 	const handle = () => {
@@ -53,6 +50,7 @@ const Payment = () => {
 	};
 	const [checked, setChecked] = useState(false);
 	setInterval(() => setChecked(!checked), 10000);
+
 	return (
 		<Box
 			sx={{

@@ -16,8 +16,6 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 
 const BlogSlider = ({ banners }) => {
-	console.log(banners);
-
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	useEffect(() => {

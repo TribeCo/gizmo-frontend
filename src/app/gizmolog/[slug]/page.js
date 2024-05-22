@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Grid, Typography, CardMedia, Avatar, Box } from "@mui/material";
 import LineSplitter from "@/components/LineSpliter";
@@ -7,12 +5,11 @@ import SimilarNews from "@/components/blog/SimilarNews";
 import { GetArticle, GetSimilarArticles } from "@/services/Blog";
 import { convert } from "@/utils";
 import Link from "next/link";
-import { ProductCard } from "@/components";
+import ProductCard from "@/components/ProductCard";
 import BlogComment from "@/components/blog/BlogComment";
 
 export default async function BlogDetail({ params }) {
 	const article = await GetArticle({ slug: params.slug });
-	console.log(article);
 	const similar_article = await GetSimilarArticles({ id: article.id });
 
 	return (

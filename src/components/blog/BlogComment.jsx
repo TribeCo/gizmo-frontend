@@ -4,14 +4,13 @@ import { Box, Typography, Divider, Avatar, Grid } from "@mui/material";
 import { createComment } from "@/services/Blog";
 import { useAuth } from "@/context/AuthContext";
 import BlogSendComment from "./BlogSendComment";
-import { enqueueSnackbar } from "notistack";
 
 const BlogComment = ({ aid, comments }) => {
 	const { tokens } = useAuth();
 
 	const handleSendComment = async (values) => {
 		try {
-			const response = await createComment({
+			await createComment({
 				aid,
 				access: tokens.access,
 				data: {
@@ -27,6 +26,7 @@ const BlogComment = ({ aid, comments }) => {
 			enqueueSnackbar({ message: error.message, variant: "error" });
 		}
 	};
+
 	return (
 		<Box
 			maxWidth="lg"

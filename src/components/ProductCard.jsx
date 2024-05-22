@@ -15,10 +15,9 @@ import { useEffect, useState } from "react";
 import { convert } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
-import { enqueueSnackbar } from "notistack";
-import { baseUrl } from "@/services";
 import { useAuth } from "@/context/AuthContext";
 import { availableNotification } from "@/services/ProductPage";
+import { enqueueSnackbar } from "notistack";
 
 const ProductCard = ({ product }) => {
 	//? Router init

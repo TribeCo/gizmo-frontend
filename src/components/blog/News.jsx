@@ -15,7 +15,7 @@ const News = ({ data }) => {
 			}}>
 			{data.map((item, index) => (
 				<Link
-					href="/"
+					href={`/gizmolog/${item.slug}`}
 					key={index}>
 					<Grid
 						display="flex"

@@ -29,7 +29,7 @@ const Comment = ({ pid, comments }) => {
 
 	const handleSendComment = async (values) => {
 		try {
-			const response = await createComment({
+			await createComment({
 				pid,
 				access: tokens.access,
 				data: {
@@ -39,7 +39,10 @@ const Comment = ({ pid, comments }) => {
 					satisfaction: values.seleted,
 				},
 			});
-			enqueueSnackbar({ message: "کامنت با موفقیت ثبت شد.", variant: "success" });
+			enqueueSnackbar({
+				message: "کامنت با موفقیت ثبت شد.",
+				variant: "success",
+			});
 		} catch (error) {
 			enqueueSnackbar({ message: error.message, variant: "error" });
 		}

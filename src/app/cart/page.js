@@ -43,6 +43,7 @@ const CartPage = () => {
 		total_discounted_price_method: 0,
 		delta_discounted_method: 0,
 		coupon: 0,
+		coupon_code: null,
 	});
 
 	const formik = useFormik({
@@ -154,6 +155,7 @@ const CartPage = () => {
 					response.cart.total_discounted_price_method,
 				delta_discounted_method: response.cart.delta_discounted_method,
 				coupon: response.cart.coupon_discount,
+				coupon_code: code,
 			});
 			console.log(res);
 			if (res.message === "کد تخفیف با موفقیت اعمال شد.") {
@@ -201,6 +203,7 @@ const CartPage = () => {
 								response.cart.total_discounted_price_method,
 							delta_discounted_method: response.cart.delta_discounted_method,
 							coupon: response.cart.coupon_discount,
+							coupon_code: "",
 						});
 						return;
 					}
@@ -241,7 +244,10 @@ const CartPage = () => {
 					<ProgressBar activeStep={state} />
 				</Box>
 				{state === 2 ? (
-					<Third data={data} />
+					<Third
+						data={data}
+						totals={totals}
+					/>
 				) : state === 1 ? (
 					<>
 						<Second

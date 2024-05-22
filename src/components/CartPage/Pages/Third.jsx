@@ -4,7 +4,7 @@ import PaymentHeader from "../PaymentHeader";
 import PaymentProductCard from "../PaymentProductCard";
 import ReceiptCard from "../ReceiptCard";
 
-const Third = ({ data }) => {
+const Third = ({ data, totals }) => {
 	return (
 		<>
 			<Box sx={{ margin: { xs: 2, md: 6 } }}>
@@ -39,9 +39,18 @@ const Third = ({ data }) => {
 				</Grid>
 				<Grid
 					item
-					lg={4}
-					md={12}>
-					<ReceiptCard />
+					lg={4.5}
+					md={12}
+					sx={{
+						marginX: {
+							xs: "auto",
+							sm: "auto",
+							md: "auto",
+							lg: 0,
+							xl: 0,
+						},
+					}}>
+					<ReceiptCard data={totals} />
 				</Grid>
 			</Grid>
 		</>

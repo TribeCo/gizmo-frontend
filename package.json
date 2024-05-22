@@ -28,6 +28,7 @@
     "react-custom-scroll": "^5.0.0",
     "react-dom": "^18",
     "react-number-format": "^5.3.3",
+    "sharp": "^0.33.4",
     "storyblok-js-client": "^6.7.1",
     "stylis": "^4.3.1",
     "stylis-plugin-rtl": "^2.1.1",

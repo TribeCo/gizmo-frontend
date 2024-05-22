@@ -11,6 +11,7 @@ import LineSplitter from "@/components/LineSpliter";
 import { baseUrl } from "@/services";
 import { fetchGizmoInfo } from "@/services/Faq";
 import { enqueueSnackbar } from "notistack";
+import Image from "next/image";
 
 function ContactUs() {
 	const [gizmoinfo, setGizmoInfo] = useState([]);
@@ -25,8 +26,11 @@ function ContactUs() {
 				setGizmoInfo(response.data);
 			}
 		} catch (error) {
-			console.error('خطا در دریافت اطلاعات:', error);
-			enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+			console.error("خطا در دریافت اطلاعات:", error);
+			enqueueSnackbar({
+				message: error.message || "خطا در دریافت اطلاعات.",
+				variant: "error",
+			});
 		}
 	};
 
@@ -55,10 +59,13 @@ function ContactUs() {
 				paddingX: { xs: 0, md: "50px" },
 			}}>
 			<Box
+				mt={10}
 				display="flex"
 				justifyContent="center"
 				alignItems="center">
-				<img
+				<Image
+					width={500}
+					height={100}
 					src={gizmoinfo.gif}
 					alt="Gizmo GIF"
 				/>

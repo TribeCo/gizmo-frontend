@@ -38,7 +38,10 @@ export default function DashBoardEditProfile({ information }) {
 		try {
 			const response = await EditProfile(newProfileData, tokens);
 			if (response) {
-				enqueueSnackbar({ message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.", variant: "success" });
+				enqueueSnackbar({
+					message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.",
+					variant: "success",
+				});
 				setNewProfileData({
 					first_name: "",
 					last_name: "",
@@ -48,20 +51,33 @@ export default function DashBoardEditProfile({ information }) {
 				});
 			}
 		} catch (error) {
-			console.error('خطا در ارسال داده به API:', error);
-			enqueueSnackbar({ message: error.message || "به‌روزرسانی پروفایل ناموفق بود.", variant: "error" });
+			console.error("خطا در ارسال داده به API:", error);
+			enqueueSnackbar({
+				message: error.message || "به‌روزرسانی پروفایل ناموفق بود.",
+				variant: "error",
+			});
 		}
 	};
-	
+
 	const editNewProfilePassword = async () => {
-		if (newProfilePassword.new_password !== newProfilePassword.new_password_confirm) {
-			enqueueSnackbar({ message: "رمزهای عبور مطابقت ندارند. لطفاً مطمئن شوید که رمز عبور جدید و تأیید رمز عبور شما مطابقت دارند.", variant: "error" });
+		if (
+			newProfilePassword.new_password !==
+			newProfilePassword.new_password_confirm
+		) {
+			enqueueSnackbar({
+				message:
+					"رمزهای عبور مطابقت ندارند. لطفاً مطمئن شوید که رمز عبور جدید و تأیید رمز عبور شما مطابقت دارند.",
+				variant: "error",
+			});
 			return;
 		}
 		try {
 			const response = await EditPassword(newProfilePassword, tokens);
 			if (response) {
-				enqueueSnackbar({ message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.", variant: "success" });
+				enqueueSnackbar({
+					message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.",
+					variant: "success",
+				});
 				setNewProfilePassword({
 					new_password_confirm: "",
 					password: "",
@@ -69,8 +85,11 @@ export default function DashBoardEditProfile({ information }) {
 				});
 			}
 		} catch (error) {
-			console.error('خطا در ارسال داده به API:', error);
-			enqueueSnackbar({ message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.", variant: "error" });
+			console.error("خطا در ارسال داده به API:", error);
+			enqueueSnackbar({
+				message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.",
+				variant: "error",
+			});
 		}
 	};
 
@@ -309,7 +328,9 @@ export default function DashBoardEditProfile({ information }) {
 												? setSecondField("text")
 												: setSecondField("password");
 										}}>
-										<Image src={eye}></Image>
+										<Image
+											alt="eye"
+											src={eye}></Image>
 									</button>
 								</div>
 							</div>

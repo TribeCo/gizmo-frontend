@@ -3,36 +3,44 @@
 const image = `${baseUrl}/images/media/pictures/payment_success_vector_uCxkE4T.png`;
 
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 import { baseUrl } from "@/services";
 import { Box, Button, CardMedia, Grow, Typography } from "@mui/material";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const payment = () => {
+const Payment = () => {
 	const searchParams = useSearchParams();
 
 	const { tokens } = useAuth();
+	const { deleteList } = useCart();
 	const authority = searchParams.get("Authority");
 	const status = searchParams.get("Status");
 
 	useEffect(() => {
 		const val = async () => {
-			const response = await fetch(`${baseUrl}/api/verify/`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${tokens.access}`,
-				},
-				next: {
-					revalidate: 1,
-				},
-				body: JSON.stringify({
-					authority,
-					status,
-				}),
-			});
-			console.log(await response.json());
+			try {
+				const response = await fetch(`${baseUrl}/api/verify/`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${tokens.access}`,
+					},
+					next: {
+						revalidate: 1,
+					},
+					body: JSON.stringify({
+						authority,
+						status,
+					}),
+				});
+				const data = await response.json();
+				console.log(data);
+				deleteList();
+			} catch (error) {
+				console.log(error);
+			}
 		};
 		if (tokens) {
 			val();
@@ -87,4 +95,4 @@ const payment = () => {
 	);
 };
 
-export default payment;
+export default Payment;

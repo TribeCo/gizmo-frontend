@@ -28,7 +28,7 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 			handleNext();
 		}, swapTime_millisecond);
 		return () => clearInterval(interval);
-	}, [currentIndex]);
+	}, [currentIndex, handleNext]);
 
 	const handleNext = () => {
 		setCurrentIndex((prevIndex) =>

@@ -33,9 +33,9 @@ const ProductCard = ({ product }) => {
 	const [show, setShow] = useState(false);
 
 	const handleAddToCart = () => {
-		console.log({ color: 0, product: data.id, quantity: 1 });
+		console.log({ color: 0, product: product.id, quantity: 1 });
 		try {
-			addToCart({ color: 0, product: data.id, quantity: 1 });
+			addToCart({ color: 0, product: product.id, quantity: 1 });
 			enqueueSnackbar({
 				message: "محصول با موفقیت به سبد خرید اضافه شد",
 				variant: "success",

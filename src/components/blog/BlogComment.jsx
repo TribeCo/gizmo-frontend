@@ -11,7 +11,6 @@ const BlogComment = ({ aid, comments }) => {
 
 	const handleSendComment = async (values) => {
 		try {
-			enqueueSnackbar
 			const response = await createComment({
 				aid,
 				access: tokens.access,
@@ -20,13 +19,16 @@ const BlogComment = ({ aid, comments }) => {
 					anonymous: values.anonymous,
 				},
 			});
-			enqueueSnackbar({ message: "کامنت با موفقیت ثبت شد.", variant: "success" });
+			enqueueSnackbar({
+				message: "کامنت با موفقیت ثبت شد.",
+				variant: "success",
+			});
 		} catch (error) {
 			enqueueSnackbar({ message: error.message, variant: "error" });
 		}
 	};
 	return (
-		<Box 
+		<Box
 			maxWidth="lg"
 			sx={{
 				mt: 4,
@@ -38,19 +40,15 @@ const BlogComment = ({ aid, comments }) => {
 						<Box
 							key={comment.id}
 							display="flex"
-							flexDirection='column'
-						>
+							flexDirection="column">
 							<Grid
-								display='flex'
-								alignItems='center'
-								>
+								display="flex"
+								alignItems="center">
 								<Avatar
 									src={comment.image}
 									sx={{ width: 30, height: 30, mr: 2 }}
-									/>
-								<Box
-									sx={{ display: "flex"}}
-									>
+								/>
+								<Box sx={{ display: "flex" }}>
 									<Typography
 										noWrap
 										variant="caption"
@@ -68,8 +66,7 @@ const BlogComment = ({ aid, comments }) => {
 									}}>
 									<Typography
 										noWrap
-										variant="h6"
-									>
+										variant="h6">
 										{comment.anonymous ? "کاربر" : comment.user_full_name}
 									</Typography>
 								</Box>
@@ -80,7 +77,6 @@ const BlogComment = ({ aid, comments }) => {
 						</Box>
 						<Divider
 							sx={{
-								
 								maxWidth: "lg",
 								my: 2,
 								mx: "auto",

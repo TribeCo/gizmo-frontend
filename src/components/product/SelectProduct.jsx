@@ -181,6 +181,7 @@ const SelectProduct = ({ data }) => {
 							data.product_color.map((color, index) => {
 								return (
 									<IconButton
+										key={index}
 										disabled={color.color.quantity < 1 ? true : false}
 										onClick={() => {
 											setCount(1);

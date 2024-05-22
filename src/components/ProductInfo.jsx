@@ -285,9 +285,10 @@ function ProductInfo({ data }) {
 							fontWeight={400}>
 							{`دسته بندی:`}
 						</Typography>
-						{data.category.map((c) => {
+						{data.category.map((c, index) => {
 							return (
 								<Link
+									key={index}
 									style={{ textDecoration: "none" }}
 									href={`/categories/${c.slug}`}>
 									<Button sx={{ height: 20 }}>
@@ -341,9 +342,11 @@ function ProductInfo({ data }) {
 							.filter((atr) => {
 								return atr.is_main;
 							})
-							.map((atr) => {
+							.map((atr, index) => {
 								return (
-									<Typography color="#22668D">{`•   ${atr.key} : ${atr.value}`}</Typography>
+									<Typography
+										key={index}
+										color="#22668D">{`•   ${atr.key} : ${atr.value}`}</Typography>
 								);
 							})}
 					</Box>

@@ -277,7 +277,7 @@ const CartPage = () => {
 			} catch (error) {}
 		};
 		getData();
-	}, [tokens]);
+	}, [tokens, readCart, getCart]);
 
 	//? Render
 	return (

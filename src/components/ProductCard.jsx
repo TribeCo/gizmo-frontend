@@ -10,15 +10,14 @@ import {
 	Typography,
 	IconButton,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { convert } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
-import { enqueueSnackbar } from "notistack";
-import { baseUrl } from "@/services";
 import { useAuth } from "@/context/AuthContext";
 import { availableNotification } from "@/services/ProductPage";
+import { enqueueSnackbar } from "notistack";
 
 const ProductCard = ({ product }) => {
 	//? Router init
@@ -31,11 +30,18 @@ const ProductCard = ({ product }) => {
 
 	//? show hover state => (second)
 	const [show, setShow] = useState(false);
+	const [token, setToken] = useState("");
+
+	useEffect(() => {
+		if (tokens) {
+			setToken(tokens.access);
+		}
+	}, [tokens]);
 
 	const handleAddToCart = () => {
-		console.log({ color: 0, product: data.id, quantity: 1 });
+		console.log({ color: 0, product: product.id, quantity: 1 });
 		try {
-			addToCart({ color: 0, product: data.id, quantity: 1 });
+			addToCart({ color: 0, product: product.id, quantity: 1 });
 			enqueueSnackbar({
 				message: "محصول با موفقیت به سبد خرید اضافه شد",
 				variant: "success",
@@ -54,41 +60,18 @@ const ProductCard = ({ product }) => {
 	};
 
 	const handleNotification = async () => {
-		// const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
-		// 	method: "GET",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 		Authorization: `Bearer ${tokens.access}`,
-		// 	},
-		// });
-		// if (userResponse.ok) {
-		// 	setUser(await userResponse.json());
-		// 	//TODO add notification api
-		// 	enqueueSnackbar({
-		// 		message: "در صورت مجود شدن محصول به شما اطلاع داده میشود.",
-		// 		variant: "success",
-		// 	});
-		// } else {
-		// 	enqueueSnackbar({
-		// 		message: "برای فعال کردن این گذینه ابتدا وارد شوید",
-		// 		variant: "error",
-		// 	});
-		// }
-		// console.log({
-		// 	product: data.id,
-		// });
-
+		console.log(token);
 		const response = await availableNotification({
-			pid: data.id,
-			access: tokens.access,
+			pid: product.id,
+			access: token || "",
 		});
 		console.log(response);
 		if (response.message) {
 			enqueueSnackbar({ message: response.message, variant: "success" });
 		} else {
-			if (response.status === 401) {
+			if (response.code === "bad_authorization_header") {
 				enqueueSnackbar({
-					message: "برای فعال کردن این گذینه ابتدا باید وارد شوید",
+					message: "برای فعال کردن این گذینه ابتدا وارد شوید",
 					variant: "error",
 				});
 			} else {

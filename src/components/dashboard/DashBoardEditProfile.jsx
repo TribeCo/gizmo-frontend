@@ -72,17 +72,30 @@ export default function DashBoardEditProfile({ information }) {
 
 	const editNewProfilePassword = async () => {
 		try {
-			if (newProfilePassword.new_password !== newProfilePassword.new_password_confirm) {
-				enqueueSnackbar({ message: "رمزهای عبور مطابقت ندارند. لطفاً مطمئن شوید که رمز عبور جدید و تأیید رمز عبور شما مطابقت دارند.", variant: "error" });
+			if (
+			newProfilePassword.new_password !==
+			newProfilePassword.new_password_confirm
+		) {
+				enqueueSnackbar({
+				message:
+					"رمزهای عبور مطابقت ندارند. لطفاً مطمئن شوید که رمز عبور جدید و تأیید رمز عبور شما مطابقت دارند.",
+				variant: "error",
+			});
 				return;
 			}
 			const response = await EditPassword(newProfilePassword, tokens);
 			if (response) {
-				enqueueSnackbar({ message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.", variant: "success" });
+				enqueueSnackbar({
+					message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.",
+					variant: "success",
+				});
 			}
 		} catch (error) {
-			console.error('خطا در ارسال داده به API:', error);
-			enqueueSnackbar({ message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.", variant: "error" });
+			console.error("خطا در ارسال داده به API:", error);
+			enqueueSnackbar({
+				message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.",
+				variant: "error",
+			});
 		} finally {
 			console.log("I am in finally block");
 
@@ -332,7 +345,9 @@ export default function DashBoardEditProfile({ information }) {
 												? setSecondField("text")
 												: setSecondField("password");
 										}}>
-										<Image src={eye}></Image>
+										<Image
+											alt="eye"
+											src={eye}></Image>
 									</button>
 								</div>
 							</div>

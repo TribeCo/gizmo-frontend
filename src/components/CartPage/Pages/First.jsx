@@ -8,8 +8,13 @@ const First = ({ data }) => {
 	return (
 		<>
 			<CartHeader />
-			{data.map((item) => {
-				return <ProductCard data={item} />;
+			{data.map((item, index) => {
+				return (
+					<ProductCard
+						data={item}
+						key={index}
+					/>
+				);
 			})}
 		</>
 	);

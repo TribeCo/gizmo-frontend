@@ -4,7 +4,7 @@ import eye from "@/components/siteIcons/eye-slash.svg";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import { Button, Typography, Stack, Paper } from "@mui/material";
-import { EditPassword, EditProfile } from "@/services/DashBoard";
+import { EditPassword, EditProfile, fetchInformation } from "@/services/DashBoard";
 import { enqueueSnackbar } from "notistack";
 
 export default function DashBoardEditProfile({ information }) {
@@ -20,6 +20,41 @@ export default function DashBoardEditProfile({ information }) {
 		email: "",
 	});
 
+	const GetInformation = async () => {
+		try {
+			const data = await fetchInformation(tokens);
+			if (!data) {
+				router.replace("/login");
+			}
+			setNewProfileData(data);
+		} catch (error) {
+			console.error('Error fetching information:', error);
+			enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+		}
+	};
+
+	useEffect(() => {
+		async function GetInfo() {
+			await GetInformation();
+		}
+		GetInfo();
+
+		return () => {
+		};
+	}, []);
+
+	const handleUpdateProfileFields = ({ data }) => {
+		const new_data = {
+			first_name: data.first_name,
+			last_name: data.last_name,
+			phoneNumber: data.phoneNumber,
+			gender: data.gender,
+			email: data.email,
+		};
+
+		setNewProfileData(new_data);
+	}
+
 	const [newProfilePassword, setNewProfilePassword] = useState({
 		new_password_confirm: "",
 		password: "",
@@ -34,30 +69,26 @@ export default function DashBoardEditProfile({ information }) {
 	};
 
 	const editNewProfile = async () => {
-		console.log(newProfileData);
 		try {
 			const response = await EditProfile(newProfileData, tokens);
 			if (response) {
-				enqueueSnackbar({
-					message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.",
-					variant: "success",
-				});
-				setNewProfileData({
-					first_name: "",
-					last_name: "",
-					phoneNumber: "",
-					gender: "",
-					email: "",
-				});
+				enqueueSnackbar({ message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.", variant: "success" });
 			}
 		} catch (error) {
-			console.error("خطا در ارسال داده به API:", error);
-			enqueueSnackbar({
-				message: error.message || "به‌روزرسانی پروفایل ناموفق بود.",
-				variant: "error",
-			});
+			console.error('خطا در ارسال داده به API:', error);
+			enqueueSnackbar({ message: error.message || "به‌روزرسانی پروفایل ناموفق بود.", variant: "error" });
+		} finally {
+			await GetInformation();
 		}
 	};
+	
+	const handleClearResetPasswordInputs = () => {
+		setNewProfilePassword((obj) => {
+			obj.password = "",
+			obj.new_password = "",
+			obj.new_password_confirm = ""
+		});
+	}
 
 	const editNewProfilePassword = async () => {
 		if (
@@ -73,6 +104,7 @@ export default function DashBoardEditProfile({ information }) {
 		}
 		try {
 			const response = await EditPassword(newProfilePassword, tokens);
+			console.log("response: " + response);
 			if (response) {
 				enqueueSnackbar({
 					message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.",
@@ -83,6 +115,8 @@ export default function DashBoardEditProfile({ information }) {
 					password: "",
 					new_password: "",
 				});
+
+				handleClearResetPasswordInputs();
 			}
 		} catch (error) {
 			console.error("خطا در ارسال داده به API:", error);
@@ -122,12 +156,12 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<input
 									type="text"
-									value={information.first_name}
-									onChange={(e) =>
+									value={newProfileData.first_name}
+									onChange={(e) => {
 										setNewProfileData({
 											...newProfileData,
 											first_name: e.target.value,
-										})
+										})}
 									}
 									id="name"
 									className="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2"
@@ -142,7 +176,7 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<input
 									type="text"
-									value={information.last_name}
+									value={newProfileData.last_name}
 									onChange={(e) =>
 										setNewProfileData({
 											...newProfileData,
@@ -163,7 +197,7 @@ export default function DashBoardEditProfile({ information }) {
 								<input
 									disabled
 									type="tel"
-									value={information.phoneNumber}
+									value={newProfileData.phoneNumber}
 									onInput={handleInputChange}
 									onChange={(e) =>
 										setNewProfileData({
@@ -188,7 +222,7 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<select
 									type="select"
-									value={information.gender}
+									value={newProfileData.gender}
 									onChange={(e) =>
 										setNewProfileData({
 											...newProfileData,
@@ -213,7 +247,7 @@ export default function DashBoardEditProfile({ information }) {
 								<input
 									type="email"
 									disabled
-									value={information.email}
+									value={newProfileData.email}
 									id="email"
 									className="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2"
 								/>
@@ -311,6 +345,7 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<div className="relative">
 									<input
+										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={secondField}
 										onChange={(e) =>
@@ -343,6 +378,7 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<div className="relative">
 									<input
+										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={thirdField}
 										onChange={(e) =>
@@ -375,6 +411,7 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<div className="relative">
 									<input
+										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={forthField}
 										onChange={(e) =>

@@ -43,18 +43,6 @@ export default function DashBoardEditProfile({ information }) {
 		};
 	}, []);
 
-	const handleUpdateProfileFields = ({ data }) => {
-		const new_data = {
-			first_name: data.first_name,
-			last_name: data.last_name,
-			phoneNumber: data.phoneNumber,
-			gender: data.gender,
-			email: data.email,
-		};
-
-		setNewProfileData(new_data);
-	}
-
 	const [newProfilePassword, setNewProfilePassword] = useState({
 		new_password_confirm: "",
 		password: "",
@@ -81,42 +69,26 @@ export default function DashBoardEditProfile({ information }) {
 			await GetInformation();
 		}
 	};
-	
-	const handleClearResetPasswordInputs = () => {
-		setNewProfilePassword((obj) => {
-			obj.password = "",
-			obj.new_password = "",
-			obj.new_password_confirm = ""
-		});
-	}
 
 	const editNewProfilePassword = async () => {
-		if (
+		try {
+			if (
 			newProfilePassword.new_password !==
 			newProfilePassword.new_password_confirm
 		) {
-			enqueueSnackbar({
+				enqueueSnackbar({
 				message:
 					"رمزهای عبور مطابقت ندارند. لطفاً مطمئن شوید که رمز عبور جدید و تأیید رمز عبور شما مطابقت دارند.",
 				variant: "error",
 			});
-			return;
-		}
-		try {
+				return;
+			}
 			const response = await EditPassword(newProfilePassword, tokens);
-			console.log("response: " + response);
 			if (response) {
 				enqueueSnackbar({
 					message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.",
 					variant: "success",
 				});
-				setNewProfilePassword({
-					new_password_confirm: "",
-					password: "",
-					new_password: "",
-				});
-
-				handleClearResetPasswordInputs();
 			}
 		} catch (error) {
 			console.error("خطا در ارسال داده به API:", error);
@@ -124,6 +96,15 @@ export default function DashBoardEditProfile({ information }) {
 				message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.",
 				variant: "error",
 			});
+		} finally {
+			console.log("I am in finally block");
+
+			setNewProfilePassword(obj => ({
+				...obj,
+				new_password_confirm: "",
+				password: "",
+				new_password: ""
+			}));
 		}
 	};
 
@@ -348,6 +329,7 @@ export default function DashBoardEditProfile({ information }) {
 										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={secondField}
+										value={newProfilePassword.new_password}
 										onChange={(e) =>
 											setNewProfilePassword({
 												...newProfilePassword,
@@ -381,6 +363,7 @@ export default function DashBoardEditProfile({ information }) {
 										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={thirdField}
+										value={newProfilePassword.password}
 										onChange={(e) =>
 											setNewProfilePassword({
 												...newProfilePassword,
@@ -414,6 +397,7 @@ export default function DashBoardEditProfile({ information }) {
 										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={forthField}
+										value={newProfilePassword.new_password_confirm}
 										onChange={(e) =>
 											setNewProfilePassword({
 												...newProfilePassword,

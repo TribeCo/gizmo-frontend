@@ -82,7 +82,6 @@ export default function Profile() {
 		/>, // حساب کاربری 0
 		<DashBoardEditProfile
 			information={information}
-			// GetUpdatedData = {GetUpdatedData}
 			key={1}
 		/>, // ویرایش اطلاعات حساب 1
 		<DashBoardAddress key={2} />, // آدرس ها 2

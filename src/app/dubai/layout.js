@@ -7,7 +7,7 @@ export default function DubaiLayout({ children }) {
 		<section>
 			<AppBar />
 			{children}
-			<Footer />
+			<Footer hasSecondPart={false} />
 		</section>
 	);
 }

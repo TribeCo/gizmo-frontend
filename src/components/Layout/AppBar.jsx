@@ -812,9 +812,11 @@ const SearchField = () => {
 											);
 										})
 										.slice(0, 2)
-										.map((c) => {
+										.map((c, index) => {
 											return (
-												<Link href={`/categories/${c.slug}`}>
+												<Link
+													key={index}
+													href={`/categories/${c.slug}`}>
 													<Box
 														sx={{
 															display: "flex",
@@ -898,9 +900,11 @@ const SearchField = () => {
 											.includes(searchQuery.toUpperCase().split(" ").join(""));
 									})
 									.slice(0, 4)
-									.map((p) => {
+									.map((p, index) => {
 										return (
-											<Link href={`/products/${p.slug}`}>
+											<Link
+												key={index}
+												href={`/products/${p.slug}`}>
 												<Box
 													sx={{
 														display: "flex",

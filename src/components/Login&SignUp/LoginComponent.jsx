@@ -16,7 +16,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useAuth } from "@/context/AuthContext";
 import { usePhoneNumber } from "@/utils/PhoneNumber";
 import * as Yup from "yup";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const LoginComponent = () => {
 	const [showPassword, setShowPassword] = useState(false);

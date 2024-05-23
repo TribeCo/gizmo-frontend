@@ -155,6 +155,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							justifyContent: "center",
 						}}>
 						<Image
+							alt="shop icon"
 							src={ShopIcon}
 							width="auto"
 							height={70}
@@ -188,6 +189,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							justifyContent: "center",
 						}}>
 						<Image
+							alt="delivery truck"
 							src={DeliveryTruck}
 							width="auto"
 							height={70}
@@ -221,6 +223,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							justifyContent: "center",
 						}}>
 						<Image
+							alt="Quality"
 							src={Quality}
 							width="auto"
 							height={70}
@@ -254,6 +257,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							justifyContent: "center",
 						}}>
 						<Image
+							alt="24 Hours Support"
 							src={_24HoursSupport}
 							width="auto"
 							height={70}
@@ -286,6 +290,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							justifyContent: "center",
 						}}>
 						<Image
+							alt="Money Groth"
 							src={MoneyGroth}
 							width="auto"
 							height={70}

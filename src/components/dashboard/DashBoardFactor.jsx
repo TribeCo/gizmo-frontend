@@ -25,7 +25,7 @@ export default function DashBoardFactor({ id }) {
             const response = await fetchFactors(id, tokens);
             console.log('Received data:', response.data); // Check what you're actually receiving
             if (response.data) {
-                setFactors(response.data);
+                setFactors(response.data);  
             }
         } catch (error) {
             console.error('Error fetching factors:', error);

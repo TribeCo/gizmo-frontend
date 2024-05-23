@@ -263,7 +263,7 @@ export const SenderInformation = async (data, tokens) => {
 
 export const EditProfile = async (formData, tokens) => {
 	try {
-		const response = await fetch(`${baseUrl}/api/users/update/1/`, {
+		const response = await fetch(`${baseUrl}/api/users/update/`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -272,7 +272,7 @@ export const EditProfile = async (formData, tokens) => {
 			body: JSON.stringify(formData),
 		});
 		if (!response.ok) {
-			throw new Error("Network response was not ok");
+			console.log(response);
 		}
 		return response.json();
 	} catch (error) {
@@ -282,7 +282,7 @@ export const EditProfile = async (formData, tokens) => {
 
 export const EditPassword = async (passwordData, tokens) => {
 	try {
-		const response = await fetch(`${baseUrl}/api/users/password/update/`, {
+		const response = await fetch(`${baseUrl}/api/users/password/old/change/`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -290,9 +290,10 @@ export const EditPassword = async (passwordData, tokens) => {
 			},
 			body: JSON.stringify(passwordData),
 		});
-		if (!response.ok) {
-			throw new Error("Network response was not ok");
-		}
+			if (!response.ok) {
+				console.log(response);
+			}
+
 		return response.json();
 	} catch (error) {
 		console.error("There was a problem with the fetch operation:", error);

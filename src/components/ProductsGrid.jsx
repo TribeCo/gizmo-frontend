@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from 'react'; // Add useEffect here
-import { Box, Grid, Button } from '@mui/material';
-import ProductCard from './ProductCard'; // Adjust the import path as necessary
+import React, { useState, useEffect } from 'react';
+import { Box, Grid, Typography } from '@mui/material';
+import ProductCard from './ProductCard';
 import FilterBar from './FilterBar';
 import FilterCard from './FilterCard';
 import PersianPagination from './PersianPagination';
@@ -9,7 +9,7 @@ import PersianPagination from './PersianPagination';
 const PRODUCTS_PER_PAGE = 12;
 
 const ProductsGrid = ({ productsList }) => {
-    const [filter, setFilter] = useState('منتخب'); // Could be 'all', 'latest', 'price', 'rating'
+    const [filter, setFilter] = useState('منتخب');
     const [filteredProducts, setFilteredProducts] = useState(productsList);
     const [page, setPage] = useState(1);
     const [isAvailable, setIsAvailable] = useState(false);
@@ -54,7 +54,7 @@ const ProductsGrid = ({ productsList }) => {
                 case 'پرفروش‌ترین':
                     tempProducts.sort((a, b) => b.ordered - a.ordered);
                     break;
-                case 'منتخب': // No filter applied, so leave tempProducts as is
+                case 'منتخب':
                 default:
                     tempProducts = [...productsList];
             }
@@ -80,11 +80,11 @@ const ProductsGrid = ({ productsList }) => {
                 />
                 <Box
                     sx={{
-                        display: 'flex', // Use a flex layout
-                        flexDirection: 'column', // Arrange children in a column
-                        alignItems: 'center', // Center the items horizontally
-                        width: '100%', // Take up the full width of the parent container
-                        gap: 5, // Add some space between the filter bar and the grid of products
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        width: '100%',
+                        gap: 5,
                         px: 1,
                     }}
                 >
@@ -92,16 +92,24 @@ const ProductsGrid = ({ productsList }) => {
                         filterNames={['پرفروش‌ترین', 'جدیدترین', 'ارزان‌ترین', 'گران‌ترین']}
                         onFilterChange={(selectedFilter) => setFilter(selectedFilter)}
                     />
-                    <Grid container spacing={4} sx={{ width: '100%' }}> {/* Ensure the Grid takes up the full width */}
-                        {paginatedProducts.map((product) => (
-                            <Grid item xs={12} sm={6} lg={4} xl={3} key={product.id} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <ProductCard product={product} />
-                            </Grid>
-                        ))}
+                    <Grid container spacing={4} sx={{ width: '100%' }} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                        {paginatedProducts.length > 0 ? (
+                            paginatedProducts.map((product) => (
+                                <Grid item xs={12} sm={6} lg={4} xl={3} key={product.id} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <ProductCard product={product} />
+                                </Grid>
+                            ))
+                        ) : (
+                            <Box>
+                                <Typography fontWeight={900} fontSize={20} marginTop={20}>هیچ موردی برای نمایش وجود ندارد.</Typography>
+                            </Box>
+                        )}
                     </Grid>
                 </Box>
             </Box>
-            <PersianPagination count={pageCount} page={page} onChange={handleChange} />
+            {paginatedProducts.length > 0 && (
+                <PersianPagination count={pageCount} page={page} onChange={handleChange} />
+            )}
         </Box>
     );
 };

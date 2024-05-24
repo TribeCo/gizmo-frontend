@@ -59,10 +59,9 @@ const LoginComponent = () => {
 				flexDirection: "column",
 				justifyContent: "center",
 				alignItems: "center",
-				height: "auto", // Minimum height to maintain size
-				width: { xs: 350, sm: 400, md: 460 }, // Minimum width to maintain size
+				height: "auto",
+				width: { xs: 350, sm: 400, md: 460 },
 			}}>
-			{/* Welcome Typography outside the Card */}
 			<Typography
 				variant="h4"
 				sx={{

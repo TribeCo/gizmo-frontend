@@ -150,7 +150,8 @@ const ProductPart = () => {
 							direction: "rtl",
 							display: "flex",
 							flexDirection: { xs: "column", md: "row" },
-							justifyContent: { xs: "center", md: "space-between" },
+							justifyContent: { xs: "center", md: "center" },
+							gap: 2,
 						}}>
 						<Box>
 							<CardMedia
@@ -159,14 +160,12 @@ const ProductPart = () => {
 									height: 400,
 									width: 400,
 									borderRadius: 10,
-									// ml: { xs: 0, md: 7 },
 									mb: 3,
 								}}
 							/>
 						</Box>
 						<Box>
 							<Typography
-								noWrap
 								overflow="hidden"
 								variant="h4"
 								fontWeight={900}>
@@ -182,12 +181,13 @@ const ProductPart = () => {
 									fontWeight={900}>
 									{"Link: "}
 								</Typography>
-								<Typography
-									noWrap
-									variant="h6"
-									color="#70CEE5">
-									{product.product_url}
-								</Typography>
+								<Box>
+									<Typography
+										variant="h6"
+										color="#70CEE5">
+										{product.product_url}
+									</Typography>
+								</Box>
 							</Box>
 							<Box
 								mt={2}

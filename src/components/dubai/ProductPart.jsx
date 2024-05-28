@@ -11,6 +11,7 @@ import {
 	CardContent,
 	CardMedia,
 	Container,
+	Grid,
 	TextField,
 	Typography,
 } from "@mui/material";
@@ -18,6 +19,7 @@ import SuccessDialog from "./SuccessDialog";
 import { enqueueSnackbar } from "notistack";
 
 import * as yup from "yup";
+import Loading from "../Loading";
 
 const schema = yup.object({
 	url: yup
@@ -27,6 +29,8 @@ const schema = yup.object({
 });
 
 const ProductPart = () => {
+	const { tokens } = useAuth();
+
 	const [showDialog, setShowDialog] = useState(false);
 	const [product, setProduct] = useState({
 		id: 0,
@@ -42,11 +46,15 @@ const ProductPart = () => {
 		setShowDialog(false);
 	};
 
+	//? Loading
+	const [loading, setLoading] = useState(false);
+
 	const [url, setUrl] = useState("");
 
 	const [showProduct, setShowProduct] = useState(false);
 
 	const sendUrlBtn = async () => {
+		setLoading(true);
 		try {
 			await schema.validate({ url });
 			try {
@@ -61,11 +69,30 @@ const ProductPart = () => {
 		} catch (error) {
 			enqueueSnackbar({ message: error.message, variant: "error" });
 		}
+		setLoading(false);
 	};
 
-	const { tokens } = useAuth();
+	const handleCreateOrder = async ({ pid }) => {
+		setLoading(true);
+		try {
+			await createOrder({
+				pid: pid,
+				tokens: tokens,
+			});
+			setShowDialog(true);
+		} catch (error) {
+			console.log(error);
+			enqueueSnackbar({
+				message: "خطایی رخ داد،لطفا دوباره تلاش کنید.",
+				variant: "error",
+			});
+		}
+		setLoading(false);
+	};
+
 	return (
 		<>
+			<Loading open={loading} />
 			<Container maxWidth="xl">
 				<Box
 					sx={{
@@ -114,13 +141,16 @@ const ProductPart = () => {
 					</Button>
 				</Box>
 				{showProduct ? (
-					<Box
+					<Card
 						sx={{
+							maxWidth: "xl",
+							boxShadow: "none",
+							padding: 1,
 							mt: 10,
 							direction: "rtl",
 							display: "flex",
 							flexDirection: { xs: "column", md: "row" },
-							justifyContent: { xs: "center", md: "start" },
+							justifyContent: { xs: "center", md: "space-between" },
 						}}>
 						<Box>
 							<CardMedia
@@ -129,13 +159,15 @@ const ProductPart = () => {
 									height: 400,
 									width: 400,
 									borderRadius: 10,
-									ml: { xs: 0, md: 7 },
+									// ml: { xs: 0, md: 7 },
 									mb: 3,
 								}}
 							/>
 						</Box>
 						<Box>
 							<Typography
+								noWrap
+								overflow="hidden"
 								variant="h4"
 								fontWeight={900}>
 								{product.name}
@@ -151,11 +183,7 @@ const ProductPart = () => {
 									{"Link: "}
 								</Typography>
 								<Typography
-									sx={{
-										whiteSpace: "nowrap",
-										overflow: "hidden",
-										textOverflow: "ellipsis",
-									}}
+									noWrap
 									variant="h6"
 									color="#70CEE5">
 									{product.product_url}
@@ -207,15 +235,7 @@ const ProductPart = () => {
 									justifyContent: { xs: "center", md: "start" },
 								}}>
 								<Button
-									onClick={async () => {
-										console.log(product.id);
-										const response = await createOrder({
-											pid: product.id,
-											tokens: tokens,
-										});
-										console.log(response);
-										setShowDialog(true);
-									}}
+									onClick={() => handleCreateOrder({ pid: product.id })}
 									variant="contained"
 									color="secondary"
 									sx={{
@@ -232,9 +252,21 @@ const ProductPart = () => {
 								</Button>
 							</Box>
 						</Box>
-					</Box>
+					</Card>
 				) : (
-					""
+					<Grid
+						container
+						maxWidth="xl"
+						sx={{
+							// maxWidth: "xl",
+							boxShadow: "none",
+							padding: 1,
+							mt: 10,
+							direction: "rtl",
+							display: "none",
+							flexDirection: { xs: "column", md: "row" },
+							justifyContent: { xs: "center", md: "start" },
+						}}></Grid>
 				)}
 			</Container>
 			<SuccessDialog

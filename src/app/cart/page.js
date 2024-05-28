@@ -299,10 +299,7 @@ const CartPage = () => {
 	//? Render
 	return (
 		<>
-			<Loading
-				open={loading}
-				handleClose={() => setLoading(false)}
-			/>
+			<Loading open={loading} />
 			<Box
 				sx={{
 					display: "flex",

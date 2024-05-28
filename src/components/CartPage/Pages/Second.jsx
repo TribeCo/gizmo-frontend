@@ -206,6 +206,15 @@ const Second = ({ formik, setCurrentAddress }) => {
 								backgroundColor: "#EEEEEE",
 							}}
 						/>
+						{formik.errors.name_delivery && (
+							<Typography
+								variant="subtitle2"
+								mt={0.5}
+								ml={1}
+								color="error">
+								{formik.errors.name_delivery}
+							</Typography>
+						)}
 					</Grid>
 					<Grid
 						item
@@ -231,6 +240,15 @@ const Second = ({ formik, setCurrentAddress }) => {
 								backgroundColor: "#EEEEEE",
 							}}
 						/>
+						{formik.errors.phone_delivery && (
+							<Typography
+								variant="subtitle2"
+								mt={0.5}
+								ml={1}
+								color="error">
+								{formik.errors.phone_delivery}
+							</Typography>
+						)}
 					</Grid>
 					<Grid
 						item
@@ -258,6 +276,15 @@ const Second = ({ formik, setCurrentAddress }) => {
 								backgroundColor: "#EEEEEE",
 							}}
 						/>
+						{formik.errors.description && (
+							<Typography
+								variant="subtitle2"
+								mt={0.5}
+								ml={1}
+								color="error">
+								{formik.errors.description}
+							</Typography>
+						)}
 					</Grid>
 				</Grid>
 			</Box>
@@ -331,6 +358,14 @@ const Second = ({ formik, setCurrentAddress }) => {
 					}
 				/>
 			</RadioGroup>
+			{formik.errors.delivery_method && (
+				<Typography
+					variant="subtitle2"
+					ml={5}
+					color="error">
+					{formik.errors.delivery_method}
+				</Typography>
+			)}
 		</Box>
 	);
 };

@@ -13,10 +13,10 @@ module.exports = {
 			},
 		},
 		screens: {
-			sm: {'max':"480px"},
-			md: {'max':"768px"},
-			lg: {'max':"976px"},
-			xl: {'max':"1440px"},
+			sm: { max: "480px" },
+			md: { max: "768px" },
+			lg: { max: "976px" },
+			xl: { max: "1440px" },
 		},
 		colors: {
 			palette: {

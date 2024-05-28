@@ -4,7 +4,7 @@ import eye from "@/components/siteIcons/eye-slash.svg";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import { Button, Typography, Stack, Paper } from "@mui/material";
-import { EditPassword, EditProfile } from "@/services/DashBoard";
+import { EditPassword, EditProfile, fetchInformation } from "@/services/DashBoard";
 import { enqueueSnackbar } from "notistack";
 
 export default function DashBoardEditProfile({ information }) {
@@ -20,6 +20,29 @@ export default function DashBoardEditProfile({ information }) {
 		email: "",
 	});
 
+	const GetInformation = async () => {
+		try {
+			const data = await fetchInformation(tokens);
+			if (!data) {
+				router.replace("/login");
+			}
+			setNewProfileData(data);
+		} catch (error) {
+			console.error('Error fetching information:', error);
+			enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+		}
+	};
+
+	useEffect(() => {
+		async function GetInfo() {
+			await GetInformation();
+		}
+		GetInfo();
+
+		return () => {
+		};
+	}, []);
+
 	const [newProfilePassword, setNewProfilePassword] = useState({
 		new_password_confirm: "",
 		password: "",
@@ -34,54 +57,37 @@ export default function DashBoardEditProfile({ information }) {
 	};
 
 	const editNewProfile = async () => {
-		console.log(newProfileData);
 		try {
 			const response = await EditProfile(newProfileData, tokens);
 			if (response) {
-				enqueueSnackbar({
-					message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.",
-					variant: "success",
-				});
-				setNewProfileData({
-					first_name: "",
-					last_name: "",
-					phoneNumber: "",
-					gender: "",
-					email: "",
-				});
+				enqueueSnackbar({ message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.", variant: "success" });
 			}
 		} catch (error) {
-			console.error("خطا در ارسال داده به API:", error);
-			enqueueSnackbar({
-				message: error.message || "به‌روزرسانی پروفایل ناموفق بود.",
-				variant: "error",
-			});
+			console.error('خطا در ارسال داده به API:', error);
+			enqueueSnackbar({ message: error.message || "به‌روزرسانی پروفایل ناموفق بود.", variant: "error" });
+		} finally {
+			await GetInformation();
 		}
 	};
 
 	const editNewProfilePassword = async () => {
-		if (
+		try {
+			if (
 			newProfilePassword.new_password !==
 			newProfilePassword.new_password_confirm
 		) {
-			enqueueSnackbar({
+				enqueueSnackbar({
 				message:
 					"رمزهای عبور مطابقت ندارند. لطفاً مطمئن شوید که رمز عبور جدید و تأیید رمز عبور شما مطابقت دارند.",
 				variant: "error",
 			});
-			return;
-		}
-		try {
+				return;
+			}
 			const response = await EditPassword(newProfilePassword, tokens);
 			if (response) {
 				enqueueSnackbar({
 					message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.",
 					variant: "success",
-				});
-				setNewProfilePassword({
-					new_password_confirm: "",
-					password: "",
-					new_password: "",
 				});
 			}
 		} catch (error) {
@@ -90,6 +96,15 @@ export default function DashBoardEditProfile({ information }) {
 				message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.",
 				variant: "error",
 			});
+		} finally {
+			console.log("I am in finally block");
+
+			setNewProfilePassword(obj => ({
+				...obj,
+				new_password_confirm: "",
+				password: "",
+				new_password: ""
+			}));
 		}
 	};
 
@@ -122,12 +137,12 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<input
 									type="text"
-									value={information.first_name}
-									onChange={(e) =>
+									value={newProfileData.first_name}
+									onChange={(e) => {
 										setNewProfileData({
 											...newProfileData,
 											first_name: e.target.value,
-										})
+										})}
 									}
 									id="name"
 									className="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2"
@@ -142,7 +157,7 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<input
 									type="text"
-									value={information.last_name}
+									value={newProfileData.last_name}
 									onChange={(e) =>
 										setNewProfileData({
 											...newProfileData,
@@ -163,7 +178,7 @@ export default function DashBoardEditProfile({ information }) {
 								<input
 									disabled
 									type="tel"
-									value={information.phoneNumber}
+									value={newProfileData.phoneNumber}
 									onInput={handleInputChange}
 									onChange={(e) =>
 										setNewProfileData({
@@ -188,7 +203,7 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<select
 									type="select"
-									value={information.gender}
+									value={newProfileData.gender}
 									onChange={(e) =>
 										setNewProfileData({
 											...newProfileData,
@@ -213,7 +228,7 @@ export default function DashBoardEditProfile({ information }) {
 								<input
 									type="email"
 									disabled
-									value={information.email}
+									value={newProfileData.email}
 									id="email"
 									className="rounded-full border-[#747678] border-2 border-opacity-70 h-8 outline-none px-2"
 								/>
@@ -311,8 +326,10 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<div className="relative">
 									<input
+										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={secondField}
+										value={newProfilePassword.new_password}
 										onChange={(e) =>
 											setNewProfilePassword({
 												...newProfilePassword,
@@ -343,8 +360,10 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<div className="relative">
 									<input
+										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={thirdField}
+										value={newProfilePassword.password}
 										onChange={(e) =>
 											setNewProfilePassword({
 												...newProfilePassword,
@@ -375,8 +394,10 @@ export default function DashBoardEditProfile({ information }) {
 								</label>
 								<div className="relative">
 									<input
+										style={{paddingRight: 6}}
 										id="hs-toggle-password"
 										type={forthField}
+										value={newProfilePassword.new_password_confirm}
 										onChange={(e) =>
 											setNewProfilePassword({
 												...newProfilePassword,

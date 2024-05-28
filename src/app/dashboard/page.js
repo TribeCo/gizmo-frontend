@@ -46,28 +46,26 @@ export default function Profile() {
 
 	const router = useRouter();
 
-	useEffect(() => {
-		const GetInformation = async () => {
-			try {
-				const data = await fetchInformation(tokens);
-				if (!data) {
-					router.replace("/login");
-				}
-				console.log(data);
-				setInformation(data);
-				setActivites(await fetchActivties(tokens));
-			} catch (error) {
-				console.error("Error fetching information:", error);
-				enqueueSnackbar({
-					message: error.message || "خطا در دریافت اطلاعات.",
-					variant: "error",
-				});
+	const GetInformation = async () => {
+		try {
+			const data = await fetchInformation(tokens);
+			if (!data) {
+				router.replace("/login");
 			}
-		};
+			console.log(data);
+			setInformation(data);
+			setActivites(await fetchActivties(tokens));
+		} catch (error) {
+			console.error('Error fetching information:', error);
+			enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+		}
+	};
+
+	useEffect(() => {
 		if (tokens) {
 			GetInformation();
 		}
-	}, [tokens]);
+	}, [tokens, menuItemValue]);
 
 	const handleLogout = async () => {
 		deleteList();

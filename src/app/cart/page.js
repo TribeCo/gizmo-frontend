@@ -253,7 +253,8 @@ const CartPage = () => {
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				if (tokens.access) {
+				// setLoading(true);
+				if (tokens) {
 					const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
 						method: "GET",
 						headers: {
@@ -289,11 +290,11 @@ const CartPage = () => {
 					delta_discounted_method: res.data.delta_discounted_method,
 					coupon: 0,
 				});
+				// setLoading(false);
 			} catch (error) {}
 		};
-		setLoading(true);
+
 		getData();
-		setLoading(false);
 	}, [tokens, readCart, getCart]);
 
 	//? Render

@@ -165,7 +165,9 @@ export default function DashBoardEditProfile({ information }) {
 				/>
 				<Box
 					display="flex"
-					justifyContent="space-between"
+					sx={{
+						flexDirection: { xs: "column", sm: "row" },
+					}}
 					gap={2}>
 					<TextField
 						label="نام"
@@ -199,6 +201,9 @@ export default function DashBoardEditProfile({ information }) {
 				</Box>
 				<Box
 					display="flex"
+					sx={{
+						flexDirection: { xs: "column", sm: "row" },
+					}}
 					gap={2}>
 					<TextField
 						label="نام خانوادگی"
@@ -238,6 +243,7 @@ export default function DashBoardEditProfile({ information }) {
 					sx={{
 						display: "flex",
 						justifyContent: "center",
+						mb: 5,
 					}}>
 					<Button
 						variant="contained"
@@ -308,6 +314,9 @@ export default function DashBoardEditProfile({ information }) {
 				/>
 				<Box
 					display="flex"
+					sx={{
+						flexDirection: { xs: "column", sm: "row" },
+					}}
 					gap={2}>
 					<TextField
 						label="رمز عبور جدید"

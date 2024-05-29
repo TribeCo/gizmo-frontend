@@ -10,30 +10,80 @@ import {
 	Typography,
 	IconButton,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { convert } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
+import { availableNotification } from "@/services/ProductPage";
+import { enqueueSnackbar } from "notistack";
 
 const ProductCard = ({ product }) => {
+	//? Router init
 	const router = useRouter();
 
-	const { addToCart } = useCart({
-		color: 1,
-		product: product.id,
-		quantity: 1,
-	});
+	//? get addToCart function from cart context
+	const { addToCart } = useCart();
+
+	const { tokens } = useAuth();
+
+	//? show hover state => (second)
+	const [show, setShow] = useState(false);
+	const [token, setToken] = useState("");
+
+	useEffect(() => {
+		if (tokens) {
+			setToken(tokens.access);
+		}
+	}, [tokens]);
 
 	const handleAddToCart = () => {
-		addToCart();
+		console.log({ color: 0, product: product.id, quantity: 1 });
+		try {
+			addToCart({ color: 0, product: product.id, quantity: 1 });
+			enqueueSnackbar({
+				message: "محصول با موفقیت به سبد خرید اضافه شد",
+				variant: "success",
+			});
+		} catch (error) {
+			enqueueSnackbar({
+				message: error.message,
+				variant: "error",
+			});
+		}
 	};
 	const handleGoToProduct = () => {
 		console.log(product);
 		const url = "/products/" + product.slug;
 		router.push(url);
 	};
-	const [show, setShow] = useState(false);
+
+	const handleNotification = async () => {
+		console.log(token);
+		const response = await availableNotification({
+			pid: product.id,
+			access: token || "",
+		});
+		console.log(response);
+		if (response.message) {
+			enqueueSnackbar({ message: response.message, variant: "success" });
+		} else {
+			if (response.code === "bad_authorization_header") {
+				enqueueSnackbar({
+					message: "برای فعال کردن این گذینه ابتدا وارد شوید",
+					variant: "error",
+				});
+			} else {
+				enqueueSnackbar({
+					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+					variant: "error",
+				});
+				console.log(response.status);
+			}
+		}
+	};
+
 	return (
 		<CardActionArea
 			disableRipple
@@ -170,7 +220,7 @@ const ProductCard = ({ product }) => {
 					)}
 				</IconButton>
 				<Button
-					onClick={handleAddToCart}
+					onClick={product.is_available ? handleAddToCart : handleNotification}
 					fullWidth
 					variant="contained"
 					sx={{

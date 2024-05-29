@@ -209,9 +209,13 @@ const SendComment = ({ handleSendComment }) => {
 								width={198}
 								display="flex"
 								justifyContent="space-between">
-								{["۱", "۲", "۳", "۴", "۵"].map((key) => {
+								{["۱", "۲", "۳", "۴", "۵"].map((key, index) => {
 									return (
-										<Typography sx={{ fontWeight: "bold" }}>{key}</Typography>
+										<Typography
+											key={index}
+											sx={{ fontWeight: "bold" }}>
+											{key}
+										</Typography>
 									);
 								})}
 							</Box>

@@ -21,6 +21,9 @@ export default function DashBoardOrders({ setId ,handleClick }) {
         if(tokens) {
             GetOrders();
         }
+
+        console.log(orders);
+
         setSearchTerm(toPersianDigits(inputValue));
     }, [inputValue, tokens]);
 
@@ -107,7 +110,7 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                         size="small"
                         value={searchTerm}
                         onChange={handleSearchChange}
-                        placeholder="جستجو..."
+                        placeholder="جستجو کد پیگیری"
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -246,7 +249,7 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                                         variant="contained"
                                         onClick={() => {
                                             handleClick(6);
-                                            setId(2);
+                                            setId(order.id);
                                         }}                                        
                                         sx={{
                                             backgroundColor: '#FFCC70', // Button background color

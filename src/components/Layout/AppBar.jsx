@@ -42,6 +42,7 @@ import { getAllCategories, getAllProducts } from "@/services/Search";
 import { useAuth } from "@/context/AuthContext";
 import { baseUrl } from "@/services";
 import LogoutDialog from "../dashboard/LogoutDialog";
+import { category } from "@/services/Landing";
 
 const AppBar = ({ isLanding }) => {
 	const [LogOutModalOpen, setLogOutModalOpen] = useState();
@@ -52,16 +53,15 @@ const AppBar = ({ isLanding }) => {
 	const [anchorElProfile, setAnchorElProfile] = useState(null);
 	const [loginOpen, setLoginOpen] = useState(false);
 	const [popupState, setPopupState] = useState("login");
-	const categories = [
-		{ name: "لوازم آشپزخانه", slug: "kitchenware" },
-		{ name: "لوازم بهداشتی", slug: "hygiene-products" },
-		{ name: "لوازم جانبی", slug: "accessories" },
-		{ name: "لوازم ورزشی", slug: "sports-equipment" },
-		{ name: "لوازم برقی", slug: "electrical-appliances" },
-	];
+	const [categories, setCategories] = useState([]);
 	const { tokens } = useAuth();
 
 	useEffect(() => {
+		const fetchCategoriesData = async () => {
+			const response = await category();
+			console.log(response.data);
+			setCategories(response.data);
+		};
 		const getData = async () => {
 			try {
 				const response = await fetch(`${baseUrl}/api/users/info/`, {
@@ -80,6 +80,7 @@ const AppBar = ({ isLanding }) => {
 			}
 		};
 		if (tokens) {
+			fetchCategoriesData();
 			getData();
 		}
 	}, [tokens]);
@@ -120,20 +121,20 @@ const AppBar = ({ isLanding }) => {
 	};
 
 	const handleLogOut = () => {
-		setLogOutModalOpen(false)
+		setLogOutModalOpen(false);
 		// TODO: Log out Api
 		handleProfileClose();
-	}
+	};
 
 	const handleOrderTracking = () => {
-		setMenuItemValue(4)
+		setMenuItemValue(4);
 		handleProfileClose();
-	}
+	};
 
 	const handleDashBoardMainPage = () => {
-		setMenuItemValue(0)
+		setMenuItemValue(0);
 		handleProfileClose();
-	}
+	};
 
 	return (
 		<>
@@ -242,21 +243,26 @@ const AppBar = ({ isLanding }) => {
 											},
 										},
 									}}>
-									{categories.map((category) => (
-										<MenuItem
-											key={category.slug}
-											onClick={handleMenuClose}>
-											<Link
-												href={`/categories/${category.name}`}
-												passHref>
-												<Typography
-													component="a"
-													style={{ textDecoration: "none", color: "inherit" }}>
-													{category.name}
-												</Typography>
-											</Link>
-										</MenuItem>
-									))}
+									{categories.map((category, index) => {
+										return (
+											<MenuItem
+												key={index}
+												onClick={handleMenuClose}>
+												<Link
+													href={`/categories/${category.slug}`}
+													passHref>
+													<Typography
+														component="a"
+														style={{
+															textDecoration: "none",
+															color: "inherit",
+														}}>
+														{category.name}
+													</Typography>
+												</Link>
+											</MenuItem>
+										);
+									})}
 								</Menu>
 								<Grid
 									sx={{
@@ -458,23 +464,22 @@ const AppBar = ({ isLanding }) => {
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={() => handleOrderTracking()}
-								>
+								onClick={() => handleOrderTracking()}>
 								<Link href={"/dashboard"}>
-								<Typography
-									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
-									پیگیری سفارش
-								</Typography>
+									<Typography
+										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
+										پیگیری سفارش
+									</Typography>
 								</Link>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
 								onClick={handleProfileClose}>
 								<Link href={"/faq"}>
-								<Typography
-									sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
-									سوالات متداول
-								</Typography>
+									<Typography
+										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
+										سوالات متداول
+									</Typography>
 								</Link>
 							</MenuItem>
 							<MenuItem
@@ -813,9 +818,11 @@ const SearchField = () => {
 											);
 										})
 										.slice(0, 2)
-										.map((c) => {
+										.map((c, index) => {
 											return (
-												<Link href={`/categories/${c.slug}`}>
+												<Link
+													key={index}
+													href={`/categories/${c.slug}`}>
 													<Box
 														sx={{
 															display: "flex",
@@ -899,9 +906,11 @@ const SearchField = () => {
 											.includes(searchQuery.toUpperCase().split(" ").join(""));
 									})
 									.slice(0, 4)
-									.map((p) => {
+									.map((p, index) => {
 										return (
-											<Link href={`/products/${p.slug}`}>
+											<Link
+												key={index}
+												href={`/products/${p.slug}`}>
 												<Box
 													sx={{
 														display: "flex",

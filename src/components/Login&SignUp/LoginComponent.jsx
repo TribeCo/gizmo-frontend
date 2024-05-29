@@ -16,6 +16,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useAuth } from "@/context/AuthContext";
 import { usePhoneNumber } from "@/utils/PhoneNumber";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
 
 const LoginComponent = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -34,18 +35,14 @@ const LoginComponent = () => {
 	});
 
 	const { loginUser } = useAuth();
+	const router = useRouter();
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
 		try {
-			// await validationSchema.validate(
-			//     {
-			//         phoneNumber,
-			//         password,
-			//     },
-			//     { abortEarly: false },
-			// );
-			loginUser(phoneNumber, password, "/");
+			const tokens = await loginUser(phoneNumber, password);
+			updateCartList({ tokens });
+			router.replace("/");
 		} catch (validationErrors) {
 			const newErrors = {};
 			validationErrors.inner.forEach((error) => {

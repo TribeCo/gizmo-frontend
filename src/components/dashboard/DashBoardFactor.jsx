@@ -22,10 +22,12 @@ export default function DashBoardFactor({ id }) {
 
     const handleGetFactors = async () => {
         try {
+            console.log("id:");
+            console.log(id);
             const response = await fetchFactors(id, tokens);
             console.log('Received data:', response.data); // Check what you're actually receiving
             if (response.data) {
-                setFactors(response.data);
+                setFactors(response.data);  
             }
         } catch (error) {
             console.error('Error fetching factors:', error);
@@ -34,8 +36,12 @@ export default function DashBoardFactor({ id }) {
     };
 
     useEffect(() => {
+        const GetFactors = async () => {
+            await handleGetFactors();
+        }
+
         if (tokens) {
-            handleGetFactors();
+            GetFactors();
         }
         const handleAfterPrint = () => setActivePrintId(null);
         window.addEventListener('afterprint', handleAfterPrint);

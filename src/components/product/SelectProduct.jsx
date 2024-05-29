@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Colors, convert } from "@/utils";
 import {
@@ -10,6 +10,8 @@ import {
 } from "@/services/ProductPage";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
+import { enqueueSnackbar } from "notistack";
+import { baseUrl } from "@/services";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
@@ -39,31 +41,63 @@ const SelectProduct = ({ data }) => {
 
 	const handleAddToCart = () => {
 		console.log({ color: selectedColor, product: data.id, quantity: count });
-		addToCart({ color: selectedColor, product: data.id, quantity: count });
+		try {
+			addToCart({ color: selectedColor, product: data.id, quantity: count });
+			enqueueSnackbar({
+				message: "محصول با موفقیت به سبد خرید اضافه شد",
+				variant: "success",
+			});
+		} catch (error) {
+			enqueueSnackbar({
+				message: error.message,
+				variant: "error",
+			});
+		}
 	};
 
 	const handleFavorite = async () => {
 		let response;
-		if (!like) {
-			response = await addToFavorites({
-				pid: data.id,
-				access: tokens.access,
-			});
-		} else {
-			response = await deleteFavorites({
-				pid: data.id,
-				access: tokens.access,
-			});
-		}
-		if (response.message) {
-			alert(response.message);
-			setLike(!like);
-		} else {
-			if (response.status === 401) {
-				alert("برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید");
+		try {
+			if (!like) {
+				response = await addToFavorites({
+					pid: data.id,
+					access: tokens.access,
+				});
 			} else {
-				alert("مشکلی رخ داد");
-				console.log(response.status);
+				response = await deleteFavorites({
+					pid: data.id,
+					access: tokens.access,
+				});
+			}
+			if (response.message) {
+				enqueueSnackbar({ message: response.message, variant: "success" });
+				setLike(!like);
+			} else {
+				if (response.status === 401) {
+					enqueueSnackbar({
+						message: "برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید",
+						variant: "error",
+					});
+				} else {
+					enqueueSnackbar({
+						message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+						variant: "error",
+					});
+					console.log(response.status);
+				}
+			}
+		} catch (error) {
+			console.log(error);
+			if (error.status === 401) {
+				enqueueSnackbar({
+					message: "برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید",
+					variant: "error",
+				});
+			} else {
+				enqueueSnackbar({
+					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+					variant: "error",
+				});
 			}
 		}
 	};
@@ -74,16 +108,44 @@ const SelectProduct = ({ data }) => {
 		});
 		console.log(response);
 		if (response.message) {
-			alert(response.message);
+			enqueueSnackbar({ message: response.message, variant: "success" });
 		} else {
 			if (response.status === 401) {
-				alert("برای فعال کردن این گذینه ابتدا باید وارد شوید");
+				enqueueSnackbar({
+					message: "برای فعال کردن این گذینه ابتدا باید وارد شوید",
+					variant: "error",
+				});
 			} else {
-				alert("مشکلی پیش آمد لطقا دوباره تلاش کنید.");
+				enqueueSnackbar({
+					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+					variant: "error",
+				});
 				console.log(response.status);
 			}
 		}
 	};
+
+	const fetchData = async () => {
+		const favResponse = await fetch(
+			`${baseUrl}/api/product/${data.slug}/fav/`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${tokens.access}`,
+				},
+			},
+		);
+		const { is_fav } = await favResponse.json();
+		setLike(is_fav);
+	};
+
+	useEffect(() => {
+		if (tokens) {
+			fetchData();
+		}
+	}, [tokens, data.slug]);
+
 	return (
 		<>
 			<Box
@@ -119,6 +181,7 @@ const SelectProduct = ({ data }) => {
 							data.product_color.map((color, index) => {
 								return (
 									<IconButton
+										key={index}
 										disabled={color.color.quantity < 1 ? true : false}
 										onClick={() => {
 											setCount(1);

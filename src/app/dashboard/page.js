@@ -28,6 +28,7 @@ import { useAuth } from "@/context/AuthContext";
 import { fetchActivties, fetchInformation } from "@/services/DashBoard";
 import { useRouter } from "next/navigation";
 import { toPersianDigits } from "@/utils/convert";
+import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
 
 export default function Profile() {
@@ -37,6 +38,7 @@ export default function Profile() {
 	const [information, setInformation] = useState([]);
 	const [factorId, SetFactorId] = useState();
 	const { tokens, logOut } = useAuth();
+	const { deleteList } = useCart();
 
 	const handleMenuItemClick = (menuItem) => {
 		setMenuItemValue(menuItem);
@@ -44,27 +46,29 @@ export default function Profile() {
 
 	const router = useRouter();
 
-	useEffect(() => {
-		const GetInformation = async () => {
-			try {
-				const data = await fetchInformation(tokens);
-				if (!data) {
-					router.replace("/login");
-				}
-				console.log(data);
-				setInformation(data);
-				setActivites(await fetchActivties(tokens));
-			} catch (error) {
-				console.error('Error fetching information:', error);
-				enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+	const GetInformation = async () => {
+		try {
+			const data = await fetchInformation(tokens);
+			if (!data) {
+				router.replace("/login");
 			}
-		};
+			console.log(data);
+			setInformation(data);
+			setActivites(await fetchActivties(tokens));
+		} catch (error) {
+			console.error('Error fetching information:', error);
+			enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+		}
+	};
+
+	useEffect(() => {
 		if (tokens) {
 			GetInformation();
 		}
-	}, [tokens]);
+	}, [tokens, menuItemValue]);
 
 	const handleLogout = async () => {
+		deleteList();
 		logOut();
 		setLogoutModalOpen(false);
 	};

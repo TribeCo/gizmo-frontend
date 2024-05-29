@@ -1,15 +1,12 @@
-import { Close } from "@mui/icons-material";
+import { baseUrl } from "@/services";
 import {
 	Box,
 	CardMedia,
 	Dialog,
 	DialogContent,
 	Divider,
-	Grid,
 	IconButton,
 	ImageList,
-	ImageListItem,
-	Modal,
 	Typography,
 } from "@mui/material";
 
@@ -87,9 +84,9 @@ function PhotosModal({ open, handleClose, title, mainImage, imageList }) {
 						<ImageList
 							cols={4}
 							gap={0}>
-							{imageList.map((image) => {
+							{imageList.map((image, index) => (
 								<IconButton
-									key={image}
+									key={index}
 									disableRipple>
 									<CardMedia
 										sx={{
@@ -99,10 +96,10 @@ function PhotosModal({ open, handleClose, title, mainImage, imageList }) {
 											borderRadius: 5,
 											mt: 2,
 										}}
-										image={image}
+										image={image.image}
 									/>
-								</IconButton>;
-							})}
+								</IconButton>
+							))}
 						</ImageList>
 					</Box>
 				</Box>

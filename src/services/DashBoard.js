@@ -29,7 +29,12 @@ export const fetchFactors = async (id, tokens) => {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${tokens.access}`,
 			},
+			next: {
+				revalidate: 1
+			}
 		});
+
+		console.log(response);
 		if (response.ok) {
 			return response.json(); // If the response is OK, return the JSON data
 		} else if (response.status === 404) {
@@ -242,7 +247,7 @@ export const fetchInformation = async (tokens) => {
 	}
 };
 
-export const SenderInformation = async (formData, tokens) => {
+export const SenderInformation = async (data, tokens) => {
 	try {
 		const response = await fetch(`${baseUrl}/api/user/update/delivery/`, {
 			method: "POST",
@@ -250,7 +255,7 @@ export const SenderInformation = async (formData, tokens) => {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${tokens.access}`,
 			},
-			body: JSON.stringify(formData),
+			body: JSON.stringify(data),
 		});
 		if (!response.ok) {
 			throw new Error("Network response was not ok");
@@ -263,7 +268,7 @@ export const SenderInformation = async (formData, tokens) => {
 
 export const EditProfile = async (formData, tokens) => {
 	try {
-		const response = await fetch(`${baseUrl}/api/users/update/1/`, {
+		const response = await fetch(`${baseUrl}/api/users/update/`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -272,7 +277,7 @@ export const EditProfile = async (formData, tokens) => {
 			body: JSON.stringify(formData),
 		});
 		if (!response.ok) {
-			throw new Error("Network response was not ok");
+			console.log(response);
 		}
 		return response.json();
 	} catch (error) {
@@ -282,7 +287,7 @@ export const EditProfile = async (formData, tokens) => {
 
 export const EditPassword = async (passwordData, tokens) => {
 	try {
-		const response = await fetch(`${baseUrl}/api/users/password/update/`, {
+		const response = await fetch(`${baseUrl}/api/users/password/old/change/`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -290,57 +295,66 @@ export const EditPassword = async (passwordData, tokens) => {
 			},
 			body: JSON.stringify(passwordData),
 		});
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json();
-    } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
-    }
+			if (!response.ok) {
+				console.log(response);
+			}
+
+		return response.json();
+	} catch (error) {
+		console.error("There was a problem with the fetch operation:", error);
+	}
 };
 
 export const ApplyCoupon = async (couponCode, tokens) => {
-    try {
-        const response = await fetch(`${baseUrl}/api/coupon/apply/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${tokens.access}`
-            },
-            body: JSON.stringify({ code: couponCode })
-        });
-        if (!response.ok) {
-            const errorText = await response.text(); 
-            throw new Error(errorText || 'ناتوان در اعمال کوپن. لطفا دوباره تلاش کنید.');
-        }
-        const data = await response.json();
-        return data.message || 'کوپن با موفقیت اعمال شد.';
-    } catch (error) {
-        console.error('خطا در اعمال کوپن:', error);
-        return error.message || 'خطا در اعمال کوپن. لطفا بعدا تلاش کنید.';
-    }
-}
+	try {
+		const response = await fetch(`${baseUrl}/api/coupon/apply/`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${tokens.access}`,
+			},
+			next: {
+				revalidate: 1,
+			},
+			body: JSON.stringify({ code: couponCode }),
+		});
+		if (!response.ok) {
+			const errorText = await response.text();
+			throw new Error(
+				errorText || "ناتوان در اعمال کوپن. لطفا دوباره تلاش کنید.",
+			);
+		}
+		const data = await response.json();
+		console.log(data);
+		return data;
+	} catch (error) {
+		console.error("خطا در اعمال کوپن:", error);
+		return error.message || "خطا در اعمال کوپن. لطفا بعدا تلاش کنید.";
+	}
+};
 
-export const RevokeCoupon = async (couponCode, tokens) => {
-    try {
-        const response = await fetch(`${baseUrl}/api/coupon/revoke/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${tokens.access}`
-            },
-        });
-        if (!response.ok) {
-            const errorText = await response.text(); 
-            throw new Error(errorText || 'ناتوان در لغو کوپن. لطفا دوباره تلاش کنید.');
-        }
-        const data = await response.json();
-        return data.message || 'کوپن با موفقیت لغو شد.';
-    } catch (error) {
-        console.error('خطا در لغو کوپن:', error);
-        return error.message || 'خطا در لغو کوپن. لطفا بعدا تلاش کنید.';
-    }
-}
+export const RevokeCoupon = async (tokens) => {
+	try {
+		const response = await fetch(`${baseUrl}/api/coupon/revoke/`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${tokens.access}`,
+			},
+		});
+		if (!response.ok) {
+			const errorText = await response.text();
+			throw new Error(
+				errorText || "ناتوان در لغو کوپن. لطفا دوباره تلاش کنید.",
+			);
+		}
+		const data = await response.json();
+		return data.message || "کوپن با موفقیت لغو شد.";
+	} catch (error) {
+		console.error("خطا در لغو کوپن:", error);
+		return error.message || "خطا در لغو کوپن. لطفا بعدا تلاش کنید.";
+	}
+};
 
 export const formatFullAddress = (address) => {
 	if (!address) {

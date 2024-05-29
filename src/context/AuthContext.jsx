@@ -43,12 +43,12 @@ export const AuthProvider = ({ children }) => {
 
 			if (response.ok) {
 				const data = await response.json();
-				console.log(data);
 				setTokens(data);
 				localStorageSetItem("tokens", JSON.stringify(data));
 				if (destination) {
 					router.replace(destination);
 				}
+				return data;
 			} else {
 				alert("شماره موبایل یا رمز عبور اشتباه است");
 			}
@@ -78,10 +78,10 @@ export const AuthProvider = ({ children }) => {
 			});
 
 			if (response.ok) {
-				console.log(response.json());
+				console.log(await response.json());
 				return 1;
 			} else {
-				console.log(response.json());
+				console.log(await response.json());
 				return 0;
 			}
 		} catch (error) {

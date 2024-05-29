@@ -90,6 +90,13 @@ const FilterCard = ({
     }; 
 
     const resetFilters = () => {
+        setMinPrice(0);
+        setMaxPrice(500_000_000);
+
+        filterList.forEach(element => {
+            element.setState(false);
+        });
+
         setFilters(initialState);
     };
 
@@ -120,7 +127,7 @@ const FilterCard = ({
                 }}
             >
                 {/* Reset Button */}
-                <IconButton
+                <Button
                     onClick={resetFilters}
                     sx={{
                         color: 'red',
@@ -140,7 +147,7 @@ const FilterCard = ({
                     <Typography>
                         حذف فیلترها
                     </Typography>
-                </IconButton>
+                </Button>
                 {/* Typography "فیلتر ها" at the top right */}
                 <Typography
                     variant="h5"
@@ -263,26 +270,6 @@ const FilterCard = ({
                         </Box>
                     </AccordionDetails>
                 </Accordion>
-                {/* Apply Filters Button */}
-                <Button
-                    variant="contained"
-                    sx={{
-                        width: '100%',
-                        bgcolor: '#FFCC70',
-                        '&:hover': {
-                            bgcolor: '#FFCC70',
-                            opacity: 0.9,
-                        },
-                        color: 'black',
-                        margin: '10px',
-                        fontWeight: 'bold',
-                        marginTop: '20px',
-                        padding: '10px',
-                        borderRadius: '25px'
-                    }}
-                >
-                    اعمال فیلتر
-                </Button>
             </Card>
         </Box>
     );

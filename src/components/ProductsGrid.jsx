@@ -64,7 +64,7 @@ const ProductsGrid = ({ productsList }) => {
     }, [filter, productsList, isAvailable, isFreeShipping, isSpecialSale, minPrice, maxPrice]);
 
     return (
-        <Box sx={{ height: 'auto', width: { xs: '100vw', lg: 'auto' } }}>
+        <Box sx={{ pb: 12, height: 'auto', width: { xs: '100vw', lg: 'auto' } }}>
             <Box sx={{ display: 'flex', justifyContent: 'end', gap: 2, width: { xs: '100vw', xl: 'auto' } }}>
                 <FilterCard
                     filterList={[
@@ -101,8 +101,11 @@ const ProductsGrid = ({ productsList }) => {
                     </Grid>
                 </Box>
             </Box>
-            <PersianPagination count={pageCount} page={page} onChange={handleChange} />
+            {pageCount > 1 &&
+                <PersianPagination count={pageCount} page={page} onChange={handleChange} />
+            }
         </Box>
     );
 };
+
 export default ProductsGrid;

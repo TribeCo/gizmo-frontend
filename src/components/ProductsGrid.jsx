@@ -5,6 +5,7 @@ import ProductCard from './ProductCard'; // Adjust the import path as necessary
 import FilterBar from './FilterBar';
 import FilterCard from './FilterCard';
 import PersianPagination from './PersianPagination';
+import { baseUrl } from '@/services';
 
 const PRODUCTS_PER_PAGE = 12;
 
@@ -15,19 +16,42 @@ const ProductsGrid = ({ productsList }) => {
     const [isAvailable, setIsAvailable] = useState(false);
     const [isFreeShipping, setIsFreeShipping] = useState(false);
     const [isSpecialSale, setIsSpecialSale] = useState(false);
-    const [minPrice, setMinPrice] = useState();
-    const [maxPrice, setMaxPrice] = useState();
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(500_000_000);
+    const [brandList, setBrandList] = useState([]);
     const pageCount = Math.ceil(productsList.length / PRODUCTS_PER_PAGE);
     const handleChange = (event, value) => {
         setPage(value);
     };
+
     const paginatedProducts = filteredProducts.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
 
     useEffect(() => {
+		const fetchBrands = async () => {
+			try {
+				const response = await fetch(
+					`${baseUrl}/api/brand/all/`,
+				);
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const data = await response.json();
+
+                const brands = [];
+                data.forEach(element => {
+                    brands.push([element.name, false]);
+                });
+
+				setBrandList(brands);
+			} catch (error) {
+				console.error("There was a problem with the fetch operation:", error);
+			}
+		};
+
         const applyFilter = () => {
             let tempProducts = [...productsList];
             if (isAvailable) {
-                tempProducts = tempProducts.filter(product => product.available);
+                tempProducts = tempProducts.filter(product => product.is_available);
             }
             if (isFreeShipping) {
                 tempProducts = tempProducts.filter(product => product.send_free);
@@ -55,12 +79,17 @@ const ProductsGrid = ({ productsList }) => {
                     tempProducts.sort((a, b) => b.ordered - a.ordered);
                     break;
                 case 'منتخب': // No filter applied, so leave tempProducts as is
-                default:
-                    tempProducts = [...productsList];
             }
-            setFilteredProducts(tempProducts);
+
+            console.log(tempProducts);
+            return tempProducts;
         };
-        applyFilter();
+
+        fetchBrands();
+
+        const newProductList = applyFilter();
+        setFilteredProducts(newProductList);
+
     }, [filter, productsList, isAvailable, isFreeShipping, isSpecialSale, minPrice, maxPrice]);
 
     return (
@@ -76,7 +105,7 @@ const ProductsGrid = ({ productsList }) => {
                     setMinPrice={setMinPrice}
                     maxPrice={maxPrice}
                     setMaxPrice={setMaxPrice}
-                    dropdownOptions={['سامسونگ', 'شیائومی', 'اپل']}
+                    dropdownOptions={brandList}
                 />
                 <Box
                     sx={{

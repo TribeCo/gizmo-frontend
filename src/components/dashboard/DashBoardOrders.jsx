@@ -249,7 +249,7 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                                         variant="contained"
                                         onClick={() => {
                                             handleClick(6);
-                                            setId(2);
+                                            setId(order.id);
                                         }}                                        
                                         sx={{
                                             backgroundColor: '#FFCC70', // Button background color

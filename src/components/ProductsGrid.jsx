@@ -161,4 +161,5 @@ const ProductsGrid = ({ productsList }) => {
         </Box>
     );
 };
+
 export default ProductsGrid;

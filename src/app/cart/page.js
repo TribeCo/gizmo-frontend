@@ -24,9 +24,12 @@ import {
 	RevokeCoupon,
 	SenderInformation,
 } from "@/services/DashBoard";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
+
+import Loading from "@/components/Loading";
 
 const validationSchema = yup.object().shape({
 	name_delivery: yup.string().required("لطفا نام و نام خانوادگی را وارد کنید"),
@@ -63,6 +66,9 @@ const CartPage = () => {
 	});
 	const [sendInfo, setSendInfo] = useState({ address: "", sending_method: "" });
 
+	//? Loading
+	const [loading, setLoading] = useState(false);
+
 	const handleSendInfo = ({ address, sending_method_code }) => {
 		console.log(address);
 		console.log(sending_method_code);
@@ -95,6 +101,7 @@ const CartPage = () => {
 		},
 		validationSchema: validationSchema,
 		onSubmit: async (values) => {
+			setLoading(true);
 			try {
 				if (address) {
 					await SenderInformation(values, tokens);
@@ -115,6 +122,7 @@ const CartPage = () => {
 					variant: "error",
 				});
 			}
+			setLoading(false);
 		},
 	});
 
@@ -123,6 +131,7 @@ const CartPage = () => {
 			if (user) {
 				setState(1);
 			} else {
+				setLoading(true);
 				const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
 					method: "GET",
 					headers: {
@@ -133,7 +142,6 @@ const CartPage = () => {
 						revalidate: 1,
 					},
 				});
-				console.log(userResponse);
 				if (userResponse.ok) {
 					setUser(await userResponse.json());
 					setState(1);
@@ -143,10 +151,12 @@ const CartPage = () => {
 						variant: "warning",
 					});
 				}
+				setLoading(false);
 			}
 		} else if (state === 1) {
 			formik.handleSubmit();
 		} else if (state === 2) {
+			setLoading(true);
 			const response = await fetch(`${baseUrl}/api/payment/`, {
 				method: "GET",
 				headers: {
@@ -158,7 +168,7 @@ const CartPage = () => {
 				},
 			});
 			const data = await response.json();
-
+			setLoading(false);
 			router.replace(data.redirect_url);
 		} else {
 			enqueueSnackbar({
@@ -169,9 +179,11 @@ const CartPage = () => {
 	};
 
 	const handleRevokeCoupon = async () => {
+		setLoading(true);
 		try {
 			await RevokeCoupon(tokens);
 			const response = await readCart();
+			console.log(response);
 			setData(response.cart.items);
 			setTotals({
 				total_price_method: response.cart.total_price_method,
@@ -179,7 +191,7 @@ const CartPage = () => {
 					response.cart.total_discounted_price_method,
 				delta_discounted_method: response.cart.delta_discounted_method,
 				coupon: response.cart.coupon_discount,
-				coupon_code: response.cart.coupon.code,
+				coupon_code: null,
 			});
 			enqueueSnackbar({
 				message: "کد تخفیف با موفقیت حذف گردید",
@@ -191,6 +203,7 @@ const CartPage = () => {
 				variant: "error",
 			});
 		}
+		setLoading(false);
 	};
 
 	const handleApplyCoupon = async (code) => {
@@ -202,6 +215,7 @@ const CartPage = () => {
 			return;
 		}
 		try {
+			setLoading(true);
 			const res = await ApplyCoupon(code, tokens);
 			const response = await readCart();
 			console.log(response);
@@ -214,7 +228,7 @@ const CartPage = () => {
 				coupon: response.cart.coupon_discount,
 				coupon_code: code,
 			});
-			console.log(res);
+			setLoading(false);
 			if (res.message === "کد تخفیف با موفقیت اعمال شد.") {
 				enqueueSnackbar({
 					message: res.message,
@@ -227,6 +241,7 @@ const CartPage = () => {
 				});
 			}
 		} catch (error) {
+			setLoading(false);
 			enqueueSnackbar({
 				message: "خطا در اعمال کد تخفیف. لطفا دوباره تلاش کنید.",
 				variant: "error",
@@ -238,7 +253,8 @@ const CartPage = () => {
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				if (tokens.access) {
+				// setLoading(true);
+				if (tokens) {
 					const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
 						method: "GET",
 						headers: {
@@ -274,14 +290,17 @@ const CartPage = () => {
 					delta_discounted_method: res.data.delta_discounted_method,
 					coupon: 0,
 				});
+				// setLoading(false);
 			} catch (error) {}
 		};
+
 		getData();
 	}, [tokens, readCart, getCart]);
 
 	//? Render
 	return (
 		<>
+			<Loading open={loading} />
 			<Box
 				sx={{
 					display: "flex",
@@ -308,6 +327,7 @@ const CartPage = () => {
 				) : state === 1 ? (
 					<>
 						<Second
+							loading={setLoading}
 							formik={formik}
 							setCurrentAddress={setAddress}
 						/>

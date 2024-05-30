@@ -42,6 +42,7 @@ import { getAllCategories, getAllProducts } from "@/services/Search";
 import { useAuth } from "@/context/AuthContext";
 import { baseUrl } from "@/services";
 import LogoutDialog from "../dashboard/LogoutDialog";
+import { category } from "@/services/Landing";
 
 const AppBar = ({ isLanding }) => {
 	const [LogOutModalOpen, setLogOutModalOpen] = useState();
@@ -52,16 +53,15 @@ const AppBar = ({ isLanding }) => {
 	const [anchorElProfile, setAnchorElProfile] = useState(null);
 	const [loginOpen, setLoginOpen] = useState(false);
 	const [popupState, setPopupState] = useState("login");
-	const categories = [
-		{ name: "لوازم آشپزخانه", slug: "kitchenware" },
-		{ name: "لوازم بهداشتی", slug: "hygiene-products" },
-		{ name: "لوازم جانبی", slug: "accessories" },
-		{ name: "لوازم ورزشی", slug: "sports-equipment" },
-		{ name: "لوازم برقی", slug: "electrical-appliances" },
-	];
+	const [categories, setCategories] = useState([]);
 	const { tokens } = useAuth();
 
 	useEffect(() => {
+		const fetchCategoriesData = async () => {
+			const response = await category();
+			console.log(response.data);
+			setCategories(response.data);
+		};
 		const getData = async () => {
 			try {
 				const response = await fetch(`${baseUrl}/api/users/info/`, {
@@ -80,6 +80,7 @@ const AppBar = ({ isLanding }) => {
 			}
 		};
 		if (tokens) {
+			fetchCategoriesData();
 			getData();
 		}
 	}, [tokens]);
@@ -242,21 +243,26 @@ const AppBar = ({ isLanding }) => {
 											},
 										},
 									}}>
-									{categories.map((category) => (
-										<MenuItem
-											key={category.slug}
-											onClick={handleMenuClose}>
-											<Link
-												href={`/categories/${category.name}`}
-												passHref>
-												<Typography
-													component="a"
-													style={{ textDecoration: "none", color: "inherit" }}>
-													{category.name}
-												</Typography>
-											</Link>
-										</MenuItem>
-									))}
+									{categories.map((category, index) => {
+										return (
+											<MenuItem
+												key={index}
+												onClick={handleMenuClose}>
+												<Link
+													href={`/categories/${category.slug}`}
+													passHref>
+													<Typography
+														component="a"
+														style={{
+															textDecoration: "none",
+															color: "inherit",
+														}}>
+														{category.name}
+													</Typography>
+												</Link>
+											</MenuItem>
+										);
+									})}
 								</Menu>
 								<Grid
 									sx={{

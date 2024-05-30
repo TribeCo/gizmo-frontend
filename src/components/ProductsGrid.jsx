@@ -1,16 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react"; // Add useEffect here
-import { Box, Grid } from "@mui/material";
+import { Box, Fab, Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard"; // Adjust the import path as necessary
 import FilterBar from "./FilterBar";
 import FilterCard from "./FilterCard";
 import PersianPagination from "./PersianPagination";
 import { baseUrl } from "@/services";
 import ProductNotFound from "./ProductNotFound";
+import { FilterAlt } from "@mui/icons-material";
+import FilterCardModel from "./FilterCardModel";
 
 const PRODUCTS_PER_PAGE = 12;
 
 const ProductsGrid = ({ productsList }) => {
+	const [openFilterModel, setOpenFilterModel] = useState(false);
 	const [filter, setFilter] = useState("منتخب"); // Could be 'all', 'latest', 'price', 'rating'
 	const [filteredProducts, setFilteredProducts] = useState(productsList);
 	const [page, setPage] = useState(1);
@@ -159,14 +162,15 @@ const ProductsGrid = ({ productsList }) => {
 					<Grid
 						container
 						spacing={4}
-						sx={{ width: "100%", justifyContent: "center" }}>
+						sx={{ width: "100%", justifyContent: "start", px: 1 }}>
 						{/* Ensure the Grid takes up the full width */}
 						{paginatedProducts.length > 0 ? (
 							paginatedProducts.map((product) => (
 								<Grid
 									item
-									xs={12}
-									sm={6}
+									xs={6}
+									sm={3}
+									md={4}
 									lg={4}
 									xl={3}
 									key={product.id}
@@ -180,6 +184,24 @@ const ProductsGrid = ({ productsList }) => {
 					</Grid>
 				</Box>
 			</Box>
+			<Box
+				display="flex"
+				justifyContent="end"
+				sx={{
+					display: { xs: "flex", md: "none" },
+				}}>
+				<Fab
+					onClick={() => setOpenFilterModel(true)}
+					color="primary"
+					variant="extended"
+					sx={{
+						mt: 5,
+						mr: 5,
+					}}>
+					<FilterAlt sx={{ color: "#FFF" }} />
+					<Typography sx={{ color: "#FFF" }}>{"فیلتر ها"}</Typography>
+				</Fab>
+			</Box>
 			{pageCount > 1 && (
 				<PersianPagination
 					count={pageCount}
@@ -187,6 +209,21 @@ const ProductsGrid = ({ productsList }) => {
 					onChange={handleChange}
 				/>
 			)}
+			<FilterCardModel
+				open={openFilterModel}
+				handleClose={() => setOpenFilterModel(false)}
+				isAvailable={isAvailable}
+				setIsAvailable={setIsAvailable}
+				isFreeShipping={isFreeShipping}
+				isSpecialSale={isSpecialSale}
+				setIsSpecialSale={setIsSpecialSale}
+				setIsFreeShipping={setIsFreeShipping}
+				minPrice={minPrice}
+				maxPrice={maxPrice}
+				setMinPrice={setMinPrice}
+				setMaxPrice={setMaxPrice}
+				brandList={brandList}
+			/>
 		</Box>
 	);
 };

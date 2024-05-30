@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, Dialog, DialogContent, DialogTitle, DialogActions, IconButton } from '@mui/material';
 import ProductCard from './ProductCard';
+import CloseIcon from '@mui/icons-material/Close';
 import FilterBar from './FilterBar';
 import FilterCard from './FilterCard';
 import PersianPagination from './PersianPagination';
@@ -17,12 +18,21 @@ const ProductsGrid = ({ productsList }) => {
     const [isSpecialSale, setIsSpecialSale] = useState(false);
     const [minPrice, setMinPrice] = useState();
     const [maxPrice, setMaxPrice] = useState();
+    const [dialogOpen, setDialogOpen] = useState(false);
     const pageCount = Math.ceil(productsList.length / PRODUCTS_PER_PAGE);
     const handleChange = (event, value) => {
         setPage(value);
     };
-    const paginatedProducts = filteredProducts.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
 
+    const handleDialogOpen = () => {
+        setDialogOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setDialogOpen(false);
+    };
+
+    const paginatedProducts = filteredProducts.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
     useEffect(() => {
         const applyFilter = () => {
             let tempProducts = [...productsList];
@@ -64,38 +74,76 @@ const ProductsGrid = ({ productsList }) => {
     }, [filter, productsList, isAvailable, isFreeShipping, isSpecialSale, minPrice, maxPrice]);
 
     return (
-        <Box sx={{ height: 'auto', width: { xs: '100vw', lg: 'auto' } }}>
-            <Box sx={{ display: 'flex', justifyContent: 'end', gap: 2, width: { xs: '100vw', xl: 'auto' } }}>
-                <FilterCard
-                    filterList={[
-                        { name: 'فقط کالاهای موجود', label: 'فقط کالاهای موجود', state: isAvailable, setState: setIsAvailable },
-                        { name: 'ارسال رایگان', label: 'ارسال رایگان', state: isFreeShipping, setState: setIsFreeShipping },
-                        { name: 'فروش ویژه', label: 'فروش ویژه', state: isSpecialSale, setState: setIsSpecialSale }
-                    ]}
-                    minPrice={minPrice}
-                    setMinPrice={setMinPrice}
-                    maxPrice={maxPrice}
-                    setMaxPrice={setMaxPrice}
-                    dropdownOptions={['سامسونگ', 'شیائومی', 'اپل']}
-                />
+        <Box justifyContent={'center'} display={'flex'} alignItems={'center'} flexDirection={'column'} >
+            <Dialog open={dialogOpen} onClose={handleDialogClose}>
+                <DialogContent>
+                    <Box
+                        display={'flex'}
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                    >
+                        <IconButton
+                            aria-label="close"
+                            onClick={handleDialogClose}
+                            sx={{
+                                alignSelf: 'flex-start',
+                                color: '#252B48',
+                                position: 'relative',
+                                right: 20,
+                            }}
+                        >
+                            <CloseIcon sx={{ fontSize: 16 }} />
+                        </IconButton>
+                        <FilterCard
+                            filterList={[
+                                { name: 'فقط کالاهای موجود', label: 'فقط کالاهای موجود', state: isAvailable, setState: setIsAvailable },
+                                { name: 'ارسال رایگان', label: 'ارسال رایگان', state: isFreeShipping, setState: setIsFreeShipping },
+                                { name: 'فروش ویژه', label: 'فروش ویژه', state: isSpecialSale, setState: setIsSpecialSale }
+                            ]}
+                            minPrice={minPrice}
+                            setMinPrice={setMinPrice}
+                            maxPrice={maxPrice}
+                            setMaxPrice={setMaxPrice}
+                            dropdownOptions={['سامسونگ', 'شیائومی', 'اپل']}
+                        />
+                    </Box>
+                </DialogContent>
+            </Dialog>
+            <Box
+                display={'flex'}
+                flexDirection={'row'}
+            >
                 <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        width: '100%',
-                        gap: 5,
-                        px: 1,
-                    }}
+                    display={{ xs: 'none', md: 'block' }}
+                >
+                    <FilterCard
+                        filterList={[
+                            { name: 'فقط کالاهای موجود', label: 'فقط کالاهای موجود', state: isAvailable, setState: setIsAvailable },
+                            { name: 'ارسال رایگان', label: 'ارسال رایگان', state: isFreeShipping, setState: setIsFreeShipping },
+                            { name: 'فروش ویژه', label: 'فروش ویژه', state: isSpecialSale, setState: setIsSpecialSale }
+                        ]}
+                        minPrice={minPrice}
+                        setMinPrice={setMinPrice}
+                        maxPrice={maxPrice}
+                        setMaxPrice={setMaxPrice}
+                        dropdownOptions={['سامسونگ', 'شیائومی', 'اپل']}
+                    />
+                </Box>
+                <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    gap={5}
+                    px={1}
                 >
                     <FilterBar
                         filterNames={['پرفروش‌ترین', 'جدیدترین', 'ارزان‌ترین', 'گران‌ترین']}
                         onFilterChange={(selectedFilter) => setFilter(selectedFilter)}
+                        handleClick={handleDialogOpen}
                     />
-                    <Grid container spacing={4} sx={{ width: '100%' }} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                    <Grid container spacing={4} display={'flex'} alignItems={'center'} justifyContent={'center'} >
                         {paginatedProducts.length > 0 ? (
                             paginatedProducts.map((product) => (
-                                <Grid item xs={12} sm={6} lg={4} xl={3} key={product.id} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Grid item xs={6} sm={4} lg={3} xl={2.5} key={product.id}>
                                     <ProductCard product={product} />
                                 </Grid>
                             ))

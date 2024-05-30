@@ -27,16 +27,7 @@ function ProductsPage({ categoryName }) {
 	return (
 		<Box>
 			<LineSplitter text={`محصولات ${categoryName}`} />
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "center",
-					alignItems: { xs: "end", xl: "center" },
-					width: "100vw",
-				}}>
-				<ProductsGrid productsList={productsList} />
-			</Box>
+			<ProductsGrid productsList={productsList} />
 		</Box>
 	);
 }

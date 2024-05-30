@@ -72,20 +72,19 @@ const FilterCard = ({
         setFilters({ ...filters, dropdownFilter: newChecked });
     };
 
-    // Inside FilterCard component, when handling text field changes for price range
     const handleMinPriceChange = (filter, rawFilter) => (event) => {
-        const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+        const numericValue = normalizeInput(event.target.value);
         const formattedValue = formatNumberWithCommas(numericValue);
         setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue });
-        setMinPrice(numericValue); // Use the passed setter function to update minPrice
+        setMinPrice(numericValue);
         console.log(minPrice);
     };
 
     const handleMaxPriceChange = (filter, rawFilter) => (event) => {
-        const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+        const numericValue = normalizeInput(event.target.value);
         const formattedValue = formatNumberWithCommas(numericValue);
         setFilters({ ...filters, [filter]: formattedValue, [rawFilter]: numericValue }); 
-        setMaxPrice(numericValue); // Use the passed setter function to update maxPrice
+        setMaxPrice(numericValue);
         console.log(maxPrice);
     }; 
 
@@ -96,30 +95,27 @@ const FilterCard = ({
     return (
         <Box
             sx={{
-                height: '100%', // 50% of the viewport height
-                display: {xs: 'none',md:'flex'},
+                height: '100%',
+                display: {xs: 'flex', md:'flex'},
                 justifyContent: 'center',
                 alignItems: 'center',
             }}
         >
             <Card
                 sx={{
-                    width: {xs:'100%', xl: '340px'}, // Takes full width of the Box container
-                    height: '100%', // Takes full height of the Box container
+                    width: {xs:'100%', xl: '340px'},
+                    height: '100%',
                     bgcolor: '#FFFFFF',
-                    borderColor: '#C0C2CE40',
-                    borderWidth: '1px',
-                    borderStyle: 'solid',
+                    border: '1px solid #C0C2CE40',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-around', // Adjust based on your content
+                    justifyContent: 'space-around',
                     alignItems: 'center',
-                    padding: '20px', // Add padding inside the card
-                    borderRadius: '25px',
-                    position: 'relative', // To position the reset button absolutely within the card
+                    position: 'relative',
+                    padding: 2,
+                    borderRadius: 4,
                 }}
             >
-                {/* Reset Button */}
                 <IconButton
                     onClick={resetFilters}
                     sx={{
@@ -129,8 +125,8 @@ const FilterCard = ({
                         right: 20,
                         '.MuiTypography-root': {
                             fontSize: {
-                                xs: '0.75rem', // Smaller screens
-                                sm: '0.9rem', // Larger screens
+                                xs: '0.75rem',
+                                sm: '0.9rem',
                             },
                             fontWeight: 'bold',
                         }
@@ -141,7 +137,6 @@ const FilterCard = ({
                         حذف فیلترها
                     </Typography>
                 </IconButton>
-                {/* Typography "فیلتر ها" at the top right */}
                 <Typography
                     variant="h5"
                     sx={{
@@ -150,9 +145,9 @@ const FilterCard = ({
                         mb: 3,
                         mt: 0.8,
                         fontSize: {
-                            xs: '1rem', // For extra-small screens
-                            sm: '1.2rem', // For small screens
-                            md: '1.5rem', // For medium screens (default h5 size)
+                            xs: '1rem',
+                            sm: '1.2rem',
+                            md: '1.5rem',
                         }
                     }}
                 >
@@ -176,13 +171,12 @@ const FilterCard = ({
                                 padding: '15px',
                                 justifyContent: 'space-between',
                                 marginBlock: '0.1rem',
-                                '.MuiTypography-root': { fontWeight: 'bold' } // Apply bold font to label
+                                '.MuiTypography-root': { fontWeight: 'bold' }
                             }}
                         />
                         <Divider sx={{ width: '100%', bgcolor: '#C0C2CE40' }} />
                     </React.Fragment>
                 ))}
-                {/* Accordion for Checkbox Filters */}
                 <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem', padding: '5px', backgroundColor: '#FFFFFF' }} disableGutters>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -208,7 +202,6 @@ const FilterCard = ({
                         ))}
                     </AccordionDetails>
                 </Accordion>
-                {/* Accordion for TextFields */}
                 <Accordion sx={{ width: '100%', boxShadow: 'none', marginBlock: '0.1rem', padding: '5px', backgroundColor: '#FFFFFF' }} disableGutters>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -263,7 +256,6 @@ const FilterCard = ({
                         </Box>
                     </AccordionDetails>
                 </Accordion>
-                {/* Apply Filters Button */}
                 <Button
                     variant="contained"
                     sx={{

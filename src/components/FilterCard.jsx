@@ -123,8 +123,7 @@ const FilterCard = ({
                     borderRadius: 4,
                 }}
             >
-                {/* Reset Button */}
-                <Button
+                <IconButton
                     onClick={resetFilters}
                     sx={{
                         color: 'red',
@@ -144,8 +143,7 @@ const FilterCard = ({
                     <Typography>
                         حذف فیلترها
                     </Typography>
-                </Button>
-                {/* Typography "فیلتر ها" at the top right */}
+                </IconButton>
                 <Typography
                     variant="h5"
                     sx={{

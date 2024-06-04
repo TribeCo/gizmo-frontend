@@ -23,14 +23,16 @@ import { enqueueSnackbar } from "notistack";
 import DeliveryInfoCard from "../DeliveryInfoCard";
 import DeliveryInfoHeader from "../DeliveryInfoHeader";
 
-const Second = ({ formik, setCurrentAddress }) => {
+const Second = ({ formik, setCurrentAddress, loading }) => {
 	const { tokens } = useAuth();
 	const [checkedAddresses, setCheckedAddresses] = useState({});
 	const [addresses, setAddresses] = useState([]);
 
 	useEffect(() => {
 		if (tokens) {
+			loading(true);
 			handleGetAddress();
+			loading(false);
 		}
 	}, [tokens]);
 
@@ -58,16 +60,19 @@ const Second = ({ formik, setCurrentAddress }) => {
 		);
 		setCheckedAddresses(newCheckedState);
 		if (event.target.checked) {
+			loading(true);
 			await MakeCurrent(id);
 			const resetCheckedState = Object.keys(checkedAddresses).reduce(
 				(state, key) => ({ ...state, [key]: false }),
 				{},
 			);
 			setCheckedAddresses(resetCheckedState);
+			loading(false);
 		}
 	};
 
 	const MakeCurrent = async (id) => {
+		loading(true);
 		try {
 			const response = await MakeDefaultAddress(id, tokens);
 			if (response && response.messages) {
@@ -82,6 +87,7 @@ const Second = ({ formik, setCurrentAddress }) => {
 				variant: "error",
 			});
 		}
+		loading(false);
 	};
 
 	const currentAddress = addresses.find((address) => address.current);
@@ -206,6 +212,15 @@ const Second = ({ formik, setCurrentAddress }) => {
 								backgroundColor: "#EEEEEE",
 							}}
 						/>
+						{formik.errors.name_delivery && (
+							<Typography
+								variant="subtitle2"
+								mt={0.5}
+								ml={1}
+								color="error">
+								{formik.errors.name_delivery}
+							</Typography>
+						)}
 					</Grid>
 					<Grid
 						item
@@ -231,6 +246,15 @@ const Second = ({ formik, setCurrentAddress }) => {
 								backgroundColor: "#EEEEEE",
 							}}
 						/>
+						{formik.errors.phone_delivery && (
+							<Typography
+								variant="subtitle2"
+								mt={0.5}
+								ml={1}
+								color="error">
+								{formik.errors.phone_delivery}
+							</Typography>
+						)}
 					</Grid>
 					<Grid
 						item
@@ -258,6 +282,15 @@ const Second = ({ formik, setCurrentAddress }) => {
 								backgroundColor: "#EEEEEE",
 							}}
 						/>
+						{formik.errors.description && (
+							<Typography
+								variant="subtitle2"
+								mt={0.5}
+								ml={1}
+								color="error">
+								{formik.errors.description}
+							</Typography>
+						)}
 					</Grid>
 				</Grid>
 			</Box>
@@ -331,6 +364,14 @@ const Second = ({ formik, setCurrentAddress }) => {
 					}
 				/>
 			</RadioGroup>
+			{formik.errors.delivery_method && (
+				<Typography
+					variant="subtitle2"
+					ml={5}
+					color="error">
+					{formik.errors.delivery_method}
+				</Typography>
+			)}
 		</Box>
 	);
 };

@@ -15,6 +15,7 @@ import SelectProduct from "./product/SelectProduct";
 import { convert } from "@/utils";
 
 function ProductInfo({ data }) {
+	console.log(data);
 	return (
 		<Grid container>
 			<Grid

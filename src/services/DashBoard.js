@@ -29,7 +29,12 @@ export const fetchFactors = async (id, tokens) => {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${tokens.access}`,
 			},
+			next: {
+				revalidate: 1
+			}
 		});
+
+		console.log(response);
 		if (response.ok) {
 			return response.json(); // If the response is OK, return the JSON data
 		} else if (response.status === 404) {

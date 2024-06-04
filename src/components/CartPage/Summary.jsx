@@ -389,7 +389,6 @@ export default function Summary({
 						color="#213346"
 						fontWeight={"bold"}
 						align="center"
-						id="login-button"
 						sx={{
 							fontSize: { xs: 16, sm: 20 },
 						}}>

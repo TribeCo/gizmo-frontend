@@ -1,7 +1,7 @@
 import LineSplitter from "@/components/LineSpliter";
 import CompanySlider from "@/components/CompanySlider";
 import { Box, Container, Typography } from "@mui/material";
-import ProductPart from "@/components/dubai/productPart";
+import ProductPart from "@/components/dubai/ProductPart";
 import { getSites } from "@/services/Dubai";
 
 const description =

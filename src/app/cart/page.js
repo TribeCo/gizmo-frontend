@@ -13,8 +13,8 @@ import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 
 //? Pages
-import First from "@/components/CartPage/Pages/first";
-import Second from "@/components/CartPage/Pages/second";
+import First from "@/components/CartPage/Pages/First";
+import Second from "@/components/CartPage/Pages/Second";
 import Third from "@/components/CartPage/Pages/Third";
 
 //? services

@@ -12,7 +12,7 @@ export default async function rules() {
     return(
         <Box>
             <LineSplitter text="قوانین"/>
-            <Rules data={Laws} onClose={null}/>
+            <Rules data={Laws} />
         </Box>
     );
 }

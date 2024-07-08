@@ -509,11 +509,13 @@ const AppBar = ({ isLanding }) => {
 							badgeContent={length}
 							sx={{
 								"& .MuiBadge-badge": {
-									right: 18,
-									top: 13,
-									padding: "13px 7px 10px 7px",
+									right: {xs: 10 , md:18},
+									top: {xs: 7, md: 13},
+									padding: {xs: "6px 0px 4px 0px",  md: "13px 7px 10px 7px"},
 									borderRadius: 10,
-									fontSize: 15,
+									fontSize: {xs: 10, md: 14},
+									minWidth: { xs: '16px', md: '22px' }, // Minimum width
+									height: { xs: '16px', md: '22px' }, // Fixed height
 								},
 							}}
 							color="error">

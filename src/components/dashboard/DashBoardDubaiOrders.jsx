@@ -87,7 +87,7 @@ export default function DashBoardDubaiOrders() {
 							onChange={searchProductCode}
 							className="w-[85%] text-sm pr-2 rounded-r-xl"
 							type="text"
-							placeholder="جستوجو کد پیگیری"
+							placeholder="جستجو کد پیگیری"
 						/>
 
 						<div className="bg-palette-blue w-[15%] flex items-center justify-center">

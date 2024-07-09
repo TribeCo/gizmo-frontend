@@ -44,7 +44,7 @@ const Comment = ({ pid, comments }) => {
 				variant: "success",
 			});
 		} catch (error) {
-			enqueueSnackbar({ message: error.message, variant: "error" });
+			enqueueSnackbar({ message: "لطفا ابتدا لاگین کنید.", variant: "warning" });
 		}
 	};
 	return (

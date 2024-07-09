@@ -36,6 +36,8 @@ const SendComment = ({ handleSendComment }) => {
 			anonymous: false,
 		},
 		onSubmit: (values) => {
+			
+			
 			handleSendComment({
 				anonymous: values.anonymous,
 				text: values.text,

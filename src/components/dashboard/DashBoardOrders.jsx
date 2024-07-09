@@ -115,7 +115,7 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <Box sx={{ backgroundColor: '#22668D', borderRadius: '0 15px 15px 0' }}>
-                                        <SearchIcon sx={{ color: '#fff', fontSize: '2.40rem' }} />
+                                        <SearchIcon sx={{ color: '#fff',width: '24px' , fontSize: '2.40rem' }} />
                                     </Box>
                                 </InputAdornment>
                             ),

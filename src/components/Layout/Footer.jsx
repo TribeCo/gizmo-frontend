@@ -255,7 +255,7 @@ export default async function Footer({ hasSecondPart = true }) {
 									</ListItem>
 									<ListItem sx={{ py: 0.2 }}>
 										<ArrowLeftIcon sx={{ color: Colors.blue_dark }} />
-										<Link href={"/blog"}>
+										<Link href={"/gizmolog"}>
 											<Typography
 												variant="h6"
 												color={Colors.blue_dark}>

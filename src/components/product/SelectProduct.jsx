@@ -80,7 +80,7 @@ const SelectProduct = ({ data }) => {
 					});
 				} else {
 					enqueueSnackbar({
-						message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+						message: "ابتدا لاگین کنید.",
 						variant: "error",
 					});
 					console.log(response.status);

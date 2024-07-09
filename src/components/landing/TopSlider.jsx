@@ -272,9 +272,9 @@ const TopSlider = ({ data }) => {
 											onClick={() => router.push(item.abs_link)}
 											variant="contained"
 											sx={{
-												my: 5,
-												px: 3,
-												py: 2,
+												my: 4,
+												px: 1,
+												py: 0.5,
 												bgcolor: Colors.orange,
 												color: Colors.blue,
 												borderRadius: 6,
@@ -285,13 +285,14 @@ const TopSlider = ({ data }) => {
 											<Typography
 												mr={2}
 												variant="h6"
+												// fontSize={50}
 												fontWeight={900}
 												noWrap>
 												{"هم اکنون خرید کنید!"}
 											</Typography>
 											<svg
-												width="35"
-												height="35"
+												width="25"
+												height="25"
 												viewBox="0 0 35 35"
 												fill="none"
 												xmlns="http://www.w3.org/2000/svg">

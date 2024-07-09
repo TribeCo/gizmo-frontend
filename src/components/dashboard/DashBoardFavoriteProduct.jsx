@@ -73,7 +73,6 @@ export default function DashBoardFavoriteProduct() {
 						borderRadius: "10px",
 						width: "100%", // Use 100% width for the Box to take full width
 						maxWidth: "840px", // Set a maximum width for larger screens
-						// margin: 'auto', // Center the Box
 						height: "auto", // Adjust the height as needed
 						overflowY: "auto", // Enable vertical scrolling
 						overflowX: "hidden",

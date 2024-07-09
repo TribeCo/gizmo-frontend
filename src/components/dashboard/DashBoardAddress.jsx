@@ -386,9 +386,8 @@ export default function DashBoardAddress() {
 									min={0}
 									className="resize-none px-2 bg-[#EEEE] w-[90%] h-8 rounded-lg mt-2 outline-none"
 								/>
-								<div className="mt-4 flex justify-end lg:justify-center">
+								<div className="mt-4 flex justify-end lg:justify-center px-10">
 									<Button
-										className=""
 										variant="contained"
 										onClick={AddAddress}
 										sx={{
@@ -397,7 +396,6 @@ export default function DashBoardAddress() {
 											borderRadius: "50px",
 											boxShadow: "none",
 											mt: 1.5,
-											mr: 7,
 											px: 4,
 											"&:hover": {
 												bgcolor: Colors.orange,

@@ -132,26 +132,41 @@ const CartPage = () => {
 				setState(1);
 			} else {
 				setLoading(true);
-				const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
-					method: "GET",
-					headers: {
+				try {
+					if (!tokens || !tokens.access) {
+					  throw new Error("Access token is missing");
+					}
+				  
+					const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
+					  method: "GET",
+					  headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${tokens.access}`,
-					},
-					next: {
+					  },
+					  next: {
 						revalidate: 1,
-					},
-				});
-				if (userResponse.ok) {
-					setUser(await userResponse.json());
-					setState(1);
-				} else {
-					enqueueSnackbar({
+					  },
+					});
+				  
+					if (userResponse.ok) {
+					  setUser(await userResponse.json());
+					  setState(1);
+					} else {
+					  enqueueSnackbar({
 						message: "لطفا برای ادامه دادن وارد شوید",
 						variant: "warning",
+					  });
+					}
+				  } catch (error) {
+					console.error("Error fetching user info:", error);
+					enqueueSnackbar({
+					  message: "لطفا برای ادامه دادن وارد شوید",
+					  variant: "warning",
 					});
-				}
-				setLoading(false);
+				  } finally {
+					setLoading(false);
+				  }
+				  
 			}
 		} else if (state === 1) {
 			formik.handleSubmit();

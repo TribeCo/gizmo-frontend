@@ -236,142 +236,73 @@ const UserInfoPage = ({ activities, information, handleClick }) => {
 						فعالیت ها
 					</Typography>
 				</Box>
-
 				<Divider />
-
 				<Box
-					px={4}
+					px={2}
 					justifyContent="space-around"
 					alignItems="center"
 					display="flex"
 					flexDirection="row"
 					flexWrap="wrap"
 					container>
-					<Box
-						mt={6}
-						mx={1}
-						sx={{
-							textAlign: "center",
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-							justifyContent: "center",
-						}}>
-						<Typography
-							variant="h5"
-							fontWeight="bold"
-							sx={{
-								color: "#213346",
-								fontSize: { xs: 15, sm: 18, md: 22 },
-							}}>
-							تعداد سفارش ها
-						</Typography>
+					{[
+						{
+							label: "تعداد سفارش ها",
+							value: toPersianDigits(activities.orders_count)
+						},
+						{
+							label: "تعداد سفارش ها از دبی",
+							value: toPersianDigits(activities.foreign_returns_count)
+						},
+						{
+							label: "تعداد مرجوعی ها",
+							value: toPersianDigits(activities.returns_count)
+						}
+					].map((item, index) => (
 						<Box
-							mt={3}
+							key={index}
+							mt={{xs: 4, sm: 6}}
+							mx={1}
 							sx={{
-								width: { xs: "3rem", sm: "5rem", md: "7rem" },
-								height: { xs: "3rem", sm: "5rem", md: "7rem" },
+								textAlign: "center",
+								display: "flex",
+								flexDirection: "column",
 								alignItems: "center",
 								justifyContent: "center",
-								display: "flex",
-								borderRadius: "100%",
-								backgroundColor: Colors.orange,
+								width: { xs: "min-content", sm: "auto" }
 							}}>
 							<Typography
-								variant="h6"
+								variant="h5"
 								fontWeight="bold"
 								sx={{
-									fontSize: { xs: 20, sm: 26, md: 40 },
-									mt: { xs: 0, sm: 1 },
+									color: "#213346",
+									fontSize: { xs: 12, sm: 18, md: 22 },
 								}}>
-								{toPersianDigits(activities.orders_count)}
+								{item.label}
 							</Typography>
-						</Box>
-					</Box>
-
-					<Box
-						mt={6}
-						mx={1}
-						sx={{
-							textAlign: "center",
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-							justifyContent: "center",
-						}}>
-						<Typography
-							variant="h5"
-							fontWeight="bold"
-							sx={{
-								color: "#213346",
-								fontSize: { xs: 15, sm: 18, md: 22 },
-							}}>
-							تعداد سفارش ها از دبی
-						</Typography>
-						<Box
-							mt={3}
-							sx={{
-								width: { xs: "3rem", sm: "5rem", md: "7rem" },
-								height: { xs: "3rem", sm: "5rem", md: "7rem" },
-								alignItems: "center",
-								justifyContent: "center",
-								display: "flex",
-								borderRadius: "100%",
-								backgroundColor: Colors.orange,
-							}}>
-							<Typography
-								variant="h6"
-								fontWeight="bold"
+							<Box
+								mt={{xs: 2, sm: 3}}
 								sx={{
-									fontSize: { xs: 20, sm: 26, md: 40 },
-									mt: { xs: 0, sm: 1 },
+									width: { xs: "3rem", sm: "4rem", md: "5rem" },
+									height: { xs: "3rem", sm: "4rem", md: "5rem" },
+									alignItems: "center",
+									justifyContent: "center",
+									display: "flex",
+									borderRadius: "100%",
+									backgroundColor: Colors.orange,
 								}}>
-								{toPersianDigits(activities.foreign_returns_count)}
-							</Typography>
+								<Typography
+									variant="h6"
+									fontWeight="bold"
+									sx={{
+										fontSize: { xs: 16, sm: 26, md: 40 },
+										mt: { xs: 0, sm: 1 },
+									}}>
+									{item.value}
+								</Typography>
+							</Box>
 						</Box>
-					</Box>
-
-					<Box
-						mt={6}
-						mx={1}
-						sx={{
-							textAlign: "center",
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-							justifyContent: "center",
-						}}>
-						<Typography
-							variant="h5"
-							fontWeight="bold"
-							sx={{
-								color: "#213346",
-								fontSize: { xs: 15, sm: 18, md: 22 },
-							}}>
-							تعداد مرجوعی ها
-						</Typography>
-						<Box
-							mt={3}
-							sx={{
-								width: { xs: "3rem", sm: "5rem", md: "7rem" },
-								height: { xs: "3rem", sm: "5rem", md: "7rem" },
-								alignItems: "center",
-								justifyContent: "center",
-								display: "flex",
-								borderRadius: "100%",
-								backgroundColor: Colors.orange,
-							}}>
-							<Typography
-								variant="h6"
-								fontWeight="bold"
-								sx={{
-									fontSize: { xs: 20, sm: 26, md: 40 },
-									mt: { xs: 0, sm: 1 },
-								}}>
-								{toPersianDigits(activities.returns_count)}
-							</Typography>
-						</Box>
-					</Box>
+					))}
 				</Box>
 			</Paper>
 		</Grid>

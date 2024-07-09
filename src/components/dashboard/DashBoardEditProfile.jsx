@@ -182,6 +182,26 @@ export default function DashBoardEditProfile({ information }) {
 						fullWidth
 						sx={{ mb: 2, "& .MuiInputBase-root": { borderRadius: "50px" } }}
 					/>
+					<TextField
+						label="نام خانوادگی"
+						variant="outlined"
+						value={newProfileData.last_name}
+						onChange={(e) =>
+							setNewProfileData({
+								...newProfileData,
+								last_name: e.target.value,
+							})
+						}
+						fullWidth
+						sx={{ mb: 2, "& .MuiInputBase-root": { borderRadius: "50px" } }}
+					/>
+				</Box>
+				<Box
+					display="flex"
+					sx={{
+						flexDirection: { xs: "column", sm: "row" },
+					}}
+					gap={2}>
 					<Select
 						value={newProfileData.gender}
 						onChange={(e) =>
@@ -198,26 +218,6 @@ export default function DashBoardEditProfile({ information }) {
 						<MenuItem value="f">زن</MenuItem>
 						<MenuItem value="u">مایل به گفتن ندارم</MenuItem>
 					</Select>
-				</Box>
-				<Box
-					display="flex"
-					sx={{
-						flexDirection: { xs: "column", sm: "row" },
-					}}
-					gap={2}>
-					<TextField
-						label="نام خانوادگی"
-						variant="outlined"
-						value={newProfileData.last_name}
-						onChange={(e) =>
-							setNewProfileData({
-								...newProfileData,
-								last_name: e.target.value,
-							})
-						}
-						fullWidth
-						sx={{ mb: 2, "& .MuiInputBase-root": { borderRadius: "50px" } }}
-					/>
 					<TextField
 						label="شماره تلفن"
 						variant="outlined"

@@ -40,7 +40,7 @@ const Comment = ({ pid, comments }) => {
 				},
 			});
 			enqueueSnackbar({
-				message: "کامنت با موفقیت ثبت شد.",
+				message: "کامنت شما بعد از تایید ادمین نمایش داده خواهد شد.",
 				variant: "success",
 			});
 		} catch (error) {

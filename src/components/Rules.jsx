@@ -4,7 +4,7 @@ import FaqQuestion from "./Faq/FaqQuestion";
 import { Colors } from "@/utils";
 import { baseUrl } from "@/services";
 
-export default function Rules({ data, onClose }) {
+export default function Rules({ data }) {
 	return (
 		<Box>
 			<Grid mb={30}>
@@ -40,9 +40,8 @@ export default function Rules({ data, onClose }) {
 							</Typography>
 						</Grid>
 					</Grid>
-
 					<Grid>
-						<Button
+						{/* <Button
 							onClick={onClose}
 							variant="contained"
 							sx={{
@@ -62,7 +61,7 @@ export default function Rules({ data, onClose }) {
 									pr: { xs: 0, sm: 1, md: 2 },
 									fontSize: { xs: 13, sm: 14, md: 18, lg: 20 },
 								}}>
-								بازگشت به صفحه موضوعات
+								بازگشت به صفحه اصلی
 							</Typography>
 							<Grid
 								sx={{
@@ -80,7 +79,7 @@ export default function Rules({ data, onClose }) {
 									/>
 								</SvgIcon>
 							</Grid>
-						</Button>
+						</Button> */}
 					</Grid>
 				</Grid>
 				<Grid

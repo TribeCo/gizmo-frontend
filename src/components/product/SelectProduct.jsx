@@ -12,7 +12,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
 import { baseUrl } from "@/services";
-import { Check } from "@mui/icons-material";
+import { Add, Check, Close, Remove } from "@mui/icons-material";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
@@ -62,12 +62,12 @@ const SelectProduct = ({ data }) => {
 			if (!like) {
 				response = await addToFavorites({
 					pid: data.id,
-					access: tokens.access,
+					access: tokens ? tokens.access : "",
 				});
 			} else {
 				response = await deleteFavorites({
 					pid: data.id,
-					access: tokens.access,
+					access: tokens ? tokens.access : "",
 				});
 			}
 			if (response.message) {
@@ -84,11 +84,9 @@ const SelectProduct = ({ data }) => {
 						message: "ابتدا لاگین کنید.",
 						variant: "error",
 					});
-					console.log(response.status);
 				}
 			}
 		} catch (error) {
-			console.log(error);
 			if (error.status === 401) {
 				enqueueSnackbar({
 					message: "برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید",
@@ -222,25 +220,19 @@ const SelectProduct = ({ data }) => {
 												},
 											}}>
 											{color.quantity < 1 ? (
-												<svg
-													width="39"
-													height="39"
-													viewBox="0 0 39 39"
-													fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M2.89624 3L35.6638 35.7676"
-														stroke="#BB0000"
-														stroke-width="5"
-														stroke-linecap="round"
-													/>
-													<path
-														d="M3 35.7676L35.7676 3"
-														stroke="#BB0000"
-														stroke-width="5"
-														stroke-linecap="round"
-													/>
-												</svg>
+												<Close
+													sx={{
+														width: {
+															xs: 30,
+															md: 45,
+														},
+														height: {
+															xs: 30,
+															md: 45,
+														},
+														color: "#BB0000",
+													}}
+												/>
 											) : color.color.id === selectedColor ? (
 												<Box>
 													<Check
@@ -256,20 +248,6 @@ const SelectProduct = ({ data }) => {
 															color: "#4ECB71",
 														}}
 													/>
-													{/* <svg
-														width="38"
-														height="26"
-														viewBox="0 0 38 26"
-														fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-														<path
-															d="M3.41675 13.0002L13.8334 23.4168L34.6667 2.5835"
-															stroke="#4ECB71"
-															stroke-width="5"
-															stroke-linecap="round"
-															stroke-linejoin="round"
-														/>
-													</svg> */}
 												</Box>
 											) : (
 												""
@@ -300,7 +278,10 @@ const SelectProduct = ({ data }) => {
 						display="flex"
 						justifyContent="space-between"
 						alignItems="center"
-						width={120}
+						sx={{
+							xs: 8,
+							md: 15,
+						}}
 						mt={2}>
 						<IconButton
 							onClick={incCount}
@@ -309,39 +290,45 @@ const SelectProduct = ({ data }) => {
 									(color) => color.color.id === selectedColor,
 								)[0].quantity <= count
 							}>
-							<svg
-								width="35"
-								height="41"
-								viewBox="0 0 35 41"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M0.5 3C0.5 1.61929 1.61929 0.5 3 0.5H32C33.3807 0.5 34.5 1.61929 34.5 3V38C34.5 39.3807 33.3807 40.5 32 40.5H3C1.61929 40.5 0.5 39.3807 0.5 38V3Z"
-									stroke="#747678"
-								/>
-								<path
-									d="M23.875 18.9062H19.0938V14.125C19.0938 13.5383 18.6179 13.0625 18.0312 13.0625H16.9688C16.3821 13.0625 15.9062 13.5383 15.9062 14.125V18.9062H11.125C10.5383 18.9062 10.0625 19.3821 10.0625 19.9688V21.0312C10.0625 21.6179 10.5383 22.0938 11.125 22.0938H15.9062V26.875C15.9062 27.4617 16.3821 27.9375 16.9688 27.9375H18.0312C18.6179 27.9375 19.0938 27.4617 19.0938 26.875V22.0938H23.875C24.4617 22.0938 24.9375 21.6179 24.9375 21.0312V19.9688C24.9375 19.3821 24.4617 18.9062 23.875 18.9062Z"
-									fill="#747678"
-								/>
-							</svg>
+							<Box
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+								sx={{
+									width: {
+										xs: 30,
+										md: 40,
+									},
+									height: {
+										xs: 30,
+										md: 40,
+									},
+									border: "1px solid #747678",
+									borderRadius: 1,
+								}}>
+								<Add />
+							</Box>
 						</IconButton>
 						<Typography variant="h5">{convert(count)}</Typography>
 						<IconButton onClick={decCount}>
-							<svg
-								width="35"
-								height="41"
-								viewBox="0 0 35 41"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M0.5 3C0.5 1.61929 1.61929 0.5 3 0.5H32C33.3807 0.5 34.5 1.61929 34.5 3V38C34.5 39.3807 33.3807 40.5 32 40.5H3C1.61929 40.5 0.5 39.3807 0.5 38V3Z"
-									stroke="#747678"
-								/>
-								<path
-									d="M23.875 18.9062H11.125C10.5383 18.9062 10.0625 19.3821 10.0625 19.9688V21.0312C10.0625 21.6179 10.5383 22.0938 11.125 22.0938H23.875C24.4617 22.0938 24.9375 21.6179 24.9375 21.0312V19.9688C24.9375 19.3821 24.4617 18.9062 23.875 18.9062Z"
-									fill="#747678"
-								/>
-							</svg>
+							<Box
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+								sx={{
+									width: {
+										xs: 30,
+										md: 40,
+									},
+									height: {
+										xs: 30,
+										md: 40,
+									},
+									border: "1px solid #747678",
+									borderRadius: 1,
+								}}>
+								<Remove />
+							</Box>
 						</IconButton>
 					</Box>
 				</Box>

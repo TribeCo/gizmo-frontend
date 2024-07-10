@@ -509,13 +509,17 @@ const AppBar = ({ isLanding }) => {
 							badgeContent={length}
 							sx={{
 								"& .MuiBadge-badge": {
-									right: {xs: 10 , sm:18},
-									top: {xs: 7, sm: 13},
-									padding: {xs: "6px 0px 4px 0px", sm: "8px 0px 6px 0px", md: "12px 7px 10px 7px"},
+									right: { xs: 10, sm: 18 },
+									top: { xs: 7, sm: 13 },
+									padding: {
+										xs: "6px 0px 4px 0px",
+										sm: "8px 0px 6px 0px",
+										md: "12px 7px 10px 7px",
+									},
 									borderRadius: 10,
-									fontSize: {xs: 10, sm: 12 ,md: 14},
-									minWidth: { xs: '16px', sm: '20px' ,md: '22px' }, // Minimum width
-									height: { xs: '16px', sm: '20px' ,md: '22px' }, // Fixed height
+									fontSize: { xs: 10, sm: 12, md: 14 },
+									minWidth: { xs: "16px", sm: "20px", md: "22px" }, // Minimum width
+									height: { xs: "16px", sm: "20px", md: "22px" }, // Fixed height
 								},
 							}}
 							color="error">
@@ -679,12 +683,13 @@ const SearchField = () => {
 				}
 				open={open}
 				onClose={handleClose}>
-				<FormControl>
+				<FormControl
+					sx={{ justifyContent: "center", height: { xs: 43, sm: 55, md: 65 } }}>
 					<InputBase
 						startAdornment={
 							<SvgIcon
-								width="23"
-								height="23"
+								width="20"
+								height="20"
 								viewBox="0 0 23 23"
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg">
@@ -697,8 +702,8 @@ const SearchField = () => {
 						endAdornment={
 							<IconButton onClick={handleClose}>
 								<svg
-									width="24"
-									height="24"
+									width="20"
+									height="20"
 									viewBox="0 0 24 24"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg">

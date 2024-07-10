@@ -4,6 +4,7 @@ import { MenuItemSelectorProvider } from "@/components/dashboard/DashBoardMenuSe
 
 // Css Files
 import "./globals.css";
+import { Container } from "@mui/material";
 
 // Custom Components
 export const metadata = {
@@ -18,7 +19,15 @@ export default function RootLayout({ children }) {
 			dir="rtl">
 			<body>
 				<MenuItemSelectorProvider>
-					<ThemeProvider>{children}</ThemeProvider>
+					<ThemeProvider>
+						<Container
+							sx={{
+								padding: 0,
+							}}
+							maxWidth="xl">
+							{children}
+						</Container>
+					</ThemeProvider>
 				</MenuItemSelectorProvider>
 			</body>
 		</html>

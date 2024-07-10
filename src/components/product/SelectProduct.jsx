@@ -344,11 +344,13 @@ const SelectProduct = ({ data }) => {
 				ml={3}
 				maxWidth={data.discounted ? 400 : 300}
 				display="flex"
+				alignItems="center"
 				justifyContent="space-between">
 				<Typography
 					noWrap
 					color={!data.is_available ? "#D2D2D2" : "#22668D"}
 					fontWeight={900}
+					sx={{ fontSize: { xs: 16, md: 20 } }}
 					fontSize={20}>
 					{"قیمت: "}
 				</Typography>
@@ -359,16 +361,15 @@ const SelectProduct = ({ data }) => {
 							position="absolute"
 							bgcolor="#BB0000"
 							borderRadius="2em"
-							px={7}
+							px={6}
 							pt={0.25}
 							color="#fff"></Box>
 						<Typography
 							noWrap
 							mt={0.5}
 							align="center"
-							fontSize={20}
 							fontWeight={400}
-							sx={{ color: "#BFBFBF" }}>
+							sx={{ color: "#BFBFBF", fontSize: { xs: 16, md: 20 } }}>
 							{convert(data.price) + " تومان"}
 						</Typography>
 					</Box>
@@ -382,7 +383,7 @@ const SelectProduct = ({ data }) => {
 							align="center"
 							fontSize={20}
 							fontWeight={400}
-							sx={{ color: "#D2D2D2" }}>
+							sx={{ color: "#D2D2D2", fontSize: { xs: 18, md: 20 } }}>
 							{"ناموجود"}
 						</Typography>
 					</Box>
@@ -392,7 +393,7 @@ const SelectProduct = ({ data }) => {
 							noWrap
 							mt={0.5}
 							align="center"
-							fontSize={20}
+							sx={{ fontSize: { xs: 18, md: 20 } }}
 							fontWeight={400}>
 							{convert(parseInt(data.discounted_price)) + " تومان"}
 						</Typography>

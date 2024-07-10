@@ -34,36 +34,39 @@ function ProductInfo({ data }) {
 								xs: "column",
 							},
 						}}>
-						<Box>
-							<CardMedia
-								image={data.special_image}
-								sx={{
-									m: {
-										xs: "0 1.3rem 0 1.3rem",
-										sm: 3,
-										md: "8rem 0 0 0",
-										lg: "8rem 0 0 4rem",
-									},
-									mt: { xs: 5, sm: 0 },
-									height: {
-										xs: 380,
-										sm: 380,
-										md: 350,
-										lg: 400,
-										xl: 450,
-									},
-									width: {
-										xs: 380,
-										sm: 380,
-										md: 350,
-										lg: 400,
-										xl: 450,
-									},
-								}}
-							/>
-						</Box>
+						<CardMedia
+							image={data.special_image}
+							sx={{
+								m: {
+									xs: 0,
+									sm: 3,
+									md: "8rem 0 0 0",
+									lg: "8rem 0 0 4rem",
+								},
+								mt: { xs: 5, sm: 0 },
+								height: {
+									xs: 370,
+									sm: 380,
+									md: 350,
+									lg: 400,
+									xl: 450,
+								},
+								width: {
+									xs: 370,
+									sm: 380,
+									md: 350,
+									lg: 400,
+									xl: 450,
+								},
+							}}
+						/>
 						<Box
-							ml="2rem"
+							sx={{
+								ml: {
+									xs: "1rem",
+									md: "2rem",
+								},
+							}}
 							display="flex"
 							flexDirection="column"
 							justifyContent="center">
@@ -95,17 +98,20 @@ function ProductInfo({ data }) {
 									<CardMedia
 										image={data.image1}
 										sx={{
-											border: "0.2em solid #22668D",
+											border: {
+												xs: "0.1em solid #22668D",
+												md: "0.2em solid #22668D",
+											},
 											borderRadius: 3,
 											height: {
-												xs: 100,
+												xs: 90,
 												sm: 100,
 												md: 120,
 												lg: 135,
 												xl: 135,
 											},
 											width: {
-												xs: 100,
+												xs: 90,
 												sm: 100,
 												md: 120,
 												lg: 135,
@@ -125,14 +131,14 @@ function ProductInfo({ data }) {
 											border: "0.2em solid #22668D",
 											borderRadius: 3,
 											height: {
-												xs: 100,
+												xs: 90,
 												sm: 100,
 												md: 120,
 												lg: 135,
 												xl: 135,
 											},
 											width: {
-												xs: 100,
+												xs: 90,
 												sm: 100,
 												md: 120,
 												lg: 135,
@@ -155,22 +161,32 @@ function ProductInfo({ data }) {
 						sx={{
 							height: { xs: 400, sm: 570 },
 							mb: { xs: 20, sm: 0 },
-							width: { xs: 370, sm: 600, md: 500, lg: 600, xl: 675 },
+							width: { xs: 360, sm: 600, md: 500, lg: 600, xl: 675 },
 						}}
 					/>
 				</Box>
 			</Grid>
 			<Grid
 				item
-				pl={2}
 				mt={6}
 				sm={12}
 				md={5}
+				mx="auto"
 				maxWidth="400px">
 				<Box>
 					<Box display="flex">
 						<Typography
-							variant="h5"
+							ml={0.5}
+							sx={{
+								maxWidth: {
+									xs: 350,
+									md: 400,
+								},
+								fontSize: {
+									xs: 16,
+									md: 24,
+								},
+							}}
 							fontWeight={900}>
 							{data.name}
 						</Typography>

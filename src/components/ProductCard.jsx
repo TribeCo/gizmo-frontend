@@ -88,10 +88,10 @@ const ProductCard = ({ product }) => {
 		<CardActionArea
 			disableRipple
 			sx={{
-				width: { xs: 0.65 * 242, md: 1.0 * 242 },
-				height: { xs: 0.65 * 381, md: 1.0 * 381 },
-				mx: 1,
-				borderRadius: { xs: "30px", md: "40px" },
+				width: { xs: 0.58 * 242, md: 1.0 * 242 },
+				height: { xs: 0.58 * 381, md: 1.0 * 381 },
+				mx: { xs: 0.5, md: 1 },
+				borderRadius: { xs: "27px", md: "40px" },
 			}}
 			onMouseOver={() => setShow(true)}
 			onMouseLeave={() => setShow(false)}>
@@ -100,13 +100,12 @@ const ProductCard = ({ product }) => {
 	);
 
 	function second() {
-		console.log(product);
 		return (
 			<Card
 				sx={{
-					width: { xs: 0.65 * 242, md: 1.0 * 242 },
-					height: { xs: 0.65 * 381, md: 1.0 * 381 },
-					borderRadius: { xs: "30px", md: "40px" },
+					width: { xs: 0.58 * 242, md: 1.0 * 242 },
+					height: { xs: 0.58 * 381, md: 1.0 * 381 },
+					borderRadius: { xs: "27px", md: "40px" },
 					background: "linear-gradient(to bottom, #FFFFFF 45%, #DEF0F5 75%)",
 					border: "5px solid #5A8EAA",
 					display: "flex",
@@ -128,8 +127,8 @@ const ProductCard = ({ product }) => {
 						sx={{
 							mx: "auto",
 							mt: { xs: 0.4, md: 0.8 },
-							width: { xs: 0.65 * 218, md: 1.0 * 218 },
-							height: { xs: 0.65 * 218, md: 1.0 * 218 },
+							width: { xs: 0.58 * 218, md: 1.0 * 218 },
+							height: { xs: 0.58 * 218, md: 1.0 * 218 },
 							objectFit: "cover",
 							borderRadius: { xs: "25px", md: "30px" },
 							filter: `${product.is_available ? "" : "grayscale(100%)"}`,
@@ -185,7 +184,7 @@ const ProductCard = ({ product }) => {
 								my: { xs: 0.25, md: 0.75 },
 								maxHeight: 40,
 								lineHeight: 1.2,
-								width: { xs: 0.63 * 170, md: 1.0 * 170 },
+								width: { xs: 0.58 * 170, md: 1.0 * 170 },
 								overflow: "hidden",
 								fontSize: { xs: "11px", md: "" },
 							}}
@@ -255,17 +254,17 @@ const ProductCard = ({ product }) => {
 		return (
 			<Card
 				sx={{
-					width: { xs: 0.65 * 242, md: 1.0 * 242 },
-					height: { xs: 0.65 * 381, md: 1.0 * 381 },
-					borderRadius: { xs: "30px", md: "40px" },
+					width: { xs: 0.58 * 242, md: 1.0 * 242 },
+					height: { xs: 0.58 * 381, md: 1.0 * 381 },
+					borderRadius: { xs: "27px", md: "40px" },
 					background:
 						"linear-gradient(104.6deg, rgba(255, 255, 255, 0.22) 1.9%, rgba(255, 255, 255, 0.12) 96.76%)",
 					boxShadow: "0px 4px 40px rgba(0, 0, 0, 0.1)",
 				}}>
 				<CardMedia
 					sx={{
-						width: { xs: 0.65 * 242, md: 1.0 * 242 },
-						height: { xs: 0.65 * 242, md: 1.0 * 242 },
+						width: { xs: 0.58 * 242, md: 1.0 * 242 },
+						height: { xs: 0.58 * 242, md: 1.0 * 242 },
 						objectFit: "cover",
 						filter: `${product.is_available ? "" : "grayscale(100%)"}`,
 						WebkitFilter: `${product.is_available ? "" : "grayscale(100%)"}`,

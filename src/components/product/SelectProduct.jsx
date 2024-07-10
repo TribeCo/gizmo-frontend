@@ -12,6 +12,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
 import { baseUrl } from "@/services";
+import { Check } from "@mui/icons-material";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
@@ -155,18 +156,30 @@ const SelectProduct = ({ data }) => {
 				mt={2}
 				ml={3}>
 				<Box>
-					<Box display="flex">
+					<Box
+						display="flex"
+						alignContent="center">
 						<Typography
 							mr={1}
 							color="#22668D"
 							fontWeight={900}
-							fontSize={20}>
+							sx={{
+								fontSize: {
+									xs: 15,
+									md: 20,
+								},
+							}}>
 							{`رنگ ها: `}
 						</Typography>
 						<Typography
 							color="#22668D"
 							fontWeight={400}
-							fontSize={20}>
+							sx={{
+								fontSize: {
+									xs: 15,
+									md: 20,
+								},
+							}}>
 							{(data.product_color.length > 0 &&
 								data.product_color.filter(
 									(color) => color.color.id === selectedColor,
@@ -190,10 +203,24 @@ const SelectProduct = ({ data }) => {
 										disableRipple>
 										<Box
 											bgcolor={`#${color.color.code}`}
-											border="0.16em solid #D9DAE2"
-											borderRadius={2.5}
-											width={45}
-											height={45}>
+											display="flex"
+											alignItems="center"
+											justifyContent="center"
+											sx={{
+												width: {
+													xs: 30,
+													md: 45,
+												},
+												height: {
+													xs: 30,
+													md: 45,
+												},
+												borderRadius: { xs: 1.3, md: 2.5 },
+												border: {
+													xs: "0.1em solid #D9DAE2",
+													md: "0.16em solid #D9DAE2",
+												},
+											}}>
 											{color.quantity < 1 ? (
 												<svg
 													width="39"
@@ -215,8 +242,21 @@ const SelectProduct = ({ data }) => {
 													/>
 												</svg>
 											) : color.color.id === selectedColor ? (
-												<Box mt={0.75}>
-													<svg
+												<Box>
+													<Check
+														sx={{
+															width: {
+																xs: 30,
+																md: 45,
+															},
+															height: {
+																xs: 30,
+																md: 45,
+															},
+															color: "#4ECB71",
+														}}
+													/>
+													{/* <svg
 														width="38"
 														height="26"
 														viewBox="0 0 38 26"
@@ -229,7 +269,7 @@ const SelectProduct = ({ data }) => {
 															stroke-linecap="round"
 															stroke-linejoin="round"
 														/>
-													</svg>
+													</svg> */}
 												</Box>
 											) : (
 												""
@@ -244,7 +284,12 @@ const SelectProduct = ({ data }) => {
 					<Typography
 						color="#22668D"
 						fontWeight={900}
-						fontSize={20}>
+						sx={{
+							fontSize: {
+								xs: 15,
+								md: 20,
+							},
+						}}>
 						{`تعداد: (موجودی ${
 							data.product_color.filter(
 								(color) => color.color.id === selectedColor,
@@ -368,8 +413,14 @@ const SelectProduct = ({ data }) => {
 				)}
 			</Box>
 			<Box
+				sx={{
+					mt: {
+						xs: 3,
+						md: 6,
+					},
+				}}
 				display="flex"
-				mt={6}>
+				alignItems="center">
 				<Button
 					onClick={data.is_available ? handleAddToCart : handleNotification}
 					variant="contained"
@@ -378,6 +429,10 @@ const SelectProduct = ({ data }) => {
 						color: "#000",
 						borderRadius: 40,
 						px: { xs: 5, md: 10 },
+						height: {
+							xs: 40,
+							md: 60,
+						},
 						"&:hover": {
 							bgcolor: Colors.orange,
 						},
@@ -395,7 +450,6 @@ const SelectProduct = ({ data }) => {
 				<IconButton
 					onClick={handleFavorite}
 					sx={{
-						mt: 1,
 						ml: 4,
 					}}>
 					{like ? (

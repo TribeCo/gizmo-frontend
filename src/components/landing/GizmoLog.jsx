@@ -10,7 +10,7 @@ const GizmoLog = ({ data }) => {
 				justifyContent="center"
 				container
 				sx={{
-					px: { xs: 4, sm: 3, md: 3, lg: 5, xl: 15 },
+					px: { xs: 4, sm: 3, md: 3, lg: 5 },
 				}}
 				spacing={2}>
 				{data.map((itemData) => (

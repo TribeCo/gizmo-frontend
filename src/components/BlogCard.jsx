@@ -11,7 +11,7 @@ export default function BlogCard({ data, background_color, font_color }) {
 	return (
 		<Grid
 			item
-			lg={3}
+			lg={3.5}
 			xs={6}
 			display="flex"
 			justifyContent="center">
@@ -21,7 +21,6 @@ export default function BlogCard({ data, background_color, font_color }) {
 					borderRadius: {
 						xs: "12px",
 						sm: "25px",
-						md: "35px",
 					},
 				}}>
 				<CardMedia
@@ -30,26 +29,18 @@ export default function BlogCard({ data, background_color, font_color }) {
 						borderTopLeftRadius: {
 							xs: "12px",
 							sm: "25px",
-							md: "35px",
 						},
 						borderTopRightRadius: {
 							xs: "12px",
 							sm: "25px",
-							md: "35px",
 						},
 						width: {
 							xs: "150px",
 							sm: "360px",
-							md: "375px",
-							lg: "380px",
-							xl: "365px",
 						},
 						height: {
 							xs: "100px",
 							sm: "240px",
-							md: "250px",
-							lg: "255px",
-							xl: "250px",
 						},
 					}}
 				/>
@@ -64,9 +55,6 @@ export default function BlogCard({ data, background_color, font_color }) {
 							width: {
 								xs: "115px",
 								sm: "330px",
-								md: "255px",
-								lg: "350px",
-								xl: "330px",
 							},
 							height: 40,
 						}}>

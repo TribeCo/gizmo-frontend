@@ -99,157 +99,6 @@ const ProductCard = ({ product }) => {
 		</CardActionArea>
 	);
 
-	function second() {
-		return (
-			<Card
-				sx={{
-					width: { xs: 0.58 * 242, md: 1.0 * 242 },
-					height: { xs: 0.58 * 381, md: 1.0 * 381 },
-					borderRadius: { xs: "27px", md: "40px" },
-					background: "linear-gradient(to bottom, #FFFFFF 45%, #DEF0F5 75%)",
-					border: "5px solid #5A8EAA",
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "space-between",
-					alignItems: "center",
-					pb: { xs: 1, md: 1.5 },
-				}}>
-				<IconButton
-					disableRipple
-					onClick={handleGoToProduct}
-					sx={{
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "space-between",
-						pt: 0,
-					}}>
-					<CardMedia
-						sx={{
-							mx: "auto",
-							mt: { xs: 0.4, md: 0.8 },
-							width: { xs: 0.58 * 218, md: 1.0 * 218 },
-							height: { xs: 0.58 * 218, md: 1.0 * 218 },
-							objectFit: "cover",
-							borderRadius: { xs: "25px", md: "30px" },
-							filter: `${product.is_available ? "" : "grayscale(100%)"}`,
-							WebkitFilter: `${product.is_available ? "" : "grayscale(100%)"}`,
-						}}
-						image={product.image2}
-						alt={product.name}>
-						<Box
-							display={
-								product.is_available &&
-								!(product.discount > 0) &&
-								!product.is_new
-									? "none"
-									: ""
-							}
-							sx={{
-								mt: { xs: 0.7, md: 1.5 },
-								ml: { xs: 1, md: 2.5 },
-							}}
-							position="absolute"
-							bgcolor={
-								!product.is_available
-									? "#747678"
-									: product.discount > 0 || product.net_sale
-									? "#BB0000"
-									: product.is_new
-									? "#5B9A8B"
-									: ""
-							}
-							borderRadius="20px"
-							px={1}
-							color="#fff">
-							<Typography
-								align="center"
-								sx={{
-									fontSize: { xs: "10px", md: "16px" },
-									lineHeight: { xs: "22px", md: "30px" },
-								}}
-								fontWeight="900">
-								{!product.is_available
-									? "ناموجود"
-									: product.discount > 0
-									? convert(product.discount) + " %"
-									: product.is_new
-									? "جدید"
-									: ""}
-							</Typography>
-						</Box>
-					</CardMedia>
-					<Box>
-						<Typography
-							sx={{
-								my: { xs: 0.25, md: 0.75 },
-								maxHeight: 40,
-								lineHeight: 1.2,
-								width: { xs: 0.58 * 170, md: 1.0 * 170 },
-								overflow: "hidden",
-								fontSize: { xs: "11px", md: "" },
-							}}
-							variant="subtitle1"
-							align="center"
-							fontWeight={900}>
-							{product.name}
-						</Typography>
-					</Box>
-					{!product.is_available ? (
-						<Typography
-							align="center"
-							sx={{
-								mt: { xs: "4px", md: "10px" },
-								fontSize: { xs: "12px", md: "16px" },
-							}}
-							fontWeight="400"
-							lineHeight="20px">
-							{"ناموجود"}
-						</Typography>
-					) : (
-						<Typography
-							align="center"
-							sx={{
-								mt: { xs: "0px", md: "10px" },
-								fontSize: { xs: "12px", md: "16px" },
-							}}
-							fontWeight="400"
-							lineHeight="20px">
-							{convert(product.discounted_price) + " تومان"}
-						</Typography>
-					)}
-				</IconButton>
-				<Button
-					onClick={product.is_available ? handleAddToCart : handleNotification}
-					fullWidth
-					variant="contained"
-					sx={{
-						mt: { xs: "0px", md: "10px" },
-						maxWidth: { xs: 120, md: 200 },
-						mx: "auto",
-						bgcolor: Colors.orange,
-						color: "#000",
-						height: { xs: "30px", md: "40px" },
-						borderRadius: "40px",
-						opacity: "70%",
-						display: "block",
-						"&:hover": {
-							bgcolor: Colors.orange,
-							opacity: "100%",
-						},
-					}}>
-					<Typography
-						fontWeight="900"
-						sx={{
-							fontSize: { xs: "10px", md: "15px" },
-							opacity: "100%",
-						}}>
-						{product.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
-					</Typography>
-				</Button>
-			</Card>
-		);
-	}
-
 	function first() {
 		return (
 			<Card
@@ -314,7 +163,12 @@ const ProductCard = ({ product }) => {
 					</Box>
 				</CardMedia>
 				<Box
-					px={2}
+					sx={{
+						px: {
+							xs: 1,
+							md: 2,
+						},
+					}}
 					pt={1}>
 					<Typography
 						sx={{
@@ -322,20 +176,20 @@ const ProductCard = ({ product }) => {
 							height: 35,
 							lineHeight: 1.2,
 							overflow: "hidden",
-							fontSize: { xs: "12px", md: "16px" },
+							fontSize: { xs: "11px", md: "16px" },
+							fontWeight: { xs: 700, md: 900 },
 						}}
 						align="center"
-						variant="h6"
-						fontWeight={900}>
+						variant="h6">
 						{product.name}
 					</Typography>
 					{!product.is_available ? (
 						<Typography
-							mt={2}
 							color="#747678"
 							align="center"
 							sx={{
 								fontSize: { xs: "14px", md: "20px" },
+								mt: { xs: 0, md: 2 },
 							}}
 							fontWeight="400"
 							lineHeight="25px">
@@ -349,7 +203,7 @@ const ProductCard = ({ product }) => {
 										mt: { xs: 0, md: 0.1 },
 										mb: { xs: 0.1, md: 0 },
 										ml: {
-											xs: 14,
+											xs: 13,
 											md: 21,
 										},
 										px: { xs: 0.7, md: 1 },
@@ -376,9 +230,9 @@ const ProductCard = ({ product }) => {
 								bgcolor="#BB0000"
 								borderRadius="20px"
 								sx={{
-									mt: { xs: 0.85, md: 1.7 },
+									mt: { xs: 0.7, md: 1.7 },
 									ml: { xs: 2.7, md: 6 },
-									px: { xs: 5.5, md: 7 },
+									px: { xs: 5, md: 7 },
 								}}
 								pt="2px"
 								color="#fff"
@@ -387,7 +241,7 @@ const ProductCard = ({ product }) => {
 								align="center"
 								sx={{
 									my: { xs: "0px", md: "15px" },
-									fontSize: { xs: "14px", md: "20px" },
+									fontSize: { xs: "12px", md: "20px" },
 									color: "#BFBFBF",
 								}}
 								fontWeight="400"
@@ -398,7 +252,7 @@ const ProductCard = ({ product }) => {
 								align="center"
 								sx={{
 									mt: { xs: "0px", md: "5px" },
-									fontSize: { xs: "14px", md: "20px" },
+									fontSize: { xs: "13px", md: "20px" },
 								}}
 								fontWeight="400"
 								lineHeight="25px">
@@ -411,7 +265,7 @@ const ProductCard = ({ product }) => {
 							align="center"
 							sx={{
 								mt: { xs: "5px", md: "25px" },
-								fontSize: { xs: "14px", md: "20px" },
+								fontSize: { xs: "13px", md: "20px" },
 							}}
 							fontWeight="400"
 							lineHeight="20px">
@@ -419,6 +273,156 @@ const ProductCard = ({ product }) => {
 						</Typography>
 					)}
 				</Box>
+			</Card>
+		);
+	}
+
+	function second() {
+		return (
+			<Card
+				sx={{
+					width: { xs: 0.58 * 242, md: 1.0 * 242 },
+					height: { xs: 0.58 * 381, md: 1.0 * 381 },
+					borderRadius: { xs: "27px", md: "40px" },
+					background: "linear-gradient(to bottom, #FFFFFF 45%, #DEF0F5 75%)",
+					border: { xs: "3px solid #5A8EAA", md: "5px solid #5A8EAA" },
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "space-between",
+					alignItems: "center",
+					pb: { xs: 1, md: 1.5 },
+				}}>
+				<IconButton
+					disableRipple
+					onClick={handleGoToProduct}
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "space-between",
+						pt: 0,
+					}}>
+					<CardMedia
+						sx={{
+							mx: "auto",
+							mt: { xs: 0.5, md: 0.8 },
+							width: { xs: 0.58 * 218, md: 1.0 * 218 },
+							height: { xs: 0.58 * 218, md: 1.0 * 218 },
+							objectFit: "cover",
+							borderRadius: { xs: "25px", md: "30px" },
+							filter: `${product.is_available ? "" : "grayscale(100%)"}`,
+							WebkitFilter: `${product.is_available ? "" : "grayscale(100%)"}`,
+						}}
+						image={product.image2}
+						alt={product.name}>
+						<Box
+							display={
+								product.is_available &&
+								!(product.discount > 0) &&
+								!product.is_new
+									? "none"
+									: ""
+							}
+							sx={{
+								mt: { xs: 0.7, md: 1.5 },
+								ml: { xs: 1, md: 2.5 },
+							}}
+							position="absolute"
+							bgcolor={
+								!product.is_available
+									? "#747678"
+									: product.discount > 0 || product.net_sale
+									? "#BB0000"
+									: product.is_new
+									? "#5B9A8B"
+									: ""
+							}
+							borderRadius="20px"
+							px={1}
+							color="#fff">
+							<Typography
+								align="center"
+								sx={{
+									fontSize: { xs: "10px", md: "16px" },
+									lineHeight: { xs: "22px", md: "30px" },
+								}}
+								fontWeight="900">
+								{!product.is_available
+									? "ناموجود"
+									: product.discount > 0
+									? convert(product.discount) + " %"
+									: product.is_new
+									? "جدید"
+									: ""}
+							</Typography>
+						</Box>
+					</CardMedia>
+					<Box>
+						<Typography
+							sx={{
+								mt: { xs: 0.2, md: 0.75 },
+								mb: { xs: 0, md: 0.75 },
+								maxHeight: 40,
+								lineHeight: 1.2,
+								width: { xs: 0.58 * 170, md: 1.0 * 170 },
+								overflow: "hidden",
+								fontSize: { xs: "11px", md: "" },
+								fontWeight: { xs: 700, md: 900 },
+							}}
+							variant="subtitle1"
+							align="center">
+							{product.name}
+						</Typography>
+					</Box>
+					{!product.is_available ? (
+						<Typography
+							align="center"
+							sx={{
+								mt: { xs: "0px", md: "10px" },
+								fontSize: { xs: "12px", md: "16px" },
+							}}
+							fontWeight="400">
+							{"ناموجود"}
+						</Typography>
+					) : (
+						<Typography
+							align="center"
+							sx={{
+								mt: { xs: "0px", md: "10px" },
+								fontSize: { xs: "12px", md: "16px" },
+							}}
+							fontWeight="400">
+							{convert(product.discounted_price) + " تومان"}
+						</Typography>
+					)}
+				</IconButton>
+				<Button
+					onClick={product.is_available ? handleAddToCart : handleNotification}
+					fullWidth
+					variant="contained"
+					sx={{
+						mt: { xs: "0px", md: "10px" },
+						maxWidth: { xs: 120, md: 200 },
+						mx: "auto",
+						bgcolor: Colors.orange,
+						color: "#000",
+						height: { xs: "25px", md: "40px" },
+						borderRadius: "40px",
+						opacity: "70%",
+						display: "block",
+						"&:hover": {
+							bgcolor: Colors.orange,
+							opacity: "100%",
+						},
+					}}>
+					<Typography
+						fontWeight="900"
+						sx={{
+							fontSize: { xs: "10px", md: "15px" },
+							opacity: "100%",
+						}}>
+						{product.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
+					</Typography>
+				</Button>
 			</Card>
 		);
 	}

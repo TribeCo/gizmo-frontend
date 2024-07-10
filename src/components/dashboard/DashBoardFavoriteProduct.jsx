@@ -38,43 +38,28 @@ export default function DashBoardFavoriteProduct() {
 				boxShadow: "0px 4px 5px rgba(0, 0, 0, 0.1)",
 			}}>
 			<Box
-				sx={{
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					flexDirection: "column",
-					padding: { xs: "15px", md: "30px" },
-					maxWidth: "900px",
-					maxHeight: "840px",
-				}}>
-				<Box
-					sx={{
-						width: { xs: "100%", md: "840px" },
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "space-between",
-						alignItems: "flex-start",
-						paddingBottom: "30px",
-						padding: { xs: "20px", md: "0px" },
-					}}>
+				width={{xs: '100%', md: '900px'}}
+				height={{xs: '100%', md: '840px'}}
+				display={'flex'}
+				alignItems={'flex-start'}
+				padding={{xs: 1, md: 2}}
+				flexDirection={'column'}
+				>
 					<Typography
-						sx={{
-							fontWeight: "700",
-							fontSize: "20px",
-							color: "#213346",
-						}}>
+						fontWeight={700}
+						fontSize={{xs: 20 ,md: 24}}
+						color={'#213346'}
+						padding={2}
+						>
 						علاقه مندی ها
 					</Typography>
-					<Divider sx={{ width: "100%", paddingBottom: "20px" }} />
-				</Box>
+					<Divider sx={{ width: '95%', alignSelf: 'center' }} />
 				<Box
+					borderRadius={10}
+					py={3}
 					sx={{
-						marginTop: "20px",
-						borderRadius: "10px",
-						width: "100%", // Use 100% width for the Box to take full width
-						maxWidth: "840px", // Set a maximum width for larger screens
-						height: "auto", // Adjust the height as needed
-						overflowY: "auto", // Enable vertical scrolling
+						alignSelf: 'center',
+						overflowY: "auto",
 						overflowX: "hidden",
 						"&::-webkit-scrollbar": {
 							display: "none", // Hide scrollbar for Webkit browsers (Chrome, Safari, etc.)
@@ -84,24 +69,20 @@ export default function DashBoardFavoriteProduct() {
 					}}>
 					<Grid
 						container
-						spacing={4}
+						spacing={{xs: 1, sm: 2 ,md: 4}}
 						justifyContent="start"
-						sx={{
-							maxWidth: { md: "840px" },
-						}}>
+						>
 						{products.map((product) => (
 							<Grid
 								item
-								xs={5.5}
-								sm={5.5}
+								xs={6}
+								sm={4}
 								md={4}
 								key={product.id}
 								sx={{
-									".muirtl-t94gkw-MuiButtonBase-root-MuiCardActionArea-root": {
-										display: "flex",
-										alignItems: "center",
-									},
-									".muirtl-kiau9m-MuiGrid-root>.MuiGrid-item": { pl: 0 },
+									display:'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
 								}}>
 								<ProductCard product={product} />
 							</Grid>

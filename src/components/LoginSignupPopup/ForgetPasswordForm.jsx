@@ -5,6 +5,7 @@ import {
 	Button,
 	Typography,
 	IconButton,
+	Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -60,12 +61,20 @@ const ForgetPasswordForm = ({ onClose }) => {
 	};
 
 	return (
-		<>
+		<Grid
+		sx={{
+			width: {xs: "15rem", sm: "19rem"}
+		}}
+		>
 			<Typography
 				variant="h4"
 				align="center"
 				id="login-form-title"
-				mb={2}>
+				sx={{
+					fontSize: {xs: "16px", sm: "20px"},
+					mb: {xs: 0, sm:2}
+				}}
+				>
 				بازیابی کلمه عبور
 			</Typography>
 
@@ -76,10 +85,15 @@ const ForgetPasswordForm = ({ onClose }) => {
 					borderColor: "rgba(0, 0, 0, 0.2)",
 				}}
 			/>
+
+
 			{!isPhoneSent ? (
 				<>
 					<Typography
 						variant="body1"
+						sx={{
+							fontSize: {xs: "12px", sm: "14px"}
+						}}	
 						mb={1}>
 						تلفن همراه:‌
 					</Typography>
@@ -96,7 +110,7 @@ const ForgetPasswordForm = ({ onClose }) => {
 							bgcolor: "white",
 							marginBottom: "5%",
 							borderRadius: "20px",
-							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+							"& .MuiOutlinedInput-root": { borderRadius: "20px", height: {xs: "40px", sm: "45px"}  },
 						}}
 					/>
 					<Button
@@ -117,6 +131,9 @@ const ForgetPasswordForm = ({ onClose }) => {
 						<Typography
 							variant="h5"
 							align="center"
+							sx={{
+								fontSize: {xs: "18px", sm: "20px"}
+							}}
 							id="login-button">
 							بازیابی کلمه عبور
 						</Typography>
@@ -126,6 +143,9 @@ const ForgetPasswordForm = ({ onClose }) => {
 				<>
 					<Typography
 						variant="body1"
+						sx={{
+							fontSize: {xs: "12px", sm: "14px"}
+						}}
 						mb={1}>
 						کد ارسال شده را وارد کنید
 					</Typography>
@@ -142,12 +162,15 @@ const ForgetPasswordForm = ({ onClose }) => {
 							bgcolor: "white",
 							marginBottom: "5%",
 							borderRadius: "20px",
-							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+							"& .MuiOutlinedInput-root": { borderRadius: "20px",  height: {xs: "40px", sm: "45px"}  },
 						}}
 					/>
 
 					<Typography
 						variant="body1"
+						sx={{
+							fontSize: {xs: "12px", sm: "14px"}
+						}}
 						mb={1}>
 						رمز عبور جدید:
 					</Typography>
@@ -171,12 +194,15 @@ const ForgetPasswordForm = ({ onClose }) => {
 							bgcolor: "white",
 							marginBottom: "5%",
 							borderRadius: "20px",
-							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+							"& .MuiOutlinedInput-root": { borderRadius: "20px",  height: {xs: "40px", sm: "45px"}  },
 						}}
 					/>
 
 					<Typography
 						variant="body1"
+						sx={{
+							fontSize: {xs: "12px", sm: "14px"}
+						}}
 						mb={1}>
 						تکرار رمز عبور جدید:
 					</Typography>
@@ -200,7 +226,7 @@ const ForgetPasswordForm = ({ onClose }) => {
 							bgcolor: "white",
 							marginBottom: "5%",
 							borderRadius: "20px",
-							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+							"& .MuiOutlinedInput-root": { borderRadius: "20px",  height: {xs: "40px", sm: "45px"}  },
 						}}
 					/>
 
@@ -228,7 +254,7 @@ const ForgetPasswordForm = ({ onClose }) => {
 					</Button>
 				</>
 			)}
-		</>
+		</Grid>
 	);
 };
 

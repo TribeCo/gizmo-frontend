@@ -420,7 +420,7 @@ const ProductCard = ({ product }) => {
 							fontSize: { xs: "10px", md: "15px" },
 							opacity: "100%",
 						}}>
-						{product.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
+						{product.is_available ? "" : "موجود شد خبرم کن!!"}
 					</Typography>
 				</Button>
 			</Card>

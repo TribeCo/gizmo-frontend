@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { TextField, Button, Link, Typography, IconButton } from "@mui/material";
+import { TextField, Button, Link, Typography, IconButton, Grid } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
 import * as Yup from "yup";
@@ -60,12 +60,20 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 	};
 
 	return (
-		<>
+		<Grid
+			sx={{
+				width: {xs: "15rem", sm: "19rem"}
+			}}
+		>
 			<Typography
 				variant="h4"
+				sx={{
+					fontSize: {xs: "16px", sm: "20px"},
+					mb: {xs: 0, sm:2}
+				}}
 				align="center"
 				id="login-form-title"
-				mb={2}>
+				>
 				ورود / ثبت نام
 			</Typography>
 
@@ -79,6 +87,9 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 
 			<Typography
 				variant="body1"
+				sx={{
+					fontSize: {xs: "12px", sm: "14px"}
+				}}
 				mb={1}>
 				تلفن همراه:
 			</Typography>
@@ -92,19 +103,23 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 				sx={{
 					bgcolor: "white",
 					borderRadius: "20px",
-					marginBottom: "5%",
-					"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+					"& .MuiOutlinedInput-root": { borderRadius: "20px", height: {xs: "40px", sm: "45px"}  },
 				}}
 				/>
-				{errors.phoneNumber && (
+
+				{errors.phoneNumber ? (
 					<Typography
 						color="error"
-						sx={{ fontSize: "0.80rem", paddingLeft: "15px" }}>
+						sx={{ fontSize: "0.70rem", paddingLeft: "15px", pt: "6px", pb: "16px" }}>
 						{errors.phoneNumber}
 					</Typography>
-				)}
+				) : (<Grid mt="16px" ></Grid>)}
+
 			<Typography
 				variant="body1"
+				sx={{
+					fontSize: {xs: "12px", sm: "14px"}
+				}}
 				mb={1}>
 				رمز عبور:
 			</Typography>
@@ -126,18 +141,18 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 				}}
 				sx={{
 					bgcolor: "white",
-					marginBottom: "5%",
 					borderRadius: "20px",
-					"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+					"& .MuiOutlinedInput-root": { borderRadius: "20px", height: {xs: "40px", sm: "45px"} },
 				}}
 				/>
-				{errors.password && (
+				{errors.password ? (
 					<Typography
 						color="error"
-						sx={{ fontSize: "0.80rem", paddingLeft: "15px" }}>
+						sx={{ fontSize: "0.70rem", paddingLeft: "15px", pt: "6px", pb: "16px" }}>
 						{errors.password}
 					</Typography>
-				)}
+				) : (<Grid mt="16px" ></Grid>)}
+
 			<Button
 				variant="contained"
 				color="warning"
@@ -155,6 +170,9 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 				}}>
 				<Typography
 					variant="h5"
+					sx={{
+						fontSize: {xs: "18px", sm: "20px"}
+					}}
 					align="center"
 					id="login-button">
 					ورود
@@ -166,6 +184,9 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 				variant="body2"
 				underline="false"
 				color="black"
+				sx={{
+					fontSize: {xs: "12px", sm: "13px"}
+				}}
 				onClick={handleSignup}>
 				ثبت نام
 			</Link>
@@ -177,10 +198,13 @@ const LoginForm = ({ open, onClose, setPopupState }) => {
 				variant="body2"
 				underline="false"
 				color="black"
+				sx={{
+					fontSize: {xs: "12px", sm: "13px"}
+				}}
 				onClick={handleForgetPassword}>
 				فراموشی رمز عبور
 			</Link>
-		</>
+		</Grid>
 	);
 };
 

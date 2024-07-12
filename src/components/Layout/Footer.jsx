@@ -67,7 +67,7 @@ export default async function Footer({ hasSecondPart = true }) {
 								</Box>
 								<Box>
 									<Typography
-										variant="h5"
+										variant="h6"
 										fontWeight="bold">
 										خرید مستقیم از دبی
 									</Typography>
@@ -79,14 +79,13 @@ export default async function Footer({ hasSecondPart = true }) {
 											maxWidth: "200px",
 											overflowWrap: "break-word",
 										}}
-										mt={1}>
+										mt='2px'>
 										فقط کافیه لینک محصول مورد نظرتون رو برامون بفرستید.
 									</Typography>
 								</Box>
 							</Grid>
 						</Grid>
 					</Grid>
-
 					<Grid
 						display="flex"
 						sx={{
@@ -101,14 +100,14 @@ export default async function Footer({ hasSecondPart = true }) {
 								<Image
 									src={NoonIcon}
 									width="auto"
-									height={60}
+									height={50}
 								/>
 							</Link>
 						</Grid>
 
 						<Grid
 							sx={{
-								mt: { lg: 2 },
+								mt: 2,
 								pr: { lg: 12 },
 								pl: { xs: 4, lg: 5 },
 							}}>
@@ -116,7 +115,7 @@ export default async function Footer({ hasSecondPart = true }) {
 								<Image
 									src={AmazonIcon}
 									width="auto"
-									height={45}
+									height={40}
 								/>
 							</Link>
 						</Grid>
@@ -171,19 +170,21 @@ export default async function Footer({ hasSecondPart = true }) {
 							<Image
 								src={Logo}
 								width="auto"
-								height={50}
+								height={40}
 							/>
 						</Link>
 					</Grid>
 
 					<Typography
 						sx={{
-							pt: { md: 2 },
+							pt: { md: 1 },
 							pl: { md: 3 },
 							width: { xs: "65%", md: "auto" },
 							textAlign: { xs: "center" },
+							fontSize: {xs: "16px", lg: "18px"}
 						}}
-						variant="h6">
+						variant="h6"
+						>
 						از تنوع محصولات ما لذت ببرید، با قیمت و کیفیتی که انتظار دارید خرید
 						کنید.
 					</Typography>
@@ -195,7 +196,8 @@ export default async function Footer({ hasSecondPart = true }) {
 					direction="row"
 					justifyContent="space-around"
 					alignItems="flex-start"
-					mb={4}>
+					mb={4}
+					px={1}>
 					<Box
 						mt={3}
 						mb={3}
@@ -211,6 +213,7 @@ export default async function Footer({ hasSecondPart = true }) {
 								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
+										fontSize="18px"
 										fontWeight="bold">
 										لینک های مفید
 									</Typography>
@@ -233,7 +236,7 @@ export default async function Footer({ hasSecondPart = true }) {
 
 										<Divider
 											sx={{
-												width: "18rem",
+												width: "14rem",
 												borderTop: "2px dashed GrayText",
 											}}
 										/>
@@ -248,6 +251,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												صفحه نخست
 											</Typography>
@@ -258,6 +262,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/gizmolog"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												اخبار
 											</Typography>
@@ -268,6 +273,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/contact"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												درباره ما
 											</Typography>
@@ -278,6 +284,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/rules"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												قوانین و مقررات
 											</Typography>
@@ -288,6 +295,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/faq"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												سوالات متداول
 											</Typography>
@@ -313,6 +321,7 @@ export default async function Footer({ hasSecondPart = true }) {
 								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
+										fontSize="18px"
 										fontWeight="bold">
 										خدمات مشتریان
 									</Typography>
@@ -333,7 +342,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										</SvgIcon>
 										<Divider
 											sx={{
-												width: "18rem",
+												width: "14rem",
 												borderTop: "2px dashed GrayText",
 											}}
 										/>
@@ -348,6 +357,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/dashboard"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												پنل کاربری
 											</Typography>
@@ -358,6 +368,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/cart"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												سبد خرید
 											</Typography>
@@ -375,6 +386,7 @@ export default async function Footer({ hasSecondPart = true }) {
 											<Link href={"/dubai"}>
 												<Typography
 													variant="h6"
+													fontSize="16px"
 													color={Colors.blue_dark}>
 													خرید از دبی
 												</Typography>
@@ -386,6 +398,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={"/categories/تخفیف"}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												تخفیف های امروز
 											</Typography>
@@ -411,6 +424,7 @@ export default async function Footer({ hasSecondPart = true }) {
 								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
+										fontSize="18px"
 										fontWeight="bold">
 										تماس با ما
 									</Typography>
@@ -431,7 +445,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										</SvgIcon>
 										<Divider
 											sx={{
-												width: "18rem",
+												width: "14rem",
 												borderTop: "2px dashed GrayText",
 											}}
 										/>
@@ -449,11 +463,11 @@ export default async function Footer({ hasSecondPart = true }) {
 													display: "inline-flex",
 													alignItems: "center",
 													justifyContent: "center",
-													width: 40,
-													height: 40,
+													width: 36,
+													height: 36,
 													borderRadius: "50%",
 													bgcolor: "#22668D",
-													mr: 2,
+													mr: 1,
 												}}>
 												<InstagramIcon sx={{ color: "white" }} />
 											</Box>
@@ -461,6 +475,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={instagram_channel}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												پیج اینستاگرام:‌ Gizmo_shop
 											</Typography>
@@ -474,11 +489,11 @@ export default async function Footer({ hasSecondPart = true }) {
 													display: "inline-flex",
 													alignItems: "center",
 													justifyContent: "center",
-													width: 40,
-													height: 40,
+													width: 36,
+													height: 36,
 													borderRadius: "50%",
 													bgcolor: "#22668D",
-													mr: 2,
+													mr: 1,
 												}}>
 												<TelegramIcon sx={{ color: "white" }} />
 											</Box>
@@ -486,6 +501,7 @@ export default async function Footer({ hasSecondPart = true }) {
 										<Link href={telegram_channel}>
 											<Typography
 												variant="h6"
+												fontSize="16px"
 												color={Colors.blue_dark}>
 												کانال تلگرام
 											</Typography>
@@ -499,17 +515,18 @@ export default async function Footer({ hasSecondPart = true }) {
 													display: "inline-flex",
 													alignItems: "center",
 													justifyContent: "center",
-													width: 40,
-													height: 40,
+													width: 36,
+													height: 36,
 													borderRadius: "50%",
 													bgcolor: "#22668D",
-													mr: 2,
+													mr: 1,
 												}}>
 												<LocalPhoneIcon sx={{ color: "white" }} />
 											</Box>
 										</Link>
 										<Typography
 											variant="h6"
+											fontSize="16px"
 											color={Colors.blue_dark}>
 											شماره تماس: ۰{convert(parseInt(footerLinks.phone))}
 										</Typography>
@@ -534,6 +551,7 @@ export default async function Footer({ hasSecondPart = true }) {
 								<Box sx={{ textAlign: "left", fontWeight: "bold" }}>
 									<Typography
 										variant="h6"
+										fontSize="18px"
 										fontWeight="bold">
 										مجوز ها و گواهینامه ها
 									</Typography>
@@ -562,7 +580,7 @@ export default async function Footer({ hasSecondPart = true }) {
 
 										<Divider
 											sx={{
-												width: "18rem",
+												width: "14rem",
 												borderTop: "2px dashed GrayText",
 											}}
 										/>

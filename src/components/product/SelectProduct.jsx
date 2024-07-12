@@ -416,10 +416,10 @@ const SelectProduct = ({ data }) => {
 						bgcolor: "#FFE0A9",
 						color: "#000",
 						borderRadius: 40,
-						px: { xs: 5, md: 10 },
+						px: { xs: 3, md: 4 },
 						height: {
-							xs: 40,
-							md: 60,
+							xs: 34,
+							md: 40,
 						},
 						"&:hover": {
 							bgcolor: Colors.orange,
@@ -430,7 +430,7 @@ const SelectProduct = ({ data }) => {
 						variant="h5"
 						fontWeight={900}
 						sx={{
-							fontSize: { xs: 16, md: 24 },
+							fontSize: { xs: 12, md: 14 },
 						}}>
 						{data.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 					</Typography>
@@ -438,7 +438,7 @@ const SelectProduct = ({ data }) => {
 				<IconButton
 					onClick={handleFavorite}
 					sx={{
-						ml: 4,
+						ml: 1,
 					}}>
 					{like ? (
 						<svg

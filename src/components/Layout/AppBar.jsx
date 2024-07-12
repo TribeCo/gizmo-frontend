@@ -145,8 +145,9 @@ const AppBar = ({ isLanding }) => {
 				mt={2}
 				mr={2}
 				ml={2}
-				py={3}
-				px={3}>
+				py={2}
+				px={3}
+				>
 				<Grid
 					container
 					justifyContent="space-between"
@@ -163,7 +164,7 @@ const AppBar = ({ isLanding }) => {
 							alignItems="center">
 							<Grid
 								sx={{
-									pr: 2,
+									pr: 1,
 									scale: { xs: "1", sm: "1.3" },
 									display: { md: "flex", lg: "none" },
 								}}
@@ -183,17 +184,17 @@ const AppBar = ({ isLanding }) => {
 
 							<Grid
 								pb={1}
-								display="flex"
 								alignItems="center"
 								sx={{
+									display: {xs: "none", sm: "flex"},
 									pr: { xs: "0", lg: 2 },
-									width: { xs: 75, sm: "auto" },
+									width: { xs: 70, sm: "auto" },
 								}}>
 								<Link href={"/"}>
 									<Image
 										alt="logo"
 										src={Logo}
-										width={90}
+										width={70}
 										height="auto"
 									/>
 								</Link>
@@ -219,7 +220,7 @@ const AppBar = ({ isLanding }) => {
 										variant="h6"
 										noWrap
 										fontWeight="bold"
-										fontSize={19}>
+										fontSize={16}>
 										دسته بندی ها
 									</Typography>
 									<ExpandMoreIcon />
@@ -277,7 +278,7 @@ const AppBar = ({ isLanding }) => {
 											variant="h6"
 											noWrap
 											fontWeight="bold"
-											fontSize={19}>
+											fontSize={16}>
 											خرید از دبی
 										</Typography>
 									</Link>
@@ -296,7 +297,7 @@ const AppBar = ({ isLanding }) => {
 											variant="h6"
 											noWrap
 											fontWeight="bold"
-											fontSize={19}>
+											fontSize={16}>
 											ارتباط با ما
 										</Typography>
 									</Link>
@@ -315,7 +316,7 @@ const AppBar = ({ isLanding }) => {
 											variant="h6"
 											noWrap
 											fontWeight="bold"
-											fontSize={19}>
+											fontSize={16}>
 											سوالات متداول
 										</Typography>
 									</Link>
@@ -331,44 +332,48 @@ const AppBar = ({ isLanding }) => {
 						justifyContent="flex-end">
 						<SearchField />
 						{user ? (
-							<Link href="/dashboard">
-								<Button
-									variant="contained"
-									sx={{
-										borderRadius: "24px",
-										ml: 2,
-										boxShadow: "none",
+							<IconButton
+								onClick={handleProfileOpen}
+								variant="contained"
+								sx={{
+									p: { xs: "8px", sm: "12px" },
+									mr: {xs: "3px" },
+									ml: {xs: 0, sm: 1},
+									display: "flex",
+									scale: { xs: "0.9", sm: "0.8" },
+									color: "white",
+									bgcolor: Colors.blue,
+									boxShadow: "none",
+									"&:hover": {
 										bgcolor: Colors.blue,
-										color: "white",
-										display: { xs: "none", xl: "flex" },
-										"&:hover": {
-											backgroundColor: Colors.blue,
-											boxShadow: "none",
-										},
-									}}>
-									<Typography
-										variant="h6"
-										noWrap
-										sx={{
-											display: { xs: "none", xl: "flex" },
-											py: { xs: "0px", xl: "2px" },
-											px: { xs: "0px", xl: "10px" },
-										}}>
-										{"داشبورد"}
-									</Typography>
-								</Button>
-							</Link>
-						) : (
+										boxShadow: "none",
+									},
+								}}>
+								<PersonOutlineOutlinedIcon
+									fontSize="medium"
+									sx={{
+										display: { xs: "flex", sm: "none" },
+									}}
+								/>
+								<PersonOutlineOutlinedIcon
+									fontSize="large"
+									sx={{
+										display: { xs: "none", sm: "flex" },
+									}}
+								/>
+							</IconButton>
+						) : (	
 							<Button
 								onClick={handleLoginModalOpen}
 								variant="contained"
 								sx={{
+									ml: {xs: 0, sm: 1},
+									mr: {xs: "2px", sm: 0},
 									borderRadius: "24px",
-									ml: 2,
 									boxShadow: "none",
 									bgcolor: Colors.blue,
 									color: "white",
-									display: { xs: "none", xl: "flex" },
+									display: "flex",
 									"&:hover": {
 										backgroundColor: Colors.blue,
 										boxShadow: "none",
@@ -378,43 +383,14 @@ const AppBar = ({ isLanding }) => {
 									variant="h6"
 									noWrap
 									sx={{
-										display: { xs: "none", xl: "flex" },
-										p: { xs: "0px", xl: "2px" },
+										display: "flex",
+										p: {xs: 0, sm: "2px"},
+										fontSize: {xs: '12px', sm: '16px'}
 									}}>
 									{"ورود / ثبت نام"}
 								</Typography>
 							</Button>
 						)}
-
-						<IconButton
-							onClick={handleProfileOpen}
-							variant="contained"
-							sx={{
-								p: { sm: "7px" },
-								display: { xs: "flex", xl: "none" },
-								scale: { xs: "0.9", sm: "1" },
-								ml: { xs: "2px", sm: "14px" },
-								color: "white",
-								bgcolor: Colors.blue,
-								boxShadow: "none",
-								"&:hover": {
-									bgcolor: Colors.blue,
-									boxShadow: "none",
-								},
-							}}>
-							<PersonOutlineOutlinedIcon
-								fontSize="medium"
-								sx={{
-									display: { xs: "flex", sm: "none" },
-								}}
-							/>
-							<PersonOutlineOutlinedIcon
-								fontSize="large"
-								sx={{
-									display: { xs: "none", sm: "flex" },
-								}}
-							/>
-						</IconButton>
 
 						<Menu
 							id="categories"
@@ -527,10 +503,8 @@ const AppBar = ({ isLanding }) => {
 								<IconButton
 									variant="contained"
 									sx={{
-										p: { xs: "11px", sm: "13px" },
-										scale: "0.8",
-										ml: { xs: "4px", sm: 1 },
-										mr: { xs: 0, sm: 1 },
+										p: { xs: "10px", sm: "12px" },
+										scale: "0.7",
 										bgcolor: Colors.blue,
 										color: "white",
 										"&:hover": {
@@ -640,7 +614,7 @@ const SearchField = () => {
 				aria-label="search"
 				sx={{
 					p: { xs: "13px", sm: "12px" },
-					scale: { xs: "0.7", sm: "1" },
+					scale: { xs: "0.7", sm: "0.9" },
 					color: "white",
 					backgroundColor: Colors.blue,
 					"&:hover": {

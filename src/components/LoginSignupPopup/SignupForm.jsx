@@ -7,6 +7,7 @@ import {
 	IconButton,
 	FormControlLabel,
 	Checkbox,
+	Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAuth } from "@/context/AuthContext";
@@ -124,12 +125,20 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 	};
 
 	return (
-		<>
+		<Grid 
+		sx={{
+			width: {xs: "15rem", sm: "19rem"}
+		}}
+		>
 			<Typography
 				variant="h4"
 				align="center"
+				sx={{
+					fontSize: {xs: "16px", sm: "20px"},
+					mb: {xs: 0, sm:2}
+				}}
 				id="login-form-title"
-				mb={2}>
+				>
 				ورود / ثبت نام
 			</Typography>
 
@@ -141,10 +150,13 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 				}}
 			/>
 
-			{phoneEnter && phoneValidate ? (
+			{phoneEnter && phoneValidate && (
 				<>
 					<Typography
 						variant="body1"
+						sx={{
+							fontSize: {xs: "12px", sm: "14px"}
+						}}
 						mb={1}>
 						نام:
 					</Typography>
@@ -159,16 +171,19 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							bgcolor: "white",
 							borderRadius: "20px",
 							marginBottom: "5%",
-							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+							"& .MuiOutlinedInput-root": { borderRadius: "20px",  height: {xs: "40px", sm: "45px"}   },
 						}}
 					/>
 					{errors.firstName && (
-						<Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+						<Typography color="error" sx={{ fontSize: '0.70rem', pl: 4, alignSelf: 'flex-start' }}>
 							{errors.firstName}
 						</Typography>
 					)}
 					<Typography
 						variant="body1"
+						sx={{
+							fontSize: {xs: "12px", sm: "14px"}
+						}}
 						mb={1}>
 						نام خانوادگی:
 					</Typography>
@@ -183,25 +198,26 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							bgcolor: "white",
 							borderRadius: "20px",
 							marginBottom: "5%",
-							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+							"& .MuiOutlinedInput-root": { borderRadius: "20px",  height: {xs: "40px", sm: "45px"}  },
 						}}
 						error={errors.lastName}
 						helperText={errors.lastName}
 					/>
 					{errors.lastName && (
-						<Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+						<Typography color="error" sx={{ fontSize: '0.70rem', pl: 4, alignSelf: 'flex-start' }}>
 							{errors.lastName}
 						</Typography>
 					)}
 				</>
-			) : (
-				<></>
 			)}
 
 			{!phoneEnter ? (
 				<>
 					<Typography
 						variant="body1"
+						sx={{
+							fontSize: {xs: "12px", sm: "14px"}
+						}}
 						mb={1}>
 						تلفن همراه:
 					</Typography>
@@ -217,11 +233,11 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 							bgcolor: "white",
 							borderRadius: "20px",
 							marginBottom: "5%",
-							"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+							"& .MuiOutlinedInput-root": { borderRadius: "20px",  height: {xs: "40px", sm: "45px"} },
 						}}
 					/>
 					{errors.phoneNumber && (
-						<Typography color="error" sx={{ fontSize: '0.80rem', pl: 4, alignSelf: 'flex-start' }}>
+						<Typography color="error" sx={{ fontSize: '0.70rem', pl: 4, alignSelf: 'flex-start' }}>
 							{errors.phoneNumber}
 						</Typography>
 					)}
@@ -384,6 +400,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 						}}>
 						<Typography
 							variant="h5"
+							sx={{
+								fontSize: {xs: "18px", sm: "20px"}
+							}}
 							align="center"
 							id="login-button">
 							ارسال کد
@@ -392,6 +411,9 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 					<Link
 						href="#"
 						variant="body2"
+						sx={{
+							fontSize: {xs: "12px", sm: "13px"}
+						}}	
 						underline="false"
 						color="black"
 						onClick={() => setPopupState("login")}>
@@ -473,7 +495,7 @@ const SignupForm = ({ open, onClose, setPopupState }) => {
 			) : (
 				<></>
 			)}
-		</>
+		</Grid>
 	);
 };
 

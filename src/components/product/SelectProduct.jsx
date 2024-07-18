@@ -71,10 +71,17 @@ const SelectProduct = ({ data }) => {
 				});
 			}
 			if (response.message) {
-				enqueueSnackbar({
-					message: "محصول با موفقیت به لیست مورد علاقه ها افزوده شد.",
-					variant: "success",
-				});
+				if (like) {
+					enqueueSnackbar({
+						message: "محصول با موفقیت از لیست مورد علاقه ها حذف شد.",
+						variant: "warning",
+					});
+				} else {
+					enqueueSnackbar({
+						message: "محصول با موفقیت به لیست مورد علاقه ها افزوده شد.",
+						variant: "success",
+					});
+				}
 				setLike(!like);
 			} else {
 				if (response.status === 401) {

@@ -39,9 +39,12 @@ const ProductCard = ({ product }) => {
 	}, [tokens]);
 
 	const handleAddToCart = () => {
-		console.log({ color: 0, product: product.id, quantity: 1 });
 		try {
-			addToCart({ color: 0, product: product.id, quantity: 1 });
+			addToCart({
+				color: product.most_color,
+				product: product.id,
+				quantity: 1,
+			});
 			enqueueSnackbar({
 				message: "محصول با موفقیت به سبد خرید اضافه شد",
 				variant: "success",

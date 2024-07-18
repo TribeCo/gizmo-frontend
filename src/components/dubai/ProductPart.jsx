@@ -95,7 +95,10 @@ const ProductPart = () => {
 
 	return (
 		<>
-			<Loading open={loading} />
+			<Loading
+				open={loading}
+				handleClose={() => setLoading(false)}
+			/>
 			<Container maxWidth="xl">
 				<Box
 					sx={{

@@ -4,7 +4,7 @@ import CartHeader from "../CartHeader";
 import ProductCard from "../ProductCard";
 import Box from "@mui/material/Box";
 
-const First = ({ data }) => {
+const First = ({ data, getData }) => {
 	return (
 		<>
 			<CartHeader />
@@ -13,6 +13,7 @@ const First = ({ data }) => {
 					<ProductCard
 						data={item}
 						key={index}
+						getData={getData}
 					/>
 				);
 			})}

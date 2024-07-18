@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { AppBar, Box, Tabs, Tab, Toolbar, Typography } from "@mui/material";
-import FilterListIcon from "@mui/icons-material/FilterList";
 
 const FilterBar = ({ filterNames, onFilterChange }) => {
-	const [activeFilter, setActiveFilter] = useState(null);
+	const [activeFilter, setActiveFilter] = useState(0);
 
 	const handleFilterChange = (event, newValue) => {
 		setActiveFilter(newValue);

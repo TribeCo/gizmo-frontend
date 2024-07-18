@@ -1,20 +1,21 @@
 "use client";
-import React, { useState, useEffect } from "react"; // Add useEffect here
+
+import React, { useState, useEffect } from "react";
 import { Box, Fab, Grid, Typography } from "@mui/material";
-import ProductCard from "./ProductCard"; // Adjust the import path as necessary
+import ProductCard from "./ProductCard";
 import FilterBar from "./FilterBar";
 import FilterCard from "./FilterCard";
 import PersianPagination from "./PersianPagination";
-import { baseUrl } from "@/services";
 import ProductNotFound from "./ProductNotFound";
 import { FilterAlt } from "@mui/icons-material";
 import FilterCardModel from "./FilterCardModel";
+import { getBrands } from "@/services/categories";
 
 const PRODUCTS_PER_PAGE = 12;
 
 const ProductsGrid = ({ productsList }) => {
 	const [openFilterModel, setOpenFilterModel] = useState(false);
-	const [filter, setFilter] = useState("منتخب"); // Could be 'all', 'latest', 'price', 'rating'
+	const [filter, setFilter] = useState("منتخب");
 	const [filteredProducts, setFilteredProducts] = useState(productsList);
 	const [page, setPage] = useState(1);
 	const [isAvailable, setIsAvailable] = useState(false);
@@ -23,6 +24,7 @@ const ProductsGrid = ({ productsList }) => {
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(500_000_000);
 	const [brandList, setBrandList] = useState([]);
+	const [selectedBrands, setSelectedBrands] = useState([]);
 	const pageCount = Math.ceil(productsList.length / PRODUCTS_PER_PAGE);
 	const handleChange = (event, value) => {
 		setPage(value);
@@ -33,71 +35,66 @@ const ProductsGrid = ({ productsList }) => {
 		page * PRODUCTS_PER_PAGE,
 	);
 
-	useEffect(() => {
-		const fetchBrands = async () => {
-			try {
-				const response = await fetch(`${baseUrl}/api/brand/all/`);
-				if (!response.ok) {
-					throw new Error("Network response was not ok");
-				}
-				const data = await response.json();
-
-				const brands = [];
-				data.forEach((element) => {
-					brands.push([element.name, false]);
-				});
-
-				setBrandList(brands);
-			} catch (error) {
-				console.error("There was a problem with the fetch operation:", error);
-			}
-		};
-
-		const applyFilter = () => {
-			let tempProducts = [...productsList];
-			if (isAvailable) {
-				tempProducts = tempProducts.filter((product) => product.is_available);
-			}
-			if (isFreeShipping) {
-				tempProducts = tempProducts.filter((product) => product.send_free);
-			}
-			if (isSpecialSale) {
-				tempProducts = tempProducts.filter((product) => product.net_sale);
-			}
-			if (minPrice) {
-				tempProducts = tempProducts.filter(
-					(product) => product.price >= minPrice,
-				);
-			}
-			if (maxPrice) {
-				tempProducts = tempProducts.filter(
-					(product) => product.price <= maxPrice,
-				);
-			}
-			switch (filter) {
-				case "جدیدترین":
-					tempProducts.sort(
-						(a, b) => new Date(b.updated) - new Date(a.updated),
-					);
-					break;
-				case "ارزان‌ترین":
-					tempProducts.sort((a, b) => a.price - b.price);
-					break;
-				case "گران‌ترین":
-					tempProducts.sort((a, b) => b.price - a.price);
-					break;
-				case "پرفروش‌ترین":
-					tempProducts.sort((a, b) => b.ordered - a.ordered);
-					break;
-				case "منتخب": // No filter applied, so leave tempProducts as is
-			}
-
+	const applyFilter = () => {
+		let tempProducts = [...productsList];
+		if (isAvailable) {
+			tempProducts = tempProducts.filter((product) => product.is_available);
+		}
+		if (isFreeShipping) {
+			tempProducts = tempProducts.filter((product) => product.send_free);
+		}
+		if (isSpecialSale) {
+			tempProducts = tempProducts.filter((product) => product.net_sale);
+		}
+		if (selectedBrands.length > 0) {
+			console.log(selectedBrands);
+			tempProducts = tempProducts.filter((product) =>
+				selectedBrands.includes(product.brand_name),
+			);
 			console.log(tempProducts);
-			return tempProducts;
-		};
+		}
+		if (minPrice) {
+			tempProducts = tempProducts.filter(
+				(product) => product.price >= minPrice,
+			);
+		}
+		if (maxPrice) {
+			tempProducts = tempProducts.filter(
+				(product) => product.price <= maxPrice,
+			);
+		}
+		switch (filter) {
+			case "جدیدترین":
+				tempProducts.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+				break;
+			case "ارزان‌ترین":
+				tempProducts.sort((a, b) => a.price - b.price);
+				break;
+			case "گران‌ترین":
+				tempProducts.sort((a, b) => b.price - a.price);
+				break;
+			case "پرفروش‌ترین":
+				tempProducts.sort((a, b) => b.ordered - a.ordered);
+				break;
+			case "منتخب":
+				break; // No filter applied, so leave tempProducts as is
+		}
 
+		console.log(tempProducts);
+		return tempProducts;
+	};
+	const fetchBrands = async () => {
+		try {
+			const brandResponse = await getBrands();
+			setBrandList(brandResponse);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	useEffect(() => {
 		fetchBrands();
-
+	}, []);
+	useEffect(() => {
 		const newProductList = applyFilter();
 		setFilteredProducts(newProductList);
 	}, [
@@ -106,6 +103,7 @@ const ProductsGrid = ({ productsList }) => {
 		isAvailable,
 		isFreeShipping,
 		isSpecialSale,
+		selectedBrands,
 		minPrice,
 		maxPrice,
 	]);
@@ -145,6 +143,7 @@ const ProductsGrid = ({ productsList }) => {
 					maxPrice={maxPrice}
 					setMaxPrice={setMaxPrice}
 					dropdownOptions={brandList}
+					setSelectedBrands={setSelectedBrands}
 				/>
 				<Box
 					sx={{
@@ -156,7 +155,13 @@ const ProductsGrid = ({ productsList }) => {
 						px: 1,
 					}}>
 					<FilterBar
-						filterNames={["پرفروش‌ترین", "جدیدترین", "ارزان‌ترین", "گران‌ترین"]}
+						filterNames={[
+							"منتخب",
+							"پرفروش‌ترین",
+							"جدیدترین",
+							"ارزان‌ترین",
+							"گران‌ترین",
+						]}
 						onFilterChange={(selectedFilter) => setFilter(selectedFilter)}
 					/>
 					{paginatedProducts.length > 0 ? (
@@ -223,6 +228,7 @@ const ProductsGrid = ({ productsList }) => {
 				setMinPrice={setMinPrice}
 				setMaxPrice={setMaxPrice}
 				brandList={brandList}
+				setSelectedBrands={setSelectedBrands}
 			/>
 		</Box>
 	);

@@ -48,7 +48,7 @@ const ProductCard = ({ product }) => {
 			});
 		} catch (error) {
 			enqueueSnackbar({
-				message: error.message,
+				message: "در هنگام افزودن به سبد خرید خطایی رخ داد.",
 				variant: "error",
 			});
 		}
@@ -67,7 +67,10 @@ const ProductCard = ({ product }) => {
 		});
 		console.log(response);
 		if (response.message) {
-			enqueueSnackbar({ message: response.message, variant: "success" });
+			enqueueSnackbar({
+				message: "در صورت موجود شدن محصول به شما اطلاع داده خواهد شد.",
+				variant: "success",
+			});
 		} else {
 			if (response.code === "bad_authorization_header") {
 				enqueueSnackbar({
@@ -79,7 +82,6 @@ const ProductCard = ({ product }) => {
 					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
 					variant: "error",
 				});
-				console.log(response.status);
 			}
 		}
 	};
@@ -420,7 +422,7 @@ const ProductCard = ({ product }) => {
 							fontSize: { xs: "10px", md: "15px" },
 							opacity: "100%",
 						}}>
-						{product.is_available ? "" : "موجود شد خبرم کن!!"}
+						{product.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 					</Typography>
 				</Button>
 			</Card>

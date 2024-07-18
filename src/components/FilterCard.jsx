@@ -147,7 +147,7 @@ const FilterCard = ({
 				!isModal
 					? {
 							height: "100%",
-							display: { xs: "none", md: "flex" },
+							display: { xs: "none", lg: "flex" },
 							justifyContent: "center",
 							alignItems: "center",
 					  }

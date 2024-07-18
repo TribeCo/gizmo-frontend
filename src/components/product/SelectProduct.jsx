@@ -50,7 +50,7 @@ const SelectProduct = ({ data }) => {
 			});
 		} catch (error) {
 			enqueueSnackbar({
-				message: error.message,
+				message: "خطایی رخ داد، لطفا دوباره تلاش کنید.",
 				variant: "error",
 			});
 		}
@@ -71,7 +71,10 @@ const SelectProduct = ({ data }) => {
 				});
 			}
 			if (response.message) {
-				enqueueSnackbar({ message: response.message, variant: "success" });
+				enqueueSnackbar({
+					message: "محصول با موفقیت به لیست مورد علاقه ها افزوده شد.",
+					variant: "success",
+				});
 				setLike(!like);
 			} else {
 				if (response.status === 401) {
@@ -107,7 +110,10 @@ const SelectProduct = ({ data }) => {
 		});
 		console.log(response);
 		if (response.message) {
-			enqueueSnackbar({ message: response.message, variant: "success" });
+			enqueueSnackbar({
+				message: "در صورت موجود شدن محصول به شما اطلاع داده خواهد شد.",
+				variant: "success",
+			});
 		} else {
 			if (response.status === 401) {
 				enqueueSnackbar({
@@ -119,7 +125,6 @@ const SelectProduct = ({ data }) => {
 					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
 					variant: "error",
 				});
-				console.log(response.status);
 			}
 		}
 	};

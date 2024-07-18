@@ -15,7 +15,7 @@ const PRODUCTS_PER_PAGE = 12;
 
 const ProductsGrid = ({ productsList }) => {
 	const [openFilterModel, setOpenFilterModel] = useState(false);
-	const [filter, setFilter] = useState("منتخب");
+	const [filter, setFilter] = useState("پیشفرض");
 	const [filteredProducts, setFilteredProducts] = useState(productsList);
 	const [page, setPage] = useState(1);
 	const [isAvailable, setIsAvailable] = useState(false);
@@ -76,7 +76,7 @@ const ProductsGrid = ({ productsList }) => {
 			case "پرفروش‌ترین":
 				tempProducts.sort((a, b) => b.ordered - a.ordered);
 				break;
-			case "منتخب":
+			case "پیشفرض":
 				break; // No filter applied, so leave tempProducts as is
 		}
 
@@ -109,13 +109,18 @@ const ProductsGrid = ({ productsList }) => {
 	]);
 
 	return (
-		<Box sx={{ pb: 12, height: "auto", width: { xs: "100vw", lg: "auto" } }}>
+		<Box
+			sx={{
+				pb: 12,
+				pl: { xs: 0, sm: 7, md: 7, lg: 0, xl: 0 },
+				height: "auto",
+				width: { xs: "100vw", lg: "auto" },
+			}}>
 			<Box
 				sx={{
 					display: "flex",
 					justifyContent: "end",
 					gap: 2,
-					width: { xs: "100vw", xl: "auto" },
 				}}>
 				<FilterCard
 					filterList={[
@@ -156,7 +161,7 @@ const ProductsGrid = ({ productsList }) => {
 					}}>
 					<FilterBar
 						filterNames={[
-							"منتخب",
+							"پیشفرض",
 							"پرفروش‌ترین",
 							"جدیدترین",
 							"ارزان‌ترین",
@@ -193,7 +198,7 @@ const ProductsGrid = ({ productsList }) => {
 				display="flex"
 				justifyContent="end"
 				sx={{
-					display: { xs: "flex", md: "none" },
+					display: { xs: "flex", lg: "none" },
 				}}>
 				<Fab
 					onClick={() => setOpenFilterModel(true)}

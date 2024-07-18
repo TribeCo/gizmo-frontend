@@ -67,7 +67,10 @@ const ProductPart = () => {
 				enqueueSnackbar({ message: "خطایی رخ داد!", variant: "error" });
 			}
 		} catch (error) {
-			enqueueSnackbar({ message: error.message, variant: "error" });
+			enqueueSnackbar({
+				message: "خطایی در جستجوی محصول رخ داد. لطفا دوباره تلاش کنید.",
+				variant: "error",
+			});
 		}
 		setLoading(false);
 	};

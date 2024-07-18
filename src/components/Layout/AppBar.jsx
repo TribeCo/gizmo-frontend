@@ -243,26 +243,27 @@ const AppBar = ({ isLanding }) => {
 											},
 										},
 									}}>
-									{categories.map((category, index) => {
-										return (
-											<MenuItem
-												key={index}
-												onClick={handleMenuClose}>
-												<Link
-													href={`/categories/${category.slug}`}
-													passHref>
-													<Typography
-														component="a"
-														style={{
-															textDecoration: "none",
-															color: "inherit",
-														}}>
-														{category.name}
-													</Typography>
-												</Link>
-											</MenuItem>
-										);
-									})}
+									{categories &&
+										categories.map((category, index) => {
+											return (
+												<MenuItem
+													key={index}
+													onClick={handleMenuClose}>
+													<Link
+														href={`/categories/${category.slug}`}
+														passHref>
+														<Typography
+															component="a"
+															style={{
+																textDecoration: "none",
+																color: "inherit",
+															}}>
+															{category.name}
+														</Typography>
+													</Link>
+												</MenuItem>
+											);
+										})}
 								</Menu>
 								<Grid
 									sx={{

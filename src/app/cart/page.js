@@ -134,39 +134,38 @@ const CartPage = () => {
 				setLoading(true);
 				try {
 					if (!tokens || !tokens.access) {
-					  throw new Error("Access token is missing");
+						throw new Error("Access token is missing");
 					}
-				  
+
 					const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
-					  method: "GET",
-					  headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${tokens.access}`,
-					  },
-					  next: {
-						revalidate: 1,
-					  },
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${tokens.access}`,
+						},
+						next: {
+							revalidate: 1,
+						},
 					});
-				  
+
 					if (userResponse.ok) {
-					  setUser(await userResponse.json());
-					  setState(1);
+						setUser(await userResponse.json());
+						setState(1);
 					} else {
-					  enqueueSnackbar({
-						message: "لطفا برای ادامه دادن وارد شوید",
-						variant: "warning",
-					  });
+						enqueueSnackbar({
+							message: "لطفا برای ادامه دادن وارد شوید",
+							variant: "warning",
+						});
 					}
-				  } catch (error) {
+				} catch (error) {
 					console.error("Error fetching user info:", error);
 					enqueueSnackbar({
-					  message: "لطفا برای ادامه دادن وارد شوید",
-					  variant: "warning",
+						message: "لطفا برای ادامه دادن وارد شوید",
+						variant: "warning",
 					});
-				  } finally {
+				} finally {
 					setLoading(false);
-				  }
-				  
+				}
 			}
 		} else if (state === 1) {
 			formik.handleSubmit();
@@ -246,7 +245,7 @@ const CartPage = () => {
 			setLoading(false);
 			if (res.message === "کد تخفیف با موفقیت اعمال شد.") {
 				enqueueSnackbar({
-					message: res.message,
+					message: "کد تخفیف با موفقیت اعمال شد.",
 					variant: "success",
 				});
 			} else {

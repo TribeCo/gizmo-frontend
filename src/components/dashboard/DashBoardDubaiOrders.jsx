@@ -26,9 +26,8 @@ export default function DashBoardDubaiOrders() {
 				setOrders(response.data);
 			}
 		} catch (error) {
-			console.error("Error fetching orders:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در دریافت سفارش‌ها.",
+				message: "خطا در دریافت سفارش‌ها.",
 				variant: "error",
 			});
 		}

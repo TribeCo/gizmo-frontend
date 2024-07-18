@@ -159,13 +159,13 @@ const ProductsGrid = ({ productsList }) => {
 						filterNames={["پرفروش‌ترین", "جدیدترین", "ارزان‌ترین", "گران‌ترین"]}
 						onFilterChange={(selectedFilter) => setFilter(selectedFilter)}
 					/>
-					<Grid
-						container
-						spacing={4}
-						sx={{ width: "100%", justifyContent: "start", px: 1 }}>
-						{/* Ensure the Grid takes up the full width */}
-						{paginatedProducts.length > 0 ? (
-							paginatedProducts.map((product) => (
+					{paginatedProducts.length > 0 ? (
+						<Grid
+							container
+							spacing={4}
+							sx={{ width: "100%", justifyContent: "start", px: 1 }}>
+							{/* Ensure the Grid takes up the full width */}
+							{paginatedProducts.map((product) => (
 								<Grid
 									item
 									xs={6}
@@ -177,11 +177,11 @@ const ProductsGrid = ({ productsList }) => {
 									sx={{ display: "flex", alignItems: "center" }}>
 									<ProductCard product={product} />
 								</Grid>
-							))
-						) : (
-							<ProductNotFound />
-						)}
-					</Grid>
+							))}
+						</Grid>
+					) : (
+						<ProductNotFound />
+					)}
 				</Box>
 			</Box>
 			<Box

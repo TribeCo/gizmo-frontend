@@ -54,7 +54,7 @@ const AppBar = ({ isLanding }) => {
 	const [loginOpen, setLoginOpen] = useState(false);
 	const [popupState, setPopupState] = useState("login");
 	const [categories, setCategories] = useState([]);
-	const { tokens } = useAuth();
+	const { tokens, logOut } = useAuth();
 
 	useEffect(() => {
 		const fetchCategoriesData = async () => {
@@ -122,7 +122,7 @@ const AppBar = ({ isLanding }) => {
 
 	const handleLogOut = () => {
 		setLogOutModalOpen(false);
-		// TODO: Log out Api
+		logOut();
 		handleProfileClose();
 	};
 
@@ -185,7 +185,6 @@ const AppBar = ({ isLanding }) => {
 								pb={1}
 								alignItems="center"
 								sx={{
-									// display: { xs: "none", sm: "flex" },
 									pr: { xs: "0", lg: 2 },
 									width: { xs: 70, sm: "auto" },
 								}}>
@@ -413,7 +412,7 @@ const AppBar = ({ isLanding }) => {
 							}}>
 							<MenuItem
 								sx={{ justifyContent: "center" }}
-								onClick={() => handleDashBoardMainPage()}>
+								onClick={handleDashBoardMainPage}>
 								<PersonOutlineOutlinedIcon
 									sx={{
 										color: "white",
@@ -422,15 +421,21 @@ const AppBar = ({ isLanding }) => {
 										scale: { xs: "1", sm: "1.2" },
 									}}
 								/>
-								<Typography
-									fontWeight={600}
-									sx={{ color: "white", mb: 1, fontSize: { xs: 16, sm: 18 } }}>
-									{user.first_name + " " + user.last_name}
-								</Typography>
+								<Link href={"/dashboard"}>
+									<Typography
+										fontWeight={600}
+										sx={{
+											color: "white",
+											mb: 1,
+											fontSize: { xs: 16, sm: 18 },
+										}}>
+										{user.first_name + " " + user.last_name}
+									</Typography>
+								</Link>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={() => handleDashBoardMainPage()}>
+								onClick={handleDashBoardMainPage}>
 								<Link href={"/dashboard"}>
 									<Typography
 										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
@@ -440,7 +445,7 @@ const AppBar = ({ isLanding }) => {
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={() => handleOrderTracking()}>
+								onClick={handleOrderTracking}>
 								<Link href={"/dashboard"}>
 									<Typography
 										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>

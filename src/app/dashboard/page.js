@@ -110,12 +110,12 @@ export default function Profile() {
 			<Grid
 				mt={6}
 				mb={12}
-				px={2}
+				px={1}
 				container
 				display="flex"
 				justifyContent="center"
 				columnGap={2}
-				rowGap={2}>
+				rowGap={0}>
 				<Grid
 					item
 					sx={{

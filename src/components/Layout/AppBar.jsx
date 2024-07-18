@@ -185,7 +185,7 @@ const AppBar = ({ isLanding }) => {
 								pb={1}
 								alignItems="center"
 								sx={{
-									display: { xs: "none", sm: "flex" },
+									// display: { xs: "none", sm: "flex" },
 									pr: { xs: "0", lg: 2 },
 									width: { xs: 70, sm: "auto" },
 								}}>

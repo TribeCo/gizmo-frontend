@@ -15,7 +15,10 @@ import SelectProduct from "./product/SelectProduct";
 import { convert } from "@/utils";
 
 function ProductInfo({ data }) {
-	console.log(data);
+	const imageList = [...data.images];
+	imageList.push({ image: data.special_image });
+	imageList.push({ image: data.image1 });
+	imageList.push({ image: data.image2 });
 	return (
 		<Grid container>
 			<Grid
@@ -150,7 +153,7 @@ function ProductInfo({ data }) {
 								<MorePhoto
 									title={data.name}
 									image={data.special_image}
-									imageList={data.images}
+									imageList={imageList}
 								/>
 							</Box>
 						</Box>

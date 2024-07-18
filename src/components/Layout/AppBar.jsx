@@ -146,8 +146,7 @@ const AppBar = ({ isLanding }) => {
 				mr={2}
 				ml={2}
 				py={2}
-				px={3}
-				>
+				px={3}>
 				<Grid
 					container
 					justifyContent="space-between"
@@ -166,7 +165,7 @@ const AppBar = ({ isLanding }) => {
 								sx={{
 									pr: 1,
 									scale: { xs: "1", sm: "1.3" },
-									display: { md: "flex", lg: "none" },
+									display: { md: "flex", xl: "none" },
 								}}
 								onClick={handleOpen}>
 								<SvgIcon
@@ -186,7 +185,7 @@ const AppBar = ({ isLanding }) => {
 								pb={1}
 								alignItems="center"
 								sx={{
-									display: {xs: "none", sm: "flex"},
+									display: { xs: "none", sm: "flex" },
 									pr: { xs: "0", lg: 2 },
 									width: { xs: 70, sm: "auto" },
 								}}>
@@ -203,7 +202,7 @@ const AppBar = ({ isLanding }) => {
 							<Grid
 								item
 								sx={{
-									display: { xs: "none", lg: "contents" },
+									display: { xs: "none", xl: "contents" },
 								}}>
 								<IconButton
 									disableRipple
@@ -337,8 +336,8 @@ const AppBar = ({ isLanding }) => {
 								variant="contained"
 								sx={{
 									p: { xs: "8px", sm: "12px" },
-									mr: {xs: "3px" },
-									ml: {xs: 0, sm: 1},
+									mr: { xs: "3px" },
+									ml: { xs: 0, sm: 1 },
 									display: "flex",
 									scale: { xs: "0.9", sm: "0.8" },
 									color: "white",
@@ -362,13 +361,13 @@ const AppBar = ({ isLanding }) => {
 									}}
 								/>
 							</IconButton>
-						) : (	
+						) : (
 							<Button
 								onClick={handleLoginModalOpen}
 								variant="contained"
 								sx={{
-									ml: {xs: 0, sm: 1},
-									mr: {xs: "2px", sm: 0},
+									ml: { xs: 0, sm: 1 },
+									mr: { xs: "2px", sm: 0 },
 									borderRadius: "24px",
 									boxShadow: "none",
 									bgcolor: Colors.blue,
@@ -384,8 +383,8 @@ const AppBar = ({ isLanding }) => {
 									noWrap
 									sx={{
 										display: "flex",
-										p: {xs: 0, sm: "2px"},
-										fontSize: {xs: '12px', sm: '16px'}
+										p: { xs: 0, sm: "2px" },
+										fontSize: { xs: "12px", sm: "16px" },
 									}}>
 									{"ورود / ثبت نام"}
 								</Typography>
@@ -413,7 +412,7 @@ const AppBar = ({ isLanding }) => {
 							}}>
 							<MenuItem
 								sx={{ justifyContent: "center" }}
-								onClick={handleProfileClose}>
+								onClick={() => handleDashBoardMainPage()}>
 								<PersonOutlineOutlinedIcon
 									sx={{
 										color: "white",

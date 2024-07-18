@@ -37,7 +37,7 @@ export default function Profile() {
 	const [activities, setActivites] = useState([]);
 	const [information, setInformation] = useState([]);
 	const [factorId, SetFactorId] = useState();
-	const { tokens, logOut } = useAuth();
+	const { logOut } = useAuth();
 	const { deleteList } = useCart();
 
 	const handleMenuItemClick = (menuItem) => {
@@ -46,26 +46,32 @@ export default function Profile() {
 
 	const router = useRouter();
 
-	const GetInformation = async () => {
+	const GetInformation = async (tokens) => {
 		try {
 			const data = await fetchInformation(tokens);
-			if (!data) {
-				router.replace("/login");
-			}
 			console.log(data);
+			if (!data) {
+				router.replace("/");
+			}
 			setInformation(data);
 			setActivites(await fetchActivties(tokens));
 		} catch (error) {
-			console.error('Error fetching information:', error);
-			enqueueSnackbar({ message: error.message || "خطا در دریافت اطلاعات.", variant: "error" });
+			enqueueSnackbar({
+				message: "خطا در دریافت اطلاعات.",
+				variant: "error",
+			});
+			router.replace("/");
 		}
 	};
 
 	useEffect(() => {
+		const tokens = JSON.parse(localStorage.getItem("tokens"));
 		if (tokens) {
-			GetInformation();
+			GetInformation(tokens);
+		} else {
+			router.replace("/");
 		}
-	}, [tokens, menuItemValue]);
+	}, [menuItemValue]);
 
 	const handleLogout = async () => {
 		deleteList();

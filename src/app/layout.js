@@ -17,6 +17,12 @@ export default function RootLayout({ children }) {
 		<html
 			lang="fa-IR"
 			dir="rtl">
+			<head>
+				<meta
+					name="google-site-verification"
+					content="afypnORVZwz-knlbrGi5xMH1mnSI5gbc1OW9IVqTKnA"
+				/>
+			</head>
 			<body>
 				<MenuItemSelectorProvider>
 					<ThemeProvider>

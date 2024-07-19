@@ -77,17 +77,31 @@ const ProductPart = () => {
 
 	const handleCreateOrder = async ({ pid }) => {
 		setLoading(true);
-		try {
-			await createOrder({
-				pid: pid,
-				tokens: tokens,
-			});
-			setShowDialog(true);
-		} catch (error) {
-			console.log(error);
+		if (tokens) {
+			try {
+				const response = await createOrder({
+					pid: pid,
+					tokens: tokens,
+				});
+				if (response.code === "token_not_valid") {
+					enqueueSnackbar({
+						message: "برای ثبت درخواست ابتدا وارد شوید.",
+						variant: "warning",
+					});
+				} else {
+					setShowDialog(true);
+				}
+			} catch (error) {
+				console.log(error);
+				enqueueSnackbar({
+					message: "خطایی رخ داد،لطفا دوباره تلاش کنید.",
+					variant: "error",
+				});
+			}
+		} else {
 			enqueueSnackbar({
-				message: "خطایی رخ داد،لطفا دوباره تلاش کنید.",
-				variant: "error",
+				message: "برای ثبت درخواست ابتدا وارد شوید.",
+				variant: "warning",
 			});
 		}
 		setLoading(false);

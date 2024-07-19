@@ -27,19 +27,19 @@ function ProductsPage({ categoryName }) {
 		};
 
 		fetchProducts();
-	}, [categoryName]); // Re-fetch when categoryName changes
+	}, [categoryName]);
 
 	return (
 		<Box>
 			<LineSplitter text={`محصولات ${categoryName}`} />
 			<Box
 				sx={{
-					display: "flex", // Use flexbox layout
-					flexDirection: "column", // Stack children vertically
-					justifyContent: "center", // Center children vertically
-					alignItems: { xs: "end", xl: "center" }, // Center children horizontally
-					width: "100%", // Optional: Adjust width as needed
-					height: "100%", // Optional: Adjust height as needed
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: { xs: "end", xl: "center" },
+					width: "100%",
+					height: "100%",
 				}}>
 				<ProductsGrid productsList={productsList} />
 			</Box>

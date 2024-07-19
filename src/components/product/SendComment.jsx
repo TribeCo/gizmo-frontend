@@ -76,19 +76,19 @@ const SendComment = ({ handleSendComment }) => {
 					justifyContent="center"
 					sx={{
 						mt: 3,
-						width: { xs: 400, sm: 700 },
-						pt: 2,
-						pb: 4,
-						borderRadius: 5,
+						width: { xs: 360, sm: 700 },
+						pt: { xs: 1, md: 2 },
+						pb: { xs: 2, md: 4 },
+						borderRadius: { xs: 3, md: 5 },
 						bgcolor: "#F9F9F9",
 					}}>
 					<Box
 						display="flex"
 						justifyContent="space-between"
-						sx={{ width: { xs: 350, sm: 600 } }}>
+						sx={{ width: { xs: 340, sm: 600 } }}>
 						<Box
 							display="flex"
-							pt={1.3}
+							pt={1}
 							flexDirection="row">
 							<Add fontSize="medium" />
 							<Typography ml={1}>{"نظر شما"}</Typography>
@@ -119,9 +119,9 @@ const SendComment = ({ handleSendComment }) => {
 						sx={{
 							mt: 1,
 							bgcolor: "#EEEEEE",
-							height: { xs: 80, sm: 100 },
-							width: { xs: 360, sm: 600 },
-							borderRadius: 3,
+							height: { xs: 90, sm: 100 },
+							width: { xs: 340, sm: 600 },
+							borderRadius: { xs: 2, sm: 3 },
 							padding: 3,
 						}}
 						error={formik.errors.text && formik.touched.text}
@@ -129,7 +129,12 @@ const SendComment = ({ handleSendComment }) => {
 					{formik.errors.text && formik.touched.text && (
 						<Typography
 							color="#ff0000"
-							sx={{ border: "0.05em solid", mt: 2, borderRadius: 3, p: 1 }}>
+							variant="subtitle2"
+							sx={{
+								mt: { xs: 1, sm: 2 },
+								borderRadius: { xs: 2, sm: 3 },
+								p: { xs: 0.5, sm: 1 },
+							}}>
 							{"لطفا متن دیدگاه خود را وارد کنید."}
 						</Typography>
 					)}
@@ -145,12 +150,12 @@ const SendComment = ({ handleSendComment }) => {
 				flexDirection="column"
 				alignItems="center">
 				<Typography
-					sx={{ mt: { sm: 4, xs: 4, md: 0 } }}
+					sx={{ mt: { xs: 3, md: 0 } }}
 					variant="h6"
-					fontWeight={800}>
+					fontWeight={700}>
 					{"امتیازدهی"}
 				</Typography>
-				<Box mt={4.5}>
+				<Box sx={{ mt: { xs: 3, md: 4.5 } }}>
 					<Box
 						display="flex"
 						flexDirection="row"
@@ -221,7 +226,7 @@ const SendComment = ({ handleSendComment }) => {
 							</Box>
 						</Box>
 					</Box>
-					<Box mt={1.5}>
+					<Box sx={{ mt: { xs: 1, md: 1.5 } }}>
 						<ToggleButtonGroup
 							orientation="vertical"
 							value={seleted}
@@ -312,7 +317,7 @@ const SendComment = ({ handleSendComment }) => {
 						onClick={formik.handleSubmit}
 						fullWidth
 						sx={{
-							mt: 8,
+							mt: { xs: 4, md: 8 },
 							bgcolor: Colors.orange,
 							color: "#000",
 							width: 240,

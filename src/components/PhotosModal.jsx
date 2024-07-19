@@ -1,4 +1,3 @@
-import { baseUrl } from "@/services";
 import {
 	Box,
 	CardMedia,
@@ -9,8 +8,10 @@ import {
 	ImageList,
 	Typography,
 } from "@mui/material";
+import { useState } from "react";
 
-function PhotosModal({ open, handleClose, title, mainImage, imageList }) {
+function PhotosModal({ open, handleClose, title, imageList }) {
+	const [selectedIndex, setSelectedIndex] = useState(0);
 	return (
 		<Dialog
 			open={open}
@@ -60,7 +61,7 @@ function PhotosModal({ open, handleClose, title, mainImage, imageList }) {
 								border: "5px solid #22668D",
 								borderRadius: 5,
 							}}
-							image={mainImage}
+							image={imageList[selectedIndex].image}
 						/>
 					</Box>
 					<Box>
@@ -86,6 +87,7 @@ function PhotosModal({ open, handleClose, title, mainImage, imageList }) {
 							gap={0}>
 							{imageList.map((image, index) => (
 								<IconButton
+									onClick={() => setSelectedIndex(index)}
 									key={index}
 									disableRipple>
 									<CardMedia

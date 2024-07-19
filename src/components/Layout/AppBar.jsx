@@ -54,7 +54,7 @@ const AppBar = ({ isLanding }) => {
 	const [loginOpen, setLoginOpen] = useState(false);
 	const [popupState, setPopupState] = useState("login");
 	const [categories, setCategories] = useState([]);
-	const { tokens } = useAuth();
+	const { tokens, logOut } = useAuth();
 
 	useEffect(() => {
 		const fetchCategoriesData = async () => {
@@ -122,7 +122,7 @@ const AppBar = ({ isLanding }) => {
 
 	const handleLogOut = () => {
 		setLogOutModalOpen(false);
-		// TODO: Log out Api
+		logOut();
 		handleProfileClose();
 	};
 
@@ -145,7 +145,7 @@ const AppBar = ({ isLanding }) => {
 				mt={2}
 				mr={2}
 				ml={2}
-				py={3}
+				py={2}
 				px={3}>
 				<Grid
 					container
@@ -163,9 +163,9 @@ const AppBar = ({ isLanding }) => {
 							alignItems="center">
 							<Grid
 								sx={{
-									pr: 2,
+									pr: 1,
 									scale: { xs: "1", sm: "1.3" },
-									display: { md: "flex", lg: "none" },
+									display: { md: "flex", xl: "none" },
 								}}
 								onClick={handleOpen}>
 								<SvgIcon
@@ -183,17 +183,16 @@ const AppBar = ({ isLanding }) => {
 
 							<Grid
 								pb={1}
-								display="flex"
 								alignItems="center"
 								sx={{
 									pr: { xs: "0", lg: 2 },
-									width: { xs: 75, sm: "auto" },
+									width: { xs: 70, sm: "auto" },
 								}}>
 								<Link href={"/"}>
 									<Image
 										alt="logo"
 										src={Logo}
-										width={90}
+										width={70}
 										height="auto"
 									/>
 								</Link>
@@ -202,7 +201,7 @@ const AppBar = ({ isLanding }) => {
 							<Grid
 								item
 								sx={{
-									display: { xs: "none", lg: "contents" },
+									display: { xs: "none", xl: "contents" },
 								}}>
 								<IconButton
 									disableRipple
@@ -219,7 +218,7 @@ const AppBar = ({ isLanding }) => {
 										variant="h6"
 										noWrap
 										fontWeight="bold"
-										fontSize={19}>
+										fontSize={16}>
 										دسته بندی ها
 									</Typography>
 									<ExpandMoreIcon />
@@ -243,26 +242,27 @@ const AppBar = ({ isLanding }) => {
 											},
 										},
 									}}>
-									{categories.map((category, index) => {
-										return (
-											<MenuItem
-												key={index}
-												onClick={handleMenuClose}>
-												<Link
-													href={`/categories/${category.slug}`}
-													passHref>
-													<Typography
-														component="a"
-														style={{
-															textDecoration: "none",
-															color: "inherit",
-														}}>
-														{category.name}
-													</Typography>
-												</Link>
-											</MenuItem>
-										);
-									})}
+									{categories &&
+										categories.map((category, index) => {
+											return (
+												<MenuItem
+													key={index}
+													onClick={handleMenuClose}>
+													<Link
+														href={`/categories/${category.slug}`}
+														passHref>
+														<Typography
+															component="a"
+															style={{
+																textDecoration: "none",
+																color: "inherit",
+															}}>
+															{category.name}
+														</Typography>
+													</Link>
+												</MenuItem>
+											);
+										})}
 								</Menu>
 								<Grid
 									sx={{
@@ -277,7 +277,7 @@ const AppBar = ({ isLanding }) => {
 											variant="h6"
 											noWrap
 											fontWeight="bold"
-											fontSize={19}>
+											fontSize={16}>
 											خرید از دبی
 										</Typography>
 									</Link>
@@ -296,7 +296,7 @@ const AppBar = ({ isLanding }) => {
 											variant="h6"
 											noWrap
 											fontWeight="bold"
-											fontSize={19}>
+											fontSize={16}>
 											ارتباط با ما
 										</Typography>
 									</Link>
@@ -315,7 +315,7 @@ const AppBar = ({ isLanding }) => {
 											variant="h6"
 											noWrap
 											fontWeight="bold"
-											fontSize={19}>
+											fontSize={16}>
 											سوالات متداول
 										</Typography>
 									</Link>
@@ -331,44 +331,48 @@ const AppBar = ({ isLanding }) => {
 						justifyContent="flex-end">
 						<SearchField />
 						{user ? (
-							<Link href="/dashboard">
-								<Button
-									variant="contained"
-									sx={{
-										borderRadius: "24px",
-										ml: 2,
-										boxShadow: "none",
+							<IconButton
+								onClick={handleProfileOpen}
+								variant="contained"
+								sx={{
+									p: { xs: "8px", sm: "12px" },
+									mr: { xs: "3px" },
+									ml: { xs: 0, sm: 1 },
+									display: "flex",
+									scale: { xs: "0.9", sm: "0.8" },
+									color: "white",
+									bgcolor: Colors.blue,
+									boxShadow: "none",
+									"&:hover": {
 										bgcolor: Colors.blue,
-										color: "white",
-										display: { xs: "none", xl: "flex" },
-										"&:hover": {
-											backgroundColor: Colors.blue,
-											boxShadow: "none",
-										},
-									}}>
-									<Typography
-										variant="h6"
-										noWrap
-										sx={{
-											display: { xs: "none", xl: "flex" },
-											py: { xs: "0px", xl: "2px" },
-											px: { xs: "0px", xl: "10px" },
-										}}>
-										{"داشبورد"}
-									</Typography>
-								</Button>
-							</Link>
+										boxShadow: "none",
+									},
+								}}>
+								<PersonOutlineOutlinedIcon
+									fontSize="medium"
+									sx={{
+										display: { xs: "flex", sm: "none" },
+									}}
+								/>
+								<PersonOutlineOutlinedIcon
+									fontSize="large"
+									sx={{
+										display: { xs: "none", sm: "flex" },
+									}}
+								/>
+							</IconButton>
 						) : (
 							<Button
 								onClick={handleLoginModalOpen}
 								variant="contained"
 								sx={{
+									ml: { xs: 0, sm: 1 },
+									mr: { xs: "2px", sm: 0 },
 									borderRadius: "24px",
-									ml: 2,
 									boxShadow: "none",
 									bgcolor: Colors.blue,
 									color: "white",
-									display: { xs: "none", xl: "flex" },
+									display: "flex",
 									"&:hover": {
 										backgroundColor: Colors.blue,
 										boxShadow: "none",
@@ -378,43 +382,14 @@ const AppBar = ({ isLanding }) => {
 									variant="h6"
 									noWrap
 									sx={{
-										display: { xs: "none", xl: "flex" },
-										p: { xs: "0px", xl: "2px" },
+										display: "flex",
+										p: { xs: 0, sm: "2px" },
+										fontSize: { xs: "12px", sm: "16px" },
 									}}>
 									{"ورود / ثبت نام"}
 								</Typography>
 							</Button>
 						)}
-
-						<IconButton
-							onClick={handleProfileOpen}
-							variant="contained"
-							sx={{
-								p: { sm: "7px" },
-								display: { xs: "flex", xl: "none" },
-								scale: { xs: "0.9", sm: "1" },
-								ml: { xs: "2px", sm: "14px" },
-								color: "white",
-								bgcolor: Colors.blue,
-								boxShadow: "none",
-								"&:hover": {
-									bgcolor: Colors.blue,
-									boxShadow: "none",
-								},
-							}}>
-							<PersonOutlineOutlinedIcon
-								fontSize="medium"
-								sx={{
-									display: { xs: "flex", sm: "none" },
-								}}
-							/>
-							<PersonOutlineOutlinedIcon
-								fontSize="large"
-								sx={{
-									display: { xs: "none", sm: "flex" },
-								}}
-							/>
-						</IconButton>
 
 						<Menu
 							id="categories"
@@ -437,7 +412,7 @@ const AppBar = ({ isLanding }) => {
 							}}>
 							<MenuItem
 								sx={{ justifyContent: "center" }}
-								onClick={handleProfileClose}>
+								onClick={handleDashBoardMainPage}>
 								<PersonOutlineOutlinedIcon
 									sx={{
 										color: "white",
@@ -446,15 +421,21 @@ const AppBar = ({ isLanding }) => {
 										scale: { xs: "1", sm: "1.2" },
 									}}
 								/>
-								<Typography
-									fontWeight={600}
-									sx={{ color: "white", mb: 1, fontSize: { xs: 16, sm: 18 } }}>
-									{user.first_name + " " + user.last_name}
-								</Typography>
+								<Link href={"/dashboard"}>
+									<Typography
+										fontWeight={600}
+										sx={{
+											color: "white",
+											mb: 1,
+											fontSize: { xs: 16, sm: 18 },
+										}}>
+										{user.first_name + " " + user.last_name}
+									</Typography>
+								</Link>
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={() => handleDashBoardMainPage()}>
+								onClick={handleDashBoardMainPage}>
 								<Link href={"/dashboard"}>
 									<Typography
 										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
@@ -464,7 +445,7 @@ const AppBar = ({ isLanding }) => {
 							</MenuItem>
 							<MenuItem
 								sx={{ justifyContent: "center", mt: { xs: 0, sm: 1 } }}
-								onClick={() => handleOrderTracking()}>
+								onClick={handleOrderTracking}>
 								<Link href={"/dashboard"}>
 									<Typography
 										sx={{ color: "white", fontSize: { xs: 14, sm: 16 } }}>
@@ -509,11 +490,17 @@ const AppBar = ({ isLanding }) => {
 							badgeContent={length}
 							sx={{
 								"& .MuiBadge-badge": {
-									right: 15,
-									top: 10,
-									padding: "17px 10px 13px 10px",
+									right: { xs: 10, sm: 18 },
+									top: { xs: 7, sm: 13 },
+									padding: {
+										xs: "6px 0px 4px 0px",
+										sm: "8px 0px 6px 0px",
+										md: "12px 7px 10px 7px",
+									},
 									borderRadius: 10,
-									fontSize: 20,
+									fontSize: { xs: 10, sm: 12, md: 14 },
+									minWidth: { xs: "16px", sm: "20px", md: "22px" }, // Minimum width
+									height: { xs: "16px", sm: "20px", md: "22px" }, // Fixed height
 								},
 							}}
 							color="error">
@@ -521,10 +508,8 @@ const AppBar = ({ isLanding }) => {
 								<IconButton
 									variant="contained"
 									sx={{
-										p: { xs: "11px", sm: "13px" },
-										scale: "0.8",
-										ml: { xs: "4px", sm: 1 },
-										mr: { xs: 0, sm: 1 },
+										p: { xs: "10px", sm: "12px" },
+										scale: "0.7",
 										bgcolor: Colors.blue,
 										color: "white",
 										"&:hover": {
@@ -634,7 +619,7 @@ const SearchField = () => {
 				aria-label="search"
 				sx={{
 					p: { xs: "13px", sm: "12px" },
-					scale: { xs: "0.7", sm: "1" },
+					scale: { xs: "0.7", sm: "0.9" },
 					color: "white",
 					backgroundColor: Colors.blue,
 					"&:hover": {
@@ -677,12 +662,13 @@ const SearchField = () => {
 				}
 				open={open}
 				onClose={handleClose}>
-				<FormControl>
+				<FormControl
+					sx={{ justifyContent: "center", height: { xs: 43, sm: 55, md: 65 } }}>
 					<InputBase
 						startAdornment={
 							<SvgIcon
-								width="23"
-								height="23"
+								width="20"
+								height="20"
 								viewBox="0 0 23 23"
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg">
@@ -695,8 +681,8 @@ const SearchField = () => {
 						endAdornment={
 							<IconButton onClick={handleClose}>
 								<svg
-									width="24"
-									height="24"
+									width="20"
+									height="20"
 									viewBox="0 0 24 24"
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg">

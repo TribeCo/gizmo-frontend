@@ -143,38 +143,57 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 					flexWrap="wrap"
 					width="100%">
 					<Box
-						mr={1}
-						ml={1}
-						mt={3}
-						mb={3}
-						sx={{
-							textAlign: "center",
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-							justifyContent: "center",
-						}}>
+					mr={1}
+					ml={1}
+					mt={3}
+					mb={3}
+					sx={{
+						textAlign: "center",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						justifyContent: "center",
+						"& .image-container": {
+						"& img": {
+							width: "auto",
+							height: 70,
+							"@media (max-width: 600px)": {
+							height: 40,
+							},
+						},
+						},
+						"& .typography-container": {
+						"@media (max-width: 600px)": {
+							"& h5": {
+							fontSize: "1.2rem",
+							},
+							"& p": {
+							fontSize: "0.9rem",
+							},
+						},
+						},
+					}}
+					>
+					<div className="image-container">
 						<Image
-							alt="shop icon"
-							src={ShopIcon}
-							width="auto"
-							height={70}
+						alt="shop icon"
+						src={ShopIcon}
+						width="auto"
+						height={70}
 						/>
+					</div>
 
-						<Typography
-							variant="h5"
-							fontWeight="bold">
-							خرید مستقیم از دوبی
+					<div className="typography-container">
+						<Typography variant="h5" fontWeight="bold">
+						خرید مستقیم از دوبی
 						</Typography>
-						<Typography
-							variant="body1"
-							color="GrayText"
-							dir="rtl"
-							mt={1}>
-							خرید بدون واسطه
-							<br /> و مستقیم از دبی
+						<Typography variant="body1" color="GrayText" dir="rtl" mt={1}>
+						خرید بدون واسطه
+						<br /> و مستقیم از دبی
 						</Typography>
+					</div>
 					</Box>
+
 
 					<Box
 						mr={1}
@@ -187,14 +206,35 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							flexDirection: "column",
 							alignItems: "center",
 							justifyContent: "center",
+							"& .image-container": {
+							"& img": {
+								width: "auto",
+								height: 70,
+								"@media (max-width: 600px)": {
+								height: 50,
+								},
+							},
+							},
+							"& .typography-container": {
+							"@media (max-width: 600px)": {
+								"& h5": {
+								fontSize: "1.2rem",
+								},
+								"& p": {
+								fontSize: "0.9rem",
+								},
+							},
+							},
 						}}>
+							<div className="image-container">
 						<Image
 							alt="delivery truck"
 							src={DeliveryTruck}
 							width="auto"
 							height={70}
-						/>
-
+						/></div>
+						
+						<div className="typography-container">
 						<Typography
 							variant="h5"
 							fontWeight="bold">
@@ -207,7 +247,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							mt={1}>
 							ارسال با پست پیشتاز به
 							<br /> سراسر ایران
-						</Typography>
+						</Typography></div>
 					</Box>
 
 					<Box
@@ -221,14 +261,35 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							flexDirection: "column",
 							alignItems: "center",
 							justifyContent: "center",
+							"& .image-container": {
+							"& img": {
+								width: "auto",
+								height: 70,
+								"@media (max-width: 600px)": {
+								height: 50,
+								},
+							},
+							},
+							"& .typography-container": {
+							"@media (max-width: 600px)": {
+								"& h5": {
+								fontSize: "1.2rem",
+								},
+								"& p": {
+								fontSize: "0.9rem",
+								},
+							},
+							},
 						}}>
+							<div className="image-container">
 						<Image
 							alt="Quality"
 							src={Quality}
 							width="auto"
 							height={70}
-						/>
+						/></div>
 
+					<div className="typography-container">
 						<Typography
 							variant="h5"
 							fontWeight="bold">
@@ -241,7 +302,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							mt={1}>
 							ضمانت 100% اصالت <br />
 							محصولات
-						</Typography>
+						</Typography> </div>
 					</Box>
 
 					<Box
@@ -255,15 +316,35 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							flexDirection: "column",
 							alignItems: "center",
 							justifyContent: "center",
+							"& .image-container": {
+							"& img": {
+								width: "auto",
+								height: 70,
+								"@media (max-width: 600px)": {
+								height: 50,
+								},
+							},
+							},
+							"& .typography-container": {
+							"@media (max-width: 600px)": {
+								"& h5": {
+								fontSize: "1.2rem",
+								},
+								"& p": {
+								fontSize: "0.9rem",
+								},
+							},
+							},
 						}}>
+							<div className="image-container">
 						<Image
 							alt="24 Hours Support"
 							src={_24HoursSupport}
 							width="auto"
 							height={70}
-						/>
+						/></div>
 
-						<Typography
+<div className="typography-container"><Typography
 							variant="h5"
 							fontWeight="bold">
 							پشتیبانی
@@ -274,12 +355,12 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							dir="rtl"
 							mt={1}>
 							پشتیبانی آنلاین 24 ساعته <br />و 7 روز هفته
-						</Typography>
+						</Typography></div>
 					</Box>
 
 					<Box
 						mr={1}
-						ml={1}
+						ml={3}
 						mb={3}
 						mt={3}
 						sx={{
@@ -288,14 +369,34 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							flexDirection: "column",
 							alignItems: "center",
 							justifyContent: "center",
+							"& .image-container": {
+							"& img": {
+								width: "auto",
+								height: 70,
+								"@media (max-width: 600px)": {
+								height: 50,
+								},
+							},
+							},
+							"& .typography-container": {
+							"@media (max-width: 600px)": {
+								"& h5": {
+								fontSize: "1.2rem",
+								},
+								"& p": {
+								fontSize: "0.9rem",
+								},
+							},
+							},
 						}}>
+							<div className="image-container">
 						<Image
 							alt="Money Groth"
 							src={MoneyGroth}
 							width="auto"
 							height={70}
-						/>
-
+						/></div>
+						<div className="typography-container">
 						<Typography
 							variant="h5"
 							fontWeight="bold">
@@ -307,7 +408,7 @@ const CompanySlider = ({ brands, swapTime_millisecond, hasSecondPart }) => {
 							dir="rtl"
 							mt={1}>
 							امکان پرداخت آنلاین
-						</Typography>
+						</Typography></div>
 					</Box>
 				</Grid>
 			) : (

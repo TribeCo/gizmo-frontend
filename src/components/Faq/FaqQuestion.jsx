@@ -23,7 +23,7 @@ const FaqQuestion = ({ question, answer }) => {
                 
                 <Paper
                     sx={{
-                        display: 'felx',
+                        display: 'flex',
                         alignItems: 'center',
                         bgcolor: '#F4F4F4',
                         borderRadius: '20px',
@@ -55,7 +55,7 @@ const FaqQuestion = ({ question, answer }) => {
                         fontWeight='bold'
                         sx={{
                             textWrap: 'wrap',
-                            pr: 5,  
+                            pr: 2,  
                             fontSize: {xs: 14, sm: 18, md: 22},
                         }}
                     >
@@ -66,7 +66,7 @@ const FaqQuestion = ({ question, answer }) => {
             {isOpened &&
                 <Paper
                     sx={{
-                        display: 'felx',
+                        display: 'flex',
                         alignItems: 'center',
                         bgcolor: 'rgba(34, 102, 141, 0.1)',
                         borderRadius: '20px',
@@ -82,7 +82,7 @@ const FaqQuestion = ({ question, answer }) => {
                         sx={{
                             fontSize: {xs: 14, sm: 16, md: 20},
                             textWrap: 'wrap',
-                            pr: 4,
+                            pr: 2,
                         }}
                     >
                         {answer}

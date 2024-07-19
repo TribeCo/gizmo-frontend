@@ -9,7 +9,7 @@ const ProductNotFound = () => {
 			flexDirection="column"
 			justifyContent="center"
 			alignItems="center"
-			mt={12}>
+			mt={5}>
 			<Typography variant="h3">{"محصولی یافت نشد!"}</Typography>
 			<Avatar
 				sx={{

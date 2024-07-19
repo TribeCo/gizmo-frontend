@@ -12,6 +12,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
 import { baseUrl } from "@/services";
+import { Add, Check, Close, Remove } from "@mui/icons-material";
 
 const SelectProduct = ({ data }) => {
 	const { tokens } = useAuth();
@@ -49,7 +50,7 @@ const SelectProduct = ({ data }) => {
 			});
 		} catch (error) {
 			enqueueSnackbar({
-				message: error.message,
+				message: "خطایی رخ داد، لطفا دوباره تلاش کنید.",
 				variant: "error",
 			});
 		}
@@ -61,16 +62,26 @@ const SelectProduct = ({ data }) => {
 			if (!like) {
 				response = await addToFavorites({
 					pid: data.id,
-					access: tokens.access,
+					access: tokens ? tokens.access : "",
 				});
 			} else {
 				response = await deleteFavorites({
 					pid: data.id,
-					access: tokens.access,
+					access: tokens ? tokens.access : "",
 				});
 			}
 			if (response.message) {
-				enqueueSnackbar({ message: response.message, variant: "success" });
+				if (like) {
+					enqueueSnackbar({
+						message: "محصول با موفقیت از لیست مورد علاقه ها حذف شد.",
+						variant: "warning",
+					});
+				} else {
+					enqueueSnackbar({
+						message: "محصول با موفقیت به لیست مورد علاقه ها افزوده شد.",
+						variant: "success",
+					});
+				}
 				setLike(!like);
 			} else {
 				if (response.status === 401) {
@@ -80,14 +91,12 @@ const SelectProduct = ({ data }) => {
 					});
 				} else {
 					enqueueSnackbar({
-						message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
+						message: "ابتدا لاگین کنید.",
 						variant: "error",
 					});
-					console.log(response.status);
 				}
 			}
 		} catch (error) {
-			console.log(error);
 			if (error.status === 401) {
 				enqueueSnackbar({
 					message: "برای افزودن محصول به مورد علاقه ها ابتدا وارد شوید",
@@ -108,7 +117,10 @@ const SelectProduct = ({ data }) => {
 		});
 		console.log(response);
 		if (response.message) {
-			enqueueSnackbar({ message: response.message, variant: "success" });
+			enqueueSnackbar({
+				message: "در صورت موجود شدن محصول به شما اطلاع داده خواهد شد.",
+				variant: "success",
+			});
 		} else {
 			if (response.status === 401) {
 				enqueueSnackbar({
@@ -120,7 +132,6 @@ const SelectProduct = ({ data }) => {
 					message: "مشکلی پیش آمد لطقا دوباره تلاش کنید.",
 					variant: "error",
 				});
-				console.log(response.status);
 			}
 		}
 	};
@@ -155,18 +166,30 @@ const SelectProduct = ({ data }) => {
 				mt={2}
 				ml={3}>
 				<Box>
-					<Box display="flex">
+					<Box
+						display="flex"
+						alignContent="center">
 						<Typography
 							mr={1}
 							color="#22668D"
 							fontWeight={900}
-							fontSize={20}>
+							sx={{
+								fontSize: {
+									xs: 15,
+									md: 20,
+								},
+							}}>
 							{`رنگ ها: `}
 						</Typography>
 						<Typography
 							color="#22668D"
 							fontWeight={400}
-							fontSize={20}>
+							sx={{
+								fontSize: {
+									xs: 15,
+									md: 20,
+								},
+							}}>
 							{(data.product_color.length > 0 &&
 								data.product_color.filter(
 									(color) => color.color.id === selectedColor,
@@ -190,46 +213,53 @@ const SelectProduct = ({ data }) => {
 										disableRipple>
 										<Box
 											bgcolor={`#${color.color.code}`}
-											border="0.16em solid #D9DAE2"
-											borderRadius={2.5}
-											width={45}
-											height={45}>
+											display="flex"
+											alignItems="center"
+											justifyContent="center"
+											sx={{
+												width: {
+													xs: 30,
+													md: 45,
+												},
+												height: {
+													xs: 30,
+													md: 45,
+												},
+												borderRadius: { xs: 1.3, md: 2.5 },
+												border: {
+													xs: "0.1em solid #D9DAE2",
+													md: "0.16em solid #D9DAE2",
+												},
+											}}>
 											{color.quantity < 1 ? (
-												<svg
-													width="39"
-													height="39"
-													viewBox="0 0 39 39"
-													fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M2.89624 3L35.6638 35.7676"
-														stroke="#BB0000"
-														stroke-width="5"
-														stroke-linecap="round"
-													/>
-													<path
-														d="M3 35.7676L35.7676 3"
-														stroke="#BB0000"
-														stroke-width="5"
-														stroke-linecap="round"
-													/>
-												</svg>
+												<Close
+													sx={{
+														width: {
+															xs: 30,
+															md: 45,
+														},
+														height: {
+															xs: 30,
+															md: 45,
+														},
+														color: "#BB0000",
+													}}
+												/>
 											) : color.color.id === selectedColor ? (
-												<Box mt={0.75}>
-													<svg
-														width="38"
-														height="26"
-														viewBox="0 0 38 26"
-														fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-														<path
-															d="M3.41675 13.0002L13.8334 23.4168L34.6667 2.5835"
-															stroke="#4ECB71"
-															stroke-width="5"
-															stroke-linecap="round"
-															stroke-linejoin="round"
-														/>
-													</svg>
+												<Box>
+													<Check
+														sx={{
+															width: {
+																xs: 30,
+																md: 45,
+															},
+															height: {
+																xs: 30,
+																md: 45,
+															},
+															color: "#4ECB71",
+														}}
+													/>
 												</Box>
 											) : (
 												""
@@ -244,7 +274,12 @@ const SelectProduct = ({ data }) => {
 					<Typography
 						color="#22668D"
 						fontWeight={900}
-						fontSize={20}>
+						sx={{
+							fontSize: {
+								xs: 15,
+								md: 20,
+							},
+						}}>
 						{`تعداد: (موجودی ${
 							data.product_color.filter(
 								(color) => color.color.id === selectedColor,
@@ -255,7 +290,10 @@ const SelectProduct = ({ data }) => {
 						display="flex"
 						justifyContent="space-between"
 						alignItems="center"
-						width={120}
+						sx={{
+							xs: 8,
+							md: 15,
+						}}
 						mt={2}>
 						<IconButton
 							onClick={incCount}
@@ -264,39 +302,45 @@ const SelectProduct = ({ data }) => {
 									(color) => color.color.id === selectedColor,
 								)[0].quantity <= count
 							}>
-							<svg
-								width="35"
-								height="41"
-								viewBox="0 0 35 41"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M0.5 3C0.5 1.61929 1.61929 0.5 3 0.5H32C33.3807 0.5 34.5 1.61929 34.5 3V38C34.5 39.3807 33.3807 40.5 32 40.5H3C1.61929 40.5 0.5 39.3807 0.5 38V3Z"
-									stroke="#747678"
-								/>
-								<path
-									d="M23.875 18.9062H19.0938V14.125C19.0938 13.5383 18.6179 13.0625 18.0312 13.0625H16.9688C16.3821 13.0625 15.9062 13.5383 15.9062 14.125V18.9062H11.125C10.5383 18.9062 10.0625 19.3821 10.0625 19.9688V21.0312C10.0625 21.6179 10.5383 22.0938 11.125 22.0938H15.9062V26.875C15.9062 27.4617 16.3821 27.9375 16.9688 27.9375H18.0312C18.6179 27.9375 19.0938 27.4617 19.0938 26.875V22.0938H23.875C24.4617 22.0938 24.9375 21.6179 24.9375 21.0312V19.9688C24.9375 19.3821 24.4617 18.9062 23.875 18.9062Z"
-									fill="#747678"
-								/>
-							</svg>
+							<Box
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+								sx={{
+									width: {
+										xs: 30,
+										md: 40,
+									},
+									height: {
+										xs: 30,
+										md: 40,
+									},
+									border: "1px solid #747678",
+									borderRadius: 1,
+								}}>
+								<Add />
+							</Box>
 						</IconButton>
 						<Typography variant="h5">{convert(count)}</Typography>
 						<IconButton onClick={decCount}>
-							<svg
-								width="35"
-								height="41"
-								viewBox="0 0 35 41"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M0.5 3C0.5 1.61929 1.61929 0.5 3 0.5H32C33.3807 0.5 34.5 1.61929 34.5 3V38C34.5 39.3807 33.3807 40.5 32 40.5H3C1.61929 40.5 0.5 39.3807 0.5 38V3Z"
-									stroke="#747678"
-								/>
-								<path
-									d="M23.875 18.9062H11.125C10.5383 18.9062 10.0625 19.3821 10.0625 19.9688V21.0312C10.0625 21.6179 10.5383 22.0938 11.125 22.0938H23.875C24.4617 22.0938 24.9375 21.6179 24.9375 21.0312V19.9688C24.9375 19.3821 24.4617 18.9062 23.875 18.9062Z"
-									fill="#747678"
-								/>
-							</svg>
+							<Box
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+								sx={{
+									width: {
+										xs: 30,
+										md: 40,
+									},
+									height: {
+										xs: 30,
+										md: 40,
+									},
+									border: "1px solid #747678",
+									borderRadius: 1,
+								}}>
+								<Remove />
+							</Box>
 						</IconButton>
 					</Box>
 				</Box>
@@ -312,11 +356,13 @@ const SelectProduct = ({ data }) => {
 				ml={3}
 				maxWidth={data.discounted ? 400 : 300}
 				display="flex"
+				alignItems="center"
 				justifyContent="space-between">
 				<Typography
 					noWrap
 					color={!data.is_available ? "#D2D2D2" : "#22668D"}
 					fontWeight={900}
+					sx={{ fontSize: { xs: 16, md: 20 } }}
 					fontSize={20}>
 					{"قیمت: "}
 				</Typography>
@@ -327,16 +373,15 @@ const SelectProduct = ({ data }) => {
 							position="absolute"
 							bgcolor="#BB0000"
 							borderRadius="2em"
-							px={7}
+							px={6}
 							pt={0.25}
 							color="#fff"></Box>
 						<Typography
 							noWrap
 							mt={0.5}
 							align="center"
-							fontSize={20}
 							fontWeight={400}
-							sx={{ color: "#BFBFBF" }}>
+							sx={{ color: "#BFBFBF", fontSize: { xs: 16, md: 20 } }}>
 							{convert(data.price) + " تومان"}
 						</Typography>
 					</Box>
@@ -350,7 +395,7 @@ const SelectProduct = ({ data }) => {
 							align="center"
 							fontSize={20}
 							fontWeight={400}
-							sx={{ color: "#D2D2D2" }}>
+							sx={{ color: "#D2D2D2", fontSize: { xs: 18, md: 20 } }}>
 							{"ناموجود"}
 						</Typography>
 					</Box>
@@ -360,7 +405,7 @@ const SelectProduct = ({ data }) => {
 							noWrap
 							mt={0.5}
 							align="center"
-							fontSize={20}
+							sx={{ fontSize: { xs: 18, md: 20 } }}
 							fontWeight={400}>
 							{convert(parseInt(data.discounted_price)) + " تومان"}
 						</Typography>
@@ -368,8 +413,14 @@ const SelectProduct = ({ data }) => {
 				)}
 			</Box>
 			<Box
+				sx={{
+					mt: {
+						xs: 3,
+						md: 6,
+					},
+				}}
 				display="flex"
-				mt={6}>
+				alignItems="center">
 				<Button
 					onClick={data.is_available ? handleAddToCart : handleNotification}
 					variant="contained"
@@ -377,7 +428,11 @@ const SelectProduct = ({ data }) => {
 						bgcolor: "#FFE0A9",
 						color: "#000",
 						borderRadius: 40,
-						px: { xs: 5, md: 10 },
+						px: { xs: 3, md: 4 },
+						height: {
+							xs: 34,
+							md: 40,
+						},
 						"&:hover": {
 							bgcolor: Colors.orange,
 						},
@@ -387,7 +442,7 @@ const SelectProduct = ({ data }) => {
 						variant="h5"
 						fontWeight={900}
 						sx={{
-							fontSize: { xs: 16, md: 24 },
+							fontSize: { xs: 12, md: 14 },
 						}}>
 						{data.is_available ? "افزودن به سبد خرید" : "موجود شد خبرم کن!!"}
 					</Typography>
@@ -395,8 +450,7 @@ const SelectProduct = ({ data }) => {
 				<IconButton
 					onClick={handleFavorite}
 					sx={{
-						mt: 1,
-						ml: 4,
+						ml: 1,
 					}}>
 					{like ? (
 						<svg

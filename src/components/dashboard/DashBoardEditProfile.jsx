@@ -49,7 +49,7 @@ export default function DashBoardEditProfile({ information }) {
 		} catch (error) {
 			console.error("Error fetching information:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در دریافت اطلاعات.",
+				message: "خطا در دریافت اطلاعات.",
 				variant: "error",
 			});
 		}
@@ -82,14 +82,13 @@ export default function DashBoardEditProfile({ information }) {
 			const response = await EditProfile(newProfileData, tokens);
 			if (response) {
 				enqueueSnackbar({
-					message: response.messages || "پروفایل با موفقیت به‌روزرسانی شد.",
+					message: "پروفایل با موفقیت به‌روزرسانی شد.",
 					variant: "success",
 				});
 			}
 		} catch (error) {
-			console.error("خطا در ارسال داده به API:", error);
 			enqueueSnackbar({
-				message: error.message || "به‌روزرسانی پروفایل ناموفق بود.",
+				message: "به‌روزرسانی پروفایل ناموفق بود.",
 				variant: "error",
 			});
 		} finally {
@@ -113,19 +112,17 @@ export default function DashBoardEditProfile({ information }) {
 			const response = await EditPassword(newProfilePassword, tokens);
 			if (response) {
 				enqueueSnackbar({
-					message: response.messages || "رمز عبور با موفقیت به‌روزرسانی شد.",
+					message: "رمز عبور با موفقیت به‌روزرسانی شد.",
 					variant: "success",
 				});
 			}
 		} catch (error) {
 			console.error("خطا در ارسال داده به API:", error);
 			enqueueSnackbar({
-				message: error.message || "به‌روزرسانی رمز عبور ناموفق بود.",
+				message: "به‌روزرسانی رمز عبور ناموفق بود.",
 				variant: "error",
 			});
 		} finally {
-			console.log("I am in finally block");
-
 			setNewProfilePassword((obj) => ({
 				...obj,
 				new_password_confirm: "",
@@ -182,6 +179,26 @@ export default function DashBoardEditProfile({ information }) {
 						fullWidth
 						sx={{ mb: 2, "& .MuiInputBase-root": { borderRadius: "50px" } }}
 					/>
+					<TextField
+						label="نام خانوادگی"
+						variant="outlined"
+						value={newProfileData.last_name}
+						onChange={(e) =>
+							setNewProfileData({
+								...newProfileData,
+								last_name: e.target.value,
+							})
+						}
+						fullWidth
+						sx={{ mb: 2, "& .MuiInputBase-root": { borderRadius: "50px" } }}
+					/>
+				</Box>
+				<Box
+					display="flex"
+					sx={{
+						flexDirection: { xs: "column", sm: "row" },
+					}}
+					gap={2}>
 					<Select
 						value={newProfileData.gender}
 						onChange={(e) =>
@@ -198,26 +215,6 @@ export default function DashBoardEditProfile({ information }) {
 						<MenuItem value="f">زن</MenuItem>
 						<MenuItem value="u">مایل به گفتن ندارم</MenuItem>
 					</Select>
-				</Box>
-				<Box
-					display="flex"
-					sx={{
-						flexDirection: { xs: "column", sm: "row" },
-					}}
-					gap={2}>
-					<TextField
-						label="نام خانوادگی"
-						variant="outlined"
-						value={newProfileData.last_name}
-						onChange={(e) =>
-							setNewProfileData({
-								...newProfileData,
-								last_name: e.target.value,
-							})
-						}
-						fullWidth
-						sx={{ mb: 2, "& .MuiInputBase-root": { borderRadius: "50px" } }}
-					/>
 					<TextField
 						label="شماره تلفن"
 						variant="outlined"

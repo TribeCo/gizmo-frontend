@@ -4,6 +4,7 @@ import { MenuItemSelectorProvider } from "@/components/dashboard/DashBoardMenuSe
 
 // Css Files
 import "./globals.css";
+import { Container } from "@mui/material";
 
 // Custom Components
 export const metadata = {
@@ -16,9 +17,23 @@ export default function RootLayout({ children }) {
 		<html
 			lang="fa-IR"
 			dir="rtl">
+			<head>
+				<meta
+					name="google-site-verification"
+					content="afypnORVZwz-knlbrGi5xMH1mnSI5gbc1OW9IVqTKnA"
+				/>
+			</head>
 			<body>
 				<MenuItemSelectorProvider>
-					<ThemeProvider>{children}</ThemeProvider>
+					<ThemeProvider>
+						<Container
+							sx={{
+								padding: 0,
+							}}
+							maxWidth="xl">
+							{children}
+						</Container>
+					</ThemeProvider>
 				</MenuItemSelectorProvider>
 			</body>
 		</html>

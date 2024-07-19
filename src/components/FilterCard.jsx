@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import {
 	Card,
@@ -26,6 +27,7 @@ const FilterCard = ({
 	setMinPrice,
 	maxPrice,
 	setMaxPrice,
+	setSelectedBrands,
 	isModal = false,
 }) => {
 	const initialState = {
@@ -100,6 +102,7 @@ const FilterCard = ({
 			newChecked.splice(currentIndex, 1);
 		}
 		setFilters({ ...filters, dropdownFilter: newChecked });
+		setSelectedBrands(newChecked);
 	};
 
 	// Inside FilterCard component, when handling text field changes for price range
@@ -144,7 +147,7 @@ const FilterCard = ({
 				!isModal
 					? {
 							height: "100%",
-							display: { xs: "none", md: "flex" },
+							display: { xs: "none", lg: "flex" },
 							justifyContent: "center",
 							alignItems: "center",
 					  }
@@ -319,7 +322,11 @@ const FilterCard = ({
 								sx={{ flex: 1 }}
 							/>
 						</Box>
-						<Box sx={{ display: "flex", alignItems: "center" }}>
+						<Box
+							sx={{
+								display: "flex",
+								// alignItems: "center"
+							}}>
 							<Typography sx={{ color: "rgba(0, 0, 0, 0.7)", mr: 1 }}>
 								تا
 							</Typography>

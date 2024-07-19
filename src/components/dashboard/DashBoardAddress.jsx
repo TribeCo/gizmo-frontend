@@ -43,7 +43,7 @@ export default function DashBoardAddress() {
 		} catch (error) {
 			console.error("Error fetching addresses:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در دریافت آدرس‌ها.",
+				message: "خطا در دریافت آدرس‌ها.",
 				variant: "error",
 			});
 		}
@@ -76,15 +76,22 @@ export default function DashBoardAddress() {
 				});
 				return;
 			}
-			const response = (await MakeDefaultAddress(selectedAddressId, tokens))
-				.messages;
-			setAddress((await fetchAddresses(tokens)).data);
-			enqueueSnackbar({ message: `${response}`, variant: "success" });
+			const response = await MakeDefaultAddress(selectedAddressId, tokens);
+			if (response.ok) {
+				setAddress((await fetchAddresses(tokens)).data);
+				enqueueSnackbar({
+					message: "آدرس پیشفرض با موفقیت تغییر کرد.",
+					variant: "success",
+				});
+			} else {
+				enqueueSnackbar({
+					message: "خطا در تنظیم به عنوان آدرس پیش‌فرض.",
+					variant: "error",
+				});
+			}
 		} catch (error) {
-			console.error("خطا در تنظیم آدرس پیش‌فرض:", error);
-			alert();
 			enqueueSnackbar({
-				message: `${error.message}` || "خطا در تنظیم به عنوان آدرس پیش‌فرض.",
+				message: "خطا در تنظیم به عنوان آدرس پیش‌فرض.",
 				variant: "error",
 			});
 		}
@@ -107,19 +114,18 @@ export default function DashBoardAddress() {
 			if (response.status === 204) {
 				setAddress((await fetchAddresses(tokens)).data);
 				enqueueSnackbar({
-					message: response.message || "آدرس با موفقیت حذف شد.",
+					message: "آدرس با موفقیت حذف شد.",
 					variant: "success",
 				});
 			} else {
 				enqueueSnackbar({
-					message: response.message || "آدرس با موفقیت حذف نشد.",
+					message: "آدرس با موفقیت حذف نشد.",
 					variant: "error",
 				});
 			}
 		} catch (error) {
-			console.error("خطا در حذف آدرس:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در حذف آدرس:",
+				message: "خطا در حذف آدرس",
 				variant: "error",
 			});
 		}
@@ -130,7 +136,7 @@ export default function DashBoardAddress() {
 			const response = await AddNewAddress(Address, tokens);
 			if (response) {
 				enqueueSnackbar({
-					message: response.messages || "آدرس با موفقیت اضافه شد.",
+					message: "آدرس با موفقیت اضافه شد.",
 					variant: "success",
 				});
 				setAddress((await fetchAddresses(tokens)).data);
@@ -144,7 +150,7 @@ export default function DashBoardAddress() {
 		} catch (error) {
 			console.error("خطا در ارسال داده به API:", error);
 			enqueueSnackbar({
-				message: error.message || "افزودن آدرس جدید ناموفق بود.",
+				message: "افزودن آدرس جدید ناموفق بود.",
 				variant: "error",
 			});
 		}
@@ -386,9 +392,8 @@ export default function DashBoardAddress() {
 									min={0}
 									className="resize-none px-2 bg-[#EEEE] w-[90%] h-8 rounded-lg mt-2 outline-none"
 								/>
-								<div className="mt-4 flex justify-end lg:justify-center">
+								<div className="mt-4 flex justify-end lg:justify-center px-10">
 									<Button
-										className=""
 										variant="contained"
 										onClick={AddAddress}
 										sx={{
@@ -397,7 +402,6 @@ export default function DashBoardAddress() {
 											borderRadius: "50px",
 											boxShadow: "none",
 											mt: 1.5,
-											mr: 7,
 											px: 4,
 											"&:hover": {
 												bgcolor: Colors.orange,

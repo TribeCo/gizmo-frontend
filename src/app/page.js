@@ -17,6 +17,7 @@ import {
 } from "@/services/Landing";
 import GizmoLog from "@/components/landing/GizmoLog";
 import RecentlySeen from "@/components/RecentlySeen";
+import { Container } from "@mui/material";
 
 export default async function Home() {
 	// APIs

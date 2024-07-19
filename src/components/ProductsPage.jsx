@@ -5,7 +5,6 @@ import { Box } from "@mui/material";
 import ProductsGrid from "@/components/ProductsGrid";
 import LineSplitter from "@/components/LineSpliter";
 import { baseUrl } from "@/services";
-// import { products } from '@/utils/fakeProduct';
 
 function ProductsPage({ categoryName }) {
 	const [productsList, setProductsList] = useState([]);

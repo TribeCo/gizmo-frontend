@@ -30,8 +30,8 @@ export const fetchFactors = async (id, tokens) => {
 				Authorization: `Bearer ${tokens.access}`,
 			},
 			next: {
-				revalidate: 1
-			}
+				revalidate: 1,
+			},
 		});
 
 		console.log(response);
@@ -236,14 +236,13 @@ export const fetchInformation = async (tokens) => {
 				Authorization: `Bearer ${tokens.access}`,
 			},
 		});
-		console.log(response);
 		if (!response.ok) {
-			console.log("first");
 			return null;
 		}
 		return response.json();
 	} catch (error) {
 		console.error("There was a problem with the fetch operation:", error);
+		return null;
 	}
 };
 
@@ -295,9 +294,9 @@ export const EditPassword = async (passwordData, tokens) => {
 			},
 			body: JSON.stringify(passwordData),
 		});
-			if (!response.ok) {
-				console.log(response);
-			}
+		if (!response.ok) {
+			console.log(response);
+		}
 
 		return response.json();
 	} catch (error) {

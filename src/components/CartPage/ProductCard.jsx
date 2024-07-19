@@ -10,16 +10,16 @@ import {
 	Paper,
 	CardMedia,
 } from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Delete, Remove } from "@mui/icons-material";
 import { convert } from "@/utils";
 import { useCart } from "@/context/CartContext";
 import { enqueueSnackbar } from "notistack";
 import Loading from "../Loading";
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data, getData }) => {
 	const { addToCart, removeFromCart } = useCart();
 	const [count, setCount] = useState(data.quantity);
-	const [loading, setloading] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const onIncrement = () => {
 		if (data.product.max_amount <= count) {
@@ -39,15 +39,14 @@ const ProductCard = ({ data }) => {
 
 	const onDecrement = () => {
 		if (count > 1) {
-			setloading(true);
+			setLoading(true);
 			removeFromCart(data.id);
 			setCount(count - 1);
-			setloading(false);
+			setLoading(false);
 		} else if (count === 1) {
-			setloading(true);
 			removeFromCart(data.id);
 			setCount(count - 1);
-			setloading(false);
+			getData();
 			enqueueSnackbar({
 				message: "محصول با موفقیت حذف شد",
 				variant: "success",
@@ -57,7 +56,10 @@ const ProductCard = ({ data }) => {
 
 	return (
 		<>
-			<Loading open={loading} />
+			<Loading
+				open={loading}
+				handleClose={() => setLoading(false)}
+			/>
 			<Grid>
 				<Grid
 					display="flex"
@@ -242,19 +244,35 @@ const ProductCard = ({ data }) => {
 									{convert(count)}
 								</Typography>
 
-								<Button
-									sx={{
-										borderRadius: "3px",
-										height: "41px",
-										width: "35px",
-										minWidth: "0px !important",
-										color: "#747678",
-										borderColor: "#747678",
-									}}
-									onClick={onDecrement}
-									variant="outlined"
-									endIcon={<Remove sx={{ marginLeft: "-30% " }} />}
-								/>
+								{count === 1 ? (
+									<Button
+										sx={{
+											borderRadius: "3px",
+											height: "41px",
+											width: "35px",
+											minWidth: "0px !important",
+											color: "#F00",
+											borderColor: "#F00",
+										}}
+										onClick={onDecrement}
+										variant="outlined"
+										endIcon={<Delete sx={{ marginLeft: "-30% " }} />}
+									/>
+								) : (
+									<Button
+										sx={{
+											borderRadius: "3px",
+											height: "41px",
+											width: "35px",
+											minWidth: "0px !important",
+											color: "#747678",
+											borderColor: "#747678",
+										}}
+										onClick={onDecrement}
+										variant="outlined"
+										endIcon={<Remove sx={{ marginLeft: "-30% " }} />}
+									/>
+								)}
 							</Box>
 						</Grid>
 						<Grid>

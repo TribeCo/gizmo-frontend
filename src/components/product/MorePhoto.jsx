@@ -55,7 +55,6 @@ const MorePhoto = ({ title, image, imageList }) => {
 				<PhotosModal
 					open={openDialog}
 					handleClose={handleClose}
-					mainImage={image}
 					title={title}
 					imageList={imageList}
 				/>

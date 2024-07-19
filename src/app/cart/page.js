@@ -48,7 +48,7 @@ const CartPage = () => {
 	//? Contexts
 	const { tokens } = useAuth();
 	const router = useRouter();
-	const { getCart, readCart } = useCart();
+	const { getCart, readCart, saveCart } = useCart();
 
 	//? Page number
 	const [state, setState] = useState(0);
@@ -132,20 +132,33 @@ const CartPage = () => {
 				setState(1);
 			} else {
 				setLoading(true);
-				const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${tokens.access}`,
-					},
-					next: {
-						revalidate: 1,
-					},
-				});
-				if (userResponse.ok) {
-					setUser(await userResponse.json());
-					setState(1);
-				} else {
+				try {
+					if (!tokens || !tokens.access) {
+						throw new Error("Access token is missing");
+					}
+
+					const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${tokens.access}`,
+						},
+						next: {
+							revalidate: 1,
+						},
+					});
+
+					if (userResponse.ok) {
+						setUser(await userResponse.json());
+						setState(1);
+					} else {
+						enqueueSnackbar({
+							message: "لطفا برای ادامه دادن وارد شوید",
+							variant: "warning",
+						});
+					}
+				} catch (error) {
+					console.error("Error fetching user info:", error);
 					enqueueSnackbar({
 						message: "لطفا برای ادامه دادن وارد شوید",
 						variant: "warning",
@@ -185,6 +198,7 @@ const CartPage = () => {
 			const response = await readCart();
 			console.log(response);
 			setData(response.cart.items);
+			saveCart(response.cart.items);
 			setTotals({
 				total_price_method: response.cart.total_price_method,
 				total_discounted_price_method:
@@ -220,6 +234,7 @@ const CartPage = () => {
 			const response = await readCart();
 			console.log(response);
 			setData(response.cart.items);
+			saveCart(response.cart.items);
 			setTotals({
 				total_price_method: response.cart.total_price_method,
 				total_discounted_price_method:
@@ -231,7 +246,7 @@ const CartPage = () => {
 			setLoading(false);
 			if (res.message === "کد تخفیف با موفقیت اعمال شد.") {
 				enqueueSnackbar({
-					message: res.message,
+					message: "کد تخفیف با موفقیت اعمال شد.",
 					variant: "success",
 				});
 			} else {
@@ -249,58 +264,68 @@ const CartPage = () => {
 		}
 	};
 
+	const getData = async () => {
+		setLoading(true);
+		try {
+			if (tokens) {
+				const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${tokens.access}`,
+					},
+					next: {
+						revalidate: 1,
+					},
+				});
+				if (userResponse.ok) {
+					setUser(await userResponse.json());
+					const response = await readCart();
+					console.log(response.cart);
+					setData(response.cart.items);
+					saveCart(response.cart.items);
+					setTotals({
+						total_price_method: response.cart.total_price_method,
+						total_discounted_price_method:
+							response.cart.total_discounted_price_method,
+						delta_discounted_method: response.cart.delta_discounted_method,
+						coupon: response.cart.coupon_discount,
+						coupon_code: response.cart.coupon.code,
+					});
+					setLoading(false);
+					return;
+				}
+			}
+			const res = await getCart();
+			console.log(res.data.temp_items);
+			setData(res.data.temp_items);
+			setTotals({
+				total_price_method: res.data.total_price_method,
+				total_discounted_price_method: res.data.total_discounted_price_method,
+				delta_discounted_method: res.data.delta_discounted_method,
+				coupon: 0,
+			});
+		} catch (error) {
+			enqueueSnackbar({
+				message: "در هنگام دریافت سبد خرید خطایی رخ داد.",
+				variant: "error",
+			});
+		}
+		setLoading(false);
+	};
+
 	//? Component Life Cycle
 	useEffect(() => {
-		const getData = async () => {
-			try {
-				// setLoading(true);
-				if (tokens) {
-					const userResponse = await fetch(`${baseUrl}/api/users/info/`, {
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `Bearer ${tokens.access}`,
-						},
-						next: {
-							revalidate: 1000,
-						},
-					});
-					if (userResponse.ok) {
-						setUser(await userResponse.json());
-						const response = await readCart();
-						console.log(response.cart);
-						setData(response.cart.items);
-						setTotals({
-							total_price_method: response.cart.total_price_method,
-							total_discounted_price_method:
-								response.cart.total_discounted_price_method,
-							delta_discounted_method: response.cart.delta_discounted_method,
-							coupon: response.cart.coupon_discount,
-							coupon_code: response.cart.coupon.code,
-						});
-						return;
-					}
-				}
-				const res = await getCart();
-				console.log(res.data.temp_items);
-				setData(res.data.temp_items);
-				setTotals({
-					total_price_method: res.data.total_price_method,
-					total_discounted_price_method: res.data.total_discounted_price_method,
-					delta_discounted_method: res.data.delta_discounted_method,
-					coupon: 0,
-				});
-				// setLoading(false);
-			} catch (error) {}
-		};
-
 		getData();
-	}, [tokens, readCart, getCart]);
+	}, [tokens]);
 
 	//? Render
 	return (
 		<>
-			<Loading open={loading} />
+			<Loading
+				open={loading}
+				handleClose={() => setLoading(false)}
+			/>
 			<Box
 				sx={{
 					display: "flex",
@@ -341,7 +366,10 @@ const CartPage = () => {
 					</>
 				) : (
 					<>
-						<First data={data} />
+						<First
+							data={data}
+							getData={getData}
+						/>
 						<Summary
 							user={user}
 							data={totals}

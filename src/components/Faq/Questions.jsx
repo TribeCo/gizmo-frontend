@@ -80,6 +80,7 @@ export default function Questions({ questions, reset, photo }) {
                     </Grid>
                 </Grid>
                 <Grid
+                    px={{xs: 2.5, md: 0}}
                     display='flex'
                     flexDirection='column'
                     justifyContent='center'

@@ -76,12 +76,14 @@ export default function BlogCard({ data, background_color, font_color }) {
 							display: "flex",
 							flexDirection: { xs: "column-reverse", sm: "row" },
 							justifyContent: "space-between",
+							gap: 0.5,
 							mt: { xs: 0, sm: 2, md: 5 },
-							mx: 1,
+							mx: { xs: 0, sm: 1 },
 						}}>
 						<Link href={`/gizmolog/${data.slug}`}>
 							<Button
 								variant="contained"
+								fullWidth
 								sx={{
 									borderRadius: "20px",
 									backgroundColor: Colors.orange,
@@ -93,7 +95,7 @@ export default function BlogCard({ data, background_color, font_color }) {
 								<Typography
 									variant="body1"
 									sx={{
-										fontSize: { xs: 8, sm: 10, md: 20, lg: 16 },
+										fontSize: { xs: 10, sm: 10, md: 20, lg: 16 },
 									}}>
 									{"بیشتر بخوانید"}
 								</Typography>
@@ -101,6 +103,7 @@ export default function BlogCard({ data, background_color, font_color }) {
 						</Link>
 						<Box
 							display="flex"
+							justifyContent="end"
 							pt={1}>
 							{font_color === "white" ? (
 								<Grid
@@ -163,7 +166,7 @@ export default function BlogCard({ data, background_color, font_color }) {
 								color={font_color}
 								sx={{
 									fontSize: { xs: 8, sm: 14 },
-									pl: 1,
+									pl: { xs: 0, sm: 1 },
 									pt: { xs: "7px", sm: "4px" },
 								}}>
 								{data.date}

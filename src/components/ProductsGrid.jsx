@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react"; 
-import React, { useState, useEffect } from "react";
 import { Box, Fab, Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import FilterBar from "./FilterBar";

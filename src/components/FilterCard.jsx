@@ -13,7 +13,6 @@ import {
 	AccordionSummary,
 	AccordionDetails,
 	Typography,
-	IconButton,
 	InputAdornment,
 	Button,
 } from "@mui/material";
@@ -22,7 +21,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const FilterCard = ({
 	filterList,
-	dropdownOptions,
+	brandList,
+	setBrandList,
 	minPrice,
 	setMinPrice,
 	maxPrice,
@@ -56,9 +56,8 @@ const FilterCard = ({
 		});
 	}, [filterList]);
 
-	// Adjusted function to format numbers with commas and convert to Persian digits
 	const formatNumberWithCommas = (value) => {
-		const englishValue = value.replace(/[^\d]/g, ""); // Strip non-numeric characters
+		const englishValue = value.replace(/[^\d]/g, "");
 		const formattedValue = englishValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
 		const convertedToPersian = formattedValue.replace(
@@ -92,9 +91,11 @@ const FilterCard = ({
 		filter.setState(event.target.checked);
 	};
 
-	const handleDropdownChange = (option) => {
-		const currentIndex = filters.dropdownFilter.indexOf(option);
-		const newChecked = [...filters.dropdownFilter];
+    const handleDropdownChange = (brand) => {
+        setBrandList(prevBrandList => prevBrandList.map(
+            ([name, selected]) => name === brand ? [name, !selected] : [name, selected]
+        ));
+    };
 
 		if (currentIndex === -1) {
 			newChecked.push(option);
@@ -104,29 +105,28 @@ const FilterCard = ({
 		setFilters({ ...filters, dropdownFilter: newChecked });
 		setSelectedBrands(newChecked);
 	};
-
-	// Inside FilterCard component, when handling text field changes for price range
+	
 	const handleMinPriceChange = (filter, rawFilter) => (event) => {
-		const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+		const numericValue = normalizeInput(event.target.value);
 		const formattedValue = formatNumberWithCommas(numericValue);
 		setFilters({
 			...filters,
 			[filter]: formattedValue,
 			[rawFilter]: numericValue,
 		});
-		setMinPrice(numericValue); // Use the passed setter function to update minPrice
+		setMinPrice(numericValue);
 		console.log(minPrice);
 	};
 
 	const handleMaxPriceChange = (filter, rawFilter) => (event) => {
-		const numericValue = normalizeInput(event.target.value); // Normalize input to get raw numeric value
+		const numericValue = normalizeInput(event.target.value);
 		const formattedValue = formatNumberWithCommas(numericValue);
 		setFilters({
 			...filters,
 			[filter]: formattedValue,
 			[rawFilter]: numericValue,
 		});
-		setMaxPrice(numericValue); // Use the passed setter function to update maxPrice
+		setMaxPrice(numericValue);
 		console.log(maxPrice);
 	};
 
@@ -160,19 +160,19 @@ const FilterCard = ({
 			}>
 			<Card
 				sx={{
-					width: { xs: "100%", xl: "340px" }, // Takes full width of the Box container
-					height: "100%", // Takes full height of the Box container
+					width: { xs: "100%", xl: "340px" }, 
+					height: "100%",
 					bgcolor: "#FFFFFF",
 					borderColor: "#C0C2CE40",
 					borderWidth: "1px",
 					borderStyle: "solid",
 					display: "flex",
 					flexDirection: "column",
-					justifyContent: "space-around", // Adjust based on your content
+					justifyContent: "space-around",
 					alignItems: "center",
-					padding: "20px", // Add padding inside the card
+					padding: "20px", 
 					borderRadius: "25px",
-					position: "relative", // To position the reset button absolutely within the card
+					position: "relative",
 				}}>
 				{/* Reset Button */}
 				<Button
@@ -184,8 +184,8 @@ const FilterCard = ({
 						right: 20,
 						".MuiTypography-root": {
 							fontSize: {
-								xs: "0.75rem", // Smaller screens
-								sm: "0.9rem", // Larger screens
+								xs: "0.75rem",
+								sm: "0.9rem",
 							},
 							fontWeight: "bold",
 						},
@@ -235,40 +235,40 @@ const FilterCard = ({
 				))}
 				{/* Accordion for Checkbox Filters */}
 				<Accordion
-					sx={{
-						width: "100%",
-						boxShadow: "none",
-						marginBlock: "0.1rem",
-						padding: "5px",
-						backgroundColor: "#FFFFFF",
-					}}
-					disableGutters>
-					<AccordionSummary
-						expandIcon={<ExpandMoreIcon />}
-						aria-controls="panel-checkboxes-content"
-						id="panel-checkboxes-header"
-						sx={{
-							"&.Mui-focused": { boxShadow: "none" },
-							"&:hover": { backgroundColor: "transparent" },
-						}}>
-						<Typography sx={{ fontWeight: "bold" }}>برندها</Typography>
-					</AccordionSummary>
-					<AccordionDetails sx={{ flexDirection: "column", display: "flex" }}>
-						{dropdownOptions.map((option) => (
-							<FormControlLabel
-								key={option}
-								control={
-									<Checkbox
-										checked={filters.dropdownFilter.indexOf(option) > -1}
-										onChange={() => handleDropdownChange(option)}
-									/>
-								}
-								label={option}
-								sx={{ ml: 0, p: 0 }}
-							/>
-						))}
-					</AccordionDetails>
-				</Accordion>
+                sx={{
+                    width: "100%",
+                    boxShadow: "none",
+                    marginBlock: "0.1rem",
+                    padding: "5px",
+                    backgroundColor: "#FFFFFF",
+                }}
+                disableGutters>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel-checkboxes-content"
+                    id="panel-checkboxes-header"
+                    sx={{
+                        "&.Mui-focused": { boxShadow: "none" },
+                        "&:hover": { backgroundColor: "transparent" },
+                    }}>
+                    <Typography sx={{ fontWeight: "bold" }}>برندها</Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ flexDirection: "column", display: "flex" }}>
+                    {brandList.map(([brand, selected]) => (
+                        <FormControlLabel
+                            key={brand}
+                            control={
+                                <Checkbox
+                                    checked={selected}
+                                    onChange={() => handleDropdownChange(brand)}
+                                />
+                            }
+                            label={brand}
+                            sx={{ ml: 0, p: 0 }}
+                        />
+                    ))}
+                </AccordionDetails>
+            </Accordion>
 				{/* Accordion for TextFields */}
 				<Accordion
 					sx={{

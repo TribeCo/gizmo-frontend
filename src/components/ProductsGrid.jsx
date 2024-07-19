@@ -1,5 +1,5 @@
 "use client";
-
+import React, { useState, useEffect } from "react"; 
 import React, { useState, useEffect } from "react";
 import { Box, Fab, Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
@@ -152,11 +152,11 @@ const ProductsGrid = ({ productsList }) => {
 				/>
 				<Box
 					sx={{
-						display: "flex", // Use a flex layout
-						flexDirection: "column", // Arrange children in a column
-						alignItems: "center", // Center the items horizontally
-						width: "100%", // Take up the full width of the parent container
-						gap: 5, // Add some space between the filter bar and the grid of products
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						width: "100%",
+						gap: 5,
 						px: 1,
 					}}>
 					<FilterBar

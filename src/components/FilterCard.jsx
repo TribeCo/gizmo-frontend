@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import {
 	Card,
@@ -27,15 +26,14 @@ const FilterCard = ({
 	setMinPrice,
 	maxPrice,
 	setMaxPrice,
-	setSelectedBrands,
 	isModal = false,
 }) => {
 	const initialState = {
 		dropdownFilter: [],
 		textFieldFilter1: "",
 		textFieldFilter2: "",
-		rawTextFieldFilter1: "", // Add raw state
-		rawTextFieldFilter2: "", // Add raw state
+		rawTextFieldFilter1: "",
+		rawTextFieldFilter2: "",
 	};
 
 	filterList.forEach((filter) => {
@@ -96,15 +94,6 @@ const FilterCard = ({
             ([name, selected]) => name === brand ? [name, !selected] : [name, selected]
         ));
     };
-
-		if (currentIndex === -1) {
-			newChecked.push(option);
-		} else {
-			newChecked.splice(currentIndex, 1);
-		}
-		setFilters({ ...filters, dropdownFilter: newChecked });
-		setSelectedBrands(newChecked);
-	};
 	
 	const handleMinPriceChange = (filter, rawFilter) => (event) => {
 		const numericValue = normalizeInput(event.target.value);
@@ -147,7 +136,7 @@ const FilterCard = ({
 				!isModal
 					? {
 							height: "100%",
-							display: { xs: "none", lg: "flex" },
+							display: { xs: "none", md: "flex" },
 							justifyContent: "center",
 							alignItems: "center",
 					  }
@@ -174,7 +163,6 @@ const FilterCard = ({
 					borderRadius: "25px",
 					position: "relative",
 				}}>
-				{/* Reset Button */}
 				<Button
 					onClick={resetFilters}
 					sx={{
@@ -193,7 +181,6 @@ const FilterCard = ({
 					<DeleteIcon />
 					<Typography>حذف فیلترها</Typography>
 				</Button>
-				{/* Typography "فیلتر ها" at the top right */}
 				<Typography
 					variant="h5"
 					sx={{
@@ -233,7 +220,6 @@ const FilterCard = ({
 						<Divider sx={{ width: "100%", bgcolor: "#C0C2CE40" }} />
 					</React.Fragment>
 				))}
-				{/* Accordion for Checkbox Filters */}
 				<Accordion
                 sx={{
                     width: "100%",
@@ -269,7 +255,6 @@ const FilterCard = ({
                     ))}
                 </AccordionDetails>
             </Accordion>
-				{/* Accordion for TextFields */}
 				<Accordion
 					sx={{
 						width: "100%",
@@ -322,11 +307,7 @@ const FilterCard = ({
 								sx={{ flex: 1 }}
 							/>
 						</Box>
-						<Box
-							sx={{
-								display: "flex",
-								// alignItems: "center"
-							}}>
+						<Box sx={{ display: "flex", alignItems: "center" }}>
 							<Typography sx={{ color: "rgba(0, 0, 0, 0.7)", mr: 1 }}>
 								تا
 							</Typography>

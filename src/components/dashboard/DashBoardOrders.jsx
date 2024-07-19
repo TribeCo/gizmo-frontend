@@ -8,8 +8,9 @@ import { calculateOrderLevel, fetchOrders } from '@/services/DashBoard';
 import { useAuth } from '@/context/AuthContext';
 import { toPersianDigits } from '@/utils/convert';
 import { enqueueSnackbar } from "notistack";
+import ProductNotFound from '../ProductNotFound';
 
-export default function DashBoardOrders({ setId ,handleClick }) {
+export default function DashBoardOrders({ setId, handleClick }) {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [inputValue, setInputValue] = useState('');
@@ -18,7 +19,7 @@ export default function DashBoardOrders({ setId ,handleClick }) {
     const { tokens } = useAuth();
 
     useEffect(() => {
-        if(tokens) {
+        if (tokens) {
             GetOrders();
         }
 
@@ -100,9 +101,9 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                     </Typography>
                     <Divider
                         sx={{
-                            display: { xs: 'block', sm: 'none' }, // Only display the divider on xs screens
+                            display: { xs: 'block', sm: 'none' },
                             width: '100%',
-                            my: 2, // Margin top and bottom for spacing around the divider
+                            my: 2,
                         }}
                     />
                     <TextField
@@ -162,115 +163,119 @@ export default function DashBoardOrders({ setId ,handleClick }) {
                         'scrollbar-width': 'none', // Hide scrollbar for Firefox
                     }}
                 >
-                    {filteredOrders.map((order, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                bgcolor: '#F7F7F7',
-                                borderRadius: '20px',
-                                pl: { xs: '15px', md: '40px' },
-                                pt: { xs: '15px', md: '30px' },
-                                width: { xs: '100%', lg: 'auto' },
-                                height: { xs: 'auto', md: 'auto' },
-                                boxSizing: 'border-box',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                flexDirection: 'column',
-                                marginBottom: '10px',
-                            }}
-                        >
-                            <Grid container spacing={2} sx={{ width: '100%' }}>
-                                <Grid item xs={12} md={6}>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        کد پیگیری: {toPersianDigits(order.ref_id)}<span style={{ marginLeft: '20px', visibility: 'hidden' }}>A</span>
-                                    </Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        آدرس ارسال: <span style={{ marginRight: '20px' }}></span>{`استان: ${order.address.province}, شهر: ${order.address.city}, آدرس: ${order.address.straight_address}, کد پستی: ${order.address.postal_code}`}
-                                    </Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        نام گیرنده: <span style={{ marginRight: '30px' }}></span>{order.user.full_name}
-                                    </Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
-                                        تاریخ سفارش: {toPersianDigits(order.shamsi_date)}<span style={{ marginLeft: '2px', visibility: 'hidden' }}>A</span>
-                                    </Typography>
-                                </Grid>
+                    {filteredOrders.length === 0 ? (
+                        <ProductNotFound />
+                    ) : (
+                        filteredOrders.map((order, index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    bgcolor: '#F7F7F7',
+                                    borderRadius: '20px',
+                                    pl: { xs: '15px', md: '40px' },
+                                    pt: { xs: '15px', md: '30px' },
+                                    width: { xs: '100%', lg: 'auto' },
+                                    height: { xs: 'auto', md: 'auto' },
+                                    boxSizing: 'border-box',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexDirection: 'column',
+                                    marginBottom: '10px',
+                                }}
+                            >
+                                <Grid container spacing={2} sx={{ width: '100%' }}>
+                                    <Grid item xs={12} md={6}>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
+                                            کد پیگیری: {toPersianDigits(order.ref_id)}<span style={{ marginLeft: '20px', visibility: 'hidden' }}>A</span>
+                                        </Typography>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
+                                            آدرس ارسال: <span style={{ marginRight: '20px' }}></span>{`استان: ${order.address.province}, شهر: ${order.address.city}, آدرس: ${order.address.straight_address}, کد پستی: ${order.address.postal_code}`}
+                                        </Typography>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
+                                            نام گیرنده: <span style={{ marginRight: '30px' }}></span>{order.user.full_name}
+                                        </Typography>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: '6px' }} align="left">
+                                            تاریخ سفارش: {toPersianDigits(order.shamsi_date)}<span style={{ marginLeft: '2px', visibility: 'hidden' }}>A</span>
+                                        </Typography>
+                                    </Grid>
 
-                                {/* Second Column */}
-                                <Grid item sm={6} md={2.5} sx={{ display: { xs: 'none', md: 'block' } }}>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش:</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف:</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت:</Typography>
-                                </Grid>
+                                    {/* Second Column */}
+                                    <Grid item sm={6} md={2.5} sx={{ display: { xs: 'none', md: 'block' } }}>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش:</Typography>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف:</Typography>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت:</Typography>
+                                    </Grid>
 
-                                {/* Second Column */}
-                                <Grid item xs={12} sx={{ display: { xs: 'block', md: 'none' } }}>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش: {toPersianDigits(order.total_price)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف: {toPersianDigits(order.discount_amount)}<span style={{ marginRight: '45px', visibility: 'hidden' }}>A</span> تومان</Typography>
-                                    <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت: {toPersianDigits(order.pay_amount)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
-                                </Grid>
+                                    {/* Second Column */}
+                                    <Grid item xs={12} sx={{ display: { xs: 'block', md: 'none' } }}>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">قیمت کل سفارش: {toPersianDigits(order.total_price)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">میزان تخفیف: {toPersianDigits(order.discount_amount)}<span style={{ marginRight: '45px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                        <Typography sx={{ color: '#44434C', fontSize: '14px', fontWeight: '700', padding: { xs: '4px', md: '3px' } }} align="left">مبلغ قابل پرداخت: {toPersianDigits(order.pay_amount)}<span style={{ marginRight: '20px', visibility: 'hidden' }}>A</span> تومان</Typography>
+                                    </Grid>
 
-                                {/* Third Column */}
-                                <Grid item sm={12} md={3} sx={{ position: 'relative', bottom: { xs: '100px', sm: '165px', md: '0px' }, pr: { xs: '30px', sm: '20px', md: '0px' }, display: { xs: 'none', md: 'block' } }}>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{toPersianDigits(order.total_price)} تومان</Typography>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{toPersianDigits(order.discount_amount)} تومان</Typography>
-                                    <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '700' }} align="right">{toPersianDigits(order.pay_amount)} تومان</Typography>
+                                    {/* Third Column */}
+                                    <Grid item sm={12} md={3} sx={{ position: 'relative', bottom: { xs: '100px', sm: '165px', md: '0px' }, pr: { xs: '30px', sm: '20px', md: '0px' }, display: { xs: 'none', md: 'block' } }}>
+                                        <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{toPersianDigits(order.total_price)} تومان</Typography>
+                                        <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '500', marginBottom: '6px' }} align="right">{toPersianDigits(order.discount_amount)} تومان</Typography>
+                                        <Typography sx={{ color: '#212121D6', fontSize: '14px', fontWeight: '700' }} align="right">{toPersianDigits(order.pay_amount)} تومان</Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            {/* Dropdown arrow and text */}
-                            <Box sx={{ alignSelf: { xs: 'center', md: 'flex-end' }, cursor: 'pointer', display: 'flex', alignItems: 'center', paddingRight: { xs: '0px', md: '30px' }, paddingTop: '10px', position: 'relative', bottom: { md: '40px' }, paddingBottom: '10px' }} onClick={() => handleExpandClick(index)}>
-                                <Typography sx={{ fontWeight: '700', color: '#22668D', fontSize: '14px' }}>پیگیری سفارش</Typography>
-                                <IconButton
-                                    aria-expanded={expanded[index]}
-                                    aria-label="show more"
-                                    size="small"
-                                >
-                                    <ExpandMoreIcon sx={{ transform: expanded[index] ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s', color: '#22668D' }} />
-                                </IconButton>
-                            </Box>
-                            {expanded[index] && (
-                                <Box
-                                    sx={{
-                                        width: '100%',
-                                        display: 'flex', // Use flexbox layout
-                                        flexDirection: 'column', // Stack children vertically
-                                        alignItems: 'center', // Center children horizontally
-                                        justifyContent: 'center', // Center children vertically (if you have a set height and want to center vertically as well)
-                                        gap: '10px', // Optional: Adds space between the children
-                                    }}
-                                >
-                                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                                        <LevelofOrdering level={calculateOrderLevel(order.processed, order.packing, order.shipped, order.deliveried)} />
-                                    </Box>
-                                    <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-                                        <LevelofOrdering level={calculateOrderLevel(order.processed, order.packing, order.shipped, order.deliveried) + 4} />
-                                    </Box>
-                                    <Button
-                                        variant="contained"
-                                        onClick={() => {
-                                            handleClick(6);
-                                            setId(order.id);
-                                        }}                                        
+                                {/* Dropdown arrow and text */}
+                                <Box sx={{ alignSelf: { xs: 'center', md: 'flex-end' }, cursor: 'pointer', display: 'flex', alignItems: 'center', paddingRight: { xs: '0px', md: '30px' }, paddingTop: '10px', position: 'relative', bottom: { md: '40px' }, paddingBottom: '10px' }} onClick={() => handleExpandClick(index)}>
+                                    <Typography sx={{ fontWeight: '700', color: '#22668D', fontSize: '14px' }}>پیگیری سفارش</Typography>
+                                    <IconButton
+                                        aria-expanded={expanded[index]}
+                                        aria-label="show more"
+                                        size="small"
+                                    >
+                                        <ExpandMoreIcon sx={{ transform: expanded[index] ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s', color: '#22668D' }} />
+                                    </IconButton>
+                                </Box>
+                                {expanded[index] && (
+                                    <Box
                                         sx={{
-                                            backgroundColor: '#FFCC70', // Button background color
-                                            '&:hover': {
-                                                bgcolor: '#FFCC70',
-                                                opacity: 0.9,
-                                            },
-                                            borderRadius: '25px', // Rounded corners for button
-                                            padding: '8px 30px', // Padding inside the button
-                                            color: '#213346', // Text color
-                                            fontWeight: 'bold', // Bold text
-                                            fontSize: '14px',
-                                            marginBottom: '15px',
+                                            width: '100%',
+                                            display: 'flex', // Use flexbox layout
+                                            flexDirection: 'column', // Stack children vertically
+                                            alignItems: 'center', // Center children horizontally
+                                            justifyContent: 'center', // Center children vertically (if you have a set height and want to center vertically as well)
+                                            gap: '10px', // Optional: Adds space between the children
                                         }}
                                     >
-                                        پیگیری فاکتور
-                                    </Button>
-                                </Box>
-                            )}
-                        </Box>
-                    ))}
+                                        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                                            <LevelofOrdering level={calculateOrderLevel(order.processed, order.packing, order.shipped, order.deliveried)} />
+                                        </Box>
+                                        <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+                                            <LevelofOrdering level={calculateOrderLevel(order.processed, order.packing, order.shipped, order.deliveried) + 4} />
+                                        </Box>
+                                        <Button
+                                            variant="contained"
+                                            onClick={() => {
+                                                handleClick(6);
+                                                setId(order.id);
+                                            }}
+                                            sx={{
+                                                backgroundColor: '#FFCC70', // Button background color
+                                                '&:hover': {
+                                                    bgcolor: '#FFCC70',
+                                                    opacity: 0.9,
+                                                },
+                                                borderRadius: '25px', // Rounded corners for button
+                                                padding: '8px 30px', // Padding inside the button
+                                                color: '#213346', // Text color
+                                                fontWeight: 'bold', // Bold text
+                                                fontSize: '14px',
+                                                marginBottom: '15px',
+                                            }}
+                                        >
+                                            پیگیری فاکتور
+                                        </Button>
+                                    </Box>
+                                )}
+                            </Box>
+                        ))
+                    )}
                 </Box>
             </Box>
         </Paper>

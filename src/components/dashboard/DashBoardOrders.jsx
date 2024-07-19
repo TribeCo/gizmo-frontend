@@ -1,157 +1,75 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import {
-	Box,
-	Divider,
-	Grid,
-	Typography,
-	TextField,
-	InputAdornment,
-	IconButton,
-	Button,
-	Paper,
+  Box,
+  Divider,
+  Grid,
+  Typography,
+  IconButton,
+  Button,
+  Paper,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import SearchIcon from "@mui/icons-material/Search";
 import LevelofOrdering from "./LevelofOrdering";
 import { calculateOrderLevel, fetchOrders } from "@/services/DashBoard";
 import { useAuth } from "@/context/AuthContext";
 import { toPersianDigits } from "@/utils/convert";
 import { enqueueSnackbar } from "notistack";
+import searchIcon from "@/components/siteIcons/SearchIcon.svg";
+import Image from "next/image";
 import ProductNotFound from '../ProductNotFound';
 
 export default function DashBoardOrders({ setId, handleClick }) {
-	const [searchTerm, setSearchTerm] = useState("");
-	const [inputValue, setInputValue] = useState("");
-	const [expanded, setExpanded] = useState({});
-	const [orders, setOrders] = useState([]);
-	const { tokens } = useAuth();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [expanded, setExpanded] = useState({});
+  const [orders, setOrders] = useState([]);
+  const { tokens } = useAuth();
 
-	useEffect(() => {
-		if (tokens) {
-			GetOrders();
-		}
-		console.log(orders);
+  useEffect(() => {
+    if (tokens) {
+      GetOrders();
+    }
 
-		setSearchTerm(toPersianDigits(inputValue));
-	}, [inputValue, tokens]);
+    console.log(orders);
 
-	const handleSearchChange = (event) => {
-		const input = event.target.value;
-		const currentDisplayValue = toPersianDigits(inputValue);
-		if (input !== currentDisplayValue) {
-			const newValue = input
-				.replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, "")
-				.replace(/[۰۱۲۳۴۵۶۷۸۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-			setInputValue(newValue);
-		}
-	};
+    setSearchTerm(toPersianDigits(inputValue));
+  }, [inputValue, tokens]);
 
-	const handleExpandClick = (index) => {
-		setExpanded((prevExpanded) => ({
-			...prevExpanded,
-			[index]: !prevExpanded[index],
-		}));
-	};
+  const handleSearchChange = (event) => {
+    const input = event.target.value;
+    const currentDisplayValue = toPersianDigits(inputValue);
+    if (input !== currentDisplayValue) {
+      const newValue = input
+        .replace(/[^\d۰۱۲۳۴۵۶۷۸۹]/g, "")
+        .replace(/[۰۱۲۳۴۵۶۷۸۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+      setInputValue(newValue);
+    }
+  };
 
-	const GetOrders = async () => {
-		try {
-			const response = await fetchOrders(tokens);
-			if (response) {
-				setOrders(response.data);
-			}
-		} catch (error) {
-			enqueueSnackbar({ message: "خطا در دریافت سفارش‌ها.", variant: "error" });
-		}
-	};
+  const handleExpandClick = (index) => {
+    setExpanded((prevExpanded) => ({
+      ...prevExpanded,
+      [index]: !prevExpanded[index],
+    }));
+  };
 
-	const filteredOrders = orders.filter(
-		(order) =>
-			toPersianDigits(order.ref_id).includes(searchTerm) ||
-			order.ref_id.includes(searchTerm),
-	);
+  const GetOrders = async () => {
+    try {
+      const response = await fetchOrders(tokens);
+      if (response) {
+        setOrders(response.data);
+      }
+    } catch (error) {
+      enqueueSnackbar({ message: "خطا در دریافت سفارش‌ها.", variant: "error" });
+    }
+  };
 
-	return (
-		<Paper
-			variant="outlined"
-			sx={{
-				height: "fit-content",
-				borderRadius: "15px",
-				boxShadow: "0px 4px 5px rgba(0, 0, 0, 0.1)",
-			}}>
-			<Box
-				sx={{
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					flexDirection: "column",
-					padding: { xs: "15px", md: "50px" },
-					width: "100%",
-					maxHeight: "840px",
-				}}>
-				<Box
-					sx={{
-						width: { xs: "100%", md: "840px" },
-						display: "flex", // Use flex for all sizes for consistency
-						flexDirection: { xs: "column", sm: "row" }, // Stack elements vertically on small screens, horizontally on larger
-						justifyContent: "space-between", // Space out children to opposite ends
-						textAlign: { xs: "left", sm: "initial" }, // Text align left on xs screens, default for others
-						alignItems: { xs: "flex-start", sm: "center" }, // Align items flex-start on xs for top alignment, center for others
-					}}>
-					<Typography
-						sx={{
-							fontWeight: "700",
-							fontSize: "20px",
-							color: "#213346",
-						}}>
-						سفارشات
-					</Typography>
-					<Divider
-						sx={{
-							display: { xs: "block", sm: "none" }, // Only display the divider on xs screens
-							width: "100%",
-							my: 2, // Margin top and bottom for spacing around the divider
-						}}
-					/>
-					<TextField
-						variant="outlined"
-						size="small"
-						value={searchTerm}
-						onChange={handleSearchChange}
-						placeholder="جستجو کد پیگیری"
-						InputProps={{
-							endAdornment: (
-								<InputAdornment position="end">
-									<Box
-										sx={{
-											backgroundColor: "#22668D",
-											borderRadius: "0 15px 15px 0",
-										}}>
-										<SearchIcon
-											sx={{ color: "#fff", width: "24px", fontSize: "2.40rem" }}
-										/>
-									</Box>
-								</InputAdornment>
-							),
-							sx: {
-								borderRadius: "15px", // Add borderRadius to TextField
-								paddingRight: "0px",
-								"& .MuiOutlinedInput-root": {
-									"& fieldset": {
-										borderColor: "rgba(0, 0, 0, 0.23)", // Adjust the border color if needed
-									},
-									"&:hover fieldset": {
-										borderColor: "#22668D", // Adjust the border color on hover if needed
-									},
-									"&.Mui-focused fieldset": {
-										borderColor: "#22668D", // Adjust the border color on focus if needed
-									},
-								},
-							},
-						}}
-						sx={{ width: "230px", alignSelf: { xs: "flex-end", sm: "auto" } }} // Adjust width as needed
-					/>
-				</Box>
+  const filteredOrders = orders.filter(
+    (order) =>
+      toPersianDigits(order.ref_id).includes(searchTerm) ||
+      order.ref_id.includes(searchTerm)
+  );
 
     return (
         <Paper
@@ -199,7 +117,7 @@ export default function DashBoardOrders({ setId, handleClick }) {
                             my: 2,
                         }}
                     />
-                    <TextField
+                    {/* <TextField
                         variant="outlined"
                         size="small"
                         value={searchTerm}
@@ -209,7 +127,7 @@ export default function DashBoardOrders({ setId, handleClick }) {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <Box sx={{ backgroundColor: '#22668D', borderRadius: '0 15px 15px 0' }}>
-                                        <SearchIcon sx={{ color: '#fff', fontSize: '2.40rem' }} />
+                                        <searchIcon sx={{ color: '#fff', fontSize: '2.40rem' }} />
                                     </Box>
                                 </InputAdornment>
                             ),
@@ -230,7 +148,24 @@ export default function DashBoardOrders({ setId, handleClick }) {
                             },
                         }}
                         sx={{ width: '230px', alignSelf: { xs: 'flex-end', sm: 'auto' } }} // Adjust width as needed
-                    />
+                    /> */}
+
+                <div className="flex border rounded-xl overflow-hidden h-9">
+                  <input
+                    onChange={handleSearchChange}
+                    value={searchTerm}
+                    className="w-[85%] text-sm pr-2 rounded-r-xl"
+                    type="text"
+                    placeholder="جستجو کد پیگیری"
+                  />
+
+                  <div className="bg-palette-blue w-[15%] flex items-center justify-center">
+                    <Image
+                      alt="search Icon"
+                      src={searchIcon}
+                      width={16}></Image>
+                  </div>
+                </div>
                 </Box>
 
                 <Divider sx={{

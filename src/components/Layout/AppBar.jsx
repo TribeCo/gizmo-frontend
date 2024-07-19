@@ -335,7 +335,7 @@ const AppBar = ({ isLanding }) => {
 								onClick={handleProfileOpen}
 								variant="contained"
 								sx={{
-									p: { xs: "8px", sm: "12px" },
+									p: { xs: "6px", sm: "10px" },
 									mr: { xs: "3px" },
 									ml: { xs: 0, sm: 1 },
 									display: "flex",
@@ -618,8 +618,8 @@ const SearchField = () => {
 				type="button"
 				aria-label="search"
 				sx={{
-					p: { xs: "13px", sm: "12px" },
-					scale: { xs: "0.7", sm: "0.9" },
+					p: { xs: "15px", sm: "12px" },
+					scale: { xs: "0.6", sm: "0.9" },
 					color: "white",
 					backgroundColor: Colors.blue,
 					"&:hover": {

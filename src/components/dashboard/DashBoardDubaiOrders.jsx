@@ -63,7 +63,7 @@ export default function DashBoardDubaiOrders() {
 				borderRadius: "15px",
 				boxShadow: "0px 4px 5px rgba(0, 0, 0, 0.1)",
 			}}>
-			<section className="w-[60rem] md:w-[24rem] py-4 px-3 flex flex-col lg:w-full rounded-xl">
+			<section className="w-[60rem] py-4 px-3 flex flex-col lg:w-full rounded-xl">
 				<Grid
 					display="flex"
 					justifyContent="space-between"

@@ -17,6 +17,7 @@ const FilterCardModel = ({
 	setMaxPrice,
 	setSelectedBrands,
 	brandList,
+	setBrandList,
 }) => {
 	return (
 		<Dialog

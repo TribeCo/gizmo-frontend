@@ -1,130 +1,126 @@
 "use client";
 import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import { Box, Fab, Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import FilterBar from "./FilterBar";
 import FilterCard from "./FilterCard";
 import PersianPagination from "./PersianPagination";
-import { baseUrl } from "@/services";
 import ProductNotFound from "./ProductNotFound";
 import { FilterAlt } from "@mui/icons-material";
 import FilterCardModel from "./FilterCardModel";
+import { getBrands } from "@/services/categories";
 
 const PRODUCTS_PER_PAGE = 12;
 
 const ProductsGrid = ({ productsList }) => {
-    const [openFilterModel, setOpenFilterModel] = useState(false);
-    const [filter, setFilter] = useState("منتخب"); // Could be 'all', 'latest', 'price', 'rating'
-    const [filteredProducts, setFilteredProducts] = useState(productsList);
-    const [page, setPage] = useState(1);
-    const [isAvailable, setIsAvailable] = useState(false);
-    const [isFreeShipping, setIsFreeShipping] = useState(false);
-    const [isSpecialSale, setIsSpecialSale] = useState(false);
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(500_000_000);
-    const [brandList, setBrandList] = useState([]);
-    const pageCount = Math.ceil(productsList.length / PRODUCTS_PER_PAGE);
-    
-    const handleChange = (event, value) => {
-        setPage(value);
-    };
+	const [openFilterModel, setOpenFilterModel] = useState(false);
+	const [filter, setFilter] = useState("پیشفرض");
+	const [filteredProducts, setFilteredProducts] = useState(productsList);
+	const [page, setPage] = useState(1);
+	const [isAvailable, setIsAvailable] = useState(false);
+	const [isFreeShipping, setIsFreeShipping] = useState(false);
+	const [isSpecialSale, setIsSpecialSale] = useState(false);
+	const [minPrice, setMinPrice] = useState(0);
+	const [maxPrice, setMaxPrice] = useState(500_000_000);
+	const [brandList, setBrandList] = useState([]);
+	const [selectedBrands, setSelectedBrands] = useState([]);
+	const pageCount = Math.ceil(productsList.length / PRODUCTS_PER_PAGE);
+	const handleChange = (event, value) => {
+		setPage(value);
+	};
 
-    const paginatedProducts = filteredProducts.slice(
-        (page - 1) * PRODUCTS_PER_PAGE,
-        page * PRODUCTS_PER_PAGE,
-    );
+	const paginatedProducts = filteredProducts.slice(
+		(page - 1) * PRODUCTS_PER_PAGE,
+		page * PRODUCTS_PER_PAGE,
+	);
 
-    useEffect(() => {
-        const fetchBrands = async () => {
-            try {
-                const response = await fetch(`${baseUrl}/api/brand/all/`);
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                const data = await response.json();
-                const brands = [];
-                data.forEach((element) => {
-                    brands.push([element.name, false]);
-                });
-                setBrandList(brands);
-            } catch (error) {
-                console.error("There was a problem with the fetch operation:", error);
-            }
-        };
+	const applyFilter = () => {
+		let tempProducts = [...productsList];
+		if (isAvailable) {
+			tempProducts = tempProducts.filter((product) => product.is_available);
+		}
+		if (isFreeShipping) {
+			tempProducts = tempProducts.filter((product) => product.send_free);
+		}
+		if (isSpecialSale) {
+			tempProducts = tempProducts.filter((product) => product.net_sale);
+		}
+		if (selectedBrands.length > 0) {
+			console.log(selectedBrands);
+			tempProducts = tempProducts.filter((product) =>
+				selectedBrands.includes(product.brand_name),
+			);
+			console.log(tempProducts);
+		}
+		if (minPrice) {
+			tempProducts = tempProducts.filter(
+				(product) => product.price >= minPrice,
+			);
+		}
+		if (maxPrice) {
+			tempProducts = tempProducts.filter(
+				(product) => product.price <= maxPrice,
+			);
+		}
+		switch (filter) {
+			case "جدیدترین":
+				tempProducts.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+				break;
+			case "ارزان‌ترین":
+				tempProducts.sort((a, b) => a.price - b.price);
+				break;
+			case "گران‌ترین":
+				tempProducts.sort((a, b) => b.price - a.price);
+				break;
+			case "پرفروش‌ترین":
+				tempProducts.sort((a, b) => b.ordered - a.ordered);
+				break;
+			case "پیشفرض":
+				break; // No filter applied, so leave tempProducts as is
+		}
 
-        fetchBrands();
-    }, []); 
-
-		useEffect(() => {
-			const applyFilter = () => {
-				let tempProducts = [...productsList];
-				if (isAvailable) {
-					tempProducts = tempProducts.filter((product) => product.is_available);
-				}
-				if (isFreeShipping) {
-					tempProducts = tempProducts.filter((product) => product.send_free);
-				}
-				if (isSpecialSale) {
-					tempProducts = tempProducts.filter((product) => product.net_sale);
-				}
-				if (minPrice) {
-					tempProducts = tempProducts.filter(
-						(product) => product.price >= minPrice,
-					);
-				}
-				if (maxPrice) {
-					tempProducts = tempProducts.filter(
-						(product) => product.price <= maxPrice,
-					);
-				}
-	
-				const selectedBrands = brandList.filter(brand => brand[1]).map(brand => brand[0]);
-				if (selectedBrands.length > 0) {
-					tempProducts = tempProducts.filter(product => selectedBrands.includes(product.brand_name));
-				}
-	
-				switch (filter) {
-					case "جدیدترین":
-						tempProducts.sort(
-							(a, b) => new Date(b.updated) - new Date(a.updated),
-						);
-						break;
-					case "ارزان‌ترین":
-						tempProducts.sort((a, b) => a.price - b.price);
-						break;
-					case "گران‌ترین":
-						tempProducts.sort((a, b) => b.price - a.price);
-						break;
-					case "پرفروش‌ترین":
-						tempProducts.sort((a, b) => b.ordered - a.ordered);
-						break;
-					case "منتخب":
-						break;
-				}
-	
-				setFilteredProducts(tempProducts);
-			};
-	
-			applyFilter();
-		}, [
-			filter,
-			productsList,
-			isAvailable,
-			isFreeShipping,
-			isSpecialSale,
-			minPrice,
-			maxPrice,
-			brandList // Dependencies for filtering
-		]);
+		console.log(tempProducts);
+		return tempProducts;
+	};
+	const fetchBrands = async () => {
+		try {
+			const brandResponse = await getBrands();
+			setBrandList(brandResponse);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	useEffect(() => {
+		fetchBrands();
+	}, []);
+	useEffect(() => {
+		const newProductList = applyFilter();
+		setFilteredProducts(newProductList);
+	}, [
+		filter,
+		productsList,
+		isAvailable,
+		isFreeShipping,
+		isSpecialSale,
+		selectedBrands,
+		minPrice,
+		maxPrice,
+	]);
 
 	return (
-		<Box sx={{ pb: 12, height: "auto", width: { xs: "100vw", lg: "auto" } }}>
+		<Box
+			sx={{
+				pb: 12,
+				pl: { xs: 0, sm: 7, md: 7, lg: 0, xl: 0 },
+				height: "auto",
+				width: { xs: "100vw", lg: "auto" },
+			}}>
 			<Box
 				sx={{
 					display: "flex",
 					justifyContent: "end",
 					gap: 2,
-					width: { xs: "100vw", xl: "auto" },
 				}}>
 				<FilterCard
 					filterList={[
@@ -151,8 +147,8 @@ const ProductsGrid = ({ productsList }) => {
 					setMinPrice={setMinPrice}
 					maxPrice={maxPrice}
 					setMaxPrice={setMaxPrice}
-					brandList={brandList}
-					setBrandList={setBrandList}
+					dropdownOptions={brandList}
+					setSelectedBrands={setSelectedBrands}
 				/>
 				<Box
 					sx={{
@@ -164,15 +160,22 @@ const ProductsGrid = ({ productsList }) => {
 						px: 1,
 					}}>
 					<FilterBar
-						filterNames={["پرفروش‌ترین", "جدیدترین", "ارزان‌ترین", "گران‌ترین"]}
+						filterNames={[
+							"پیشفرض",
+							"پرفروش‌ترین",
+							"جدیدترین",
+							"ارزان‌ترین",
+							"گران‌ترین",
+						]}
 						onFilterChange={(selectedFilter) => setFilter(selectedFilter)}
 					/>
-					<Grid
-						container
-						spacing={4}
-						sx={{ width: "100%", justifyContent: "start", px: 1 }}>
-						{paginatedProducts.length > 0 ? (
-							paginatedProducts.map((product) => (
+					{paginatedProducts.length > 0 ? (
+						<Grid
+							container
+							spacing={4}
+							sx={{ width: "100%", justifyContent: "start", px: 1 }}>
+							{/* Ensure the Grid takes up the full width */}
+							{paginatedProducts.map((product) => (
 								<Grid
 									item
 									xs={6}
@@ -184,18 +187,18 @@ const ProductsGrid = ({ productsList }) => {
 									sx={{ display: "flex", alignItems: "center" }}>
 									<ProductCard product={product} />
 								</Grid>
-							))
-						) : (
-							<ProductNotFound />
-						)}
-					</Grid>
+							))}
+						</Grid>
+					) : (
+						<ProductNotFound />
+					)}
 				</Box>
 			</Box>
 			<Box
 				display="flex"
 				justifyContent="end"
 				sx={{
-					display: { xs: "flex", md: "none" },
+					display: { xs: "flex", lg: "none" },
 				}}>
 				<Fab
 					onClick={() => setOpenFilterModel(true)}
@@ -230,7 +233,7 @@ const ProductsGrid = ({ productsList }) => {
 				setMinPrice={setMinPrice}
 				setMaxPrice={setMaxPrice}
 				brandList={brandList}
-				setBrandList{...setBrandList}
+				setSelectedBrands={setSelectedBrands}
 			/>
 		</Box>
 	);

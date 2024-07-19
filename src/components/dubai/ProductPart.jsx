@@ -67,24 +67,41 @@ const ProductPart = () => {
 				enqueueSnackbar({ message: "خطایی رخ داد!", variant: "error" });
 			}
 		} catch (error) {
-			enqueueSnackbar({ message: error.message, variant: "error" });
+			enqueueSnackbar({
+				message: "خطایی در جستجوی محصول رخ داد. لطفا دوباره تلاش کنید.",
+				variant: "error",
+			});
 		}
 		setLoading(false);
 	};
 
 	const handleCreateOrder = async ({ pid }) => {
 		setLoading(true);
-		try {
-			await createOrder({
-				pid: pid,
-				tokens: tokens,
-			});
-			setShowDialog(true);
-		} catch (error) {
-			console.log(error);
+		if (tokens) {
+			try {
+				const response = await createOrder({
+					pid: pid,
+					tokens: tokens,
+				});
+				if (response.code === "token_not_valid") {
+					enqueueSnackbar({
+						message: "برای ثبت درخواست ابتدا وارد شوید.",
+						variant: "warning",
+					});
+				} else {
+					setShowDialog(true);
+				}
+			} catch (error) {
+				console.log(error);
+				enqueueSnackbar({
+					message: "خطایی رخ داد،لطفا دوباره تلاش کنید.",
+					variant: "error",
+				});
+			}
+		} else {
 			enqueueSnackbar({
-				message: "خطایی رخ داد،لطفا دوباره تلاش کنید.",
-				variant: "error",
+				message: "برای ثبت درخواست ابتدا وارد شوید.",
+				variant: "warning",
 			});
 		}
 		setLoading(false);
@@ -92,7 +109,10 @@ const ProductPart = () => {
 
 	return (
 		<>
-			<Loading open={loading} />
+			<Loading
+				open={loading}
+				handleClose={() => setLoading(false)}
+			/>
 			<Container maxWidth="xl">
 				<Box
 					sx={{

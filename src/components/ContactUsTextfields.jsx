@@ -141,11 +141,15 @@ const ContactUsTextfields = () => {
 							variant="outlined"
 							fullWidth
 							sx={{
-								backgroundColor: "#FFFFFF",
-								"& .MuiOutlinedInput-root": { borderRadius: "20px" },
-								borderRadius: "20px",
+							backgroundColor: "#FFFFFF",
+							"& .MuiOutlinedInput-root": {
+							borderRadius: "20px",
+							height: "40px",
+							fontSize: "14px",
+							},
+							borderRadius: "20px"
 							}}
-						/>
+							/>
 						{touched.name && formik.errors.name && (
 							<Typography
 								variant="subtitle2"
@@ -178,7 +182,8 @@ const ContactUsTextfields = () => {
 							fullWidth
 							sx={{
 								backgroundColor: "#FFFFFF",
-								"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+								"& .MuiOutlinedInput-root": { borderRadius: "20px",
+								height: "40px", },
 								borderRadius: "20px",
 							}}
 						/>
@@ -219,7 +224,7 @@ const ContactUsTextfields = () => {
 								backgroundColor: "#FFFFFF",
 								"& .MuiOutlinedInput-root": {
 									borderRadius: "20px",
-									height: "155px",
+									height: "135px",
 								},
 								borderRadius: "20px",
 							}}
@@ -257,7 +262,8 @@ const ContactUsTextfields = () => {
 							fullWidth
 							sx={{
 								backgroundColor: "#FFFFFF",
-								"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+								"& .MuiOutlinedInput-root": { borderRadius: "20px",
+								height: "40px", },
 								borderRadius: "20px",
 							}}
 						/>
@@ -294,7 +300,8 @@ const ContactUsTextfields = () => {
 							fullWidth
 							sx={{
 								backgroundColor: "#FFFFFF",
-								"& .MuiOutlinedInput-root": { borderRadius: "20px" },
+								"& .MuiOutlinedInput-root": { borderRadius: "20px",
+								height: "40px", },
 								borderRadius: "20px",
 							}}
 						/>

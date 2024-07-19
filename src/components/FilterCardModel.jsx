@@ -15,6 +15,7 @@ const FilterCardModel = ({
 	maxPrice,
 	setMinPrice,
 	setMaxPrice,
+	setSelectedBrands,
 	brandList,
 	setBrandList,
 }) => {
@@ -52,8 +53,8 @@ const FilterCardModel = ({
 					setMinPrice={setMinPrice}
 					maxPrice={maxPrice}
 					setMaxPrice={setMaxPrice}
-					brandList={brandList}
-					setBrandList={setBrandList}
+					dropdownOptions={brandList}
+					setSelectedBrands={setSelectedBrands}
 				/>
 			</Box>
 		</Dialog>

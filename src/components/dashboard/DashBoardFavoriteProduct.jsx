@@ -23,7 +23,7 @@ export default function DashBoardFavoriteProduct() {
 		} catch (error) {
 			console.error("Error fetching favorite products:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در دریافت محصولات مورد علاقه.",
+				message: "خطا در دریافت محصولات مورد علاقه.",
 				variant: "error",
 			});
 		}
@@ -38,27 +38,25 @@ export default function DashBoardFavoriteProduct() {
 				boxShadow: "0px 4px 5px rgba(0, 0, 0, 0.1)",
 			}}>
 			<Box
-				width={{xs: '100%', md: '900px'}}
-				height={{xs: '100%', md: '840px'}}
-				display={'flex'}
-				alignItems={'flex-start'}
-				padding={{xs: 1, md: 2}}
-				flexDirection={'column'}
-				>
-					<Typography
-						fontWeight={700}
-						fontSize={{xs: 20 ,md: 24}}
-						color={'#213346'}
-						padding={2}
-						>
-						علاقه مندی ها
-					</Typography>
-					<Divider sx={{ width: '95%', alignSelf: 'center' }} />
+				width={{ xs: "100%", md: "900px" }}
+				height={{ xs: "100%", md: "840px" }}
+				display={"flex"}
+				alignItems={"flex-start"}
+				padding={{ xs: 1, md: 2 }}
+				flexDirection={"column"}>
+				<Typography
+					fontWeight={700}
+					fontSize={{ xs: 20, md: 24 }}
+					color={"#213346"}
+					padding={2}>
+					علاقه مندی ها
+				</Typography>
+				<Divider sx={{ width: "95%", alignSelf: "center" }} />
 				<Box
 					borderRadius={10}
 					py={3}
 					sx={{
-						alignSelf: 'center',
+						alignSelf: "center",
 						overflowY: "auto",
 						overflowX: "hidden",
 						"&::-webkit-scrollbar": {
@@ -69,9 +67,8 @@ export default function DashBoardFavoriteProduct() {
 					}}>
 					<Grid
 						container
-						spacing={{xs: 1, sm: 2 ,md: 4}}
-						justifyContent="start"
-						>
+						spacing={{ xs: 1, sm: 2, md: 4 }}
+						justifyContent="start">
 						{products.map((product) => (
 							<Grid
 								item
@@ -80,9 +77,9 @@ export default function DashBoardFavoriteProduct() {
 								md={4}
 								key={product.id}
 								sx={{
-									display:'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
 								}}>
 								<ProductCard product={product} />
 							</Grid>

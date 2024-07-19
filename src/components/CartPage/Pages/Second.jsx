@@ -45,7 +45,6 @@ const Second = ({ formik, setCurrentAddress, loading }) => {
 				setCurrentAddress(ca);
 			}
 		} catch (error) {
-			console.error("Error fetching addresses:", error);
 			enqueueSnackbar({
 				message: "خطا در دریافت آدرس‌ها.",
 				variant: "error",
@@ -83,7 +82,7 @@ const Second = ({ formik, setCurrentAddress, loading }) => {
 		} catch (error) {
 			console.error("Error setting default address:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در تنظیم آدرس پیش‌فرض.",
+				message: "خطا در تنظیم آدرس پیش‌فرض.",
 				variant: "error",
 			});
 		}

@@ -23,7 +23,10 @@ const BlogComment = ({ aid, comments }) => {
 				variant: "success",
 			});
 		} catch (error) {
-			enqueueSnackbar({ message: error.message, variant: "error" });
+			enqueueSnackbar({
+				message: "خطایی رخ داد لطفا دوباره تلاش کنید.",
+				variant: "error",
+			});
 		}
 	};
 

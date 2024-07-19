@@ -26,7 +26,7 @@ export default function DashBoardNotifications() {
 		} catch (error) {
 			console.error("Error fetching notifications:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در دریافت اعلان‌ها.",
+				message: "خطا در دریافت اعلان‌ها.",
 				variant: "error",
 			});
 		}
@@ -37,14 +37,14 @@ export default function DashBoardNotifications() {
 			const response = await SeenMessages(tokens);
 			if (response) {
 				enqueueSnackbar({
-					message: response.message || "تمامی پیام‌ها دیده شدند.",
+					message: "تمامی پیام‌ها دیده شدند.",
 					variant: "success",
 				});
 			}
 		} catch (error) {
 			console.error("خطا در دیدن تمامی پیام‌ها:", error);
 			enqueueSnackbar({
-				message: error.message || "خطا در دیدن تمامی پیام‌ها.",
+				message: "خطا در دیدن تمامی پیام‌ها.",
 				variant: "error",
 			});
 		}

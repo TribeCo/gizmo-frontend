@@ -2,22 +2,23 @@
 
 import { baseUrl } from "@/services";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-	const { tokens } = useAuth();
 	const [cartList, setCartList] = useState([]);
+	const [tokens, setTokens] = useState(null);
 
 	//? Use Effect for get cart items from local storage
 	useEffect(() => {
 		const storedItems = JSON.parse(localStorage.getItem("cartList") || "[]");
+		setTokens(JSON.parse(localStorage.getItem("tokens")));
 		setCartList(storedItems);
-	}, [tokens]);
+	}, []);
 
 	//? use this function to add item to cart list (user or unknown)
 	const addToCart = async ({ color, product, quantity }) => {
+		console.log({ color, product, quantity });
 		let id;
 		let existingItemIndex = cartList.findIndex(
 			(item) => item.product === product && item.color === color,
@@ -25,7 +26,6 @@ export const CartProvider = ({ children }) => {
 
 		if (existingItemIndex !== -1) {
 			id = cartList[existingItemIndex].id;
-
 			if (tokens) {
 				try {
 					const response = await fetch(
@@ -78,7 +78,6 @@ export const CartProvider = ({ children }) => {
 							quantity,
 						}),
 					});
-
 					const { data } = await response.json();
 					if (response.ok) id = data.id;
 				} catch (error) {
@@ -91,9 +90,10 @@ export const CartProvider = ({ children }) => {
 
 			if (!id) {
 				id = cartList.length > 0 ? cartList[cartList.length - 1].id + 1 : 1;
+				newCartList.push({ id: id, color, product, quantity, is_sync: false });
+			} else {
+				newCartList.push({ id: id, color, product, quantity, is_sync: true });
 			}
-
-			newCartList.push({ id: id, color, product, quantity, is_sync: false });
 
 			setCartList(newCartList);
 			if (typeof window !== "undefined") {
@@ -112,7 +112,7 @@ export const CartProvider = ({ children }) => {
 					Authorization: `Bearer ${tokens.access}`,
 				},
 				next: {
-					revalidate: 1,
+					cache: "no-store",
 				},
 				body: JSON.stringify(cartList),
 			});
@@ -128,14 +128,19 @@ export const CartProvider = ({ children }) => {
 
 	//?
 	const removeFromCart = async (id) => {
+		console.log(cartList);
+		console.log(id);
 		const itemIndex = cartList.findIndex((item) => item.id === id);
+		console.log(itemIndex);
 		if (itemIndex === -1) {
 			return;
 		}
+		console.log(id);
 
 		const item = cartList[itemIndex];
-
+		console.log(item);
 		if (tokens) {
+			console.log(cartList);
 			try {
 				if (item.quantity > 1) {
 					const response = await fetch(
@@ -147,15 +152,13 @@ export const CartProvider = ({ children }) => {
 								Authorization: `Bearer ${tokens.access}`,
 							},
 							body: JSON.stringify({
-								color: item.color,
-								product: item.product,
+								color: item.color.id,
+								product: item.product.id,
 								quantity: item.quantity - 1,
 							}),
 						},
 					);
-
 					console.log(response);
-
 					if (!response.ok) {
 						throw new Error("Failed to update item quantity");
 					}
@@ -197,10 +200,11 @@ export const CartProvider = ({ children }) => {
 					"Content-Type": "application/json",
 				},
 				next: {
-					revalidate: 1,
+					cache: "no-store",
 				},
 				body: JSON.stringify(cartList),
 			});
+			console.log(response);
 			return response.json();
 		} catch (error) {
 			console.log(error);
@@ -208,7 +212,6 @@ export const CartProvider = ({ children }) => {
 	};
 
 	const readCart = async () => {
-		console.log(cartList);
 		if (tokens) {
 			try {
 				const response = await fetch(`${baseUrl}/api/cart/local/`, {
@@ -218,7 +221,7 @@ export const CartProvider = ({ children }) => {
 						Authorization: `Bearer ${tokens.access}`,
 					},
 					next: {
-						revalidate: 1,
+						cache: "no-store",
 					},
 				});
 				return response.json();
@@ -226,6 +229,10 @@ export const CartProvider = ({ children }) => {
 				console.log(error);
 			}
 		}
+	};
+
+	const saveCart = (newCartList) => {
+		setCartList(newCartList);
 	};
 
 	const deleteList = async () => {
@@ -237,6 +244,7 @@ export const CartProvider = ({ children }) => {
 
 	const contextData = {
 		cartList,
+		saveCart,
 		readCart,
 		addToCart,
 		removeFromCart,

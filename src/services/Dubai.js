@@ -37,7 +37,8 @@ export const createOrder = async ({ pid, tokens }) => {
 		});
 		return response.json();
 	} catch (error) {
-		return 0;
+		console.log(error);
+		throw new Error("خطایی رخ داد!");
 	}
 };
 

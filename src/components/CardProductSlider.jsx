@@ -53,65 +53,63 @@ const CardProductSlider = ({ btn, products, swapTime_millisecond }) => {
 
 	return (
 		<>
-			<Box mx="auto">
+			<Box
+				overflow="hidden"
+				bgcolor="#DEF0F5"
+				py={2}
+				display="flex"
+				alignItems="center"
+				justifyContent="space-around">
+				<IconButton
+					variant="contained"
+					sx={{
+						bgcolor: Colors.blue,
+						transform: {
+							xs: "scale(0.5)",
+							sm: "scale(0.5)",
+							md: "scale(1)",
+						},
+						"&:hover": {
+							backgroundColor: Colors.blue,
+						},
+					}}
+					onClick={handleNext}>
+					<ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
+				</IconButton>
 				<Box
-					mt={2}
-					position="absolute"
-					display="flex"
-					width="98vw"
-					alignItems="center"
-					justifyContent="space-around">
-					<IconButton
-						variant="contained"
-						sx={{
-							bgcolor: Colors.blue,
-							transform: {
-								xs: "scale(0.6)",
-								sm: "scale(0.6)",
-								md: "scale(1)",
-							},
-							"&:hover": {
-								backgroundColor: Colors.blue,
-							},
-						}}
-						onClick={handleNext}>
-						<ArrowForwardIosOutlinedIcon sx={{ color: "white" }} />
-					</IconButton>
-					<Box
-						item
-						display="flex">
-						{productItems.map((product) => (
-							<ProductCard
-								key={product.id}
-								product={product}
-							/>
-						))}
-					</Box>
-					<IconButton
-						variant="contained"
-						sx={{
-							bgcolor: Colors.blue,
-							transform: {
-								xs: "scale(0.6)",
-								sm: "scale(0.6)",
-								md: "scale(1)",
-							},
-							"&:hover": {
-								backgroundColor: Colors.blue,
-							},
-						}}
-						onClick={handlePrev}>
-						<ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
-					</IconButton>
+					item
+					display="flex">
+					{productItems.map((product) => (
+						<ProductCard
+							key={product.id}
+							product={product}
+						/>
+					))}
 				</Box>
-				<Box>
+				<IconButton
+					variant="contained"
+					sx={{
+						bgcolor: Colors.blue,
+						transform: {
+							xs: "scale(0.5)",
+							sm: "scale(0.5)",
+							md: "scale(1)",
+						},
+						"&:hover": {
+							backgroundColor: Colors.blue,
+						},
+					}}
+					onClick={handlePrev}>
+					<ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
+				</IconButton>
+			</Box>
+			{/* <Box>
 					<Box sx={{ height: { xs: "166px", md: "240px" } }} />
 					<Box
 						sx={{ height: { xs: "122px", md: "190px" } }}
 						bgcolor="#DEF0F5"
 					/>
-				</Box>
-			</Box>
+				</Box> */}
 			{btn && (
 				<Box
 					maxWidth="100vw"

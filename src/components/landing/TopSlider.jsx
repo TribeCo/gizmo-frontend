@@ -73,8 +73,8 @@ const TopSlider = ({ data }) => {
 							alignItems="center">
 							<Box
 								sx={{
-									height: { xs: 300, sm: 500, lg: 650 },
-									width: { xs: 300, sm: 500, lg: 650 },
+									height: { xs: 300, sm: 500, lg: 500 },
+									width: { xs: 300, sm: 500, lg: 500 },
 									borderRadius: 100,
 									border: "10px solid #FFFFFF",
 									bgcolor: "#C6E3DD",
@@ -94,8 +94,8 @@ const TopSlider = ({ data }) => {
 													alt={data.alt}
 													image={data.image}
 													sx={{
-														height: { xs: 250, sm: 400, lg: 500 },
-														width: { xs: 250, sm: 400, lg: 500 },
+														height: { xs: 250, sm: 400, lg: 450 },
+														width: { xs: 250, sm: 400, lg: 450 },
 													}}
 												/>
 											</Box>
@@ -272,9 +272,9 @@ const TopSlider = ({ data }) => {
 											onClick={() => router.push(item.abs_link)}
 											variant="contained"
 											sx={{
-												my: 5,
-												px: 3,
-												py: 2,
+												my: 4,
+												px: 1,
+												py: 0.5,
 												bgcolor: Colors.orange,
 												color: Colors.blue,
 												borderRadius: 6,
@@ -285,13 +285,14 @@ const TopSlider = ({ data }) => {
 											<Typography
 												mr={2}
 												variant="h6"
+												// fontSize={50}
 												fontWeight={900}
 												noWrap>
 												{"هم اکنون خرید کنید!"}
 											</Typography>
 											<svg
-												width="35"
-												height="35"
+												width="25"
+												height="25"
 												viewBox="0 0 35 35"
 												fill="none"
 												xmlns="http://www.w3.org/2000/svg">

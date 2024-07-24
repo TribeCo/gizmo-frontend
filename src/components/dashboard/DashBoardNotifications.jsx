@@ -20,6 +20,7 @@ export default function DashBoardNotifications() {
 	const GetNotifications = async () => {
 		try {
 			const response = await fetchNotifications(tokens);
+			console.log(response);
 			if (response) {
 				setNotifications(response.data);
 			}
@@ -41,6 +42,7 @@ export default function DashBoardNotifications() {
 					message: "تمامی پیام‌ها دیده شدند.",
 					variant: "success",
 				});
+				GetNotifications();
 			}
 		} catch (error) {
 			console.error("خطا در دیدن تمامی پیام‌ها:", error);
@@ -151,7 +153,7 @@ export default function DashBoardNotifications() {
 							<div className="leftPart flex flex-col items-end justify-between">
 								<div
 									className={`status ${
-										notif.seen ? "opacity-100" : "opacity-0"
+										!notif.seen ? "opacity-100" : "opacity-0"
 									} bg-palette-orange rounded-full w-4 h-4`}></div>
 
 								<div className="date md:w-[4.5rem] text-xs text-[#747678] md:text-xs">

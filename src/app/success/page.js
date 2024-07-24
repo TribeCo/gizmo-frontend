@@ -1,13 +1,14 @@
 "use client";
 
-const image = `${baseUrl}/images/media/pictures/payment_success_vector_uCxkE4T.png`;
+const success = `${baseUrl}/images/media/pictures/payment_success_vector_uCxkE4T.png`;
+const failed = `${baseUrl}/images/media/pictures/payment-failed.png`;
 
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { baseUrl } from "@/services";
 import { Box, Button, CardMedia, Grow, Typography } from "@mui/material";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const Payment = ({ searchParams }) => {
 	console.log(searchParams);
@@ -44,13 +45,6 @@ const Payment = ({ searchParams }) => {
 		}
 	}, [tokens]);
 
-	const [go, setGo] = useState(0);
-	const handle = () => {
-		setGo(go === 0 ? 30 : 0);
-	};
-	const [checked, setChecked] = useState(false);
-	setInterval(() => setChecked(!checked), 10000);
-
 	return (
 		<Box
 			sx={{
@@ -59,32 +53,58 @@ const Payment = ({ searchParams }) => {
 				justifyContent: "center",
 				alignItems: "center",
 			}}>
-			<Grow in={checked}>
-				<CardMedia
-					image={image}
-					sx={{
-						width: 360,
-						height: 360,
-						mx: "auto",
-						mt: 20,
-					}}
-				/>
-			</Grow>
-			<Typography
-				mt={2}
-				align="center"
-				variant="h3">
-				{"پرداخت با موفقیت انجام شد."}
-			</Typography>
+			{searchParams.Status.toLowerCase() === "ok" ? (
+				<>
+					<CardMedia
+						image={success}
+						sx={{
+							width: { xs: 200, md: 360 },
+							height: { xs: 200, md: 360 },
+							mx: "auto",
+							mt: { xs: 10, md: 20 },
+						}}
+					/>
+					<Typography
+						mt={2}
+						sx={{
+							fontSize: { xs: 24, md: 60 },
+						}}
+						align="center"
+						variant="h3">
+						{"پرداخت با موفقیت انجام شد."}
+					</Typography>
+				</>
+			) : (
+				<>
+					<CardMedia
+						image={failed}
+						sx={{
+							width: { xs: 270, md: 500 },
+							height: { xs: 270, md: 500 },
+							mx: "auto",
+							mt: { xs: 10, md: 20 },
+						}}
+					/>
+					<Typography
+						mt={2}
+						sx={{
+							fontSize: { xs: 24, md: 60 },
+						}}
+						align="center"
+						variant="h3">
+						{"پرداخت با موفقیت انجام نشد."}
+					</Typography>
+				</>
+			)}
+
 			<Link href="/">
 				<Button
-					onMouseEnter={handle}
 					variant="contained"
 					sx={{
 						borderRadius: 10,
 						py: 1,
 						px: 5,
-						mt: go + 10,
+						mt: 20,
 					}}>
 					<Typography variant="h5">{"بازگشت به سایت"}</Typography>
 				</Button>

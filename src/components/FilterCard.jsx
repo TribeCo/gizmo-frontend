@@ -26,6 +26,7 @@ const FilterCard = ({
 	dropdownOptions,
 	setMaxPrice,
 	setSelectedBrands,
+	selectedBrands,
 	isModal = false,
 }) => {
 	const initialState = {
@@ -252,7 +253,7 @@ const FilterCard = ({
 								key={option}
 								control={
 									<Checkbox
-										checked={filters.dropdownFilter.indexOf(option) > -1}
+										checked={selectedBrands.includes(option)}
 										onChange={() => handleDropdownChange(option)}
 									/>
 								}

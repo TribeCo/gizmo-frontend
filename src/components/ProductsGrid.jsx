@@ -147,6 +147,7 @@ const ProductsGrid = ({ productsList }) => {
 					maxPrice={maxPrice}
 					setMaxPrice={setMaxPrice}
 					dropdownOptions={brandList}
+					selectedBrands={selectedBrands}
 					setSelectedBrands={setSelectedBrands}
 				/>
 				<Box
@@ -232,6 +233,7 @@ const ProductsGrid = ({ productsList }) => {
 				setMinPrice={setMinPrice}
 				setMaxPrice={setMaxPrice}
 				brandList={brandList}
+				selectedBrands={selectedBrands}
 				setSelectedBrands={setSelectedBrands}
 			/>
 		</Box>

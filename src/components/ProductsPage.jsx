@@ -30,7 +30,7 @@ function ProductsPage({ categoryName }) {
 
 	return (
 		<Box>
-			<LineSplitter text={`محصولات ${categoryName}`} />
+			<LineSplitter text={`محصولات ${categoryName.replaceAll("-", " ")}`} />
 			<Box
 				sx={{
 					display: "flex",

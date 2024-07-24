@@ -31,17 +31,17 @@ function Banner({ data }) {
 				sx={{
 					my: 2,
 					height: {
-						xs: 0.6 * 360,
+						xs: 0.55 * 360,
 						sm: 0.7 * 360,
 						md: 0.9 * 360,
-						lg: 1.0 * 360,
+						lg: 0.85 * 360,
 						xl: 1.1 * 360,
 					},
 					width: {
-						xs: 0.6 * 640,
+						xs: 0.55 * 640,
 						sm: 0.7 * 640,
 						md: 0.9 * 640,
-						lg: 1.0 * 640,
+						lg: 0.85 * 640,
 						xl: 1.1 * 640,
 					},
 					borderRadius: "20px",
@@ -51,17 +51,17 @@ function Banner({ data }) {
 						<CardMedia
 							sx={{
 								height: {
-									xs: 0.6 * 360,
+									xs: 0.55 * 360,
 									sm: 0.7 * 360,
 									md: 0.9 * 360,
-									lg: 1.0 * 360,
+									lg: 0.85 * 360,
 									xl: 1.1 * 360,
 								},
 								width: {
-									xs: 0.6 * 640,
+									xs: 0.55 * 640,
 									sm: 0.7 * 640,
 									md: 0.9 * 640,
-									lg: 1.0 * 640,
+									lg: 0.85 * 640,
 									xl: 1.1 * 640,
 								},
 							}}
@@ -69,10 +69,10 @@ function Banner({ data }) {
 							alt={data[0].alt}>
 							<Button
 								sx={{
-									mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 40 },
-									ml: { xs: 2, md: 12 },
-									px: 5,
-									py: 1,
+									mt: { xs: 18, sm: 25, md: 33, lg: 29, xl: 40 },
+									ml: { xs: 2, md: 12, lg: 6, xl: 12 },
+									px: { xs: 3, xl: 5 },
+									py: { xs: 0.75, md: 1 },
 									bgcolor: Colors.orange,
 									borderRadius: "40px",
 									"&:hover": {
@@ -98,17 +98,17 @@ function Banner({ data }) {
 				sx={{
 					my: 2,
 					height: {
-						xs: 0.6 * 360,
+						xs: 0.55 * 360,
 						sm: 0.7 * 360,
 						md: 0.9 * 360,
-						lg: 1.0 * 360,
+						lg: 0.85 * 360,
 						xl: 1.1 * 360,
 					},
 					width: {
-						xs: 0.6 * 640,
+						xs: 0.55 * 640,
 						sm: 0.7 * 640,
 						md: 0.9 * 640,
-						lg: 1.0 * 640,
+						lg: 0.85 * 640,
 						xl: 1.1 * 640,
 					},
 					borderRadius: "20px",
@@ -119,17 +119,17 @@ function Banner({ data }) {
 							<CardMedia
 								sx={{
 									height: {
-										xs: 0.6 * 360,
+										xs: 0.55 * 360,
 										sm: 0.7 * 360,
 										md: 0.9 * 360,
-										lg: 1.0 * 360,
+										lg: 0.85 * 360,
 										xl: 1.1 * 360,
 									},
 									width: {
-										xs: 0.6 * 640,
+										xs: 0.55 * 640,
 										sm: 0.7 * 640,
 										md: 0.9 * 640,
-										lg: 1.0 * 640,
+										lg: 0.85 * 640,
 										xl: 1.1 * 640,
 									},
 									objectFit: "cover",
@@ -138,10 +138,10 @@ function Banner({ data }) {
 								alt={data[1].alt}>
 								<Button
 									sx={{
-										mt: { xs: 20, sm: 25, md: 33, lg: 34, xl: 40 },
-										ml: { xs: 2, md: 12 },
-										px: 5,
-										py: 1,
+										mt: { xs: 18, sm: 25, md: 33, lg: 29, xl: 40 },
+										ml: { xs: 2, md: 12, lg: 6, xl: 12 },
+										px: { xs: 3, xl: 5 },
+										py: { xs: 0.75, md: 1 },
 										bgcolor: Colors.orange,
 										borderRadius: "40px",
 										"&:hover": {

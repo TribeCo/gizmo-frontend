@@ -35,6 +35,7 @@ export default function DashBoardNotifications() {
 	const SeenAllMessages = async () => {
 		try {
 			const response = await SeenMessages(tokens);
+			console.log(response);
 			if (response) {
 				enqueueSnackbar({
 					message: "تمامی پیام‌ها دیده شدند.",

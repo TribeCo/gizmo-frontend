@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import { Box, Fab, Grid, Typography } from "@mui/material";
 import ProductCard from "./ProductCard";
 import FilterBar from "./FilterBar";
@@ -46,11 +46,9 @@ const ProductsGrid = ({ productsList }) => {
 			tempProducts = tempProducts.filter((product) => product.net_sale);
 		}
 		if (selectedBrands.length > 0) {
-			console.log(selectedBrands);
 			tempProducts = tempProducts.filter((product) =>
 				selectedBrands.includes(product.brand_name),
 			);
-			console.log(tempProducts);
 		}
 		if (minPrice) {
 			tempProducts = tempProducts.filter(
@@ -85,7 +83,8 @@ const ProductsGrid = ({ productsList }) => {
 	const fetchBrands = async () => {
 		try {
 			const brandResponse = await getBrands();
-			setBrandList(brandResponse);
+			console.log(brandResponse);
+			setBrandList(brandResponse || []);
 		} catch (error) {
 			console.log(error);
 		}

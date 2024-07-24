@@ -20,12 +20,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const FilterCard = ({
 	filterList,
-	brandList,
-	setBrandList,
 	minPrice,
 	setMinPrice,
 	maxPrice,
+	dropdownOptions,
 	setMaxPrice,
+	setSelectedBrands,
 	isModal = false,
 }) => {
 	const initialState = {
@@ -89,12 +89,19 @@ const FilterCard = ({
 		filter.setState(event.target.checked);
 	};
 
-    const handleDropdownChange = (brand) => {
-        setBrandList(prevBrandList => prevBrandList.map(
-            ([name, selected]) => name === brand ? [name, !selected] : [name, selected]
-        ));
-    };
-	
+	const handleDropdownChange = (option) => {
+		const currentIndex = filters.dropdownFilter.indexOf(option);
+		const newChecked = [...filters.dropdownFilter];
+
+		if (currentIndex === -1) {
+			newChecked.push(option);
+		} else {
+			newChecked.splice(currentIndex, 1);
+		}
+		setFilters({ ...filters, dropdownFilter: newChecked });
+		setSelectedBrands(newChecked);
+	};
+
 	const handleMinPriceChange = (filter, rawFilter) => (event) => {
 		const numericValue = normalizeInput(event.target.value);
 		const formattedValue = formatNumberWithCommas(numericValue);
@@ -136,7 +143,7 @@ const FilterCard = ({
 				!isModal
 					? {
 							height: "100%",
-							display: { xs: "none", md: "flex" },
+							display: { xs: "none", lg: "flex" },
 							justifyContent: "center",
 							alignItems: "center",
 					  }
@@ -149,7 +156,7 @@ const FilterCard = ({
 			}>
 			<Card
 				sx={{
-					width: { xs: "100%", xl: "340px" }, 
+					width: { xs: "100%", xl: "340px" },
 					height: "100%",
 					bgcolor: "#FFFFFF",
 					borderColor: "#C0C2CE40",
@@ -159,7 +166,7 @@ const FilterCard = ({
 					flexDirection: "column",
 					justifyContent: "space-around",
 					alignItems: "center",
-					padding: "20px", 
+					padding: "20px",
 					borderRadius: "25px",
 					position: "relative",
 				}}>
@@ -221,40 +228,40 @@ const FilterCard = ({
 					</React.Fragment>
 				))}
 				<Accordion
-                sx={{
-                    width: "100%",
-                    boxShadow: "none",
-                    marginBlock: "0.1rem",
-                    padding: "5px",
-                    backgroundColor: "#FFFFFF",
-                }}
-                disableGutters>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel-checkboxes-content"
-                    id="panel-checkboxes-header"
-                    sx={{
-                        "&.Mui-focused": { boxShadow: "none" },
-                        "&:hover": { backgroundColor: "transparent" },
-                    }}>
-                    <Typography sx={{ fontWeight: "bold" }}>برندها</Typography>
-                </AccordionSummary>
-                <AccordionDetails sx={{ flexDirection: "column", display: "flex" }}>
-                    {brandList.map(([brand, selected]) => (
-                        <FormControlLabel
-                            key={brand}
-                            control={
-                                <Checkbox
-                                    checked={selected}
-                                    onChange={() => handleDropdownChange(brand)}
-                                />
-                            }
-                            label={brand}
-                            sx={{ ml: 0, p: 0 }}
-                        />
-                    ))}
-                </AccordionDetails>
-            </Accordion>
+					sx={{
+						width: "100%",
+						boxShadow: "none",
+						marginBlock: "0.1rem",
+						padding: "5px",
+						backgroundColor: "#FFFFFF",
+					}}
+					disableGutters>
+					<AccordionSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-controls="panel-checkboxes-content"
+						id="panel-checkboxes-header"
+						sx={{
+							"&.Mui-focused": { boxShadow: "none" },
+							"&:hover": { backgroundColor: "transparent" },
+						}}>
+						<Typography sx={{ fontWeight: "bold" }}>برندها</Typography>
+					</AccordionSummary>
+					<AccordionDetails sx={{ flexDirection: "column", display: "flex" }}>
+						{dropdownOptions.map((option) => (
+							<FormControlLabel
+								key={option}
+								control={
+									<Checkbox
+										checked={filters.dropdownFilter.indexOf(option) > -1}
+										onChange={() => handleDropdownChange(option)}
+									/>
+								}
+								label={option}
+								sx={{ ml: 0, p: 0 }}
+							/>
+						))}
+					</AccordionDetails>
+				</Accordion>
 				<Accordion
 					sx={{
 						width: "100%",
@@ -307,7 +314,11 @@ const FilterCard = ({
 								sx={{ flex: 1 }}
 							/>
 						</Box>
-						<Box sx={{ display: "flex", alignItems: "center" }}>
+						<Box
+							sx={{
+								display: "flex",
+								// alignItems: "center"
+							}}>
 							<Typography sx={{ color: "rgba(0, 0, 0, 0.7)", mr: 1 }}>
 								تا
 							</Typography>

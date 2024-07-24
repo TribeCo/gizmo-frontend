@@ -13,6 +13,7 @@ import { getBrands } from "@/services/categories";
 const PRODUCTS_PER_PAGE = 12;
 
 const ProductsGrid = ({ productsList }) => {
+	console.log({ productList: productsList });
 	const [openFilterModel, setOpenFilterModel] = useState(false);
 	const [filter, setFilter] = useState("پیشفرض");
 	const [filteredProducts, setFilteredProducts] = useState(productsList);
@@ -62,7 +63,7 @@ const ProductsGrid = ({ productsList }) => {
 		}
 		switch (filter) {
 			case "جدیدترین":
-				tempProducts.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+				tempProducts.sort((a, b) => new Date(b.created) - new Date(a.created));
 				break;
 			case "ارزان‌ترین":
 				tempProducts.sort((a, b) => a.price - b.price);

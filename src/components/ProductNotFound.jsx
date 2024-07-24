@@ -10,11 +10,17 @@ const ProductNotFound = () => {
 			justifyContent="center"
 			alignItems="center"
 			mt={5}>
-			<Typography variant="h3">{"محصولی یافت نشد!"}</Typography>
+			<Typography
+				variant="h3"
+				sx={{
+					fontSize: { xs: 30, md: 48 },
+				}}>
+				{"محصولی یافت نشد!"}
+			</Typography>
 			<Avatar
 				sx={{
-					height: 400,
-					width: 400,
+					height: { xs: 300, md: 400 },
+					width: { xs: 300, md: 400 },
 				}}
 				variant="rounded"
 				src={`${baseUrl}/images/media/pictures/video_2024-05-30_02-16-37-ezgif.com-video-to-gif-converter.gif`}
